@@ -4,8 +4,8 @@
  "image_sha256": "631066c1649c4ea9ffe48bf97e24c00bca1f7a6759c21150f1a79982589adaaf",
  "files": {
   "Source/Fog/Src/ErrorManager.cpp": {
-   "bytes": 7081,
-   "definitions": 25,
+   "bytes": 7184,
+   "definitions": 34,
    "externs": [
     "extern \"C\" char gData_006CCB00[]; // 0x006CCB00",
     "extern \"C\" char gData_006CCB04[]; // 0x006CCB04",
@@ -76,8 +76,8 @@
    "sourced": 10
   },
   "Source/Fog/Src/Exceptions.cpp": {
-   "bytes": 0,
-   "definitions": 0,
+   "bytes": 3,
+   "definitions": 1,
    "lang": "cpp",
    "state": "sourced",
    "sourced": 5
@@ -123,8 +123,8 @@
    "sourced": 4
   },
   "Source/Storm/SOURCE/SSignature.cpp": {
-   "bytes": 1044,
-   "definitions": 2,
+   "bytes": 1048,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SSignature.inc",
@@ -246,8 +246,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game.cpp": {
-   "bytes": 964,
-   "definitions": 27,
+   "bytes": 990,
+   "definitions": 30,
    "externs": [
     "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
     "extern \"C\" void __cdecl UI_DrawFrame(); // 0x00460190",
@@ -533,8 +533,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/ui.cpp": {
-   "bytes": 7860,
-   "definitions": 77,
+   "bytes": 7872,
+   "definitions": 78,
    "externs": [
     "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl SCMD_HandleResetMessage(); // 0x00452090",
@@ -715,8 +715,8 @@
    "state": "included"
   },
   "Source/D2Client/ENGINE/Gfx_0046DB90.cpp": {
-   "bytes": 196,
-   "definitions": 6,
+   "bytes": 223,
+   "definitions": 8,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/ENGINE/Gfx_0046DB90.inc",
@@ -790,8 +790,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/chat.cpp": {
-   "bytes": 278,
-   "definitions": 11,
+   "bytes": 280,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl sub_0047CD80(); // 0x0047CD80",
     "extern \"C\" char gData_006D7280[]; // 0x006D7280",
@@ -864,8 +864,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Monster.cpp": {
-   "bytes": 773,
-   "definitions": 8,
+   "bytes": 792,
+   "definitions": 9,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Monster.inc",
@@ -930,8 +930,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/UseItem.cpp": {
-   "bytes": 180,
-   "definitions": 3,
+   "bytes": 197,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/UseItem.inc",
@@ -1038,8 +1038,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc.cpp": {
-   "bytes": 547,
-   "definitions": 14,
+   "bytes": 574,
+   "definitions": 18,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
@@ -1198,8 +1198,8 @@
    "sourced": 2
   },
   "Source/D2DDraw/Src/ddCore.cpp": {
-   "bytes": 216,
-   "definitions": 1,
+   "bytes": 241,
+   "definitions": 2,
    "externs": [
     "extern \"C\" void __cdecl DDDEBUGFONT_DebugPrintf(); // 0x00512680",
     "extern \"C\" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0",
@@ -1285,8 +1285,8 @@
    "sourced": 1
   },
   "Source/D2BNClient/BnSend.cpp": {
-   "bytes": 256,
-   "definitions": 1,
+   "bytes": 271,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChatEvent(); // 0x00520660",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleCreateAccount(); // 0x00520C50",
@@ -1358,8 +1358,8 @@
    "static_definitions": 1
   },
   "Source/D2BNClient/BnDownload.cpp": {
-   "bytes": 736,
-   "definitions": 2,
+   "bytes": 753,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/BnDownload.inc",
@@ -1570,8 +1570,8 @@
    "static_definitions": 3
   },
   "Source/D2Game/Quests/QUESTS.CPP": {
-   "bytes": 1053,
-   "definitions": 9,
+   "bytes": 1073,
+   "definitions": 10,
    "externs": [
     "void __fastcall ACT1Intro_InitQuestData(D2QuestDataStrc* pQuestData); // 0x0058FA20",
     "void __fastcall ACT2Intro_InitQuestData(D2QuestDataStrc* pQuestData); // 0x005985D0",
@@ -2033,8 +2033,8 @@
    "state": "included"
   },
   "Source/D2Game/OBJECTS/ObjMode.cpp": {
-   "bytes": 1096,
-   "definitions": 11,
+   "bytes": 1118,
+   "definitions": 12,
    "externs": [
     "extern \"C\" void __cdecl sub_005822F0(); // 0x005822F0",
     "extern \"C\" void __cdecl sub_00582490(); // 0x00582490",
@@ -2668,8 +2668,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillNec.cpp": {
-   "bytes": 260,
-   "definitions": 4,
+   "bytes": 282,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillNec.inc",
@@ -2802,8 +2802,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/LvlTbls.cpp": {
-   "bytes": 1002,
-   "definitions": 27,
+   "bytes": 1016,
+   "definitions": 29,
    "externs": [
     "extern \"C\" char gData_0096C8C8[]; // 0x0096C8C8"
    ],
@@ -2840,8 +2840,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp": {
-   "bytes": 352,
-   "definitions": 43,
+   "bytes": 602,
+   "definitions": 86,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/ItemTbls_00634DC0.inc",
@@ -2849,8 +2849,8 @@
    "state": "included"
   },
   "Source/D2Common/INVENTORY/Inventory.cpp": {
-   "bytes": 3816,
-   "definitions": 10,
+   "bytes": 3842,
+   "definitions": 11,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/INVENTORY/Inventory.inc",
@@ -2936,8 +2936,8 @@
    "state": "included"
   },
   "Source/D2Common/COMPOSIT/Composit.cpp": {
-   "bytes": 196,
-   "definitions": 6,
+   "bytes": 216,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/COMPOSIT/Composit.inc",
@@ -2977,8 +2977,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/MissileTbls.cpp": {
-   "bytes": 1376,
-   "definitions": 114,
+   "bytes": 1725,
+   "definitions": 151,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/MissileTbls.inc",
@@ -3013,8 +3013,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_00668510.cpp": {
-   "bytes": 120,
-   "definitions": 4,
+   "bytes": 125,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00668510.inc",
@@ -3158,8 +3158,8 @@
    "sourced": 6
   },
   "Source/D2Direct3D/Src/d3dCore.cpp": {
-   "bytes": 216,
-   "definitions": 1,
+   "bytes": 281,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl D3DSMACK_CloseSmacker(); // 0x006B9BB0",
     "extern \"C\" void __cdecl D3DSMACK_DecodeSmacker(); // 0x006BA010",
@@ -3380,8 +3380,8 @@
    "static_definitions": 2
   },
   "Source/D2Game/SKILLS/SkillSor.cpp": {
-   "bytes": 112,
-   "definitions": 5,
+   "bytes": 134,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillSor.inc",
@@ -3620,8 +3620,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_00482C70.cpp": {
-   "bytes": 100,
-   "definitions": 2,
+   "bytes": 116,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00482C70.inc",
@@ -3674,8 +3674,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/spellsel.cpp": {
-   "bytes": 302,
-   "definitions": 2,
+   "bytes": 305,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/spellsel.inc",
@@ -3710,8 +3710,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/UnitMode.cpp": {
-   "bytes": 0,
-   "definitions": 0,
+   "bytes": 20,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/UnitMode.inc",
@@ -3739,8 +3739,8 @@
    "state": "included"
   },
   "Source/D2Client/SKILLS/SkillsBar.cpp": {
-   "bytes": 84,
-   "definitions": 2,
+   "bytes": 107,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/SkillsBar.inc",
@@ -4019,8 +4019,8 @@
    "state": "included"
   },
   "Source/D2Common/COLLISN/Collisn.cpp": {
-   "bytes": 60,
-   "definitions": 1,
+   "bytes": 82,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/COLLISN/Collisn.inc",
@@ -4082,8 +4082,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/OverlayTbls.cpp": {
-   "bytes": 60,
-   "definitions": 1,
+   "bytes": 77,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/OverlayTbls.inc",
@@ -4100,8 +4100,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/Arena.cpp": {
-   "bytes": 64,
-   "definitions": 2,
+   "bytes": 68,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/Arena.inc",
@@ -4118,8 +4118,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/HoradricCube.cpp": {
-   "bytes": 60,
-   "definitions": 1,
+   "bytes": 78,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/HoradricCube.inc",
@@ -4480,6 +4480,37 @@
  "definitions": [
   {
    "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszFmtRange[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszFmtRange",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D9D70",
+   "type": "char",
+   "va": "0x006D9D70"
+  },
+  {
+   "alias": false,
    "cname": "gData_006DBF4C",
    "declared": false,
    "decorated": null,
@@ -4494,6 +4525,37 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_006DBF4C_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006DBF4C",
    "va": "0x006DBF4C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
+   "fill": 47,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char gszCutscene[47] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 47,
+    "size": 47
+   },
+   "name": "gszCutscene",
+   "pointers": [],
+   "region": "rdata",
+   "size": 47,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DE0F4",
+   "type": "char",
+   "va": "0x006DE0F4"
   },
   {
    "alias": false,
@@ -4650,6 +4712,68 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_006E8E22_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006E8E22",
    "va": "0x006E8E22"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/LvlTbls.cpp",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_end[4] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 4
+   },
+   "name": "gszTxtField_end",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D9060",
+   "type": "char",
+   "va": "0x006D9060"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/LvlTbls.cpp",
+   "fill": 10,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Expansion[10] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 10,
+    "size": 10
+   },
+   "name": "gszTxtField_Expansion",
+   "pointers": [],
+   "region": "rdata",
+   "size": 10,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DCF44",
+   "type": "char",
+   "va": "0x006DCF44"
   },
   {
    "alias": false,
@@ -8703,6 +8827,37 @@
    "type": "char",
    "va": "0x006CF2F4",
    "sourced": true
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Storm/SOURCE/SSignature.cpp",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszNew[4] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 4
+   },
+   "name": "gszNew",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CC82C",
+   "type": "char",
+   "va": "0x006CC82C"
   },
   {
    "alias": true,
@@ -15221,6 +15376,99 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/GAME/Game.cpp",
+   "fill": 12,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszDataGlobal[12] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 12,
+    "size": 12
+   },
+   "name": "gszDataGlobal",
+   "pointers": [],
+   "region": "rdata",
+   "size": 12,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D4118",
+   "type": "char",
+   "va": "0x006D4118"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/Game.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszDataLocal[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszDataLocal",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D41A8",
+   "type": "char",
+   "va": "0x006D41A8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/Game.cpp",
+   "fill": 3,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszFormatD[3] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 3,
+    "size": 3
+   },
+   "name": "gszFormatD",
+   "pointers": [],
+   "region": "rdata",
+   "size": 3,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D57BC",
+   "type": "char",
+   "va": "0x006D57BC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/Game.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLeftClickState = ",
@@ -17011,6 +17259,37 @@
    "tail": "; // 0x006DAE48",
    "type": "int",
    "va": "0x006DAE48"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/SKILLS/SkillsBar.cpp",
+   "fill": 23,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszSkillsBarSourceFile[23] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 23,
+    "size": 23
+   },
+   "name": "gszSkillsBarSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 23,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DAE58",
+   "type": "char",
+   "va": "0x006DAE58"
   },
   {
    "alias": true,
@@ -36118,6 +36397,37 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UI/ui.cpp",
+   "fill": 12,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszUiCpp[12] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 12,
+    "size": 12
+   },
+   "name": "gszUiCpp",
+   "pointers": [],
+   "region": "rdata",
+   "size": 12,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D6458",
+   "type": "char",
+   "va": "0x006D6458"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/ui.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnUIVarCount = ",
@@ -39551,6 +39861,37 @@
    "va": "0x0072ADE4"
   },
   {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszPathFormat[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszPathFormat",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D4124",
+   "type": "char",
+   "va": "0x006D4124"
+  },
+  {
    "alias": true,
    "cname": "gData_006D6C30",
    "declared": true,
@@ -39621,6 +39962,37 @@
    "tail": "; // 0x006D6C30\n#pragma comment(linker, \"/alternatename:?gaszHashedFileNames@@3PAPBDA=_gData_006D6C30\")",
    "type": "char",
    "va": "0x006D6C30"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
+   "fill": 21,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszMonstersDir[21] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 21,
+    "size": 21
+   },
+   "name": "gszMonstersDir",
+   "pointers": [],
+   "region": "rdata",
+   "size": 21,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D6CAC",
+   "type": "char",
+   "va": "0x006D6CAC"
   },
   {
    "alias": false,
@@ -44830,6 +45202,37 @@
   },
   {
    "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/chat.cpp",
+   "fill": 2,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszSpace[2] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 2,
+    "size": 2
+   },
+   "name": "gszSpace",
+   "pointers": [],
+   "region": "rdata",
+   "size": 2,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006FFC44",
+   "type": "char",
+   "va": "0x006FFC44"
+  },
+  {
+   "alias": false,
    "cname": "gData_00713160",
    "declared": false,
    "decorated": null,
@@ -45104,6 +45507,68 @@
    "tail": "; // 0x00722158",
    "type": "int",
    "va": "0x00722158"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_00482C70.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszRes640x146[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszRes640x146",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D4214",
+   "type": "char",
+   "va": "0x006D4214"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_00482C70.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszRes640x292[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszRes640x292",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D421C",
+   "type": "char",
+   "va": "0x006D421C"
   },
   {
    "alias": false,
@@ -50331,6 +50796,37 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UI/spellsel.cpp",
+   "fill": 3,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszFormatI[3] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 3,
+    "size": 3
+   },
+   "name": "gszFormatI",
+   "pointers": [],
+   "region": "rdata",
+   "size": 3,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D6454",
+   "type": "char",
+   "va": "0x006D6454"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/spellsel.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2UiCelFileStrc gaSkillIconCels[7] = ",
@@ -52341,6 +52837,37 @@
    "cname": null,
    "declared": true,
    "decorated": null,
+   "file": "Source/D2Client/UNIT/Monster.cpp",
+   "fill": 19,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszMonsterSourceFile[19] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 19,
+    "size": 19
+   },
+   "name": "gszMonsterSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 19,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DA5C8",
+   "type": "char",
+   "va": "0x006DA5C8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
    "file": "Source/D2Lang/Unknown_00730538.cpp",
    "form": "declared",
    "fwd": null,
@@ -54092,6 +54619,37 @@
    "tail": "; // 0x007277F0",
    "type": "D2ObjectClientFn",
    "va": "0x007277F0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/UseItem.cpp",
+   "fill": 17,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char gszUseItemCpp[17] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 17,
+    "size": 17
+   },
+   "name": "gszUseItemCpp",
+   "pointers": [],
+   "region": "rdata",
+   "size": 17,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DAB50",
+   "type": "char",
+   "va": "0x006DAB50"
   },
   {
    "alias": false,
@@ -67128,6 +67686,99 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UI/SkillDesc.cpp",
+   "fill": 10,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszFmtRangeKK[10] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 10,
+    "size": 10
+   },
+   "name": "gszFmtRangeKK",
+   "pointers": [],
+   "region": "rdata",
+   "size": 10,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DBEAC",
+   "type": "char",
+   "va": "0x006DBEAC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszFmtRangeK[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszFmtRangeK",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DBEB8",
+   "type": "char",
+   "va": "0x006DBEB8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
+   "fill": 2,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszPlus[2] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 2,
+    "size": 2
+   },
+   "name": "gszPlus",
+   "pointers": [],
+   "region": "rdata",
+   "size": 2,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DBEC4",
+   "type": "char",
+   "va": "0x006DBEC4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned int gnFileIndexTextCount = ",
@@ -69247,6 +69898,37 @@
    "tail": "; // 0x0072F178",
    "type": "D2GraphicsInterfaceStrc",
    "va": "0x0072F178"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2DDraw/Src/ddCore.cpp",
+   "fill": 25,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszDirectDrawCreateFailed[25] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 25,
+    "size": 25
+   },
+   "name": "gszDirectDrawCreateFailed",
+   "pointers": [],
+   "region": "rdata",
+   "size": 25,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DE1B4",
+   "type": "char",
+   "va": "0x006DE1B4"
   },
   {
    "alias": false,
@@ -78709,6 +79391,68 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2BNClient/BnSend.cpp",
+   "fill": 13,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszKernel32[13] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 13,
+    "size": 13
+   },
+   "name": "gszKernel32",
+   "pointers": [],
+   "region": "rdata",
+   "size": 13,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD6E4",
+   "type": "char",
+   "va": "0x006CD6E4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2BNClient/BnSend.cpp",
+   "fill": 2,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszSemicolon[2] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 2,
+    "size": 2
+   },
+   "name": "gszSemicolon",
+   "pointers": [],
+   "region": "rdata",
+   "size": 2,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CDA54",
+   "type": "char",
+   "va": "0x006CDA54"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2BNClient/BnSend.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": null,
@@ -79418,6 +80162,37 @@
    "tail": "; // 0x0073100C",
    "type": "int",
    "va": "0x0073100C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2BNClient/BnDownload.cpp",
+   "fill": 17,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszBnDownloadFile[17] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 17,
+    "size": 17
+   },
+   "name": "gszBnDownloadFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 17,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DF338",
+   "type": "char",
+   "va": "0x006DF338"
   },
   {
    "alias": false,
@@ -81520,6 +82295,37 @@
   },
   {
    "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/INVENTORY/Inventory.cpp",
+   "fill": 26,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszInventorySourceFile[26] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 26,
+    "size": 26
+   },
+   "name": "gszInventorySourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 26,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EA918",
+   "type": "char",
+   "va": "0x006EA918"
+  },
+  {
+   "alias": false,
    "cname": "gData_007455C0",
    "declared": true,
    "decorated": "?gabDirection64To16@@3PAEA",
@@ -83048,6 +83854,37 @@
    "va": "0x007314C8",
    "linkage": "static",
    "include": "gen/data/Source/D2Game/UNIT/SUnitInactive/gnInactiveNoTcParam2.inc"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/Quests/QUESTS.CPP",
+   "fill": 20,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszQuestsSourceFile[20] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 20,
+    "size": 20
+   },
+   "name": "gszQuestsSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 20,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E0BE4",
+   "type": "char",
+   "va": "0x006E0BE4"
   },
   {
    "alias": false,
@@ -89492,6 +90329,37 @@
    "type": "D2EventState00583BF0Strc",
    "va": "0x006E1858",
    "zero_tail": 4
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
+   "fill": 22,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszObjModeSourceFile[22] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 22,
+    "size": 22
+   },
+   "name": "gszObjModeSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 22,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E1970",
+   "type": "char",
+   "va": "0x006E1970"
   },
   {
    "alias": false,
@@ -99065,6 +99933,37 @@
   },
   {
    "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
+   "fill": 22,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char gszSkillNecSourceFile[22] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 22,
+    "size": 22
+   },
+   "name": "gszSkillNecSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 22,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E3034",
+   "type": "char",
+   "va": "0x006E3034"
+  },
+  {
+   "alias": false,
    "cname": "gData_00741900",
    "declared": false,
    "decorated": null,
@@ -99398,6 +100297,37 @@
    "tail": "; // 0x006E3188\n#pragma comment(linker, \"/alternatename:?gnAndrialSprayDirections@@3QBEB=_gData_006E3188\")",
    "type": "unsigned char",
    "va": "0x006E3188"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/SKILLS/SkillSor.cpp",
+   "fill": 22,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszSkillSorSourceFile[22] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 22,
+    "size": 22
+   },
+   "name": "gszSkillSorSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 22,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E30C4",
+   "type": "char",
+   "va": "0x006E30C4"
   },
   {
    "alias": false,
@@ -107534,6 +108464,1339 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_set[4] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 4
+   },
+   "name": "gszTxtField_set",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D5BCC",
+   "type": "char",
+   "va": "0x006D5BCC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_cost_add[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_cost_add",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6854",
+   "type": "char",
+   "va": "0x006E6854"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 10,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_cost_mult[10] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 10,
+    "size": 10
+   },
+   "name": "gszTxtField_cost_mult",
+   "pointers": [],
+   "region": "rdata",
+   "size": 10,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6860",
+   "type": "char",
+   "va": "0x006E6860"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max9[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max9",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B60",
+   "type": "char",
+   "va": "0x006E9B60"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min9[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min9",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B68",
+   "type": "char",
+   "va": "0x006E9B68"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par9[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par9",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B70",
+   "type": "char",
+   "va": "0x006E9B70"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop9[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop9",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B78",
+   "type": "char",
+   "va": "0x006E9B78"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max8[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max8",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B80",
+   "type": "char",
+   "va": "0x006E9B80"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min8[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min8",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B88",
+   "type": "char",
+   "va": "0x006E9B88"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par8[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par8",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B90",
+   "type": "char",
+   "va": "0x006E9B90"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop8[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop8",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9B98",
+   "type": "char",
+   "va": "0x006E9B98"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max7[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max7",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BA0",
+   "type": "char",
+   "va": "0x006E9BA0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min7[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min7",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BA8",
+   "type": "char",
+   "va": "0x006E9BA8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par7[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par7",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BB0",
+   "type": "char",
+   "va": "0x006E9BB0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop7[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop7",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BB8",
+   "type": "char",
+   "va": "0x006E9BB8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max6[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max6",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BC0",
+   "type": "char",
+   "va": "0x006E9BC0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min6[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min6",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BC8",
+   "type": "char",
+   "va": "0x006E9BC8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par6[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par6",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BD0",
+   "type": "char",
+   "va": "0x006E9BD0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop6[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop6",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BD8",
+   "type": "char",
+   "va": "0x006E9BD8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max5[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max5",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BE0",
+   "type": "char",
+   "va": "0x006E9BE0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min5[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min5",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BE8",
+   "type": "char",
+   "va": "0x006E9BE8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par5[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par5",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BF0",
+   "type": "char",
+   "va": "0x006E9BF0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop5[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop5",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9BF8",
+   "type": "char",
+   "va": "0x006E9BF8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max4[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max4",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C00",
+   "type": "char",
+   "va": "0x006E9C00"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min4[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min4",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C08",
+   "type": "char",
+   "va": "0x006E9C08"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par4[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par4",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C10",
+   "type": "char",
+   "va": "0x006E9C10"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop4[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop4",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C18",
+   "type": "char",
+   "va": "0x006E9C18"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max3[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C20",
+   "type": "char",
+   "va": "0x006E9C20"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min3[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C28",
+   "type": "char",
+   "va": "0x006E9C28"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par3[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C30",
+   "type": "char",
+   "va": "0x006E9C30"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop3[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C38",
+   "type": "char",
+   "va": "0x006E9C38"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max2[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C40",
+   "type": "char",
+   "va": "0x006E9C40"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min2[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C48",
+   "type": "char",
+   "va": "0x006E9C48"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par2[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C50",
+   "type": "char",
+   "va": "0x006E9C50"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop2[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C58",
+   "type": "char",
+   "va": "0x006E9C58"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_max1[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_max1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C60",
+   "type": "char",
+   "va": "0x006E9C60"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_min1[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_min1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C68",
+   "type": "char",
+   "va": "0x006E9C68"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_par1[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_par1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C70",
+   "type": "char",
+   "va": "0x006E9C70"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_prop1[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_prop1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C78",
+   "type": "char",
+   "va": "0x006E9C78"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 13,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_invtransform[13] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 13,
+    "size": 13
+   },
+   "name": "gszTxtField_invtransform",
+   "pointers": [],
+   "region": "rdata",
+   "size": 13,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C80",
+   "type": "char",
+   "va": "0x006E9C80"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 13,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_chrtransform[13] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 13,
+    "size": 13
+   },
+   "name": "gszTxtField_chrtransform",
+   "pointers": [],
+   "region": "rdata",
+   "size": 13,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9C90",
+   "type": "char",
+   "va": "0x006E9C90"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_lvl_req[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszTxtField_lvl_req",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9CB0",
+   "type": "char",
+   "va": "0x006E9CB0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_lvl[4] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 4
+   },
+   "name": "gszTxtField_lvl",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E9CB8",
+   "type": "char",
+   "va": "0x006E9CB8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/ItemTbls_00634DC0.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": null,
@@ -109667,6 +111930,37 @@
    "tail": "; // 0x00748A18",
    "type": "unsigned int",
    "va": "0x00748A18"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/Arena.cpp",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_int[4] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 4
+   },
+   "name": "gszTxtField_int",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E67EC",
+   "type": "char",
+   "va": "0x006E67EC"
   },
   {
    "alias": false,
@@ -114264,6 +116558,37 @@
   },
   {
    "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/COLLISN/Collisn.cpp",
+   "fill": 22,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszCollisnSourceFile[22] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 22,
+    "size": 22
+   },
+   "name": "gszCollisnSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 22,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EB730",
+   "type": "char",
+   "va": "0x006EB730"
+  },
+  {
+   "alias": false,
    "cname": "gData_00745888",
    "declared": false,
    "decorated": null,
@@ -114399,6 +116724,37 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00745888_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_00745888_t gData_00745888 = ",
    "tail": "; // 0x00745888"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/COMPOSIT/Composit.cpp",
+   "fill": 20,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char gszObjectsDir[20] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 20,
+    "size": 20
+   },
+   "name": "gszObjectsDir",
+   "pointers": [],
+   "region": "rdata",
+   "size": 20,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E3628",
+   "type": "char",
+   "va": "0x006E3628"
   },
   {
    "alias": false,
@@ -118537,6 +120893,1060 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_ELevLen3[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_ELevLen3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E68B0",
+   "type": "char",
+   "va": "0x006E68B0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_ELevLen2[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_ELevLen2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E68BC",
+   "type": "char",
+   "va": "0x006E68BC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_ELevLen1[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_ELevLen1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E68C8",
+   "type": "char",
+   "va": "0x006E68C8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_ELen[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_ELen",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E68D4",
+   "type": "char",
+   "va": "0x006E68D4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 15,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_EDmgSymPerCalc[15] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 15
+   },
+   "name": "gszTxtField_EDmgSymPerCalc",
+   "pointers": [],
+   "region": "rdata",
+   "size": 15,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E68DC",
+   "type": "char",
+   "va": "0x006E68DC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_EMax[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_EMax",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6928",
+   "type": "char",
+   "va": "0x006E6928"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_EMin[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_EMin",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E696C",
+   "type": "char",
+   "va": "0x006E696C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_EType[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_EType",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6974",
+   "type": "char",
+   "va": "0x006E6974"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 14,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_DmgSymPerCalc[14] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 14,
+    "size": 14
+   },
+   "name": "gszTxtField_DmgSymPerCalc",
+   "pointers": [],
+   "region": "rdata",
+   "size": 14,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E697C",
+   "type": "char",
+   "va": "0x006E697C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MaxLevDam5[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MaxLevDam5",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E698C",
+   "type": "char",
+   "va": "0x006E698C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MaxLevDam4[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MaxLevDam4",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6998",
+   "type": "char",
+   "va": "0x006E6998"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MaxLevDam3[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MaxLevDam3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E69A4",
+   "type": "char",
+   "va": "0x006E69A4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MaxLevDam2[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MaxLevDam2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E69B0",
+   "type": "char",
+   "va": "0x006E69B0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MaxLevDam1[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MaxLevDam1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E69BC",
+   "type": "char",
+   "va": "0x006E69BC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MinLevDam5[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MinLevDam5",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E69D0",
+   "type": "char",
+   "va": "0x006E69D0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MinLevDam4[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MinLevDam4",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E69DC",
+   "type": "char",
+   "va": "0x006E69DC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MinLevDam3[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MinLevDam3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E69E8",
+   "type": "char",
+   "va": "0x006E69E8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MinLevDam2[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MinLevDam2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E69F4",
+   "type": "char",
+   "va": "0x006E69F4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_MinLevDam1[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_MinLevDam1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6A00",
+   "type": "char",
+   "va": "0x006E6A00"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_HitShift[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_HitShift",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6A1C",
+   "type": "char",
+   "va": "0x006E6A1C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_ToHit[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_ToHit",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6A40",
+   "type": "char",
+   "va": "0x006E6A40"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 7,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Param5[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 7
+   },
+   "name": "gszTxtField_Param5",
+   "pointers": [],
+   "region": "rdata",
+   "size": 7,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6A80",
+   "type": "char",
+   "va": "0x006E6A80"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 7,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Param4[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 7
+   },
+   "name": "gszTxtField_Param4",
+   "pointers": [],
+   "region": "rdata",
+   "size": 7,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6A88",
+   "type": "char",
+   "va": "0x006E6A88"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 7,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Param3[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 7
+   },
+   "name": "gszTxtField_Param3",
+   "pointers": [],
+   "region": "rdata",
+   "size": 7,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6A90",
+   "type": "char",
+   "va": "0x006E6A90"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 7,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Param2[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 7
+   },
+   "name": "gszTxtField_Param2",
+   "pointers": [],
+   "region": "rdata",
+   "size": 7,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6A98",
+   "type": "char",
+   "va": "0x006E6A98"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 7,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Param1[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 7
+   },
+   "name": "gszTxtField_Param1",
+   "pointers": [],
+   "region": "rdata",
+   "size": 7,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6AA0",
+   "type": "char",
+   "va": "0x006E6AA0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_HitClass[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_HitClass",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6D10",
+   "type": "char",
+   "va": "0x006E6D10"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_HitFlags[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_HitFlags",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6D1C",
+   "type": "char",
+   "va": "0x006E6D1C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 12,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_ResultFlags[12] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 12,
+    "size": 12
+   },
+   "name": "gszTxtField_ResultFlags",
+   "pointers": [],
+   "region": "rdata",
+   "size": 12,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E6D28",
+   "type": "char",
+   "va": "0x006E6D28"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 5,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Blue[5] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 5,
+    "size": 5
+   },
+   "name": "gszTxtField_Blue",
+   "pointers": [],
+   "region": "rdata",
+   "size": 5,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E8520",
+   "type": "char",
+   "va": "0x006E8520"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Green[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_Green",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E8528",
+   "type": "char",
+   "va": "0x006E8528"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 4,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Red[4] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 4
+   },
+   "name": "gszTxtField_Red",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E8530",
+   "type": "char",
+   "va": "0x006E8530"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Trans[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 6
+   },
+   "name": "gszTxtField_Trans",
+   "pointers": [],
+   "region": "rdata",
+   "size": 6,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EAC64",
+   "type": "char",
+   "va": "0x006EAC64"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_HitSound[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_HitSound",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006ECE08",
+   "type": "char",
+   "va": "0x006ECE08"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": null,
@@ -118630,6 +122040,37 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 11,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_LocalBlood[11] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 11,
+    "size": 11
+   },
+   "name": "gszTxtField_LocalBlood",
+   "pointers": [],
+   "region": "rdata",
+   "size": 11,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EDEDC",
+   "type": "char",
+   "va": "0x006EDEDC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": null,
@@ -118654,6 +122095,68 @@
    "tail": "; // 0x006EDEE8",
    "type": "char",
    "va": "0x006EDEE8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 27,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszMissileTblsSourceFile[27] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 27,
+    "size": 27
+   },
+   "name": "gszMissileTblsSourceFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 27,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EDEF4",
+   "type": "char",
+   "va": "0x006EDEF4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/MissileTbls.cpp",
+   "fill": 14,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_NumDirections[14] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 14,
+    "size": 14
+   },
+   "name": "gszTxtField_NumDirections",
+   "pointers": [],
+   "region": "rdata",
+   "size": 14,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EDF10",
+   "type": "char",
+   "va": "0x006EDF10"
   },
   {
    "alias": false,
@@ -125889,6 +129392,68 @@
   },
   {
    "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/Unknown_00668510.cpp",
+   "fill": 3,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszEqualComma[3] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 3,
+    "size": 3
+   },
+   "name": "gszEqualComma",
+   "pointers": [],
+   "region": "rdata",
+   "size": 3,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EE824",
+   "type": "char",
+   "va": "0x006EE824"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/Unknown_00668510.cpp",
+   "fill": 2,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszComma[2] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 2,
+    "size": 2
+   },
+   "name": "gszComma",
+   "pointers": [],
+   "region": "rdata",
+   "size": 2,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006EE82C",
+   "type": "char",
+   "va": "0x006EE82C"
+  },
+  {
+   "alias": false,
    "cname": "gData_00749690",
    "declared": false,
    "decorated": null,
@@ -126024,6 +129589,37 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00749690_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_00749690_t gData_00749690 = ",
    "tail": "; // 0x00749690"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/HoradricCube.cpp",
+   "fill": 18,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszExcelDirectory[18] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 18,
+    "size": 18
+   },
+   "name": "gszExcelDirectory",
+   "pointers": [],
+   "region": "rdata",
+   "size": 18,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D8ED4",
+   "type": "char",
+   "va": "0x006D8ED4"
   },
   {
    "alias": false,
@@ -140496,6 +144092,37 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Direct3D/Src/d3dCore.cpp",
+   "fill": 18,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszD3DCoreFile[18] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 18,
+    "size": 18
+   },
+   "name": "gszD3DCoreFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 18,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006FC120",
+   "type": "char",
+   "va": "0x006FC120"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const Guid gGammaGuid = ",
@@ -149406,6 +153033,68 @@
   },
   {
    "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/OverlayTbls.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_Filename[9] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 9
+   },
+   "name": "gszTxtField_Filename",
+   "pointers": [],
+   "region": "rdata",
+   "size": 9,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D90F4",
+   "type": "char",
+   "va": "0x006D90F4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/OverlayTbls.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszTxtField_version[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszTxtField_version",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DCCF0",
+   "type": "char",
+   "va": "0x006DCCF0"
+  },
+  {
+   "alias": false,
    "cname": "gData_00748848",
    "declared": false,
    "decorated": null,
@@ -151433,6 +155122,285 @@
    "cname": null,
    "declared": true,
    "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszUnknownUpper[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszUnknownUpper",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CCED8",
+   "type": "char",
+   "va": "0x006CCED8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 10,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszThreads[10] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 10,
+    "size": 10
+   },
+   "name": "gszThreads",
+   "pointers": [],
+   "region": "rdata",
+   "size": 10,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD140",
+   "type": "char",
+   "va": "0x006CD140"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 12,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszRegisters[12] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 12,
+    "size": 12
+   },
+   "name": "gszRegisters",
+   "pointers": [],
+   "region": "rdata",
+   "size": 12,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD14C",
+   "type": "char",
+   "va": "0x006CD14C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 24,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszAssertionEnd[24] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 24,
+    "size": 24
+   },
+   "name": "gszAssertionEnd",
+   "pointers": [],
+   "region": "rdata",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD158",
+   "type": "char",
+   "va": "0x006CD158"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 24,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszAssertionBegin[24] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 24,
+    "size": 24
+   },
+   "name": "gszAssertionBegin",
+   "pointers": [],
+   "region": "rdata",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD170",
+   "type": "char",
+   "va": "0x006CD170"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 10,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszCrashFile[10] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 10,
+    "size": 10
+   },
+   "name": "gszCrashFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 10,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD1C0",
+   "type": "char",
+   "va": "0x006CD1C0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 10,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszExpansionMpq[10] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 10,
+    "size": 10
+   },
+   "name": "gszExpansionMpq",
+   "pointers": [],
+   "region": "rdata",
+   "size": 10,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD3A0",
+   "type": "char",
+   "va": "0x006CD3A0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 3,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszStringFormat[3] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 3,
+    "size": 3
+   },
+   "name": "gszStringFormat",
+   "pointers": [],
+   "region": "rdata",
+   "size": 3,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006FFC58",
+   "type": "char",
+   "va": "0x006FFC58"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 2,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszNewline[2] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 2,
+    "size": 2
+   },
+   "name": "gszNewline",
+   "pointers": [],
+   "region": "rdata",
+   "size": 2,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006FFCB0",
+   "type": "char",
+   "va": "0x006FFCB0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
    "file": "Source/Fog/Src/Exceptions.cpp",
    "fill": 8,
    "form": "declared",
@@ -151459,6 +155427,68 @@
    "type": "char",
    "va": "0x006CD5FC",
    "sourced": true
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/Exceptions.cpp",
+   "fill": 3,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszFileModeRb[3] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 3,
+    "size": 3
+   },
+   "name": "gszFileModeRb",
+   "pointers": [],
+   "region": "rdata",
+   "size": 3,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CDC90",
+   "type": "char",
+   "va": "0x006CDC90"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/UnitMode.cpp",
+   "fill": 20,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern \"C\" const char gszUnitModeFile[20] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 20,
+    "size": 20
+   },
+   "name": "gszUnitModeFile",
+   "pointers": [],
+   "region": "rdata",
+   "size": 20,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006D8E84",
+   "type": "char",
+   "va": "0x006D8E84"
   }
  ]
 }
