@@ -18,7 +18,7 @@
 #include "D2CommonApi2.h"
 #include "D2WinApi2.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2SoundEnvironTxtStrc;
 
@@ -1470,9 +1470,9 @@ static void __stdcall SKILLDESC_FormatDamageRange(int bPrefixSign, Unicode* wszT
     {
         if (!(nMinDamage < 10000))
 // build: symbol ?gszPlus@* 0x006DBEC4
-            wsprintfA(szText, "%s%dK-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, (nMinDamage + 500) / 1000, (nMaxDamage + 500) / 1000);
+            wsprintfA(szText, "%s%dK-%dK", bPrefixSign ? gszPlus : "", (nMinDamage + 500) / 1000, (nMaxDamage + 500) / 1000);
         else
-            wsprintfA(szText, "%s%d-%dK", bPrefixSign ? gszPlus : &gszEmptyAssertText, nMinDamage, (nMaxDamage + 500) / 1000);
+            wsprintfA(szText, "%s%d-%dK", bPrefixSign ? gszPlus : "", nMinDamage, (nMaxDamage + 500) / 1000);
     }
     else if (bPrefixSign)
         wsprintfA(szText, "+%d-%d", nMinDamage, nMaxDamage);
@@ -2494,11 +2494,11 @@ static void __fastcall SKILLDESC_DrawDamageRange(int nMin, int nMax, int nColor,
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, "%s%dK-%dK", &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, "%s%dK-%dK", "", (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, "%s%d-%dK", &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, "%s%d-%dK", "", nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText, szText, 32);
     int nWidth = 0;
@@ -2666,11 +2666,11 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
     }
     else if (nMin1 >= 10000)
     {
-        wsprintfA(szText, "%s%dK-%dK", &gszEmptyAssertText, (nMin1 + 500) / 1000, (nMax1 + 500) / 1000);
+        wsprintfA(szText, "%s%dK-%dK", "", (nMin1 + 500) / 1000, (nMax1 + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, "%s%d-%dK", &gszEmptyAssertText, nMin1, (nMax1 + 500) / 1000);
+        wsprintfA(szText, "%s%d-%dK", "", nMin1, (nMax1 + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -2685,11 +2685,11 @@ static void __stdcall SKILLDESC_DrawWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc*
     }
     else if (nMin2 >= 10000)
     {
-        wsprintfA(szText, "%s%dK-%dK", &gszEmptyAssertText, (nMin2 + 500) / 1000, (nMax2 + 500) / 1000);
+        wsprintfA(szText, "%s%dK-%dK", "", (nMin2 + 500) / 1000, (nMax2 + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, "%s%d-%dK", &gszEmptyAssertText, nMin2, (nMax2 + 500) / 1000);
+        wsprintfA(szText, "%s%d-%dK", "", nMin2, (nMax2 + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor1, nColor2);
@@ -2746,11 +2746,11 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nWeaponMin >= 10000)
     {
-        wsprintfA(szText, "%s%dK-%dK", &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, "%s%dK-%dK", "", (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, "%s%d-%dK", &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, "%s%d-%dK", "", nWeaponMin, (nWeaponMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -2765,11 +2765,11 @@ void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStr
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, "%s%dK-%dK", &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, "%s%dK-%dK", "", (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, "%s%d-%dK", &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, "%s%d-%dK", "", nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
@@ -3197,11 +3197,11 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
     }
     else if (nWeaponMin >= 10000)
     {
-        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, "", (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, "", nWeaponMin, (nWeaponMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -3216,11 +3216,11 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, "", (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, "", nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nWeaponColor, nColor);
@@ -3661,11 +3661,11 @@ void __fastcall SKILLDESC_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Skill
     }
     else if (nWeaponMin >= 10000)
     {
-        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, "", (nWeaponMin + 500) / 1000, (nWeaponMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nWeaponMin, (nWeaponMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, "", nWeaponMin, (nWeaponMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -3680,11 +3680,11 @@ void __fastcall SKILLDESC_DrawDescWeaponAndElemDamage(D2UnitStrc* pUnit, D2Skill
     }
     else if (nElemMin >= 10000)
     {
-        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nElemMin + 500) / 1000, (nElemMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, "", (nElemMin + 500) / 1000, (nElemMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nElemMin, (nElemMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, "", nElemMin, (nElemMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor, nElemColor);
@@ -5044,11 +5044,11 @@ void __fastcall SKILLDESC_DrawThrowAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc*
     }
     else if (nMin >= 10000)
     {
-        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nMin + 500) / 1000, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, "", (nMin + 500) / 1000, (nMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nMin, (nMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, "", nMin, (nMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText1, szText, 32);
 
@@ -5063,11 +5063,11 @@ void __fastcall SKILLDESC_DrawThrowAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc*
     }
     else if (nElemMin >= 10000)
     {
-        wsprintfA(szText, gszFmtRangeKK, &gszEmptyAssertText, (nElemMin + 500) / 1000, (nElemMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeKK, "", (nElemMin + 500) / 1000, (nElemMax + 500) / 1000);
     }
     else
     {
-        wsprintfA(szText, gszFmtRangeK, &gszEmptyAssertText, nElemMin, (nElemMax + 500) / 1000);
+        wsprintfA(szText, gszFmtRangeK, "", nElemMin, (nElemMax + 500) / 1000);
     }
     sub_00526320_ToUnicode(wszText2, szText, 32);
     SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor, nElemColor);

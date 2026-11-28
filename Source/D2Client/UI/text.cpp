@@ -478,7 +478,7 @@ void* gpScroin2Cel; // 0x007BF270
 
 void* gpTextPanelFrameCel; // 0x007BF274
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2TextNodeStrc;
 
@@ -3845,7 +3845,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
 
     if (gbTextBoxPending)
     {
-        gbTextBoxShown ? (void)0 : (FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xD02), exit(-1));
+        gbTextBoxShown ? (void)0 : (FOG_DisplayHalt("", sub_00408090(), 0xD02), exit(-1));
         int nDrawn = 1;
         (gdwTextEndTick < GetTickCount()) ? (void)(nDrawn = 0) : (void)TEXT_DrawTextBoxAt(gpMainTextBox, &gtTextRect_007BF1D0);
         if (!nDrawn)

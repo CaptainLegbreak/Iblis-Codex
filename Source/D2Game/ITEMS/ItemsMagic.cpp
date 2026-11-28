@@ -36,7 +36,7 @@
 
 #define UPDATEUI_OPENCUBE 21
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 

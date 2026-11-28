@@ -28,7 +28,7 @@
 
 #pragma intrinsic(strcpy)
 
-#define LVL_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define LVL_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2PoolSystemStrc;
 union D2SeedStrc;
@@ -859,7 +859,7 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
   for(int i=0;i<gnLvlSubTxtRecordCount;++i) { if(rows[i].dwType>maxType)maxType=rows[i].dwType; }
   if(maxType) {
    int size=sizeof(int)*(maxType+1);
-   gpLvlSubTypeStartIds=(int*)FOG_AllocPool(0,size,gszLvlTblsSourceFile,0x3a6,0);
+   gpLvlSubTypeStartIds=(int*)FOG_AllocPool(0,size,".\\DATATBLS\\LvlTbls.cpp",0x3a6,0);
    memset(gpLvlSubTypeStartIds,0,size);
    int lastType=0;
    D2LvlSubTxt* txt=gpLvlSubTxt;
@@ -876,7 +876,7 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
   }
  }
  if(loadFiles||extra) {
-  gppLvlSubDrlgFiles=(D2DrlgFileStrc**)FOG_Alloc(sizeof(D2DrlgFileStrc*)*gnLvlSubTxtRecordCount,gszLvlTblsSourceFile,0x3b6,0);
+  gppLvlSubDrlgFiles=(D2DrlgFileStrc**)FOG_Alloc(sizeof(D2DrlgFileStrc*)*gnLvlSubTxtRecordCount,".\\DATATBLS\\LvlTbls.cpp",0x3b6,0);
   memset(gppLvlSubDrlgFiles,0,sizeof(D2DrlgFileStrc*)*gnLvlSubTxtRecordCount);
  }
  D2LvlSubTxt* row=gpLvlSubTxt;
@@ -886,7 +886,7 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
   if((expansion||!row->dwExpansion)&&(loadFiles||extra)) {
    DRLGPRESET_LoadDrlgFile(&gppLvlSubDrlgFiles[i],0,row->szFile);
    if(!gppLvlSubDrlgFiles[i]->nSubstGroups) {
-    FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x3c8);sub_00681E09_Exit(-1);
+    FOG_DisplayHalt("",sub_00408090(),0x3c8);sub_00681E09_Exit(-1);
    }
   }
  }

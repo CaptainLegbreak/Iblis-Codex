@@ -7,7 +7,7 @@
 #include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x00738CC8
 
-#define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
+#define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt("",sub_00408090(),line);exit(-1);}
 struct D2MonsterModeInfo;
 
 #include "D2GameFuncs.h"

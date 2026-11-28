@@ -100,7 +100,7 @@ int __fastcall SHOWITEMS_ClampRectToScreen(int* pLeft, int* pTop, int* pRight, i
 
     if (gnItemLabelCount >= 32)
     {
-        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x47);
+        FOG_DisplayHalt("", sub_00408090(), 0x47);
         exit(-1);
     }
 
@@ -155,7 +155,7 @@ int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int*
 
     if (gnItemLabelCount >= 32)
     {
-        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x47);
+        FOG_DisplayHalt("", sub_00408090(), 0x47);
         exit(-1);
     }
 

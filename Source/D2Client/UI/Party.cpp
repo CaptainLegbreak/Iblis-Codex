@@ -546,7 +546,7 @@ static void __stdcall ROSTERPETS_DrawPanelLabel(int nY, int bAlt, unsigned short
     TEXT_DrawCenteredText(nLeft, nY - gnPanelOffsetY - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
 }
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2ClientNotifyStrc;
 
@@ -848,8 +848,7 @@ static void __stdcall PARTY_DrawRosterLevel(int nY, int nLevel, int nColor)
     Unicode::strncpy(wszText, D2LANG_GetStringFromTblIndex(0xD28), 0x14);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
-// build: symbol ?gszFormat2u@* 0x006DA0CC
-    wsprintfA(szNumber, gszFormat2u, nLevel);
+    wsprintfA(szNumber, "%2u", nLevel);
     sub_00526F20_ToUnicode(wszNumber, szNumber, 9);
     sub_00526700(wszText, wszNumber);
     D2Win_10117_DrawText(wszText, gnPanelOffsetX + 0x10A, nY - gnPanelOffsetY, nColor, 0);
