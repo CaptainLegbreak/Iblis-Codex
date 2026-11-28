@@ -5513,7 +5513,8 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
     case 1:
     case 6:
     case 8:
-        if (CUNIT_GetOwnerUnit(pMissile) == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if (CUNIT_GetOwnerUnit(pMissile) == CUNIT_GetPlayerUnit())
             bRepeat = 1;
         break;
     }
@@ -6232,7 +6233,7 @@ static void __stdcall MISSILE_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissil
     }
 
     D2SeedStrc tSeed;
-    if (pOwner && pOwner->dwUnitType == UNIT_PLAYER && sub_00463DD0_GetPlayerUnit() != pOwner)
+    if (pOwner && pOwner->dwUnitType == UNIT_PLAYER && CUNIT_GetPlayerUnit() != pOwner)
     {
         nChance = 100;
         SEED_InitLowSeed(&tSeed, 0);
@@ -6293,7 +6294,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
     }
     else
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && !COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pPlayer), nX, nY)
             && !DUNGEON_FindRoomBySubtileCoordinates(gpGlobal_007A0634, nX, nY))
         {

@@ -221,7 +221,8 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
         nTolerance = 0;
         break;
     default:
-        if (pUnit == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if (pUnit == CUNIT_GetPlayerUnit())
         {
             switch (CLIENT_GetAnimModeInline(pUnit))
             {
@@ -313,7 +314,7 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
         }
     }
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         MSG_SendTwoWords(0x5F, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
         return;
@@ -385,7 +386,7 @@ inline int IsServerUnit(D2UnitStrc* unit)
 // 0x00480810
 void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
 {
-    if (sub_00463DD0_GetPlayerUnit() != unit && IsDeferredUnit(unit))
+    if (CUNIT_GetPlayerUnit() != unit && IsDeferredUnit(unit))
     {
         if (HasQueuedUnitPacket(unit))
         {
@@ -433,7 +434,7 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
 // 0x00480930
 void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, nType);
     if (!pUnit)
     {
@@ -814,7 +815,8 @@ void __fastcall UNITMODE_MoveToPosition(D2UnitStrc* pUnit, int nX, int nY, int b
         switch (nType)
         {
         case UNIT_PLAYER:
-            if (pUnit != sub_00463DE0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit2@* 0x00463DE0
+            if (pUnit != CUNIT_GetPlayerUnit2())
             {
                 if (bSetPosition)
                 {
@@ -1154,7 +1156,7 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
 }
 
 // 0x00481600
-void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
+void __fastcall UNITMODE_RunPendingAction(D2UnitStrc* pPlayer)
 {
     if (sub_0044BE50(pPlayer) == 0 && pPlayer->pPlayerData && pPlayer->pPlayerData->nState)
     {
@@ -1202,7 +1204,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
 // 0x00481780
 int __cdecl UNITMODE_GetPlayerLevelId()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -1215,7 +1217,7 @@ int __cdecl UNITMODE_GetPlayerLevelId()
 int __cdecl UNITMODE_GetPlayerSoundEnviron()
 {
     int nLevelId = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -1228,7 +1230,7 @@ int __cdecl UNITMODE_GetPlayerSoundEnviron()
 }
 
 // 0x00481830
-void __cdecl sub_00481830_StopAllSounds()
+void __cdecl UNITMODE_StopAllSounds()
 {
     sub_004DF800_StopAllSlots();
     SOUNDINST_RefreshGroupTimers();

@@ -1809,7 +1809,8 @@ static void MINIPANEL_DoSlotAction(int nButton)
 // 0x0047ED90
 void __stdcall MINIPANEL_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!gbSlotClicked)
         return;
     gbSlotClicked = 0;
@@ -1827,7 +1828,7 @@ void __stdcall MINIPANEL_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         nCount = 7;
     if (!gbSlotBarBlocked)
     {
-        D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pUnit = CUNIT_GetPlayerUnit();
         const int nX = pMsg->nXpos;
         const int nY = pMsg->nYpos;
         int nOffset = 0;
@@ -1878,12 +1879,12 @@ void __stdcall MINIPANEL_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
     {
         nSlots = 7;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer || !pPlayer->pInventory || INVENTORY_GetCursorItem(pPlayer->pInventory) || gbSlotBarBlocked)
     {
         return;
     }
-    D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pUnit = CUNIT_GetPlayerUnit();
     if (!pUnit)
     {
         return;

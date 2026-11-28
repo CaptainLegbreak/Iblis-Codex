@@ -1799,7 +1799,8 @@ int __fastcall SKILLDESC_CltStartSetTargetParams(D2UnitStrc* pUnit, int nSkillId
         return 0;
     }
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit() && !D2COMMON_11021(pTarget))
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    if (pUnit == CUNIT_GetPlayerUnit() && !D2COMMON_11021(pTarget))
     {
         return 0;
     }

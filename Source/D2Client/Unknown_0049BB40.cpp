@@ -64,7 +64,8 @@ void __stdcall TEXT_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     pEntry = ROSTER_GetNextStoredUnit(pEntry);
     D2PartyRowStrc* pRow = gpRosterUnits;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int nCursorX = sub_00468730();
     int nCursorY = sub_00468740();
     if (nCursorX >= gnPanelOffsetX + 0x116 && nCursorX <= gnPanelOffsetX + 0x136 && nCursorY >= 0x185 - gnPanelOffsetY && nCursorY <= 0x1A5 - gnPanelOffsetY)
@@ -286,7 +287,7 @@ void __cdecl TEXT_InitWaypointData()
 // 0x0049C6C0
 void __cdecl sub_0049C6C0_SendWaypointClose()
 {
-    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    if (!gbSent && CUNIT_GetPlayerUnit() && UNITS_GetRoom(CUNIT_GetPlayerUnit()))
     {
 // build: symbol ?gnWaypointId@* 0x007BF07D
         MSG_SendTwoDwords(0x49, gnWaypointId, 0);
@@ -367,7 +368,7 @@ void __cdecl WARDENCLIENT_BuildWaypointList()
 {
     gnWaypointCount = 0;
     gnWaypointEnabledCount = 0;
-    const int nCurrentLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
+    const int nCurrentLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(CUNIT_GetPlayerUnit()));
 
     for (int i = 0; i < 9; ++i)
     {
@@ -440,7 +441,7 @@ void __cdecl WARDENCLIENT_BuildWaypointList()
 // 0x0049C980
 void __cdecl TEXT_UpdateWaypointAct()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -475,7 +476,7 @@ void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    if (!gbSent && CUNIT_GetPlayerUnit() && UNITS_GetRoom(CUNIT_GetPlayerUnit()))
     {
 // build: symbol ?gnWaypointId@* 0x007BF07D
         MSG_SendTwoDwords(0x49, gnWaypointId, 0);
@@ -492,7 +493,7 @@ void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x0049CF50
 void __cdecl sub_0049CF50_SendWaypointClose()
 {
-    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    if (!gbSent && CUNIT_GetPlayerUnit() && UNITS_GetRoom(CUNIT_GetPlayerUnit()))
     {
         MSG_SendTwoDwords(0x49, gnWaypointId, 0);
         gbSent = 1;
@@ -576,7 +577,7 @@ void __stdcall TEXT_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (nX > gnScreenWidth / 2 || nY > gnScreenHeight - 0x31)
     {
-        if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+        if (!gbSent && CUNIT_GetPlayerUnit() && UNITS_GetRoom(CUNIT_GetPlayerUnit()))
         {
             MSG_SendTwoDwords(0x49, gnWaypointId, 0);
             gbSent = 1;
