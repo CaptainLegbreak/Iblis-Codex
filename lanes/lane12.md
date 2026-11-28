@@ -8,15 +8,12 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
-- Fri Nov 27 19:56 PST 2026: **lane12/types-4** (1bec11121, stacked on types-3): the next 60 targets by references, each address in
-  turn: every declaration takes its definition's prototype, a unit whose code changes (or no longer compiles)
-  keeps its own, and an address whose header change alters another unit is left whole. 19 addresses changed (47
-  files: MONSTER_GetQuestFlags, DRLGOUTDOORS_SpawnOutdoorLevelPreset, CONTROL_SetFocusedEditBox, D2Win_10051,
-  D2LANG_GetStringFromTblIndex, MISSILE_SubmitMissileRequest, SMemAlloc, SMemFree, crc32, SCMD_RegisterMsgHandlers,
-  SUNITDMG_AllocCombat and others, listed in the commit). Full build 538 units equal. VERIFIED tree
-  8c3a186bb2dc11950581061046adfbfbeb685f56. linkdebt vs types-3: 20,414 -> 20,266 (type_disagreement 4,322 ->
-  4,174; D2Client -45, Storm -36, D2Game -30, D2Common -23, D2DDraw -14; no module rises). auditguard: no count
-  rose. The rest of the top targets need a caller's or a definition's type changed by hand.
+- Fri Nov 27 21:50 PST 2026: **lane12/types-5** (dab153d6a, on types-4, which #497 merged): the next 120 type_disagreement targets
+  (1,221 refs) the same way, one address at a time with each unit rebuilt. 30 addresses changed in 65 files (list
+  in the commit); the other 90 need a caller's or definition's type changed by hand, or their header change alters
+  another unit. Full build 538 units equal. VERIFIED tree 5dbc581f4871a717b8c7673c034ab20d63ab4f6a. linkdebt vs
+  types-4: 20,266 -> 20,015 (type_disagreement 4,174 -> 3,923; D2Game -157, D2Client -70, Storm -10, D2Common -7,
+  D2Launch -6, D2Sound -1; no module rises). auditguard: no count rose.
 
 ## Claimed
 - Fri Nov 27 20:37 PST 2026: status. Ready: types-4. Running: types-5, the next 120 type_disagreement targets (1,221 refs) one
