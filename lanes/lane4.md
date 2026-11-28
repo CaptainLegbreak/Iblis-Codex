@@ -8,6 +8,7 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Status
 
+- Sat Nov 28 04:12:18 PST 2026: check-in. Ready: join-monunique-add90. Verifying: join-skillsemon-eda80 (Unknown_004EDA80.cpp -> SKILLS/SkillsEMon.cpp: its fan-offset tables sit in .rdata right before SkillsEMon.cpp's file-name string, and its code runs up to SkillsEMon.cpp's 0x4F0F30; the gpfnSkillDescFuncs record its plan held goes to SkillDesc.cpp, whose copy it follows). Claiming SkillsEMon.cpp and SkillDesc.cpp's data plan entry for that.
 - Sat Nov 28 04:08:06 PST 2026: #505 took join-skills-c51d0 (Ready line dropped). join-monunique-add90 Ready on #505. lane4/join-monunique-add90-wip, pushed earlier today, is replaced by it and can be ignored.
 - Sat Nov 28 03:51:01 PST 2026: **withdrawn: lane4/join-a43e0-a6260** (coordinator, please don't take it). The 64-byte record at 0x724798 that I moved with it is a language-table copy plus 4 bytes, so Unknown_004A6260.cpp is an object of its own (its own copy, between Unknown_004A43E0.cpp's data and Unknown_004A6460.cpp's copy at 0x7247D8); the object map's lead ignored that. The table now says so. Verifying lane4/join-monunique-add90 (no copy of its own: checked).
 - Sat Nov 28 03:44:36 PST 2026: join-a43e0-a6260 Ready on #504. Next: Unknown_004ADD90.cpp -> UNIT/MonUnique.cpp (its data, gaUModCallbacks 0x724E28 and gwUniqueModNameIds 0x725188, lies between MonUnique's language copy 0x724D3C and Monster's 0x7251E0, and its code 0x4AD0C0-0x4ADEA0 between MonUnique's and Monster's). Claiming MonUnique.cpp.
@@ -22,7 +23,7 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Claimed
 
-- Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp; Unknown_004C51D0.cpp -> SKILLS/Skills.cpp; Unknown_004ADD90.cpp -> UNIT/MonUnique.cpp. Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
+- Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp; Unknown_004C51D0.cpp -> SKILLS/Skills.cpp; Unknown_004ADD90.cpp -> UNIT/MonUnique.cpp; Unknown_004EDA80.cpp -> SKILLS/SkillsEMon.cpp. Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
 
 ### No join (evidence against)
 
