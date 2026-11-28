@@ -1452,7 +1452,7 @@ struct D2ClientPacket67Strc
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern unsigned char gnCharClass; // 0x007A0522
 extern "C" __declspec(dllimport) int __stdcall ReadProcessMemory(void* hProcess, const void* pBaseAddress, void* pBuffer, unsigned long nSize, unsigned long* pBytesRead); // 0x006CC350
-unsigned int __cdecl sub_0044CE70_GetPingAverage(); // 0x0044CE70
+unsigned int __cdecl GAME_GetPingAverage(); // 0x0044CE70
 
 #include "D2PongData.h"
 
@@ -1715,7 +1715,7 @@ void __cdecl sub_00477DD0()
         char* pPacket = (char*)aPacket;
         pPacket[0] = 0x6D;
         *(unsigned long*)(pPacket + 1) = GetTickCount();
-        *(unsigned int*)(pPacket + 5) = sub_0044CE70_GetPingAverage() >> 1;
+        *(unsigned int*)(pPacket + 5) = GAME_GetPingAverage() >> 1;
         *(unsigned int*)(pPacket + 9) = nValue * 0xB640DE41;
         CLIENT_Send(13, 0, aPacket);
         gnSentBytes += 13;

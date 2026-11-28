@@ -27,7 +27,7 @@ struct D2UnitStrc;
 
 unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter(); // 0x0040E850
 void __cdecl AUTOMAP_ReleaseFreeBlocks(); // 0x00412000
-int __cdecl sub_0042F6D0_GetMenusDone(); // 0x0042F6D0
+int __cdecl MAINMENUS_GetDone(); // 0x0042F6D0
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 int __cdecl GAME_IsLaunchExpansion(); // 0x0043DB10
 void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
@@ -42,7 +42,7 @@ int __stdcall WINMAIN_PollSystemPackets(int nUnused); // 0x0044BAD0
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 int __stdcall WINMAIN_PumpSystemPackets(int nUnused); // 0x0044BD20
 int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+int __cdecl GAME_GetTickCounter(); // 0x0044DA90
 void __fastcall GAME_ShowLoadingMessage(int nIndex); // 0x0044E380
 void __cdecl RECORD_AddRecordChunk(); // 0x00451400
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0

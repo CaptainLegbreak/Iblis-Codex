@@ -1481,7 +1481,8 @@ void __cdecl sub_00473F50_UpdateWeather()
     gbRainActive = bRain;
     gbMudActive = bMud;
 
-    const unsigned int nTick = sub_0044DB00_GetTickCounter();
+// build: symbol ?GAME_GetTickCounter2@* 0x0044DB00
+    const unsigned int nTick = GAME_GetTickCounter2();
     D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x547);
 

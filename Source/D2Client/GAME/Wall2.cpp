@@ -1172,7 +1172,8 @@ void __thiscall D2FloorTileViewStrc::UpdateView(void* pArgument)
 
     nMode = D2GFX_CheckLowQuality();
     bPerspective = D2GFX_CheckPerspective();
-    const unsigned int dwTick = sub_0044DB00_GetTickCounter();
+// build: symbol ?GAME_GetTickCounter2@* 0x0044DB00
+    const unsigned int dwTick = GAME_GetTickCounter2();
     bTickFlag = 0;
     bMudFlag = 0;
     nPhase = (int)(sub_00473C80_GetPhaseLevel() * 1000.0);

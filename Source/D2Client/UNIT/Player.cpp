@@ -182,7 +182,7 @@ extern void* gpDrlgAct_007A0634;                                                
 unsigned int gdwLastClampTick; // 0x007A5268
 
 
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+int __cdecl GAME_GetTickCounter(); // 0x0044DA90
 
 
 unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
@@ -1746,7 +1746,7 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
 
     pCmd->nX = nX + nDX;
     pCmd->nY = nY + nDY;
-    const unsigned int dwTick = sub_0044DA90_GetTickCounter();
+    const unsigned int dwTick = GAME_GetTickCounter();
     if (pUnit->dwUnitType == UNIT_PLAYER && (pCmd->dwFlags & 8))
     {
         const unsigned int nAnimMode = pUnit->dwAnimMode;

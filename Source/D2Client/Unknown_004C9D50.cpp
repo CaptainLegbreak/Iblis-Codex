@@ -69,7 +69,7 @@ D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, i
 
 
 
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+int __cdecl GAME_GetTickCounter(); // 0x0044DA90
 
 
 
@@ -246,7 +246,7 @@ void __fastcall SKILLS_EndCharge(D2UnitStrc* pUnit, int nSkillId)
 // 0x004CA030
 int __fastcall SKILLS_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    const unsigned int nTick = sub_0044DA90_GetTickCounter();
+    const unsigned int nTick = GAME_GetTickCounter();
     if (nTick > gdwNextTick)
     {
         gdwNextTick = nTick + 5;

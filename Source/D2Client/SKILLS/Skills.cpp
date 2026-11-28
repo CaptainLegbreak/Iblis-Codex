@@ -304,7 +304,7 @@ extern ClientSkillDo gaClientDo[]; // 0x00727BA8
 
 D2UnitStrc* __fastcall SKILLS_FireMissileAtTarget(int,D2UnitStrc*,int,int,int,int,int,int); // 0x004C57B0
 
-int __cdecl sub_0044DA90_GetTickCounter(); // 0x0044DA90
+int __cdecl GAME_GetTickCounter(); // 0x0044DA90
 
 
 
@@ -1706,7 +1706,7 @@ int __fastcall SKILLS_DoClientSkill(D2UnitStrc* unit,int skillId,int skillLevel,
  if(delay>0 && CUNIT_GetPlayerUnit()==unit){
   if(delay>12)delay=12;
   if(skill->nAnim!=18 || !(unit->dwSeqFrame & 0xffffff00))
-   GAME_SetSkillDelayUntil(sub_0044DA90_GetTickCounter()+delay);
+   GAME_SetSkillDelayUntil(GAME_GetTickCounter()+delay);
  }
  return 1;
 }

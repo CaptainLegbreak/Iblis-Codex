@@ -639,7 +639,8 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
         SCALE_SetPerspectiveScale(nX, nY);
     }
 
-    const int nTick = sub_0044DB00_GetTickCounter();
+// build: symbol ?GAME_GetTickCounter2@* 0x0044DB00
+    const int nTick = GAME_GetTickCounter2();
     if (nTick > gdwLightTick_007B9530)
     {
         gdwLightTick_007B9530 = nTick;

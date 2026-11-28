@@ -2177,7 +2177,7 @@ sub_00426D80::~sub_00426D80()
 }
 
 // 0x0042F6D0
-int __cdecl sub_0042F6D0_GetMenusDone()
+int __cdecl MAINMENUS_GetDone()
 {
     return gfMenusDone;
 }
@@ -3037,13 +3037,13 @@ int __cdecl GAME_GetPing()
 }
 
 // 0x0044CE70
-int __cdecl sub_0044CE70_GetPingAverage()
+int __cdecl GAME_GetPingAverage()
 {
     return gdwPingAverage;
 }
 
 // 0x0044CE80
-void* __cdecl sub_0044CE80_GetPongData()
+void* __cdecl GAME_GetPongData()
 {
     return &gtPongData;
 }
@@ -3625,7 +3625,7 @@ void __cdecl GAME_ResetMouseButtons()
 }
 
 // 0x0044DA90
-int __cdecl sub_0044DA90_GetTickCounter()
+int __cdecl GAME_GetTickCounter()
 {
     return gnTickCounter;
 }
@@ -3637,7 +3637,7 @@ int __cdecl GAME_GetCurrentTime()
 }
 
 // 0x0044DAB0
-int __cdecl sub_0044DAB0_GetFrameCount()
+int __cdecl GAME_GetFrameCount()
 {
     return gnFrameCount;
 }
@@ -3667,7 +3667,7 @@ int __cdecl GAME_GetSkippedFrames()
 }
 
 // 0x0044DB00
-int __cdecl sub_0044DB00_GetTickCounter()
+int __cdecl GAME_GetTickCounter2()
 {
     return gnTickCounter;
 }
