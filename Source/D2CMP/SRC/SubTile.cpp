@@ -120,7 +120,8 @@ unsigned char* __fastcall SubTileCompress(const unsigned char* pData, unsigned i
         }
         else
         {
-            nOpaque = sub_0060D3A0_ScanOtherRun(pData, pEnd, 0, 127, &bRunEnd, &bRestEnd);
+// build: symbol ?FASTCMP_ScanOtherRun@* 0x0060D3A0
+            nOpaque = FASTCMP_ScanOtherRun(pData, pEnd, 0, 127, &bRunEnd, &bRestEnd);
             *pOut++ = (unsigned char)nTransparent;
             *pOut++ = (unsigned char)nOpaque;
             for (i = 0; i < nOpaque; ++i)
@@ -325,7 +326,7 @@ static void __stdcall SubTileCompressFloor(D2CmpSubTileRecordStrc* pDst, const u
         }
         else
         {
-            nOpaque = sub_0060D3A0_ScanOtherRun(pSrc, pEnd, 0, 0x7F, &bRunEnd, &bRestEnd);
+            nOpaque = FASTCMP_ScanOtherRun(pSrc, pEnd, 0, 0x7F, &bRunEnd, &bRestEnd);
             *pOut++ = (unsigned char)nTransparent;
             *pOut++ = (unsigned char)nOpaque;
             for (i = 0; i < nOpaque; ++i)
