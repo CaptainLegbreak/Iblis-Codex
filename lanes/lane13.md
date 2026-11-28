@@ -44,6 +44,10 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 21,832 -> 21,814. D2Direct3D 708 -> 690; no module rose.
     - shortdata: 363 -> 364. The new candidate is 4 unreferenced bytes after gapSmackTextures.
 ## Claimed
+- Fri Nov 27 16:26 PST 2026: **lane13/npc-state** (on #491) is doing its full build. npcmenu.cpp's 0x007C0C68-0x007C0DF4 is now one pack(1) struct, gtNpcMenu: NPCMENU_InitNpcMenu memsets its first 0x160 bytes, and its fields sit at odd offsets. About 80 aliases become fields; every unit is equal.
+  - gwszCost_007C0DF5 stays separate: its own dynamic initializer (0x006CAD10) zeroes it inline, and as a struct member the ctor goes out of line.
+  - The other files that name these addresses through D2Client.h (npcmenu_004B5C60.cpp 20 uses, Monster.cpp 8, three more with 1-2) still use the old names; a follow-up gives them the struct through a header.
+  - **The text panel block (0x007BF1E0) needs a ruling.** D2ClientUi.h's D2TextListStrc is 0x14, but the three lists sit 6 bytes apart. Making it the 6-byte {pFirst, wCount} flips inv_0048BC10.cpp's 0x0048BC10 (one lea's registers swap; the declaration-count effect). Should I (a) add the 6-byte list type in a new header for the panel struct and leave D2TextListStrc alone, (b) shrink D2TextListStrc and keep inv_0048BC10.cpp equal with an unused declaration, or (c) hand it to Fable?
 - Fri Nov 27 16:18 PST 2026: interior-2 Ready. Next: the two packed state blocks (the text panel at 0x007BF1E0 and NPC trade at 0x007C0DE0) as one struct each. Claimed: Source/D2Client/UI/text.cpp, text_0049D5A0.cpp, text_004A10E0.cpp, npcmenu.cpp, and the other D2Client files that declare those addresses.
 - Fri Nov 27 15:59 PST 2026: **Item 4 (shortdata), classified.** 362 candidates outside the D2DataTablesStrc span, sorted by what fills the room after each declaration. I read every room's bytes from Game.exe, and no linkdebt reference lands in any of them:
   - **zeros: 157.** Alignment padding, or zero data no code reads.
