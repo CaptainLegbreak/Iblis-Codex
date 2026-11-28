@@ -526,6 +526,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #509 (j262, 07:05 PT): lane 3 names-fog-2 (133 Fog names), lane 2 names-root-a, lane 4 squelch-class-3 + dead-structs, lane 5 plrtrade-views. Game.exe identical, audit flat. Waiting on Ready lines: lane 13 datatables-3b, lane 2 names-ui-2 / names-game-2. Iblis-Engine #24 merged (sync to #508).
+
 - #508 (j261, 06:25 PT): lane 3 names-d2cmp; lane 11 string-spellings-1, string-literals-3; lane 14 scaffolding-3b; lane 5 skill-views; lane 1 clt35-fields. VERIFIED 6a7fac6f7, Game.exe identical, audit flat. Rebase onto #508: lane 2 names-game, names-ui; lane 3 names-fog, names-storm-src-2; lane 13 datatables-3.
 
 - #507 (j260, 05:45 PT): lane 12 abi-3; lane 13 client-fields-1/-2; lane 14 scaffolding-4; lane 4 join-df4b0-e1770, join-monunique-add90-2, join-skillsemon-eda80; lane 5 quest-views, quest-ex-views, syn-views; lane 1 game-offsets, saveditem. VERIFIED a8b5aa9fa, Game.exe identical, audit flat. **Rebase onto #507: lane 2 names-game, lane 3 names-storm-src-2** (both conflict with this round's merges; lanes 2 and 3 touch files the other lanes renamed: rebase right before posting).
