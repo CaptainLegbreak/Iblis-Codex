@@ -469,4 +469,4 @@ D2PathIDAStarNodeStrc* __stdcall sub_M125_Emit_0067A590(int nUnused1, int nUnuse
     return PATH_IDAStar_GetNewNode(pContext);
 }
 
-#include "gen/data/Source/D2Common/Unknown_0067A550.inc"
+#include "gen/data/Source/D2Common/PATH/IDAStar.inc"
