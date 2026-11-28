@@ -65018,7 +65018,7 @@
     {
      "va": "0x00624710",
      "length": 6,
-     "name": "sub_00624710_GetLogFile"
+     "name": "LOGGING_GetLogFile"
     },
     {
      "va": "0x00624720",
@@ -70652,12 +70652,12 @@
     {
      "va": "0x0064FF90",
      "length": 249,
-     "name": "?sub_0064FF90_TestStepCollision@@YGHUD2PathPointStrc@@0PAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_TestStepCollision@@YGHUD2PathPointStrc@@0PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650090",
      "length": 186,
-     "name": "?sub_00650090_GetStepToNextPoint@@YGHPAUD2CoordStrc@@PAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_GetStepToNextPoint@@YGHPAUD2CoordStrc@@PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650150",
@@ -70666,7 +70666,7 @@
     {
      "va": "0x006502D0",
      "length": 125,
-     "name": "?sub_006502D0_UpdateVelocity@@YAXHPAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_UpdateVelocity@@YAXHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650350",
@@ -70713,7 +70713,7 @@
     {
      "va": "0x00650800",
      "length": 57,
-     "name": "?sub_00650800_CheckPathMoving@@YIPAUD2DynamicPathStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?PATH_CheckPathMoving@@YIPAUD2DynamicPathStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00650840",
@@ -70723,7 +70723,7 @@
     {
      "va": "0x00650910",
      "length": 386,
-     "name": "?sub_00650910_UpdateCollisionMask@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
+     "name": "?PATH_UpdateCollisionMask@@YGHPAUD2ActiveRoomStrc@@UD2PathPointStrc@@PAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x00650AA0",
@@ -70986,7 +70986,7 @@
     {
      "va": "0x0065C140",
      "length": 58,
-     "name": "sub_0065C140_GetInventoryRecord"
+     "name": "DATATBLS_GetInventoryRecord"
     },
     {
      "va": "0x0065C180",
@@ -71073,7 +71073,7 @@
     {
      "va": "0x0065C5E0",
      "length": 58,
-     "name": "?sub_0065C5E0_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
+     "name": "?ITEMMODS_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x0065C620",
@@ -71789,7 +71789,7 @@
     {
      "va": "0x006634F0",
      "length": 550,
-     "name": "?sub_006634F0_RollSeededRecord@@YIHHPAUD2Rolled6634F0Strc@@E@Z"
+     "name": "?MONSTERS_RollSeededRecord@@YIHHPAUD2Rolled6634F0Strc@@E@Z"
     },
     {
      "va": "0x00663720",
@@ -71823,12 +71823,12 @@
     {
      "va": "0x00663A10",
      "length": 16,
-     "name": "?sub_00663A10_GetSetBonusCount@@YAHI@Z"
+     "name": "?ITEMS_GetSetBonusCount@@YAHI@Z"
     },
     {
      "va": "0x00663A20",
      "length": 282,
-     "name": "sub_00663A20_SetItemBonusStates"
+     "name": "ITEMS_SetItemBonusStates"
     },
     {
      "va": "0x00663B40",
@@ -73932,7 +73932,7 @@
     {
      "va": "0x00679E50",
      "length": 15,
-     "name": "?sub_00679E50_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"
+     "name": "?PATH_RestartToward@@YIHPAUD2PathInfoStrc@@@Z"
     },
     {
      "va": "0x00679E60",
@@ -73974,7 +73974,7 @@
     {
      "va": "0x0067A420",
      "length": 128,
-     "name": "?sub_0067A420_TraceSegment@@YGHPAUD2DynamicPathStrc@@UD2PathPointStrc@@1@Z"
+     "name": "?PATH_TraceSegment@@YGHPAUD2DynamicPathStrc@@UD2PathPointStrc@@1@Z"
     },
     {
      "va": "0x0067A4A0",
@@ -74021,7 +74021,7 @@
     {
      "va": "0x0067BD70",
      "length": 11,
-     "name": "?sub_0067BD70_SwapPoints@@YAXPAUD2PathPointStrc@@0@Z"
+     "name": "?PATH_SwapPoints@@YAXPAUD2PathPointStrc@@0@Z"
     },
     {
      "va": "0x0067BD80",
@@ -74073,7 +74073,7 @@
     {
      "va": "0x0067A5D0",
      "length": 21,
-     "name": "?sub_0067A5D0_GetNeighborsSequence@@YGPBHHH@Z"
+     "name": "?PATH_GetNeighborsSequence@@YGPBHHH@Z"
     },
     {
      "va": "0x0067A5F0",
@@ -74088,7 +74088,7 @@
     {
      "va": "0x0067A690",
      "length": 174,
-     "name": "?sub_0067A690_NextNode@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
+     "name": "?PATH_NextNode@@YGPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@PAU1@@Z"
     },
     {
      "va": "0x0067A740",
@@ -74420,7 +74420,7 @@
     {
      "va": "0x0067D7B0",
      "length": 40,
-     "name": "?sub_0067D7B0_SetCoordSize@@YAXPAUD2DrlgCoordsStrc@@H@Z"
+     "name": "?DRLGOUTROOM_SetCoordSize@@YAXPAUD2DrlgCoordsStrc@@H@Z"
     },
     {
      "va": "0x0067D7E0",
@@ -74525,17 +74525,17 @@
     {
      "va": "0x0067E660",
      "length": 62,
-     "name": "sub_0067E660_SpawnEdgePresets"
+     "name": "DRLGOUTSIEGE_SpawnEdgePresets"
     },
     {
      "va": "0x0067E6A0",
      "length": 402,
-     "name": "sub_0067E6A0_SpawnAct4Presets"
+     "name": "DRLGOUTSIEGE_SpawnAct4Presets"
     },
     {
      "va": "0x0067E840",
      "length": 69,
-     "name": "sub_0067E840_SpawnSanctumPresets"
+     "name": "DRLGOUTSIEGE_SpawnSanctumPresets"
     },
     {
      "va": "0x0067E890",
