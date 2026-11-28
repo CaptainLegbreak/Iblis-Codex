@@ -16,6 +16,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 22:00 PST 2026: check-in. Building on #498: npcmenu-fields (D2ClientNpcMenu.h), fogtypes-fields (D2FogTypes.h: its PEB, TEB and PEB_LDR_DATA copies take winternl.h's own Reserved/BeingDebugged members), drlgmaps-fields (D2DrlgMaps.h). Claimed: those three headers.
 - Fri Nov 27 21:54 PST 2026: check-in. Main took gfxstate-fields, records-fields, ddrawtypes-fields, gfxtypes-fields (Ready lines dropped). questtext-fields and glidetypes-fields Ready (both merge clean on #497). Next: the remaining headers with one or two `unk0x` fields, then queue item 2.
 - Fri Nov 27 21:37 PST 2026: clientgame-fields Ready. glidetypes and questtext building.
 - Fri Nov 27 21:26 PST 2026: ddrawtypes-fields and gfxtypes-fields Ready. clientgame, glidetypes, questtext building.
