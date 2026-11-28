@@ -510,6 +510,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #498 (j251, 22:10 PT): lane 1 records-fields, gfxstate-fields, gfxtypes-fields, ddrawtypes-fields; lane 11 names-prefix-d2client-2, names-prefix-small. VERIFIED d5c20a1ad, Game.exe identical, audit flat. Next round: lane 11 names-roads. Held: lane 1 cominterface-names (rebase); lane 13 item 7 header step parked for a Fable chat (asked the user).
+
 - #497 (j250, 21:20 PT): lane 1 cmptiles-fields, drlgpresets-fields, gamestrc-fields; lane 11 names-prefix-d2common, names-prefix-d2game; lane 12 types-4; lane 13 plan-includes-3, packet-2a-scmd (+ npc-state-4, packet-2a). VERIFIED f24adfa59, Game.exe identical, casts 4,841 -> 4,839. Next round: lane 11 names-prefix-d2client once posted Ready. Still held: lane 1 cominterface-names (rebase onto #497).
 
 - #496 (j249, 20:30 PT): lane 1 inactiveunits-fields, wincontrols-fields; lane 11 names-defs; lane 12 types-3. VERIFIED ba30d0b0f, Game.exe identical, audit flat. Lane 13: queue restocked (items 7-9, D2DataTablesStrc first); npc-state-4 and plan-includes-3 next round once posted. Still held: lane 1 cominterface-names (rebase).
