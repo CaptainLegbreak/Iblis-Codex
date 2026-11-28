@@ -28,6 +28,7 @@
 #include "D2WinApi.h"
 #include "StormApi2.h"
 #include "D2WinApi2.h"
+#include "D2WardenRC4.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
@@ -338,8 +339,6 @@ struct WardenClient : NWardenClient::Library
 
 struct D2StormHashCtxStrc;
 
-struct D2RC4Strc;
-
 struct D2WardenFindArgStrc;
 
 
@@ -355,16 +354,6 @@ struct D2StormHashCtxStrc
     void Initialize();                                               // 0x00425D90
     void Append(const unsigned char* pData, unsigned int nLen); // 0x00425DD0
     void sub_00425F00_Final(unsigned char* pDigest);                        // 0x00425F00
-};
-
-struct D2RC4Strc
-{
-    unsigned char S[0x100];
-    unsigned char i;
-    unsigned char j;
-
-    void sub_004E09B0_Init(const unsigned char* pKey, unsigned int nKeySize); // 0x004E09B0
-    void ApplyKeystream(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
 };
 
 struct D2WardenFindArgStrc

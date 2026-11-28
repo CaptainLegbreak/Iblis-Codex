@@ -19,6 +19,7 @@
 #include "D2CommonApi.h"
 #include "D2CommonApi2.h"
 #include "D2GfxApi.h"
+#include "D2WardenRC4.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
@@ -137,16 +138,6 @@ public:
     int nImports;
     int unk0x0C;
     void* pEntry;
-};
-
-struct D2RC4Strc
-{
-    unsigned char S[0x100];
-    unsigned char i;
-    unsigned char j;
-
-    void sub_004E09B0_Init(const unsigned char* pKey, unsigned int nKeySize);
-    void ApplyKeystream(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
