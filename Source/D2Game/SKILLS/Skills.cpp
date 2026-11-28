@@ -203,7 +203,7 @@ void __stdcall UNITFINDS_InitializeUnitFindData(D2PoolSystemStrc* pMemPool, D2Un
 
 typedef void (__fastcall* SKILLS_AREAEFFECTFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel, int nParam);
 
-extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int petType); // 0x00478A20
+extern "C" D2PetTypeTxt* __fastcall SKILLS_GetPetTypeTxtRecord(int petType); // 0x00478A20
 
 
 typedef char H15_CheckSkillsTxtSize[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
@@ -417,7 +417,7 @@ typedef int (__fastcall* SKILLSTARTFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
 extern SKILLSTARTFUNC gpfnSkillSrvStartFunctions[];                                                    // 0x00732140
 
-D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                          // 0x0046ACE0
+D2MissilesTxt* __fastcall VIEW_GetMissilesTxtRecord(int nMissileId);                          // 0x0046ACE0
 
 
 #define EVENTTYPE_REMOVESTATE 12
@@ -885,7 +885,7 @@ void __fastcall SKILLS_UpdatePetLimitForSkill(D2GameStrc* pGame, D2UnitStrc* pPl
         return;
     }
 
-    D2PetTypeSkillListStrc* pPetTypeTxtRecord = (D2PetTypeSkillListStrc*)sub_00478A20_GetPetTypeTxtRecord((signed char)pSkillsTxtRecord->nPetType);
+    D2PetTypeSkillListStrc* pPetTypeTxtRecord = (D2PetTypeSkillListStrc*)SKILLS_GetPetTypeTxtRecord((signed char)pSkillsTxtRecord->nPetType);
     if (!pPetTypeTxtRecord)
     {
         return;
@@ -1843,7 +1843,7 @@ int __fastcall SKILLS_SrvSt03_Unsummon(D2GameStrc* game, D2UnitStrc* unit, int s
         return 0;
     if (AIGENERAL_GetMinionOwner(target) != unit)
         return 0;
-    D2PetTypeTxt* petType = sub_00478A20_GetPetTypeTxtRecord(PLAYERPETS_GetPetTypeFromPetGUID(unit, target->dwUnitId));
+    D2PetTypeTxt* petType = SKILLS_GetPetTypeTxtRecord(PLAYERPETS_GetPetTypeFromPetGUID(unit, target->dwUnitId));
     if (!petType)
         return 0;
     if (!(petType->nPetFlags[0] & gdwBitMasks[3]))
@@ -2439,7 +2439,7 @@ int __fastcall SKILLS_ExecuteSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         nResult = pDoFunc(pGame, pUnit, nSkillId, nSkillLevel);
     }
 
-    if (pSkillsTxtRecord->wSrvMissile >= 0 && sub_0046ACE0_GetMissilesTxtRecord(pSkillsTxtRecord->wSrvMissile))
+    if (pSkillsTxtRecord->wSrvMissile >= 0 && VIEW_GetMissilesTxtRecord(pSkillsTxtRecord->wSrvMissile))
     {
         pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
 

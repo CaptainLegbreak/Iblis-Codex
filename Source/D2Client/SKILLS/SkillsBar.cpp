@@ -233,7 +233,7 @@ static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit
 }
 
 
-void __fastcall sub_004BA840_StopSound(void* pUnitSfx); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(void* pUnitSfx); // 0x004BA840
 
 // 0x004C83C0
 int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -241,7 +241,8 @@ int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, 
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
         return 0;
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
             return 0;
@@ -643,7 +644,7 @@ int __fastcall SKILLSBAR_SkillCltStartLeap(D2UnitStrc* pUnit, int nSkillId, int 
     if (!pSkill)
         return 0;
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
             return 0;
@@ -808,7 +809,7 @@ int __fastcall SKILLSBAR_SkillCltStartRun(D2UnitStrc* pUnit, int nSkillId, int n
         return 0;
     }
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         if (SKILLS_GetSkillIdFromSkill(pSkill, gszSkillsBarSourceFile, 1129) == nSkillId && (SKILLS_GetFlags(pSkill) & 1))
         {
@@ -899,7 +900,7 @@ int __fastcall SKILLSBAR_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, int 
         PATH_SetFootprintCollisionMask(pDynamicPath, nMask);
         PATH_SetMoveTestCollisionMask(pDynamicPath, bPlayer ? 0x1C09 : 0x3C01);
         SKILLS_SetFlags(pSkill, 0);
-        sub_004BA840_StopSound(UNITSND_FindUnitSfxInRange(pUnit, 0x9E3));
+        SOUNDINST_StopSound(UNITSND_FindUnitSfxInRange(pUnit, 0x9E3));
     }
     else if (nFlags & 1)
     {

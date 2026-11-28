@@ -659,7 +659,8 @@ static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
     return 0;
 }
 
-int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode)
+// build: symbol ?MONSTERUNIQUE_TestMonModeFlag@* 0x0046C140
+int __fastcall MONSTERUNIQUE_TestMonModeFlag(int nMonsterId, int nMode)
 {
     D2MonStats2Txt* pMonStats2TxtRecord = CLIENT_GetMonStats2TxtRecord(nMonsterId);
     if (!pMonStats2TxtRecord)
@@ -693,7 +694,7 @@ static void GFX_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
         nIndex = nConvertedMode;
     }
 
-    if (!sub_0046C140_TestMonModeFlag(nClassId, nIndex))
+    if (!MONSTERUNIQUE_TestMonModeFlag(nClassId, nIndex))
     {
         return;
     }
@@ -1005,7 +1006,8 @@ static void __stdcall GFX_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int n
 // 0x00470070
 static void GFX_PreloadRoomUnits(int bAsync)
 {
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(CUNIT_GetPlayerUnit());
     if (!pRoom)
     {
         return;

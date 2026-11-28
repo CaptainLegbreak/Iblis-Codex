@@ -157,7 +157,8 @@ static void __stdcall MISSILES_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStr
         return;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pMissile->dwClassId);
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+    D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(pMissile->dwClassId);
     if (!MISSILE_FLAGBIT(pMissilesTxtRecord, 2))
     {
         return;
@@ -208,7 +209,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
         return 0;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pMissileParams->nMissile);
+    D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(pMissileParams->nMissile);
     if (!pMissilesTxtRecord)
     {
         return 0;

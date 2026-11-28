@@ -657,7 +657,8 @@ int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit)
             return SIZE_ITEM;
 
         case UNIT_MISSILE:
-            if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pUnit->dwClassId))
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+            if (D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(pUnit->dwClassId))
             {
                 return pMissilesTxtRecord->nSize;
             }
@@ -698,7 +699,7 @@ int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* ptUnit)
         return SIZE_ITEM;
 
     case UNIT_MISSILE:
-        if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(ptUnit->dwClassId))
+        if (D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(ptUnit->dwClassId))
         {
             return pMissilesTxtRecord->nSize;
         }
@@ -3497,7 +3498,8 @@ int __fastcall UNITS_CanSwitchAI(int nMonsterId)
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
     if (!pMonStatsTxtRecord)
         return 0;
-    if (!sub_0046C140_TestMonModeFlag(nMonsterId, MONMODE_WALK))
+// build: symbol ?MONSTERUNIQUE_TestMonModeFlag@* 0x0046C140
+    if (!MONSTERUNIQUE_TestMonModeFlag(nMonsterId, MONMODE_WALK))
         return 0;
     if (pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_BOSS >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_BOSS & 7])
         return 0;
@@ -4058,7 +4060,7 @@ int __stdcall UNITS_SetAnimStartFrame(D2UnitStrc* ptUnit)
 
     case 3:
     {
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(ptUnit->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(ptUnit->dwClassId);
         if (!pMissilesTxtRecord)
         {
             return 0;

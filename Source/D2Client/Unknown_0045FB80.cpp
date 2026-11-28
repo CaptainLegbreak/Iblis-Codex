@@ -168,7 +168,8 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 if (!pSkillsTxt)
                     continue;
 
-                D2SkillDescTxt* pDesc = sub_004A89D0_SkillDescRec(nSkillId);
+// build: symbol ?TEXT_SkillDescRec@* 0x004A89D0
+                D2SkillDescTxt* pDesc = TEXT_SkillDescRec(nSkillId);
                 if (!pDesc)
                     continue;
 
@@ -253,7 +254,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 if (!sub_0045C4B0_GetSkillsTxtRecord(nSkillId))
                     continue;
 
-                D2SkillDescTxt* pDesc = sub_004A89D0_SkillDescRec(nSkillId);
+                D2SkillDescTxt* pDesc = TEXT_SkillDescRec(nSkillId);
                 if (!pDesc)
                     continue;
 
@@ -353,7 +354,7 @@ LNotHandled:
                 if (!pSkillsTxt)
                     continue;
 
-                D2SkillDescTxt* pDesc = sub_004A89D0_SkillDescRec(nSkillId);
+                D2SkillDescTxt* pDesc = TEXT_SkillDescRec(nSkillId);
                 if (!pDesc)
                     continue;
 

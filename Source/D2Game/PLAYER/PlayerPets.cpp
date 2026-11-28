@@ -128,7 +128,7 @@ struct D2SkillListStrc;
 
 struct D2SkillsTxt;
 
-extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType);
+extern "C" D2PetTypeTxt* __fastcall SKILLS_GetPetTypeTxtRecord(int nPetType); // 0x00478A20
 
 struct D2ClientStrc;
 
@@ -1273,7 +1273,7 @@ void __fastcall PLAYERPETS_UpdatePetLimits(D2GameStrc* pGame, D2UnitStrc* pPlaye
     {
         if (nPetCounters[nPetType] <= 0)
         {
-            D2PetTypeTxt* pPetTypeTxtRecord = sub_00478A20_GetPetTypeTxtRecord(nPetType);
+            D2PetTypeTxt* pPetTypeTxtRecord = SKILLS_GetPetTypeTxtRecord(nPetType);
             if (pPetTypeTxtRecord)
             {
                 PLAYERPETS_SetPetLimit(pGame, pPlayer, nPetType, pPetTypeTxtRecord->wBaseMax);

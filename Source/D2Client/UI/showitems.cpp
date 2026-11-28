@@ -194,7 +194,8 @@ int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int*
 void __cdecl SHOWITEMS_DrawUnitNames()
 {
     int bPerspective=D2GFX_CheckPerspective();
-    D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer=CUNIT_GetPlayerUnit();
     if(!pPlayer)return;
     D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPlayer);
     if(!pRoom)return;
@@ -223,7 +224,8 @@ void __cdecl SHOWITEMS_DrawUnitNames()
                 if(!SCALE_CheckPerspectivePosition(nPrecisionX,nPrecisionY))continue;
                 int nProjectedX,nProjectedY;
                 SCALE_AdjustPerspectivePosition(nPrecisionX,nPrecisionY,0,&nProjectedX,&nProjectedY);
-                switch(sub_0045AE90_GetPanelSlideMode())
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+                switch(AUTOMAP_GetPanelSlideMode())
                 {
                 case 1:nProjectedX+=-(gnScreenWidth_0071146C/4);break;
                 case 2:nProjectedX+=gnScreenWidth_0071146C/4;break;
@@ -240,7 +242,7 @@ void __cdecl SHOWITEMS_DrawUnitNames()
             }
             int nMinX=0;
             int nMaxX=gnScreenWidth_0071146C;
-            switch(sub_0045AE90_GetPanelSlideMode())
+            switch(AUTOMAP_GetPanelSlideMode())
             {
             case 1:nMaxX=gnScreenWidth_0071146C/2-32;break;
             case 2:nMinX=gnScreenWidth_0071146C/2;break;

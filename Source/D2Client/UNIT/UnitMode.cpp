@@ -141,7 +141,7 @@ extern "C" int __stdcall sub_00650840_UpdatePath(D2UnitStrc* unit, unsigned int 
 
 void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
 
-void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
+void __fastcall PLAYER_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
 
 
 
@@ -186,7 +186,7 @@ inline int UNITS_GetFlag21Inl(D2UnitStrc* pUnit)
 }
 
 // 0x004804A0
-int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY)
+int __fastcall UNITMODE_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
@@ -221,7 +221,8 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
         nTolerance = 0;
         break;
     default:
-        if (pUnit == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if (pUnit == CUNIT_GetPlayerUnit())
         {
             switch (CLIENT_GetAnimModeInline(pUnit))
             {
@@ -313,7 +314,7 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
         }
     }
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         MSG_SendTwoWords(0x5F, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
         return;
@@ -385,7 +386,7 @@ inline int IsServerUnit(D2UnitStrc* unit)
 // 0x00480810
 void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
 {
-    if (sub_00463DD0_GetPlayerUnit() != unit && IsDeferredUnit(unit))
+    if (CUNIT_GetPlayerUnit() != unit && IsDeferredUnit(unit))
     {
         if (HasQueuedUnitPacket(unit))
         {
@@ -419,7 +420,7 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
     GFX_UpdateStateOverlays(unit);
     switch (unit->dwUnitType)
     {
-    case UNIT_PLAYER: sub_00463390_UpdatePlayerMode(unit); break;
+    case UNIT_PLAYER: PLAYER_UpdatePlayerMode(unit); break; // 0x00463390
     case UNIT_MONSTER: MONSTER_UpdateMonsterClient(unit); break; // 0x004B13A0
     case UNIT_OBJECT: OBJECT_UpdateObject(unit); break; // 0x004BDFF0
     case UNIT_MISSILE: MISSILE_CltDoMissile(unit); break; // 0x004D2C70
@@ -433,7 +434,7 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
 // 0x00480930
 void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, nType);
     if (!pUnit)
     {
@@ -804,7 +805,8 @@ void __fastcall UNITMODE_MoveToPosition(D2UnitStrc* pUnit, int nX, int nY, int b
     }
 
     const int nType = pUnit->dwUnitType;
-    if ((nType != UNIT_MONSTER || sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 2)) && bMove)
+// build: symbol ?MONSTERUNIQUE_TestMonModeFlag@* 0x0046C140
+    if ((nType != UNIT_MONSTER || MONSTERUNIQUE_TestMonModeFlag(pUnit->dwClassId, 2)) && bMove)
     {
         D2UnitTargetStrc tTarget;
         tTarget.nParam1 = nX;
@@ -1125,7 +1127,7 @@ static inline int sub_IsUnitTargetable(D2UnitStrc* pUnit)
 }
 
 // 0x004815A0
-static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static int __stdcall UNITMODE_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
 {
     if (!sub_IsUnitTargetable(pUnit))
     {
@@ -1153,7 +1155,7 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
 }
 
 // 0x00481600
-void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
+void __fastcall UNITMODE_RunPendingAction(D2UnitStrc* pPlayer)
 {
     if (sub_0044BE50(pPlayer) == 0 && pPlayer->pPlayerData && pPlayer->pPlayerData->nState)
     {
@@ -1182,7 +1184,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
                     return;
                 break;
             case 2:
-                if (!sub_004815A0_TryUnitAction(pUnit, pPlayer, nAction, 2, nArg2))
+                if (!UNITMODE_TryUnitAction(pUnit, pPlayer, nAction, 2, nArg2))
                     return;
                 break;
             default:
@@ -1201,7 +1203,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
 // 0x00481780
 int __cdecl UNITMODE_GetPlayerLevelId()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -1214,7 +1216,7 @@ int __cdecl UNITMODE_GetPlayerLevelId()
 int __cdecl UNITMODE_GetPlayerSoundEnviron()
 {
     int nLevelId = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -1227,7 +1229,7 @@ int __cdecl UNITMODE_GetPlayerSoundEnviron()
 }
 
 // 0x00481830
-void __cdecl sub_00481830_StopAllSounds()
+void __cdecl UNITMODE_StopAllSounds()
 {
     sub_004DF800_StopAllSlots();
     SOUNDINST_RefreshGroupTimers();

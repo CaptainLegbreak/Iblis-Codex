@@ -79,7 +79,7 @@ int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0
 
 int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit(); // 0x00463DD0
 
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
@@ -109,7 +109,7 @@ int __fastcall sub_004E40A0_RollPlayerSeed(int nRange); // 0x004E40A0
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
-int __fastcall sub_004E4180_GetCyclicDistance(int nFrame, int nOffset, int nStepLength); // 0x004E4180
+int __fastcall SKILLDESC_GetCyclicDistance(int nFrame, int nOffset, int nStepLength); // 0x004E4180
 
 int __fastcall UNITSND_GetModeSound(D2UnitStrc* pUnit, int nMode); // 0x004CA810
 
@@ -860,9 +860,9 @@ void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit)
         return;
 
     const unsigned int nStepLength = nFrameCount / nSteps;
-    const int nDist = sub_004E4180_GetCyclicDistance(nFrame, nOffset, nStepLength);
-    const int nDistNext = sub_004E4180_GetCyclicDistance(nFrame + nSpeed, nOffset, nStepLength);
-    const int nDistPrev = sub_004E4180_GetCyclicDistance(nFrame - nSpeed, nOffset, nStepLength);
+    const int nDist = SKILLDESC_GetCyclicDistance(nFrame, nOffset, nStepLength);
+    const int nDistNext = SKILLDESC_GetCyclicDistance(nFrame + nSpeed, nOffset, nStepLength);
+    const int nDistPrev = SKILLDESC_GetCyclicDistance(nFrame - nSpeed, nOffset, nStepLength);
     if (nDist >= nDistNext || nDist >= nDistPrev)
         return;
 
@@ -882,7 +882,7 @@ void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit)
     if (hSound)
     {
         int nVolume = 0xFF;
-        if (pUnit != sub_00463DD0_GetPlayerUnit())
+        if (pUnit != CUNIT_GetPlayerUnit())
             nVolume = 0xC8;
         if (nElapsed > nPeriod * 3 / 2)
             nVolume = nVolume * 160 / 255;
@@ -1066,7 +1066,7 @@ void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, uns
         UNITSND_PlayFleeSound(pUnit);
         return;
     case 18:
-        sub_004B9A00(sub_004E0590_PickNpcSound(pUnit, 1), sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
+        sub_004B9A00(sub_004E0590_PickNpcSound(pUnit, 1), CUNIT_GetPlayerUnit(), 0, 1, 0);
         return;
     case 13:
         sub_004B9A00(0xA4A, pUnit, 0, 0, 0);
@@ -1078,7 +1078,7 @@ void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, uns
         sub_004DCE10_UpdateTimedHint(0x19, 1);
         return;
     case 91:
-        sub_004B9A00(8, sub_00463DD0_GetPlayerUnit(), 0, 0, 0);
+        sub_004B9A00(8, CUNIT_GetPlayerUnit(), 0, 0, 0);
         return;
     default:
         break;
@@ -1272,7 +1272,7 @@ void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit)
     if (UNITSND_GetUnitSndType(pUnit) == 2)
     {
         if (UNITSND_GetUnitSndClassId(pUnit) == 0x1A && !nMode && !UNITSND_ReadAsyncSoundTick(pUnit)
-            && DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 0x14)
+            && DRLG_UnitEdgeDistance(pUnit, CUNIT_GetPlayerUnit()) < 0x14)
         {
             sub_004B9A00(0xE57, pUnit, 0, 0, 0);
             UNITSND_WriteAsyncSoundTick(pUnit, sub_0044DB00_GetTickCounter());
@@ -1532,7 +1532,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
     int nId = nStringId;
     int nSoundId = 0;
     D2UnitStrc* pSoundUnit = pUnit;
-    if (pUnit == sub_00463DD0_GetPlayerUnit() && CUNIT_IsPlayerDeadOrMissing())
+    if (pUnit == CUNIT_GetPlayerUnit() && CUNIT_IsPlayerDeadOrMissing())
     {
         return;
     }
@@ -1821,7 +1821,7 @@ static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
     UNITSND_GetHitSounds(pUnit, nHitClass, nMode, &nSound1, &nSound2);
     const int hSound = sub_004B9A00(nSound1, pUnit, 0, 0, 0);
     sub_004B9A00(nSound2, pUnit, 0, 0, 0);
-    if (hSound && pUnit == sub_00463DD0_GetPlayerUnit())
+    if (hSound && pUnit == CUNIT_GetPlayerUnit())
         SOUNDINST_SetValue(hSound, 0xFF);
 
     if (nType == 1 && !nMode)
@@ -1970,7 +1970,7 @@ void* __fastcall UNITSND_GetLinkFirst(D2UnitStrc* pUnit)
 // 0x004CC270
 void __cdecl UNITSND_CheckLevelSpeech()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     if (!pRoom)
     {

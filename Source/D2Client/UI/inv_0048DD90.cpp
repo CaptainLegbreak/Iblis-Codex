@@ -79,7 +79,7 @@ Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);            
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit();                                                               // 0x00463DD0
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 
@@ -87,7 +87,7 @@ int __cdecl sub_00468730();                                                     
 
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 
-int __cdecl sub_00468830_GetCursorState();                                                                                 // 0x00468830
+int __cdecl CURSOR_GetCursorState();                                                                                 // 0x00468830
 
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
@@ -115,9 +115,9 @@ int __cdecl NPCMENU_IsGambleShop();                                             
 
 int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength);        // 0x004B2AD0
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 
-void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x004E6850
+void __fastcall SKILLDESC_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x004E6850
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 
@@ -447,7 +447,7 @@ int __fastcall INV_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
 
 void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg); // 0x004912A0
 
-extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
+extern "C" void __cdecl MONSTER_SendState(); // 0x004B90B0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -758,7 +758,7 @@ static void __stdcall INV_AppendStackQuantity(D2UnitStrc* pItem, Unicode* pText)
 static void __stdcall INV_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
     int nBlock = STATLIST_UnitGetStatValue(pItem, STAT_TOBLOCK, 0);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         const int nClass = pPlayer->dwClassId;
@@ -855,7 +855,7 @@ static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* p
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer || pRecord->wStringId == 0x1506)
     {
         return;
@@ -925,7 +925,7 @@ static void INV_AppendBookCharges(Unicode* pText)
 {
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     D2_ASSERT(ITEMSIsA(gpHoverItem, 0x35), 0xC43);
-    sub_004E6850_BuildSocketFillerText(gpHoverItem, pText, 0x200);
+    SKILLDESC_BuildSocketFillerText(gpHoverItem, pText, 0x200);
     sub_00526700(pText, D2LANG_GetStringFromTblIndex(0x2B48));
     sub_00526700(pText, pColorEnd);
 }
@@ -1069,9 +1069,9 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
     int bRedClass = 0;
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     D2UnitStrc* pPlayer = pUnit;
-    if (nFlag && sub_00463DD0_GetPlayerUnit())
+    if (nFlag && CUNIT_GetPlayerUnit())
     {
-        pPlayer = sub_00463DD0_GetPlayerUnit();
+        pPlayer = CUNIT_GetPlayerUnit();
     }
 
     const int bHoverBlocked = HIREABLES_AreBeltRowsShown();
@@ -1213,7 +1213,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             }
 
             const int nQuality = ITEMS_GetItemQuality(gpHoverItem);
-            if (sub_00468830_GetCursorState() == 8 || ITEMS_GetTransmogrify(gpHoverItem))
+            if (CURSOR_GetCursorState() == 8 || ITEMS_GetTransmogrify(gpHoverItem))
             {
                 INV_DrawTransmogrifyTooltip();
                 return;
@@ -1383,7 +1383,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 {
                     INV_AppendStackQuantity(gpHoverItem, W(wszFormula));
                 }
-                sub_004E6410_BuildPropText(gpHoverItem, W(wszProps), 0x1000, 1, 0);
+                SKILLDESC_BuildPropText(gpHoverItem, W(wszProps), 0x1000, 1, 0);
             }
             else
             {
@@ -1548,7 +1548,7 @@ void __cdecl INV_DrawInventoryPanel()
             if (!gbQuestTimerActive || gnQuestTimerValue >= 14)
             {
                 gnSelectedTab = 3;
-                INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+                INV_DrawUnitInventory(CUNIT_GetPlayerUnit());
                 gnSelectedTab = nOldTab;
             }
 
@@ -1626,7 +1626,7 @@ timer_done:
             TEXTURE_CelDraw(&tContext, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
         }
 
-        const int nGoldLimit = UNITS_GetStashGoldLimit(sub_00463DD0_GetPlayerUnit());
+        const int nGoldLimit = UNITS_GetStashGoldLimit(CUNIT_GetPlayerUnit());
         Unicode wszGold[100];
         sub_005269D0_FormatText(100, wszGold, D2LANG_GetStringFromTblIndex(0xFD3), nGoldLimit);
         if (GAME_IsExpansion())
@@ -1640,7 +1640,7 @@ timer_done:
 
         const unsigned char nOldTab = gnSelectedTab;
         gnSelectedTab = 4;
-        INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+        INV_DrawUnitInventory(CUNIT_GetPlayerUnit());
         gnSelectedTab = nOldTab;
 
         tContext.pCelFile = GAME_GetBuySellButtonCells();
@@ -1684,7 +1684,7 @@ timer_done:
         TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gtOffsetRArmTab.nX, gnGlobal_007BCCB4 + gtOffsetRArmTab.nY, -1, 5, 0);
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2InventoryStrc* pInventory = pPlayer->pInventory;
 
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 3))
@@ -1861,14 +1861,14 @@ timer_done:
 
         const unsigned char nOldTab = gnSelectedTab;
         gnSelectedTab = 1;
-        INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+        INV_DrawUnitInventory(CUNIT_GetPlayerUnit());
         gnSelectedTab = 2;
-        INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+        INV_DrawUnitInventory(CUNIT_GetPlayerUnit());
         gnSelectedTab = nOldTab;
         D2Win_10127_SetFont(1);
 
         Unicode wszName[0x17];
-        D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pUnit = CUNIT_GetPlayerUnit();
         if (pUnit)
         {
             const char* szName = ROSTER_GetUnitName(pUnit);
@@ -1915,7 +1915,7 @@ timer_done:
 
     const unsigned char nOldTab = gnSelectedTab;
     gnSelectedTab = 0;
-    INV_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
+    INV_DrawUnitInventory(CUNIT_GetPlayerUnit());
     gnSelectedTab = nOldTab;
 
     INV_DrawEquippedItems();
@@ -1929,7 +1929,7 @@ timer_done:
     tContext.nFrame = (gbPanelButtonDown != 0) + 10;
     TEXTURE_CelDraw(&tContext, gnScreenWidth - gnPanelOffsetX - 0x12E, gnScreenHeight + gnPanelOffsetY - 0x40, -1, 5, 0);
 
-    D2UnitStrc* pPanelUnit = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPanelUnit = CUNIT_GetPlayerUnit();
     int bOther = 0;
     if (gnInvPanelMode >= 1 && gnInvPanelMode <= 9 && nMouseX < gnScreenWidth / 2)
     {
@@ -1959,7 +1959,7 @@ static __declspec(noinline) int INV_IsInTradeGrid(int nX, int nY)
 
 static int INV_IsOverGoldButton(int nX, int nY)
 {
-    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
+    if (INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory))
     {
         return 0;
     }
@@ -2054,13 +2054,13 @@ void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         INV_HandlePanelClick(pMsg);
         return;
     }
-    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
+    if (INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory))
     {
         gbTradeAcceptButtonDown = 0;
         gbTradeAccepted = 0;
         gbPanelButtonClicked = 0;
         gbTradeCancelClicked = 0;
-        sub_004B90B0_SendState();
+        MONSTER_SendState();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2072,7 +2072,7 @@ void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         if (gbTradeAccepted == 1)
         {
             gbTradeAccepted = 0;
-            sub_004B90B0_SendState();
+            MONSTER_SendState();
         }
         else
         {
@@ -2443,7 +2443,7 @@ void __cdecl INV_DrawMercPanel()
         return;
     }
 
-    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0);
     if ((unsigned int)nPetId == 0xFFFFFFFF)
     {
         UI_SetUIVar(0x24, 2, 0);

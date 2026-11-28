@@ -176,7 +176,8 @@ static unsigned short SKILLDESC_GetETypeDamageStr(int nEType)
 // build: symbol ?SKILLDESC_ApplyFireMasteryBonus@* 0x004E6EA0
 static void __stdcall SKILLDESC_ApplyFireMasteryBonus(int* pValue1, D2SkillsTxt* pSkillsTxt, int* pValue2)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
     {
         int nBonus = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_FIRE_MASTERY, 0);
@@ -193,7 +194,7 @@ static void __stdcall SKILLDESC_ApplyFireMasteryBonus(int* pValue1, D2SkillsTxt*
 // build: symbol ?SKILLDESC_ApplyLightningMasteryBonus@* 0x004E6F00
 static void __stdcall SKILLDESC_ApplyLightningMasteryBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
     {
         int nBonus = STATLIST_UnitGetStatValue(pPlayer, STAT_PASSIVE_LTNG_MASTERY, 0);
@@ -1293,7 +1294,8 @@ int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nS
     else if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[3])
     {
         SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 3, 3);
-        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[0];
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+        const short nSubMissile = VIEW_GetMissilesTxtRecord(nMissile)->wSubMissile[0];
         if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
         {
             tMissileParams.nMissile = nSubMissile;
@@ -1303,7 +1305,7 @@ int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nS
     else
     {
         SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 2);
-        const short nSubMissile = sub_0046ACE0_GetMissilesTxtRecord(nMissile)->wSubMissile[1];
+        const short nSubMissile = VIEW_GetMissilesTxtRecord(nMissile)->wSubMissile[1];
         if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
         {
             tMissileParams.nMissile = nSubMissile;

@@ -159,7 +159,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
 
 
-void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 
@@ -172,7 +172,7 @@ struct D2MonTypeTxt
 extern const int gaSetMaskToBonusMappingTable[0x40]; // 0x006DBD90
 
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 
 int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
@@ -285,7 +285,8 @@ int __fastcall SKILLDESC_CltDoComponentMissileA(D2UnitStrc* pUnit, int nSkillId,
         return 0;
     }
 
-    if (sub_0046ACE0_GetMissilesTxtRecord(nMissile))
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+    if (VIEW_GetMissilesTxtRecord(nMissile))
     {
         if (pUnit)
         {
@@ -323,7 +324,7 @@ int __fastcall SKILLDESC_CltDoComponentMissileB(D2UnitStrc* pUnit, int nSkillId,
     }
 
     nMissile += MONSTER_GetComponent11(pUnit);
-    if (nMissile < sgptDataTables->nMissilesTxtRecordCount && sub_0046ACE0_GetMissilesTxtRecord(nMissile))
+    if (nMissile < sgptDataTables->nMissilesTxtRecordCount && VIEW_GetMissilesTxtRecord(nMissile))
     {
         if (pUnit)
         {
@@ -392,7 +393,7 @@ int __fastcall SKILLDESC_CltDoWeaponOrSkillMissile(D2UnitStrc* pUnit, int nSkill
     }
 
     const int nCltMissile = pSkillsTxtRecord->wCltMissileA;
-    if (nCltMissile < 0 || nCltMissile >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0_GetMissilesTxtRecord(nCltMissile))
+    if (nCltMissile < 0 || nCltMissile >= sgptDataTables->nMissilesTxtRecordCount || !VIEW_GetMissilesTxtRecord(nCltMissile))
     {
         return 0;
     }
@@ -668,7 +669,7 @@ int __fastcall SKILLDESC_OwnerMissileEvent(int nEvent, D2UnitStrc* pUnit, D2Unit
         return 0;
     }
 
-    if (!(sub_0046ACE0_GetMissilesTxtRecord(pMissileUnit->dwClassId)->nMissileFlags[1] & gnBitMasks_006CE268[1]))
+    if (!(VIEW_GetMissilesTxtRecord(pMissileUnit->dwClassId)->nMissileFlags[1] & gnBitMasks_006CE268[1]))
     {
         return 0;
     }
@@ -770,7 +771,7 @@ int __fastcall SKILLDESC_CltDoScatterMissile(D2UnitStrc* pUnit, int nSkillId, in
 }
 
 // 0x004E4030
-void __cdecl sub_004E4030_Nothing()
+void __cdecl SKILLDESC_Nothing()
 {
 }
 
@@ -874,7 +875,8 @@ static int SKILLDESC_GetETypeColor(int nEType)
     return 0;
 }
 
-static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDamage, int* pColor, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem, int bStatBonus, D2UnitStrc* pUnit, int nBonus)
+// build: symbol ?SKILLDESC_GetWeaponDamage@* 0x004E86F0
+static int __stdcall SKILLDESC_GetWeaponDamage(int* pMinDamage, int* pMaxDamage, int* pColor, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem, int bStatBonus, D2UnitStrc* pUnit, int nBonus)
 {
     if (!pSkill)
         return 0;
@@ -987,7 +989,7 @@ static void __stdcall SKILLDESC_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pM
 
     int nMin = 0;
     int nMax = 0;
-    sub_004E86F0_GetWeaponDamage(&nMin, &nMax, pColor, 0, pSkill, 128, pItem, 0, pUnit, 0);
+    SKILLDESC_GetWeaponDamage(&nMin, &nMax, pColor, 0, pSkill, 128, pItem, 0, pUnit, 0);
     sub_004E89A0_GetElementalDamage(pUnit, &nMin, &nMax, pColor, pSkill);
     *pMinDamage += nMin * nRatio / 128;
     *pMaxDamage += nMax * nRatio / 128;
@@ -1798,7 +1800,8 @@ int __fastcall SKILLDESC_CltStartSetTargetParams(D2UnitStrc* pUnit, int nSkillId
         return 0;
     }
 
-    if (pUnit == sub_00463DD0_GetPlayerUnit() && !D2COMMON_11021(pTarget))
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    if (pUnit == CUNIT_GetPlayerUnit() && !D2COMMON_11021(pTarget))
     {
         return 0;
     }

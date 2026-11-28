@@ -93,7 +93,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordStd(int nSkillId)
 
 
 // 0x004C9D50
-static inline D2UnitStrc* sub_004C9D50_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)
+static inline D2UnitStrc* SKILLS_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)
 {
     return sub_004C5EB0_FindDestination(pUnit, 0, 0, 3, 3, nUnitId, 0);
 }
@@ -244,7 +244,7 @@ void __fastcall SKILLS_EndCharge(D2UnitStrc* pUnit, int nSkillId)
 }
 
 // 0x004CA030
-int __fastcall sub_004CA030_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_TickEvent(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const unsigned int nTick = sub_0044DA90_GetTickCounter();
     if (nTick > gdwNextTick)
@@ -334,7 +334,7 @@ restore:
 
 D2UnitStrc* __fastcall sub_M109_Emit_004C9D50(D2UnitStrc* pUnit, int nUnitId)
 {
-    return sub_004C9D50_FindDestinationById(pUnit, nUnitId + 1);
+    return SKILLS_FindDestinationById(pUnit, nUnitId + 1);
 }
 
 // 0x004CA200

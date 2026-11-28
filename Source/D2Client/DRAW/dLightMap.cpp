@@ -561,7 +561,8 @@ out:
 // 0x00474610
 void __stdcall DLIGHTMAP_UpdateLightGrid(int bClear)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom;
     if (!pPlayer || (pRoom = UNITS_GetRoom(pPlayer)) == 0 || bClear)
     {
@@ -633,7 +634,7 @@ void __stdcall DLIGHTMAP_UpdateLightGrid(int bClear)
 // 0x00474790
 void __cdecl DLIGHTMAP_ClearLightGrid()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
         UNITS_GetRoom(pPlayer);
 
@@ -1209,7 +1210,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 // 0x004756D0
 void __cdecl DLIGHTMAP_ScanGridCollision()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -1380,7 +1381,7 @@ unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
 }
 
 // 0x00475D20
-void __fastcall sub_00475D20_FreeIfSet(void* pMemory)
+void __fastcall DLIGHTMAP_FreeIfSet(void* pMemory)
 {
     if (pMemory)
     {
@@ -1439,7 +1440,7 @@ int gbCacheStatsChecked;                                                        
 
 
 // 0x00478150
-int __cdecl sub_00478150_GetProgress()
+int __cdecl DLIGHTMAP_GetProgress()
 {
     return gnProgress;
 }
@@ -1460,7 +1461,7 @@ int __cdecl sub_00486E00_Return0()
 }
 
 // 0x00489870
-int __cdecl sub_00489870_GetNpcButtonHandled()
+int __cdecl DLIGHTMAP_GetNpcButtonHandled()
 {
     return gbNpcButtonHandled;
 }
@@ -1545,7 +1546,7 @@ low:
 // 0x00475800
 void __cdecl DLIGHTMAP_RunLightPass()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     const int nX = CLIENTS_GetUnitXInline(pPlayer);
     const int nY = CLIENTS_GetUnitYInline(pPlayer);
     gnCellOriginX = nX - 0x18;

@@ -76,13 +76,13 @@ void __fastcall NPCMENU_ClearUnicode(Unicode* pChar);                           
 void __stdcall sub_00403040_VectorConstructor(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnConstructor)(Unicode*)); // 0x00403040
 void __fastcall INV_PrefixColorCode(Unicode* wszText, int nLevel);                                // 0x004521C0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl GAME_GetLadderFlag();                                                                     // 0x0044DCA0
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
-D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                          // 0x0046ACE0
-D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);                                        // 0x004A89D0
-int __fastcall sub_004A9A90_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9A90
+D2MissilesTxt* __fastcall VIEW_GetMissilesTxtRecord(int nMissileId);                          // 0x0046ACE0
+D2SkillDescTxt* __fastcall TEXT_SkillDescRec(int nSkillId);                                        // 0x004A89D0
+int __fastcall SPELLSEL_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9A90
 int __fastcall sub_004A9AE0_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9AE0
 int __fastcall sub_004A9B30_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B30
 int __fastcall sub_004A9B80_FindSkill(D2UnitStrc* pUnit, int nSkillId);                                     // 0x004A9B80
@@ -170,7 +170,7 @@ static unsigned short SKILLDESC_GetETypeDamageStr(int nEType)
 // 0x004E6EA0
 static void __stdcall SKILLDESC_ApplyFireMasteryBonus(int* pValue1, D2SkillsTxt_H* pSkillsTxt, int* pValue2)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
     {
         int nBonus = STATLIST_UnitGetStatValue(pPlayer, 0x149, 0);
@@ -187,7 +187,7 @@ static void __stdcall SKILLDESC_ApplyFireMasteryBonus(int* pValue1, D2SkillsTxt_
 // 0x004E6F00
 static void __stdcall SKILLDESC_ApplyLightningMasteryBonus(int* pValue1, D2SkillsTxt_H* pSkillsTxt, int* pValue2)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
     {
         int nBonus = STATLIST_UnitGetStatValue(pPlayer, 0x14A, 0);
@@ -586,7 +586,7 @@ static int __stdcall SKILLDESC_AppendManaValue(int nValue, Unicode* wszOut)
 }
 
 // 0x004E85C0
-static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt_H* pSkillsTxt, int nValue)
+static int __stdcall SKILLDESC_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt_H* pSkillsTxt, int nValue)
 {
     short nMana = pSkillsTxt->wMana;
     if (!nMana && !pSkillsTxt->wLevelMana)
@@ -595,7 +595,7 @@ static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, 
     if (nValue)
         return SKILLDESC_AppendManaValue(nValue, wszOut);
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_SkillDescRec(nSkillId);
     if (!pSkillDescTxt)
         return 0;
 
@@ -1137,7 +1137,7 @@ static int __stdcall SKILLDESC_AddElemDuration(Unicode* wszText, D2SkillsTxt_H* 
 
 int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt_H* pSkillsTxt, int nSkillId, int nSkillLevel); // 0x004EDCA0
 
-int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt_H* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
+int __stdcall SKILLDESC_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt_H* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
 
 static inline void AppendString(Unicode* wszText, unsigned short nString)
 {
@@ -1167,7 +1167,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         return 0;
     }
 
-    D2SkillDescTxt* pSkillDescTxt = sub_004A89D0_SkillDescRec(nSkillId);
+    D2SkillDescTxt* pSkillDescTxt = TEXT_SkillDescRec(nSkillId);
     if (!pSkillDescTxt)
     {
         return 0;
@@ -1180,7 +1180,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
     switch (pSkillDescTxt->nDescLine[nLine])
     {
     case 1:
-        sub_004E85C0_AppendManaCost(wszText, nSkillId, nSkillLevel, nCalcA, pSkillsTxt, nManaValue);
+        SKILLDESC_AppendManaCost(wszText, nSkillId, nSkillLevel, nCalcA, pSkillsTxt, nManaValue);
         break;
 
     case 2:
@@ -1298,7 +1298,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 23:
         nMissileId = pSkillDescTxt->wDescMissile[0];
-        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(nMissileId);
+        pMissilesTxt = VIEW_GetMissilesTxtRecord(nMissileId);
         if (!pMissilesTxt)
         {
             return 0;
@@ -1346,7 +1346,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 28:
     {
-        D2MissilesTxt* pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
+        D2MissilesTxt* pMissilesTxt = VIEW_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
@@ -1357,7 +1357,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 29:
     {
-        D2MissilesTxt* pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
+        D2MissilesTxt* pMissilesTxt = VIEW_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
@@ -1367,13 +1367,13 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
     }
 
     case 30:
-        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
+        pMissilesTxt = VIEW_GetMissilesTxtRecord(pSkillDescTxt->wDescMissile[0]);
         if (!pMissilesTxt)
         {
             return 0;
         }
         nMissileId = pMissilesTxt->wSubMissile[0];
-        pMissilesTxt = sub_0046ACE0_GetMissilesTxtRecord(nMissileId);
+        pMissilesTxt = VIEW_GetMissilesTxtRecord(nMissileId);
         if (!pMissilesTxt)
         {
             return 0;
@@ -1498,7 +1498,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 48:
-        sub_004EDDD0_AddAttackInfo(wszText, nSkillId, pSkillsTxt, pUnit, nSkillLevel);
+        SKILLDESC_AddAttackInfo(wszText, nSkillId, pSkillsTxt, pUnit, nSkillLevel);
         break;
 
     case 49:
@@ -1522,7 +1522,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 53:
-        TEXT_DrawHintText(sub_004A9A90_FindSkill(pUnit, nSkillId), nStringA);
+        TEXT_DrawHintText(SPELLSEL_FindSkill(pUnit, nSkillId), nStringA);
         break;
 
     case 54:

@@ -805,7 +805,8 @@ static void MONSTER_HandleMonsterEvent(D2UnitStrc* pUnit, int nEvent)
     {
     case 0x14B:
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer)
         {
             UNITS_SetTargetUnitForDynamicUnit(pUnit, pPlayer);
@@ -824,7 +825,7 @@ static void MONSTER_HandleMonsterEvent(D2UnitStrc* pUnit, int nEvent)
         break;
     case 0x158:
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         D2DirectionArgStrc tDirection;
         tDirection.nDirection = sub_I07_SeedRoll(&pPlayer->pSeed) & 0x3F;
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -1017,7 +1018,8 @@ void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, int nX
     if(MONSTERS_GetFlagInline(pUnit,8)) return;
     D2DirectionArgStrc tDirection; tDirection.nDirection=0;
     int nBaseId=MONSTERS_GetUnitBaseIdInline(pUnit);
-    if(sub_0046C140_TestMonModeFlag(pUnit->dwClassId,2)) tDirection.nDirection=sub_I07_SeedRoll(&pUnit->pSeed)&0x3F;
+// build: symbol ?MONSTERUNIQUE_TestMonModeFlag@* 0x0046C140
+    if(MONSTERUNIQUE_TestMonModeFlag(pUnit->dwClassId,2)) tDirection.nDirection=sub_I07_SeedRoll(&pUnit->pSeed)&0x3F;
     if(nBaseId==MONSTER_MUMMY1) tDirection.nDirection=7;
     else if(nBaseId==MONSTER_VILECHILD1) tDirection.nDirection=GFXUTIL_ForEachUnitInAdjacentRooms(pUnit,0,0,MONSTER_CheckMonsterFacing);
     if(nClassId==0x15F) tDirection.nDirection=0x18;
@@ -2040,7 +2042,8 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         D2_ASSERT(pCommand, 0x6E2);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 1);
 // build: symbol ?NPCMENU_GetMonsterTypeFlags@* 0x004AE080
-        if (NPCMENU_GetMonsterTypeFlags(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY))
+// build: symbol ?UNITMODE_SetPathTargetPos@* 0x004804A0
+        if (NPCMENU_GetMonsterTypeFlags(pUnit, 1) || !UNITMODE_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY))
         {
             MONSTER_RefreshMonsterMode(pUnit);
             break;
@@ -2139,7 +2142,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
 
         UNITMODE_SetUnitMode(pUnit, pRecord->nIndex);
         if (MONSTER_HasMonStatsFlag(pUnit, pRecord))
-            sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY);
+            UNITMODE_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY);
 
         if (nMonId == MONSTER_VULTURE1)
             MONSTER_UpdateCollisionForMode(pUnit, nCommand);
@@ -2464,7 +2467,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
     case 9:
     {
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (!(pMonStats2Txt->nFlags[2] & gdwBitMasks[3]))
             PATH_SetUnitDeadCollision(pUnit, 0);
 
@@ -2649,7 +2652,7 @@ void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInf
     const int nAct = MONSTERS_GetActFromHirelingTxt(GAME_IsExpansion(), 0, pInfo->wNameId);
     const int nDifficulty = GAME_GetDifficulty();
     D2HirelingInitStrc hirelingInit;
-    if (!MONSTERS_HirelingInit(GAME_IsExpansion(), sub_00463DD0_GetPlayerUnit(), pInfo->nSeed, nAct, nDifficulty, &hirelingInit))
+    if (!MONSTERS_HirelingInit(GAME_IsExpansion(), CUNIT_GetPlayerUnit(), pInfo->nSeed, nAct, nDifficulty, &hirelingInit))
     {
         return;
     }
@@ -2758,8 +2761,8 @@ int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand, int nMode)
 {
-    if (NPCMENU_GetMonsterTypeFlags(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY)
-        || STATES_CheckState(pUnit, STATE_ATTACHED) || !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, nMode))
+    if (NPCMENU_GetMonsterTypeFlags(pUnit, 1) || !UNITMODE_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY)
+        || STATES_CheckState(pUnit, STATE_ATTACHED) || !MONSTERUNIQUE_TestMonModeFlag(pUnit->dwClassId, nMode))
     {
         MONSTER_RefreshMonsterMode(pUnit);
         return;
@@ -2962,7 +2965,7 @@ void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
         && pUnit->dwAnimMode == 1 && !sub_00451F30_TestUnitFlag(pUnit, 0x200)
         && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && (unsigned int)D2Common_10399(pUnit, pPlayer) < 7)
         {
             D2SeedStrc* pSeed = &pUnit->pSeed;

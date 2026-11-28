@@ -232,7 +232,7 @@ int __cdecl CURSOR_GetCursorFrame()
 }
 
 // 0x00468040
-void __fastcall sub_00468040_ResetCursorState(int nArg, int nArg2)
+void __fastcall CURSOR_ResetCursorState(int nArg, int nArg2)
 {
     gpCursorItem = 0;
     gnCursorAnim = 6;
@@ -314,7 +314,8 @@ static void __fastcall sub_00468750_SetMousePos(int nX, int nY)
 // 0x004681C0
 void __cdecl CURSOR_AdvanceCursorAnim()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return;
     const int nIndex = gnCursorAnim;
@@ -582,7 +583,7 @@ void __fastcall sub_00468820_Nop(int nArg1, int nArg2)
 }
 
 // 0x00468830
-int __cdecl sub_00468830_GetCursorState()
+int __cdecl CURSOR_GetCursorState()
 {
     return gnCursorState;
 }

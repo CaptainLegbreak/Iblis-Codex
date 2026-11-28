@@ -178,7 +178,7 @@ struct D2MenuItemStrc
 
 int __cdecl sub_004DF980_IsSoundMode1Or2();
 
-void __fastcall sub_004776C0_SetGamma(void* pArg);
+void __fastcall INV_SetGamma(void* pArg); // 0x004776C0
 
 
 
@@ -864,7 +864,7 @@ void __fastcall sub_0047D200_GammaSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARA
 {
     const unsigned int nGamma = sub_0047CD00_SliderToValue(pItem, 0x37, 0xFF);
     SRegSaveValue("Diablo II", "Gamma", 0, nGamma);
-    sub_004776C0_SetGamma((void*)nGamma);
+    INV_SetGamma((void*)nGamma);
 }
 
 // 0x0047D230
@@ -1808,7 +1808,8 @@ static void sub_0047EC50_DoSlotAction(int nButton)
 // 0x0047ED90
 void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!gbSlotClicked)
         return;
     gbSlotClicked = 0;
@@ -1819,14 +1820,15 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     if (INVENTORY_GetCursorItem(pInventory))
         return;
-    if (sub_00468830_GetCursorState() != 7)
+// build: symbol ?CURSOR_GetCursorState@* 0x00468830
+    if (CURSOR_GetCursorState() != 7)
         CURSOR_SetCursorItemState(0);
     int nCount = 8;
     if (gbSmallPanel)
         nCount = 7;
     if (!gbSlotBarBlocked)
     {
-        D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pUnit = CUNIT_GetPlayerUnit();
         const int nX = pMsg->nXpos;
         const int nY = pMsg->nYpos;
         int nOffset = 0;
@@ -1877,12 +1879,12 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
     {
         nSlots = 7;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer || !pPlayer->pInventory || INVENTORY_GetCursorItem(pPlayer->pInventory) || gbSlotBarBlocked)
     {
         return;
     }
-    D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pUnit = CUNIT_GetPlayerUnit();
     if (!pUnit)
     {
         return;

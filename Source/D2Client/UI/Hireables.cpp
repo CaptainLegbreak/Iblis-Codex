@@ -459,11 +459,12 @@ void __stdcall HIREABLES_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         gdwPopupTick = GetTickCount();
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2UnitStrc* pCursorItem = pPlayer ? INVENTORY_GetCursorItem(pPlayer->pInventory) : 0;
     if (!pCursorItem)
     {
-        if (ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) != -1)
+        if (ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) != -1)
         {
             gbPopupPending = 1;
             if (GetTickCount() - gdwPopupTick >= 700)
@@ -557,7 +558,7 @@ void __stdcall HIREABLES_HirelingIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
-        if (!GAME_GetUIVarState(0x23) || GAME_GetUIVarState(0x24) || ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
+        if (!GAME_GetUIVarState(0x23) || GAME_GetUIVarState(0x24) || ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) == -1)
         {
             return;
         }
@@ -819,7 +820,7 @@ void __cdecl VIEW_DrawHelpPanelCel()
 
 
 // 0x00494EB0
-void __cdecl sub_00494EB0_DrawHelpShade()
+void __cdecl HIREABLES_DrawHelpShade()
 {
     PANEL_SetBlackColour();
     AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
@@ -1071,7 +1072,7 @@ int __fastcall INV_GetCenteredX(unsigned short nString, int nX)
 }
 
 // 0x00495410
-void __cdecl sub_00495410_DrawHelpText()
+void __cdecl HIREABLES_DrawHelpText()
 {
     unsigned short wszLine1Buf[100];
     Unicode* wszLine1 = (Unicode*)wszLine1Buf;
@@ -1288,7 +1289,7 @@ void __cdecl INV_DrawHelpScreen()
         VIEW_DrawHelpPanelCel();
         ROSTERPETS_DrawHelpColumn();
         VIEW_DrawHelpLinesHighRes();
-        sub_00495410_DrawHelpText();
+        HIREABLES_DrawHelpText();
     }
     else
     {
@@ -1527,7 +1528,7 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
 
 
 // 0x00493A00
-static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nUnitId, int nX)
+static void __stdcall HIREABLES_DrawLifeBar(int nPetType, int nUnitId, int nX)
 {
     int nLife = nPetType ? ROSTER_GetPetLife(nUnitId) : ROSTER_GetPartyLife(nUnitId);
     if (!nLife)
@@ -1610,7 +1611,7 @@ void __cdecl HIREABLES_UpdateHirelingPanel()
         gnGlobal_007BEEDC = 0;
         return;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int bHasPet = 0;
     if (ROSTERPETS_HasPets(pPlayer))
     {
@@ -1653,7 +1654,7 @@ void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     const int nUnitId = ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0);
     if (nUnitId != -1)
     {
@@ -1677,7 +1678,7 @@ void __stdcall HIREABLES_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x004934B0
 D2UnitStrc* __cdecl HIREABLES_GetPlayerCursorItem()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     return INVENTORY_GetCursorItem(pPlayer->pInventory);
@@ -1688,9 +1689,9 @@ int __stdcall HIREABLES_CanEquipHirelingItem(int playSound)
 {
  if(!GAME_IsExpansion()) return 0;
  int result=0;
- D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
+ D2UnitStrc* player=CUNIT_GetPlayerUnit();
  if(!player) return 0;
- D2UnitStrc* current=sub_00463DD0_GetPlayerUnit();
+ D2UnitStrc* current=CUNIT_GetPlayerUnit();
  D2UnitStrc* item=current ? INVENTORY_GetCursorItem(current->pInventory):0;
  if(!item) return 0;
  int petId=ROSTERPETS_FindPetIdByOwner(player,7,0);
@@ -1748,7 +1749,7 @@ int __cdecl HIREABLES_GetHelpMenuSetting()
 }
 
 // 0x00493B50
-static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2UnitStrc* pPlayer, int* pnX)
+static int __stdcall HIREABLES_DrawRosterIcons(int* pnY, int* pbAlternate, D2UnitStrc* pPlayer, int* pnX)
 {
     int bDrawn = 0;
     const unsigned short nIndex = CUNIT_GetPlayerPartyId(pPlayer);
@@ -1801,7 +1802,7 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
             if (!pCelFile)
                 continue;
 
-            sub_00493A00_DrawLifeBar(0, nUnitId, *pnX);
+            HIREABLES_DrawLifeBar(0, nUnitId, *pnX);
             HIREABLES_DrawRosterName(ROSTER_GetEntryName(pEntry), *pnX, *pnY);
             if (*pbAlternate)
             {
@@ -1829,7 +1830,7 @@ static int __stdcall sub_00493B50_DrawRosterIcons(int* pnY, int* pbAlternate, D2
 }
 
 // 0x00493CE0
-static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlternate, int* pnX, int* pnY)
+static int __stdcall HIREABLES_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlternate, int* pnX, int* pnY)
 {
     D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1838,7 +1839,7 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
     if (!tContext.pCelFile)
         return 0;
 
-    sub_00493A00_DrawLifeBar(7, nUnitId, *pnX);
+    HIREABLES_DrawLifeBar(7, nUnitId, *pnX);
     HIREABLES_DrawUnitName(CUNIT_FindClientUnit(nUnitId, 1), *pnX, *pnY);
     if (*pbAlternate)
     {
@@ -1865,7 +1866,7 @@ static int __stdcall sub_00493CE0_DrawSummonIcon(D2UnitStrc* pPlayer, int* pbAlt
 }
 
 // 0x00493E10
-static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
+static int __stdcall HIREABLES_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
 {
     D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1874,7 +1875,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
     if (!tContext.pCelFile)
         return 0;
 
-    sub_00493A00_DrawLifeBar(nPetType, nUnitId, *pnX);
+    HIREABLES_DrawLifeBar(nPetType, nUnitId, *pnX);
     HIREABLES_DrawPetTypeName(*pnX, *pnY, nPetType);
     if (*pbAlternate)
     {
@@ -1892,7 +1893,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
 }
 
 // 0x00493EB0
-static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY, int* pbAlternate, int nPetType, int* pnX)
+static int __stdcall HIREABLES_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY, int* pbAlternate, int nPetType, int* pnX)
 {
     const int nCount = ROSTERPETS_CountPets(pPlayer, nPetType);
     if (!nCount)
@@ -1907,7 +1908,7 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
         return 0;
 
     if (nCount == 1 && bSingle)
-        sub_00493A00_DrawLifeBar(nPetType, ROSTERPETS_FindPetIdByOwner(pPlayer, nPetType, 0), *pnX);
+        HIREABLES_DrawLifeBar(nPetType, ROSTERPETS_FindPetIdByOwner(pPlayer, nPetType, 0), *pnX);
 
     INV_DrawIconNumber(nCount, *pnX);
     HIREABLES_DrawPetTypeName(*pnX, *pnY, nPetType);
@@ -1927,7 +1928,7 @@ static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY
 }
 
 // 0x00493F80
-static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
+static int __stdcall HIREABLES_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, int* pbAlternate, int nPetType, int* pnY)
 {
     D2GfxDataStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1936,7 +1937,7 @@ static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, in
     if (!tContext.pCelFile)
         return 0;
 
-    sub_00493A00_DrawLifeBar(nPetType, nUnitId, *pnX);
+    HIREABLES_DrawLifeBar(nPetType, nUnitId, *pnX);
     HIREABLES_DrawPetTypeName(*pnX, *pnY, nPetType);
     if (*pbAlternate)
     {
@@ -1954,20 +1955,21 @@ static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, in
 }
 
 // 0x00494020
-void __cdecl sub_00494020_DrawPetIcons()
+void __cdecl HIREABLES_DrawPetIcons()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int nY = 0x48;
     int bAlternate = 0;
     int nX = 0xF;
-    const int nMode = sub_0045AE90_GetPanelSlideMode();
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+    const int nMode = AUTOMAP_GetPanelSlideMode();
     if (nMode != 3 && nMode != 2 && !GAME_GetUIVarState(9) && !GAME_GetUIVarState(0xB) && gnPetIconPopupState != 2)
     {
         if (GAME_IsExpansion() && !GAME_GetUIVarState(0x23) && gnPetIconPopupState != 2 && ROSTERPETS_FindPetIdByOwner(pPlayer, 7, 0) != -1)
             UI_SetUIVar(0x23, 0, 0);
 
-        int bAny = sub_00493B50_DrawRosterIcons(&nY, &bAlternate, pPlayer, &nX);
-        bAny |= sub_00493CE0_DrawSummonIcon(pPlayer, &bAlternate, &nX, &nY);
+        int bAny = HIREABLES_DrawRosterIcons(&nY, &bAlternate, pPlayer, &nX);
+        bAny |= HIREABLES_DrawSummonIcon(pPlayer, &bAlternate, &nX, &nY);
         for (int i = 0; i < sgptDataTables->nPetTypeTxtRecordCount; ++i)
         {
             D2PetTypeTxt* pPetTypeTxt = (i >= 0 && i < sgptDataTables->nPetTypeTxtRecordCount) ? &sgptDataTables->pPetTypeTxt[i] : 0;
@@ -1977,13 +1979,13 @@ void __cdecl sub_00494020_DrawPetIcons()
             switch (pPetTypeTxt->nIconType)
             {
             case 1:
-                bAny |= sub_00493E10_DrawPetIcon(pPlayer, &nX, &bAlternate, i, &nY);
+                bAny |= HIREABLES_DrawPetIcon(pPlayer, &nX, &bAlternate, i, &nY);
                 break;
             case 2:
-                bAny |= sub_00493EB0_DrawPetCountIcon(pPlayer, &nY, &bAlternate, i, &nX);
+                bAny |= HIREABLES_DrawPetCountIcon(pPlayer, &nY, &bAlternate, i, &nX);
                 break;
             case 3:
-                bAny |= sub_00493F80_DrawPetIcon3(pPlayer, &nX, &bAlternate, i, &nY);
+                bAny |= HIREABLES_DrawPetIcon3(pPlayer, &nX, &bAlternate, i, &nY);
                 break;
             }
         }

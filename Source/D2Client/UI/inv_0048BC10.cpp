@@ -61,15 +61,15 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-int __cdecl sub_0045AE90_GetPanelSlideMode(); // 0x0045AE90
+int __cdecl AUTOMAP_GetPanelSlideMode(); // 0x0045AE90
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit(); // 0x00463DD0
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
-void __fastcall sub_00468040_ResetCursorState(int nArg, int nArg2); // 0x00468040
+void __fastcall CURSOR_ResetCursorState(int nArg, int nArg2); // 0x00468040
 
 void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
@@ -79,7 +79,7 @@ int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-int __cdecl sub_00468830_GetCursorState(); // 0x00468830
+int __cdecl CURSOR_GetCursorState(); // 0x00468830
 
 void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
@@ -97,11 +97,11 @@ void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pText
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
-void __cdecl sub_004B8CB0_BeginTradeWait(); // 0x004B8CB0
+void __cdecl MONSTER_BeginTradeWait(); // 0x004B8CB0
 
 void __fastcall sub_004B9070(int nArg); // 0x004B9070
 
-extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
+extern "C" void __cdecl MONSTER_SendState(); // 0x004B90B0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -125,7 +125,7 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
-void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6850
+void __fastcall SKILLDESC_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6850
 
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
@@ -605,7 +605,7 @@ int __cdecl INV_ResetNpcButtons()
     gaNpcButtons[2].bActive = 0;
     gaNpcButtons[3].bActive = 0;
     gnInvPanelMode = 1;
-    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
     CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     return 1;
 }
@@ -615,12 +615,12 @@ int __cdecl INV_CanUseCursor()
 {
     if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 4 || gnInvPanelMode == 3)
     {
-        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        D2InventoryStrc* pInventory = CUNIT_GetPlayerUnit()->pInventory;
         if (INVENTORY_GetCursorItem(pInventory))
         {
             return 0;
         }
-        const int nMode = sub_00468830_GetCursorState();
+        const int nMode = CURSOR_GetCursorState();
         if (nMode == 7 || nMode == 1 || nMode == 4)
         {
             return 1;

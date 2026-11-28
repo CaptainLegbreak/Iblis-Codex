@@ -140,7 +140,7 @@ D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0
 
 int __fastcall GFXUTIL_GetCofLayerValue(void* pEntry, int nArg); // 0x004DB0D0
 
-int __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pItem, int nArg1, int nArg2, int nArg3, int nProp, int nArg5, int nArg6, int nArg7); // 0x004E60A0
+int __fastcall SKILLDESC_AddSetPropText(D2UnitStrc* pItem, int nArg1, int nArg2, int nArg3, int nProp, int nArg5, int nArg6, int nArg7); // 0x004E60A0
 
 
 
@@ -1055,7 +1055,8 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
     const int nSoundId = sub_004E0650_GetStringSound(nStringId);
     if (nSoundId)
     {
-        gtTextState.hHintSound = sub_004B9A00(nSoundId, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        gtTextState.hHintSound = sub_004B9A00(nSoundId, CUNIT_GetPlayerUnit(), 5, 0, 0);
         gnHintId = nSoundId;
     }
 

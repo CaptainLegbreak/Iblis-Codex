@@ -557,7 +557,8 @@ void __fastcall PLAYER_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
         PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x8000);
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!DUNGEON_GetActNoFromRoom(pRoom))
     {
         D2GfxLightStrc* pLight = DLIGHTMAP_MakeLightEntry(pUnit, pPlayer && pUnit != pPlayer, 0xD, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -703,7 +704,7 @@ void __fastcall PLAYER_FreeClientPlayer(D2UnitStrc* pUnit)
     if (pResource)
         DLIGHTMAP_ReleaseLight(pResource);
     CUNIT_FreeLight(pUnit);
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    if (pUnit == CUNIT_GetPlayerUnit())
         CUNIT_SetPlayerUnit(0);
     UNITS_FreePlayerData(0, pUnit);
     PLAYER_RefreshAdjacentPlayers();
@@ -737,7 +738,8 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
         NPCMENU_RefreshNpcEntries(pUnit);
     gnInTown = bInTown;
     sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
-    sub_0046BF30_CheckThroneLevel(pRoom);
+// build: symbol ?VIEW_CheckThroneLevel@* 0x0046BF30
+    VIEW_CheckThroneLevel(pRoom);
 }
 
 static inline int PLAYER_GetUnitXInline(D2UnitStrc* pUnit)
@@ -832,7 +834,7 @@ static void __stdcall PLAYER_RequestSkillString(D2UnitStrc* pUnit, int nIndex)
 // 0x004610C0
 static int __stdcall PLAYER_CheckSkillUse(D2SkillStrc** ppSkill, int* pUseState, D2UnitStrc* pUnit)
 {
-    if (pUnit != sub_00463DD0_GetPlayerUnit())
+    if (pUnit != CUNIT_GetPlayerUnit())
         return 1;
 
     if (!ppSkill || !*ppSkill)
@@ -911,7 +913,7 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
 {
     D2GfxLightStrc* pResource = D2Common_10958(pUnit, 0);
     if (pResource) DLIGHTMAP_ReleaseLight(pResource);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (nCommand != 19)
     {
         PLAYER_ReleaseUsedSkill(pUnit == pPlayer, pUnit);
@@ -947,7 +949,8 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 1:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+// build: symbol ?UNITMODE_SetPathTargetPos@* 0x004804A0
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -963,7 +966,7 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 23:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, 3);
             return 1;
@@ -1018,7 +1021,7 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
         return 1;
     }
     case 8:
-        if (sub_00463DD0_GetPlayerUnit() == pUnit) UI_CloseUIVars(1, 0);
+        if (CUNIT_GetPlayerUnit() == pUnit) UI_CloseUIVars(1, 0);
         pUnit->dwLastHitClass = pTarget->nParam3;
         if (SELECT_GetSelectedUnit() == pUnit)
         {
@@ -1169,7 +1172,7 @@ void __fastcall sub_00461A70_InteractWithUnit(D2UnitStrc* pUnit)
 {
     D2PlayerCmdStrc tCmd;
     tCmd.pTarget = pUnit;
-    tCmd.pPlayer = sub_00463DD0_GetPlayerUnit();
+    tCmd.pPlayer = CUNIT_GetPlayerUnit();
     tCmd.nMode = 2;
     PLAYER_InteractWithTarget(&tCmd, !pUnit ? -1 : pUnit->dwUnitId);
 }
@@ -1198,7 +1201,7 @@ static void __stdcall PLAYER_OperateObject(int nObjectIdArg, D2PlayerCmdStrc* pC
 
     D2_ASSERT(DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId), 0x4C4);
     int bSetMode = 1;
-    if ((!pObject ? -1 : pObject->dwClassId) == 0x3B && STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_JUST_PORTALED))
+    if ((!pObject ? -1 : pObject->dwClassId) == 0x3B && STATES_CheckState(CUNIT_GetPlayerUnit(), STATE_JUST_PORTALED))
         bSetMode = 0;
 
     if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
@@ -1247,7 +1250,7 @@ void __fastcall PLAYER_InteractWithUnitTarget(D2UnitStrc* pUnit)
 {
     D2PlayerCmdStrc tCmd;
     tCmd.pTarget = pUnit;
-    tCmd.pPlayer = sub_00463DD0_GetPlayerUnit();
+    tCmd.pPlayer = CUNIT_GetPlayerUnit();
     tCmd.nMode = 2;
     PLAYER_InteractWithTarget(&tCmd, !pUnit ? -1 : pUnit->dwUnitId);
 }
@@ -1255,7 +1258,7 @@ void __fastcall PLAYER_InteractWithUnitTarget(D2UnitStrc* pUnit)
 // 0x00461AC0
 int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer || !pSkill || !pTarget)
     {
         return 0;
@@ -1416,7 +1419,7 @@ static inline D2MonStatsTxt* E06_GetMonStatsTxtRecord(int nClassId)
 // 0x00461DC0
 static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2PlayerCmdStrc* pCmd)
 {
-    D2UnitStrc* pPlayerUnit = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayerUnit = CUNIT_GetPlayerUnit();
     int nRange;
     D2UnitStrc* pTarget = pCmd->pTarget;
     D2UnitStrc* pUnit = pCmd->pTarget;
@@ -1583,7 +1586,7 @@ static inline void E06_ClearPlayerMode(D2UnitStrc* pUnit)
 // 0x00461D60
 int __stdcall PLAYER_IsPendingMode(int nValue1, int nValue2)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     const int nUnitType = !pPlayer ? 6 : pPlayer->dwUnitType;
     if (!pPlayer || nUnitType != UNIT_PLAYER)
         return 0;
@@ -1655,12 +1658,13 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
     if ((pCmd->dwFlags & 2) && !pCmd->pTarget)
         bForce = 1;
     pCmd->pTarget = SELECT_GetSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
-    if (sub_00468830_GetCursorState() == 6)
+// build: symbol ?CURSOR_GetCursorState@* 0x00468830
+    if (CURSOR_GetCursorState() == 6)
     {
         UI_CancelCursorItemUse();
         return 1;
     }
-    if (sub_00468830_GetCursorState() == 8)
+    if (CURSOR_GetCursorState() == 8)
         MSG_SendDword(0x4C, -1);
     return 1;
 }
@@ -2027,9 +2031,9 @@ static int PLAYER_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
         return 1;
     }
 
-    if (sub_00468830_GetCursorState() == 6)
+    if (CURSOR_GetCursorState() == 6)
         UI_CancelCursorItemUse();
-    else if (sub_00468830_GetCursorState() == 8)
+    else if (CURSOR_GetCursorState() == 8)
         MSG_SendDword(0x4C, -1);
 
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pCmd->pPlayer->pInventory);
@@ -2153,7 +2157,7 @@ static int PLAYER_CmdRightSkillMove(D2PlayerCmdStrc* pCmd)
 }
 
 // 0x00462CA0
-static int sub_00462CA0_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
+static int PLAYER_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
 {
     PLAYER_FilterCommandMessage(pCmd);
     const int nPetId = ROSTERPETS_FindPetIdByOwner(pCmd->pPlayer, 7, 0);
@@ -2181,7 +2185,7 @@ int __fastcall PLAYER_PlayerCommand(int nCommand, int nX, int nY, unsigned char 
     AUTOMAP_ScreenToMap(&nX, &nY);
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;
-    tCmd.pPlayer = sub_00463DD0_GetPlayerUnit();
+    tCmd.pPlayer = CUNIT_GetPlayerUnit();
     tCmd.pTarget = SELECT_GetSelectedUnit();
     tCmd.nX = nX;
     tCmd.nY = nY;
@@ -2231,7 +2235,7 @@ int __fastcall PLAYER_PlayerCommand(int nCommand, int nX, int nY, unsigned char 
     case 5:
         SELECT_ClearSelection();
         tCmd.dwFlags |= 0x12;
-        return sub_00462CA0_UpdatePetCommandNoWalk(&tCmd);
+        return PLAYER_UpdatePetCommandNoWalk(&tCmd);
     }
     return 1;
 }
@@ -2267,7 +2271,7 @@ enum D2PlayerModes
 int __fastcall sub_004630E0_GetPlayerTableA(unsigned char* pTable, unsigned int nSize)
 {
     unsigned char aOther[16];
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (nSize < sizeof(aOther) || !pPlayer)
         return 0;
     memset(pTable, 0xFF, sizeof(aOther));
@@ -2279,7 +2283,7 @@ int __fastcall sub_004630E0_GetPlayerTableA(unsigned char* pTable, unsigned int 
 int __fastcall sub_00463130_GetPlayerTableB(unsigned char* pTable, unsigned int nSize)
 {
     unsigned char aOther[16];
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (nSize < sizeof(aOther) || !pPlayer)
         return 0;
     memset(pTable, 0xFF, sizeof(aOther));
@@ -2340,7 +2344,7 @@ inline int UNITS_GetUnitIdInline(D2UnitStrc* unit)
 }
 
 // 0x00463260
-static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
+static void PLAYER_UpdateStoredUnit(D2UnitStrc* unit)
 {
     if (unit != sub_00463DE0_GetPlayerUnit())
         return;
@@ -2361,7 +2365,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
     D2UnitStrc* related = D2Common_10958(unit, 0);
     if (related)
         DLIGHTMAP_ReleaseLight((D2GfxLightStrc*)related);
-    int const tArg1 = unit == sub_00463DD0_GetPlayerUnit();
+    int const tArg1 = unit == CUNIT_GetPlayerUnit();
     PLAYER_ReleaseUsedSkill(tArg1, unit);
     UNITS_SetUsedSkill(unit, 0);
     path = unit->pDynamicPath;
@@ -2382,7 +2386,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
             idle = 1;
             move = 2;
         }
-        if (sub_004804A0_SetPathTargetPos(unit, args[0], args[1]))
+        if (UNITMODE_SetPathTargetPos(unit, args[0], args[1]))
             UNITMODE_SetUnitMode(unit, move);
         else
             PLAYER_SetModeAndSync(1, unit, idle);
@@ -2415,7 +2419,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
 {
     void* pResource = D2Common_10958(pUnit, 0);
     if (pResource) DLIGHTMAP_ReleaseLight((D2GfxLightStrc*)pResource);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (nCommand != 19)
     {
         const int bKeep = pUnit == pPlayer;
@@ -2452,7 +2456,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 1:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -2468,7 +2472,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 23:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, 3);
             return 1;
@@ -2523,7 +2527,7 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
         return 1;
     }
     case 8:
-        if (sub_00463DD0_GetPlayerUnit() == pUnit) UI_CloseUIVars(1, 0);
+        if (CUNIT_GetPlayerUnit() == pUnit) UI_CloseUIVars(1, 0);
         pUnit->dwLastHitClass = pTarget->nParam3;
         if (SELECT_GetSelectedUnit() == pUnit)
         {
@@ -2565,14 +2569,14 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
 }
 
 // 0x00463390
-void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
+void __fastcall PLAYER_UpdatePlayerMode(D2UnitStrc* pUnit)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     int bPathDone = 0;
     if (gaPlayerModeInfo[pUnit->dwAnimMode].nType == 1)
     {
         bPathDone = UNITMODE_UpdateUnitPath(pUnit);
-        if (pUnit == sub_00463DD0_GetPlayerUnit())
+        if (pUnit == CUNIT_GetPlayerUnit())
             PLAYER_UpdateRoomPosition(pUnit);
         UNITSND_UpdateFootsteps(pUnit);
     }
@@ -2592,7 +2596,7 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
                     SKILLS_DoUsedSkill(pUnit);
                     *(unsigned int*)&bRelease = 0;
                 }
-                if (pUnit == sub_00463DD0_GetPlayerUnit())
+                if (pUnit == CUNIT_GetPlayerUnit())
                     PLAYER_UpdateRoomPosition(pUnit);
             }
 
@@ -2673,13 +2677,13 @@ void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* pUnit)
     if (UNITS_IsCurrentRoomInvalid(pUnit))
     {
         UNITS_SetCurrentRoomInvalid(pUnit, 0);
-        if (pUnit == sub_00463DD0_GetPlayerUnit())
+        if (pUnit == CUNIT_GetPlayerUnit())
             PLAYER_UpdateRoomState(pUnit);
     }
 
     D2COMMON_10193_PATH_AdjustDirection(pPath);
     if (pUnit->dwAnimMode == 3)
-        sub_00463260_UpdateStoredUnit(pUnit);
+        PLAYER_UpdateStoredUnit(pUnit);
     if (STATES_CheckStateMaskActiveOnUnit(pUnit))
         SKILLS_RunStateActiveFuncs(pUnit);
     PLAYER_PlaceOnFreeCoords(pUnit);

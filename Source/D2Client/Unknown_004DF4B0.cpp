@@ -42,7 +42,7 @@ struct D2CellGridViewStrc
     void __thiscall sub_004DF510_DrawCellNodes();
 };
 
-int __cdecl sub_0045AE90_GetPanelSlideMode(); // 0x0045AE90
+int __cdecl AUTOMAP_GetPanelSlideMode(); // 0x0045AE90
 
 void __fastcall SCMD_ReadGridCell(int nA, int nB, unsigned char* pByte0, unsigned char* pByte1, unsigned char* pByte2, unsigned char* pByte3); // 0x00475AA0
 
@@ -66,7 +66,7 @@ extern int gnAmbientDelay; // 0x007C8C94
 
 extern int gnAmbientTick; // 0x007C8C98
 
-void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 struct D2ClientModuleListStrc
 {
@@ -129,7 +129,7 @@ void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
     const int nCells = nSize;
     int nCount = nCells * nCells;
     D2GridCellStrc* pCell = pCells;
-    const int nArg = sub_0045AE90_GetPanelSlideMode();
+    const int nArg = AUTOMAP_GetPanelSlideMode();
     while (nCount--)
     {
         for (D2CellNodeStrc* pNode = pCell->pNodes; pNode; pNode = pNode->pNext)

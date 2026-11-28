@@ -561,7 +561,8 @@ static void TEXT_SetQuestPage_Inline(int nPage)
 // 0x004A2300
 void __cdecl QUESTLOG_UpdateQuestPage()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -945,7 +946,8 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
 // 0x004A2970
 int __stdcall QUESTLOG_IsMouseOnQuestButton(int nX, int nY)
 {
-    const int nMode = sub_0045AE90_GetPanelSlideMode();
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+    const int nMode = AUTOMAP_GetPanelSlideMode();
     const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
     const int nLeft = gaButtonLayouts[nIndex].nTextX + (nMode == 2 ? (gnScreenWidth - 0x280) / 2 : 0);
     const int nTop = gaButtonLayouts[nIndex].nTop + gnScreenHeight - 0x1E0;
@@ -994,7 +996,7 @@ void __cdecl QUESTLOG_DrawQuestButton()
         return;
     }
 
-    const int nMode = sub_0045AE90_GetPanelSlideMode();
+    const int nMode = AUTOMAP_GetPanelSlideMode();
     if (nMode == 3)
         return;
     if (GAME_GetUIVarState(0x0F))
@@ -1010,13 +1012,13 @@ void __cdecl QUESTLOG_DrawQuestButton()
     const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF58));
     int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts[nIndex].nTextX + 1;
     const int nTextY = gaButtonLayouts[nIndex].nTextY + gnScreenHeight - 0x1E0;
-    if (sub_0045AE90_GetPanelSlideMode() == 2)
+    if (AUTOMAP_GetPanelSlideMode() == 2)
         nTextX += (gnScreenWidth - 0x280) / 2;
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
 
     int nCelX = gaButtonLayouts[nIndex].nTextX;
     const int nCelY = gaButtonLayouts[nIndex].nBottom + gnScreenHeight - 0x1E0;
-    if (sub_0045AE90_GetPanelSlideMode() == 2)
+    if (AUTOMAP_GetPanelSlideMode() == 2)
         nCelX += (gnScreenWidth - 0x280) / 2;
     sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
 
@@ -1237,7 +1239,7 @@ void __cdecl TEXT_ClearQuestFlags()
 }
 
 // 0x004A3050
-void __cdecl sub_004A3050_ResetQuestPages()
+void __cdecl QUESTLOG_ResetQuestPages()
 {
     gaQuestPageDefault[0] = -1;
     gaQuestPageDefault[1] = -1;
@@ -1367,7 +1369,7 @@ void __fastcall QUESTLOG_SpawnQuestUnits(int nX, int nY)
 {
     if (gtQuestLog.bHasQuestPacketValue)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         int nCount = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, 3) + 2;
         for (int i = 0; i < nCount; ++i)
         {

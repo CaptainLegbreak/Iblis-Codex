@@ -148,19 +148,19 @@ int __cdecl sub_004817D0()
 }
 
 // 0x004817E0
-int __cdecl sub_004817E0_GetSoundEnvironCount()
+int __cdecl SOUNDHDR_GetSoundEnvironCount()
 {
     return gnSoundEnvironTxtRecordCount;
 }
 
 // 0x004817F0
-int __cdecl sub_004817F0_GetSongMin()
+int __cdecl SOUNDHDR_GetSongMin()
 {
     return gnSongMin;
 }
 
 // 0x00481800
-int __cdecl sub_00481800_GetSongMax()
+int __cdecl SOUNDHDR_GetSongMax()
 {
     return gnSongMax;
 }
@@ -740,7 +740,8 @@ void __cdecl SOUNDHDR_TickSound()
         SKILLDESC_UpdateEnvironSounds(gdwSoundTick);
         sub_004DCAA0_UpdateLevelSong(gdwSoundTick);
         SOUNDHDR_UpdateCache(gdwSoundTick);
-        sub_004BA020_UpdateSounds(gdwSoundTick);
+// build: symbol ?SOUNDINST_UpdateSounds@* 0x004BA020
+        SOUNDINST_UpdateSounds(gdwSoundTick);
         sub_004DF890_ReleaseFinishedSlots();
         ++gdwSoundTick;
         Sleep(0);

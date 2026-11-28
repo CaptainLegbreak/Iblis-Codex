@@ -1443,7 +1443,7 @@ void __cdecl CMDTBL_CycleSetting()
 }
 
 // 0x00468A90
-void __cdecl sub_00468A90_ToggleSetting()
+void __cdecl CMDTBL_ToggleSetting()
 {
 // build: symbol ?AUTOMAP_SaveAutomapParty@* 0x004577C0
     AUTOMAP_SaveAutomapParty(!AUTOMAP_GetAutomapParty());
@@ -1668,9 +1668,10 @@ void __cdecl CMDTBL_Hotkey15()
 }
 
 // 0x00468F00
-void __cdecl sub_00468F00_ShowBelt()
+void __cdecl CMDTBL_ShowBelt()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, BODYLOC_BELT);
@@ -1761,7 +1762,7 @@ void __cdecl CMDTBL_Phrase20()
 void __cdecl CMDTBL_HotkeyRunOn()
 {
     GAME_SetRunKeyHeld(1);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return;
     if (GAME_IsExitPending())
@@ -1856,7 +1857,7 @@ void __cdecl CMDTBL_HotkeyPetUi()
 {
     if (!GAME_IsExpansion())
         return;
-    if (ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
+    if (ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) == -1)
         return;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!FOG_IsExpansion())
@@ -1874,7 +1875,7 @@ void __cdecl CMDTBL_HotkeyClearMessages()
 void __cdecl CMDTBL_HotkeyRunOff()
 {
     GAME_SetRunKeyHeld(0);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return;
     if (GAME_GetAlwaysRun())
@@ -1909,7 +1910,7 @@ void __cdecl CMDTBL_HotkeyUiVarOn()
 }
 
 // 0x00469230
-void __cdecl sub_00469230_RunMButtonDown()
+void __cdecl CMDTBL_RunMButtonDown()
 {
     if (gpfnMButtonDownCommand)
     {
@@ -1919,7 +1920,7 @@ void __cdecl sub_00469230_RunMButtonDown()
 }
 
 // 0x00469270
-void __cdecl sub_00469270_RunMButtonUp()
+void __cdecl CMDTBL_RunMButtonUp()
 {
     if (gpfnMButtonUpCommand)
     {
@@ -1929,7 +1930,7 @@ void __cdecl sub_00469270_RunMButtonUp()
 }
 
 // 0x004692B0
-void __cdecl sub_004692B0_RunXButton1Down()
+void __cdecl CMDTBL_RunXButton1Down()
 {
     if (gpfnXButton1DownCommand)
     {
@@ -1939,7 +1940,7 @@ void __cdecl sub_004692B0_RunXButton1Down()
 }
 
 // 0x004692F0
-void __cdecl sub_004692F0_RunXButton1Up()
+void __cdecl CMDTBL_RunXButton1Up()
 {
     if (gpfnXButton1UpCommand)
     {
@@ -1949,7 +1950,7 @@ void __cdecl sub_004692F0_RunXButton1Up()
 }
 
 // 0x00469330
-void __cdecl sub_00469330_RunXButton2Down()
+void __cdecl CMDTBL_RunXButton2Down()
 {
     if (gpfnXButton2DownCommand)
     {
@@ -2040,7 +2041,8 @@ public:
 // Kept out of line: 0x00469C20 calls it with its arguments in eax/edx/ecx, a convention only a static of this unit
 // gets, so it is this unit's function; with /Ob2 it would otherwise be inlined there.
 // noinline: the original calls this; without it the compiler expands it into 0x00469C20.
-static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
+// build: symbol ?CMDTBL_CheckWheelKey@* 0x00469420
+static __declspec(noinline) int CMDTBL_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
 {
     switch (nKey)
     {
@@ -2350,7 +2352,7 @@ int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short*
     int bError = 1;
     if (CMDTBL_IsValidKey(nKey))
     {
-        if (!sub_00469420_CheckWheelKey(nId, nKey, pKey))
+        if (!CMDTBL_CheckWheelKey(nId, nKey, pKey))
         {
             return 0;
         }

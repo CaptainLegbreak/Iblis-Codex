@@ -142,7 +142,7 @@ D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequ
 
 
 
-int __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pItem, int nArg1, int nArg2, int nArg3, int nProp, int nArg5, int nArg6, int nArg7); // 0x004E60A0
+int __fastcall SKILLDESC_AddSetPropText(D2UnitStrc* pItem, int nArg1, int nArg2, int nArg3, int nProp, int nArg5, int nArg6, int nArg7); // 0x004E60A0
 
 
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
@@ -604,7 +604,7 @@ static int MISSILE_UseCharge(D2UnitStrc* pUnit); // 0x004CD310
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 
 
-void __fastcall sub_004BA840_StopSound(void* pUnitSfx);                                                                 // 0x004BA840
+void __fastcall SOUNDINST_StopSound(void* pUnitSfx);                                                                 // 0x004BA840
 
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(void* pAct, int nX, int nY);                             // 0x00619DA0
@@ -1442,7 +1442,7 @@ int __fastcall MISSILE_CltHitForward(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 }
 
 // 0x004D04D0
-int __fastcall sub_004D04D0_HitRing64(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+int __fastcall MISSILE_HitRing64(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
     if (pMissilesTxtRecord && pMissilesTxtRecord->wCltHitSubMissile[0] >= 0)
@@ -5517,7 +5517,8 @@ void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile)
     case 1:
     case 6:
     case 8:
-        if (CUNIT_GetOwnerUnit(pMissile) == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if (CUNIT_GetOwnerUnit(pMissile) == CUNIT_GetPlayerUnit())
             bRepeat = 1;
         break;
     }
@@ -6236,7 +6237,7 @@ static void __stdcall MISSILE_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissil
     }
 
     D2SeedStrc tSeed;
-    if (pOwner && pOwner->dwUnitType == UNIT_PLAYER && sub_00463DD0_GetPlayerUnit() != pOwner)
+    if (pOwner && pOwner->dwUnitType == UNIT_PLAYER && CUNIT_GetPlayerUnit() != pOwner)
     {
         nChance = 100;
         SEED_InitLowSeed(&tSeed, 0);
@@ -6297,7 +6298,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
     }
     else
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && !COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pPlayer), nX, nY)
             && !DUNGEON_FindRoomBySubtileCoordinates(gpGlobal_007A0634, nX, nY))
         {
@@ -6540,7 +6541,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
                 void* pUnitSfx = UNITSND_FindUnitSfxInRange(pMissileParams->pOwner, 0x13A);
                 if (pUnitSfx)
                 {
-                    sub_004BA840_StopSound(pUnitSfx);
+                    SOUNDINST_StopSound(pUnitSfx);
                 }
             }
         }

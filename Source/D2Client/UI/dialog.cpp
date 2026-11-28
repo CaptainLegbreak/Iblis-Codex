@@ -107,7 +107,7 @@ struct SelectionState
     HandlerNode* handlers;
 };
 
-static void __cdecl sub_004B7100_Select(SelectionState* state, int step); // 0x004B7100
+static void __cdecl DIALOG_Select(SelectionState* state, int step); // 0x004B7100
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -387,14 +387,15 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (!pDialog->pfnOutside())
                 return;
-            if (GAME_GetUIVarState(6) && TEXT_IsInPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+            if (GAME_GetUIVarState(6) && TEXT_IsInPanelButton(AUTOMAP_GetPanelSlideMode(), nX, nY))
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_00420290_BreakHandlerChain(pMsg);
             }
 // build: symbol ?TEXT_IsInRightPanelButton@* 0x004A6630
-            if (GAME_GetUIVarState(7) && TEXT_IsInRightPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
+            if (GAME_GetUIVarState(7) && TEXT_IsInRightPanelButton(AUTOMAP_GetPanelSlideMode(), nX, nY))
                 goto handled;
             return;
         }
@@ -482,9 +483,9 @@ extern "C" void __stdcall DIALOG_WheelMsg(Message* message)
                 return;
             }
             if (turns > 0)
-                sub_004B7100_Select(state, -1);
+                DIALOG_Select(state, -1);
             else
-                sub_004B7100_Select(state, 1);
+                DIALOG_Select(state, 1);
         }
     }
     message->handled = 1;
@@ -533,11 +534,11 @@ extern "C" void __stdcall DIALOG_SelectPreviousMsg(Message* message)
     for (HandlerNode* node = gVar_007C0E54->handlers; node; node = node->next)
         if (node->object && node->object->previous1(message) == 1)
             return;
-    sub_004B7100_Select(state, -1);
+    DIALOG_Select(state, -1);
 }
 
 // 0x004B7100
-static void __cdecl sub_004B7100_Select(SelectionState* state, int step)
+static void __cdecl DIALOG_Select(SelectionState* state, int step)
 {
     if (state->activeCount > 1)
     {
@@ -566,7 +567,7 @@ extern "C" void __stdcall DIALOG_SelectNextMsg(Message* message)
     for (HandlerNode* node = gVar_007C0E54->handlers; node; node = node->next)
         if (node->object && node->object->next1(message) == 1)
             return;
-    sub_004B7100_Select(state, 1);
+    DIALOG_Select(state, 1);
 }
 
 // 0x004B7870
@@ -580,7 +581,7 @@ extern "C" void __stdcall DIALOG_SelectPreviousAltMsg(Message* message)
     for (HandlerNode* node = gVar_007C0E54->handlers; node; node = node->next)
         if (node->object && node->object->previous2(message) == 1)
             return;
-    sub_004B7100_Select(state, -1);
+    DIALOG_Select(state, -1);
 }
 
 // 0x004B78F0
@@ -594,7 +595,7 @@ extern "C" void __stdcall DIALOG_SelectNextAltMsg(Message* message)
     for (HandlerNode* node = gVar_007C0E54->handlers; node; node = node->next)
         if (node->object && node->object->next2(message) == 1)
             return;
-    sub_004B7100_Select(state, 1);
+    DIALOG_Select(state, 1);
 }
 
 // 0x004B7970
@@ -1098,7 +1099,7 @@ void __fastcall DIALOG_GetRect(D2ClientDialogStrc* pDialog, D2RectStrc* pRect)
 }
 
 // 0x004B85E0
-int __cdecl sub_004B85E0_GetDialogCount()
+int __cdecl DIALOG_GetDialogCount()
 {
     return gdwGlobal_007C0E5C;
 }
@@ -1144,7 +1145,7 @@ void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* w
 }
 
 // 0x004B70F0
-int __cdecl sub_004B70F0_GetDialogList()
+int __cdecl DIALOG_GetDialogList()
 {
     return gdwGlobal_007C0E54;
 }

@@ -315,7 +315,7 @@ void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc
 }
 
 // 0x00451E70
-int __fastcall sub_00451E70_RegisterWindowHandlers(void* hWnd)
+int __fastcall SCMD_RegisterWindowHandlers(void* hWnd)
 {
     D2_ASSERT(hWnd, 0x178);
     SCMD_RegisterMsgHandlers((int)hWnd, gaWindowMsgHandlers, 4);
@@ -324,7 +324,7 @@ int __fastcall sub_00451E70_RegisterWindowHandlers(void* hWnd)
 }
 
 // 0x00451EB0
-void __fastcall sub_00451EB0_UnregisterWindowHandlers(void* hWnd)
+void __fastcall SCMD_UnregisterWindowHandlers(void* hWnd)
 {
     D2_ASSERT(hWnd, 0x166);
     for (unsigned int i = 0; i < 4; ++i)
@@ -352,7 +352,7 @@ int gnHoverTextState; // 0x007A2C78
 
 
 // 0x00452550
-void __fastcall sub_00452550_SetHoverText(const Unicode* pText, int nState)
+void __fastcall SCMD_SetHoverText(const Unicode* pText, int nState)
 {
     if (!pText)
     {
@@ -386,7 +386,7 @@ inline D2ItemTypesTxt* DATATBLS_GetItemTypesTxtRecord(int nItemType)
 
 
 // 0x00478A20
-extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType)
+extern "C" D2PetTypeTxt* __fastcall SKILLS_GetPetTypeTxtRecord(int nPetType)
 {
     if (nPetType >= 0 && nPetType < sgptDataTables->nPetTypeTxtRecordCount)
     {

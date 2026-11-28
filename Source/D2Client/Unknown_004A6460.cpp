@@ -848,7 +848,7 @@ struct D2GSPacketSrv5A;
 
 struct D2SuperUniquesTxt;
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 
 
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
@@ -1210,7 +1210,8 @@ void __cdecl TEXT_UpdateLevelUpButtons()
 {
     if (GAME_GetUIVarState(0xB))
         return;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (GAME_GetUIVarState(6))
     {
         if (!STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
@@ -1304,7 +1305,8 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
     {
         return;
     }
-    int border = sub_0045AE90_GetPanelSlideMode();
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+    int border = AUTOMAP_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (TEXT_IsInPanelButton(border, x, y))
@@ -1351,7 +1353,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
     const int nResolution = D2GFX_GetResolutionMode();
     if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
         return;
-    int border = sub_0045AE90_GetPanelSlideMode();
+    int border = AUTOMAP_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2)
     {
         if (TEXT_IsInRightPanelButton(border, x, y))
@@ -1399,7 +1401,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     CURSOR_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gbStatButtonPressed && CLIENT_HitPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
+        if (gbStatButtonPressed && CLIENT_HitPanelButton(AUTOMAP_GetPanelSlideMode(), nX, nY))
         {
             gbStatButtonPressed = 0;
             UI_SetUIVar(6, 1, 0);
@@ -1445,7 +1447,7 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     CURSOR_HandleButtonUp(pMsg);
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
+        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(AUTOMAP_GetPanelSlideMode(), nX, nY))
         {
             gbSkillButtonPressed = 0;
             UI_SetUIVar(7, 1, 0);
@@ -1490,7 +1492,7 @@ bool __stdcall TEXT_IsStatButtonHidden(int nArg)
 int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 // 0x004A6A70
-void __cdecl sub_004A6A70_DrawLeftPanelButton()
+void __cdecl TEXT_DrawLeftPanelButton()
 {
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -1513,7 +1515,7 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
 // 0x004A6B30
 void __cdecl TEXT_DrawStatButton()
 {
-    const int nBorder = sub_0045AE90_GetPanelSlideMode();
+    const int nBorder = AUTOMAP_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2 && TEXT_IsStatButtonHidden(nBorder))
     {
         gbStatButtonPressed = 0;
@@ -1584,7 +1586,7 @@ bool __stdcall TEXT_IsSkillButtonHidden(int nArg)
 }
 
 // 0x004A6DA0
-void __cdecl sub_004A6DA0_DrawRightPanelButton()
+void __cdecl TEXT_DrawRightPanelButton()
 {
     if (D2GFX_GetResolutionMode() != 2)
     {
@@ -1607,7 +1609,7 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
 // 0x004A6E60
 void __cdecl TEXT_DrawSkillButton()
 {
-    const int nBorder = sub_0045AE90_GetPanelSlideMode();
+    const int nBorder = AUTOMAP_GetPanelSlideMode();
     if (D2GFX_GetResolutionMode() != 2 && TEXT_IsSkillButtonHidden(nBorder))
     {
         gbSkillButtonPressed = 0;
@@ -1827,7 +1829,7 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
         return 0;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int nPercent = 100;
     const int nDifficulty = GAME_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 398);
@@ -1883,7 +1885,7 @@ int __stdcall TEXT_GetChanceToHit(int nAttackRate)
 // 0x004A74A0
 int __cdecl MONSTER_GetPlayerDefensePercent()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int nPercent = 100;
     int nDefense = UNITS_GetDefense(pPlayer);
     nDefense += STATLIST_UnitGetStatValue(pPlayer, STAT_ARMORCLASS_VS_HTH, 0);
@@ -1974,11 +1976,12 @@ int __fastcall sub_00498DC0(SMSGHANDLER_PARAMS* pMsg);
 
 
 // 0x004A76C0
-static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
+static int TEXT_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (D2GFX_GetResolutionMode() == 2 && !AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && pMsg->nXpos <= gnScreenWidth / 2 && pMsg->nYpos < gnScreenHeight - 0x2F)
     {
-        if (sub_00468830_GetCursorState() == 6)
+// build: symbol ?CURSOR_GetCursorState@* 0x00468830
+        if (CURSOR_GetCursorState() == 6)
             UI_CancelCursorItemUse();
         pMsg->bReturn = 1;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -1988,7 +1991,7 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004A7720
-void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
@@ -2003,7 +2006,7 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
         {
             for (int i = 0; i < 4; ++i)
@@ -2025,7 +2028,7 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
-    if (!sub_004A76C0_ClaimLeftPanelClick(pMsg))
+    if (!TEXT_ClaimLeftPanelClick(pMsg))
         pMsg->bReturn = 0;
 }
 
@@ -2033,7 +2036,7 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
 // 0x004A78C0
-void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
@@ -2046,7 +2049,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     }
     if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
         {
             const int nScreenH = gnScreenHeight;
@@ -2077,7 +2080,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
-    if (!sub_004A76C0_ClaimLeftPanelClick(pMsg))
+    if (!TEXT_ClaimLeftPanelClick(pMsg))
         pMsg->bReturn = 0;
 }
 
@@ -2095,7 +2098,7 @@ void __cdecl TEXT_SetGoldDialogFlag()
 }
 
 // One line of the character panel's fixed text: its box, the string and
-// the string's length, which sub_004A7AA0_InitTextEntryLengths fills in.
+// the string's length, which TEXT_InitTextEntryLengths fills in.
 #pragma pack(push, 2)
 struct D2CharTextStrc
 {
@@ -2110,7 +2113,7 @@ struct D2CharTextStrc
 extern D2CharTextStrc gaCharTexts[15]; // 0x00724818
 
 // 0x004A7AA0
-void __cdecl sub_004A7AA0_InitTextEntryLengths()
+void __cdecl TEXT_InitTextEntryLengths()
 {
     for (unsigned int i = 0; i < sizeof(gaCharTexts) / sizeof(gaCharTexts[0]); ++i)
     {
@@ -2198,7 +2201,7 @@ Unicode* __fastcall win2Unicode(Unicode* pDest, const char* szSource, int nCount
 
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
-static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY); // 0x004A7AE0
+static void __stdcall TEXT_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY); // 0x004A7AE0
 
 static inline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
 {
@@ -2211,7 +2214,7 @@ static inline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
 }
 
 // 0x004A7AE0
-static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY)
+static void __stdcall TEXT_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY)
 {
     D2TextCellStrc aText[0x40];
     PANEL_SetBlackColour();
@@ -2278,9 +2281,9 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
 
 
 // 0x004A7D00
-void __cdecl sub_004A7D00_DrawCharStats()
+void __cdecl TEXT_DrawCharStats()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int nColor = 0;
     int nWidth;
     D2GfxDataStrc tCel;
@@ -2380,7 +2383,7 @@ NEXT_TEXT:;
     const int nLeftChance = TEXT_GetChanceToHit(SKILLDESC_CallSkillDescFunc(pPlayer, 1));
     const int nRightChance = TEXT_GetChanceToHit(SKILLDESC_CallSkillDescFunc(pPlayer, 0));
     const int nPercent = MONSTER_GetPlayerDefensePercent();
-    sub_004A7AE0_DrawHoverValueBox(nLeftChance, nRightChance, nMouseX, nMouseY);
+    TEXT_DrawHoverValueBox(nLeftChance, nRightChance, nMouseX, nMouseY);
     TEXT_DrawBlockChanceHover(nMouseX, nMouseY, nPercent);
     D2Win_10127_SetFont(1);
 
@@ -2441,7 +2444,7 @@ NEXT_TEXT:;
         case STAT_HITPOINTS:
         {
             nValue >>= 8;
-            D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
+            D2UnitStrc* pUnit = CUNIT_GetPlayerUnit();
             if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode != 0x11 && (unsigned int)nValue <= 1)
             {
                 nValue = 1;
@@ -2694,7 +2697,7 @@ DRAW_FIELD:
 }
 
 // 0x004A89D0
-D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId)
+D2SkillDescTxt* __fastcall TEXT_SkillDescRec(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxt = CLIENT_GetSkillsTxtRecord(nSkillId);
     if (pSkillsTxt)

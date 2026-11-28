@@ -817,7 +817,8 @@ int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
     {
 // build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
         SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
-        switch (sub_0045AE90_GetPanelSlideMode())
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+        switch (AUTOMAP_GetPanelSlideMode())
         {
         case 1:
             nX -= gnScreenWidth / 4;
@@ -931,7 +932,7 @@ void __cdecl GFXUTIL_DrawFadeBox()
     int nYEnd = gnScreenHeight - 47;
     int nXEnd = gnScreenWidth;
     int nXStart = 0;
-    switch (sub_0045AE90_GetPanelSlideMode())
+    switch (AUTOMAP_GetPanelSlideMode())
     {
     case 1:
         nXEnd -= gnScreenWidth / 2;
@@ -1202,7 +1203,7 @@ int __fastcall GFXUTIL_SkillStartPlace(D2UnitStrc* pUnit, int nSkillId, int nSki
 
 enum { SUCCESS_VALUE = 1 };
 // 0x004E0BD0
-int __fastcall sub_004E0BD0_CltStartClearCollision(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall GFXUTIL_CltStartClearCollision(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     if (pUnit)
     {
@@ -1229,7 +1230,7 @@ int __fastcall GFXUTIL_CltDoResetActionFrame(D2UnitStrc* pUnit, int nSkillId, in
 }
 
 // 0x004E0C90
-int __fastcall sub_004E0C90_SetSkillTargetPos(D2UnitStrc* unit, int skillId, int skillLevel)
+int __fastcall GFXUTIL_SetSkillTargetPos(D2UnitStrc* unit, int skillId, int skillLevel)
 {
     D2UnitStrc* target = CUNIT_GetPathTargetUnit(unit);
     if (!target) return 0;
@@ -1317,7 +1318,7 @@ int __fastcall GFXUTIL_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, int n
 }
 
 // 0x004E0EB0
-int __fastcall sub_004E0EB0_CltStartPathToTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall GFXUTIL_CltStartPathToTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     if (!CUNIT_GetPathTargetUnit(pUnit))
     {
@@ -1524,7 +1525,8 @@ static int __stdcall GFXUTIL_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode,
     switch (nUnitType)
     {
     case 0:
-        if (!gbCharArchiveLoaded && pUnit == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if (!gbCharArchiveLoaded && pUnit == CUNIT_GetPlayerUnit())
         {
             nDirections = 16;
         }
@@ -1554,7 +1556,8 @@ static int __stdcall GFXUTIL_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode,
 
     case 3:
     {
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(nClassId);
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+        D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(nClassId);
         if (pMissilesTxtRecord)
         {
             nDirections = pMissilesTxtRecord->nNumDirections;
@@ -2244,7 +2247,7 @@ found:
         {
         case 0:
         {
-            if (pUnit == sub_00463DD0_GetPlayerUnit())
+            if (pUnit == CUNIT_GetPlayerUnit())
                 pToken->nFlags |= 8;
 
             if (!pInventory)

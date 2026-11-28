@@ -56,7 +56,8 @@ void __cdecl sub_004B17A0_ProcessNpcEntries()
 {
 // build: symbol ?gnNpcEntryCount@* 0x0072554C
     for (int i = 0; i < gnNpcEntryCount; ++i)
-        sub_004B1680_PickNpcChoice(&gaNpcEntries[i]);
+// build: symbol ?NPCMENU_PickNpcChoice@* 0x004B1680
+        NPCMENU_PickNpcChoice(&gaNpcEntries[i]);
     gtNpcMenu.bEntriesProcessed = 1;
 }
 

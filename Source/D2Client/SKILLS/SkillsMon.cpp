@@ -473,7 +473,7 @@ int __fastcall SKILLSMON_MissileRing(D2UnitStrc* pUnit, int nSkillId, int nSkill
 }
 
 // 0x004E2320
-int __fastcall sub_004E2320_StartSkillRollParam(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSMON_StartSkillRollParam(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -846,7 +846,7 @@ int __fastcall SKILLSMON_CreateTargetMissile(D2UnitStrc* pUnit, int nSkillId, in
 }
 
 // 0x004E39A0
-int __fastcall sub_004E39A0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int nArg)
+int __fastcall SKILLSMON_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int nArg)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!pRoom)
@@ -883,7 +883,8 @@ int __fastcall sub_004E39A0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int
 // 0x004EC040
 void __fastcall SKILLSMON_DescIfRecord(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nArg3, int nArg4, int nArg5, int nArg6)
 {
-    if (pArg && pSkillsTxtRecord && sub_004A89D0_SkillDescRec(pSkillsTxtRecord->nSkillId))
+// build: symbol ?TEXT_SkillDescRec@* 0x004A89D0
+    if (pArg && pSkillsTxtRecord && TEXT_SkillDescRec(pSkillsTxtRecord->nSkillId))
     {
         SKILLDESC_DrawSkillWeaponLine(pUnit, pArg, pSkillsTxtRecord, nArg3, nArg4, nArg5, nArg6);
     }
@@ -1110,7 +1111,7 @@ static inline int UNITS_GetClassIdInl(D2UnitStrc* pUnit)
 }
 
 // 0x004F0C20
-int __fastcall sub_004F0C20_StoreTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSMON_StoreTargetPos(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -1176,7 +1177,7 @@ int __fastcall SKILLSMON_RequestAtSkillPos(D2UnitStrc* pUnit, int nSkillId, int 
 }
 
 // 0x004F0DD0
-int __fastcall sub_004F0DD0_StoreTargetInfo(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSMON_StoreTargetInfo(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (pSkill)

@@ -1022,7 +1022,7 @@ void __fastcall NPCMENU_FlagNpcEntries(D2GSPacket91Strc* pPacket); // 0x004B3510
 
 void __fastcall ITEM_ApplyTownPortalState(D2PacketRecord7Strc* pPacket); // 0x004BDF30
 
-void __fastcall sub_0049CF90_OpenWaypointPanel(D2PacketRecord21Strc* pPacket); // 0x0049CF90
+void __fastcall TEXT_OpenWaypointPanel(D2PacketRecord21Strc* pPacket); // 0x0049CF90
 
 void __fastcall TEXT_SetNameFromPacket(D2PacketRecord21Strc* pPacket); // 0x004B9010
 
@@ -1274,7 +1274,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 
 // 0x00452270
-Unicode* __fastcall sub_00452270_AppendDigitText(Unicode* pText, int nValue)
+Unicode* __fastcall SCMD_AppendDigitText(Unicode* pText, int nValue)
 {
     char szNumber[4];
     unsigned short wszNumberBuf[3];
@@ -1553,7 +1553,8 @@ void __fastcall SCMD_HandleLoadComplete(void* pPacket)
     if (pRoom)
     {
         GFX_PreloadForce(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
@@ -1603,7 +1604,7 @@ void __fastcall SCMD_HandleSetClientInSight(D2ClientSightPacketStrc* pPacket)
         FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), 0x58A);
         exit(-1);
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     void* pRoom = pPlayer ? UNITS_GetRoom(pPlayer) : 0;
     DUNGEON_SetClientIsInSight(gpDrlgAct_007A0634, pPacket->nLevelId, nX, nY, pRoom);
 }
@@ -1618,7 +1619,7 @@ void __fastcall SCMD_HandleUnsetClientInSight(D2ClientSightPacketStrc* pPacket)
         FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), 0x59E);
         exit(-1);
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     void* pRoom = pPlayer ? UNITS_GetRoom(pPlayer) : 0;
     DUNGEON_UnsetClientIsInSight(gpDrlgAct_007A0634, pPacket->nLevelId, nX, nY, pRoom);
 }
@@ -1854,7 +1855,7 @@ void __fastcall SCMD_HandleReassignUnit(const unsigned char* pPacket)
                 PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x100);
             }
         }
-        if (pUnit == sub_00463DD0_GetPlayerUnit())
+        if (pUnit == CUNIT_GetPlayerUnit())
         {
             D2_ASSERT(!DUNGEON_GetActNoFromRoom(UNITS_GetRoom(pUnit)), 0x81E);
             GAME_ExtendDelay(3000);
@@ -1940,8 +1941,8 @@ static void __stdcall SCMD_HandleStatChange(int nValue, int nStat, D2UnitStrc* p
         break;
 
     case 0xC:
-        SCMD_RefreshUnitItems(sub_00463DD0_GetPlayerUnit());
-        if (pUnit != sub_00463DD0_GetPlayerUnit())
+        SCMD_RefreshUnitItems(CUNIT_GetPlayerUnit());
+        if (pUnit != CUNIT_GetPlayerUnit())
             break;
         AUTOMAP_RefreshItemStats(pUnit);
 
@@ -1955,7 +1956,7 @@ static void __stdcall SCMD_HandleStatChange(int nValue, int nStat, D2UnitStrc* p
 // 0x0045D260
 void __fastcall SCMD_HandleUnitEventAtPosition(D2UnitStrc* pUnit, const D2GSPacketSrv17* pPacket)
 {
-    if (pUnit != sub_00463DD0_GetPlayerUnit())
+    if (pUnit != CUNIT_GetPlayerUnit())
     {
         D2_ASSERT(pUnit, 0x841);
 
@@ -2058,7 +2059,7 @@ void __fastcall SCMD_HandleQuestLog(void* pPacket)
 void __fastcall SCMD_HandleRemoveObject(D2GSPacketSrv0A* pPacket)
 {
     const int nUnitGUID = pPacket->dwUnitGUID;
-    if (pPacket->nUnitType == 1 && nUnitGUID == ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
+    if (pPacket->nUnitType == 1 && nUnitGUID == ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 1))
         return;
     CUNIT_RemoveClientSideUnit(nUnitGUID, pPacket->nUnitType);
 }
@@ -2399,7 +2400,7 @@ void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket)
         return;
     if (!CUNIT_IsDeadOrDying(pUnit))
         UNITMODE_SetUnitMode(pUnit, 0);
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         D2UnitStrc* pOther = CUNIT_FindClientUnit(*(int*)pPacket->nOtherUnitId, 0);
         if (!pOther)
@@ -2665,12 +2666,12 @@ void __fastcall SCMD_HandleInitEnvironment(D2EnvironmentPacketStrc* pPacket)
 {
     const int nIndex = pPacket->nIndex;
     const int nTicks = pPacket->nTicks;
-    if (gpDrlgAct_007A0634 == sub_00463DD0_GetPlayerUnit()->pDrlgAct)
+    if (gpDrlgAct_007A0634 == CUNIT_GetPlayerUnit()->pDrlgAct)
     {
         ENVIRONMENT_InitializeEnvironment(gpDrlgAct_007A0634, CUNIT_GetPlayerRoom(), nIndex, nTicks, pPacket->bEclipse);
         CUNIT_UpdateObjectsForPeriod();
 
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer)
         {
             D2PacketRecord11Strc tPacket;
@@ -2741,7 +2742,8 @@ void __fastcall SCMD_HandleMonsterEnchants(const unsigned char* p)
 void __fastcall SCMD_HandleOpenPanel(const D2PacketRecord7Strc* pPacket)
 {
     D2PacketRecord7Strc tPacket = *pPacket;
-    sub_004C0550_HandleUseItemPacket(&tPacket);
+// build: symbol ?USEITEM_HandleUseItemPacket@* 0x004C0550
+    USEITEM_HandleUseItemPacket(&tPacket);
 }
 
 // 0x0045E4C0
@@ -2830,7 +2832,7 @@ void __fastcall SCMD_HandlePlayCinematic(const D2GSPacketSrv61* pPacket)
 void __fastcall SCMD_HandleWaypointMenu(const D2PacketRecord21Strc* pPacket)
 {
     D2PacketRecord21Strc tPacket = *pPacket;
-    sub_0049CF90_OpenWaypointPanel(&tPacket);
+    TEXT_OpenWaypointPanel(&tPacket);
 }
 
 // 0x0045E6B0
@@ -2946,7 +2948,7 @@ void __fastcall SCMD_HandleSetItemState(const D2GSPacketSrv7DStrc* pPacket)
 // 0x0045E970
 void __fastcall SCMD_HandleLoadCommonCof(const D2GSPacketSrv7E* pPacket)
 {
-    GFX_LoadGlobalHashedFile(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))));
+    GFX_LoadGlobalHashedFile(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(CUNIT_GetPlayerUnit()))));
 }
 
 // 0x0045E990
@@ -3525,7 +3527,7 @@ void __fastcall SCMD_HandleAssignMonster(D2PacketSpawnStrc* pPacket)
     D2UnitStrc* pUnit = CUNIT_AddClientMonster(&tSpawn, pComponents, pMods, nPalette, nSpecial, 0);
     if (!pUnit) return;
     GFX_ResetMonsterModeGfx(pUnit);
-    if (!MONSTERS_GetHirelingTypeId(pUnit) || nUnitId != ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
+    if (!MONSTERS_GetHirelingTypeId(pUnit) || nUnitId != ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 1))
     {
         STATLIST_SetUnitStat(pUnit, STAT_MAXHP, 0x8000, 0);
         STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pPacket->nLife << 8, 0);

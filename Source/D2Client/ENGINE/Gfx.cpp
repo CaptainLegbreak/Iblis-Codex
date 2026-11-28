@@ -343,11 +343,11 @@ struct D2InventoryStrc;
 extern const char gszGfxFile[];                                                                    // 0x006D6C1C
 extern int gnScreenWidth;                                                                               // 0x0071146C
 int __cdecl GAME_GetColorFlag();                                                                                 // 0x0044DC60
-int __cdecl sub_0045AE90_GetPanelSlideMode();                                                                         // 0x0045AE90
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+int __cdecl AUTOMAP_GetPanelSlideMode();                                                                         // 0x0045AE90
+D2UnitStrc* __cdecl CUNIT_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall CUNIT_TickDrawDelay(D2UnitStrc* pUnit);                                          // 0x00464C40
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
-D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
+D2MissilesTxt* __fastcall VIEW_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
 void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int dwColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
 unsigned char* __cdecl DLIGHTMAP_GetLocalBloodPalette();                                                                      // 0x00477680
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
@@ -488,7 +488,7 @@ static inline int AI_GetUnitMode_Inline(D2UnitStrc* pUnit)
     return !pUnit ? 0 : pUnit->dwAnimMode;
 }
 
-static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, int nX, int nArg, int nY);
+static void __stdcall GFX_CommandToXY(int nCommand, D2UnitStrc* pUnit, int nX, int nArg, int nY); // 0x0046CA60
 
 
 
@@ -570,10 +570,10 @@ static inline unsigned int SEED_RollUnitLH_0046C960(D2UnitStrc* pUnit)
 
 
 
-static void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks);
+static void GFX_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks); // 0x0046CBD0
 
 
-static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pTarget);
+static int __stdcall GFX_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pTarget); // 0x0046C7D0
 
 static void __stdcall GFX_StepRandom(unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pUnit); // 0x0046C960
 
@@ -583,7 +583,7 @@ static void sub_0046CAB0_CommandMode8(D2UnitStrc* pUnit);
 
 static void sub_0046CB40_CommandMode7(D2UnitStrc* pUnit);
 
-static int sub_0046CBF0_IsSamePosition(D2UnitStrc* pTarget, D2UnitStrc* pUnit);
+static int GFX_IsSamePosition(D2UnitStrc* pTarget, D2UnitStrc* pUnit); // 0x0046CBF0
 
 
 
@@ -969,7 +969,7 @@ int __fastcall GFX_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2
     }
 
     const int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
-    if (nDistance >= 3 && nDistance <= 25 && DRLG_UnitEdgeDistance(pTarget, sub_00463DD0_GetPlayerUnit()) > 7 && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
+    if (nDistance >= 3 && nDistance <= 25 && DRLG_UnitEdgeDistance(pTarget, CUNIT_GetPlayerUnit()) > 7 && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
     {
         *pDistance = nDistance;
         *ppTarget = pTarget;
@@ -1051,7 +1051,7 @@ static void __stdcall GFX_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUni
 }
 
 // 0x0046C7D0
-static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pTarget)
+static int __stdcall GFX_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pTarget)
 {
     const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
     const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
@@ -1124,7 +1124,7 @@ static void __stdcall GFX_StepRandom(unsigned char nScale, int nCommand, int nAr
 }
 
 // 0x0046CA60
-static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, int nX, int nArg, int nY)
+static void __stdcall GFX_CommandToXY(int nCommand, D2UnitStrc* pUnit, int nX, int nArg, int nY)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     D2MonCommandStrc tCommand;
@@ -1159,7 +1159,7 @@ static void sub_0046CB40_CommandMode7(D2UnitStrc* pUnit)
 // Kept out of line: the original calls it from 0x0046D780 with its arguments in ecx/eax, a convention only a
 // static of this unit gets, so it is this unit's function; with /Ob2 it would otherwise be inlined there.
 // noinline: the original calls this; without it the compiler expands it into 0x0046D780.
-static __declspec(noinline) void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks)
+static __declspec(noinline) void GFX_SetAiTimerClamped(D2UnitStrc* pUnit, int nTicks)
 {
     if (nTicks >= 200)
     {
@@ -1174,7 +1174,7 @@ static __declspec(noinline) void sub_0046CBD0_SetAiTimerClamped(D2UnitStrc* pUni
 }
 
 // 0x0046CBF0
-static int sub_0046CBF0_IsSamePosition(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
+static int GFX_IsSamePosition(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 {
     const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
     const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
@@ -1205,7 +1205,7 @@ static void sub_0046CCD0_AiType1(D2UnitStrc* pUnit)
             if (nDistance < 4)
             {
                 PATH_SetFootprintCollisionMask(pPath, 0xC01);
-                if (!sub_0046C7D0_StepAwayFromUnit(pUnit, 4, 0xC, 0x78, pFound))
+                if (!GFX_StepAwayFromUnit(pUnit, 4, 0xC, 0x78, pFound))
                 {
                     GFX_StepRandom(4, 0xC, 0x78, pUnit);
                 }
@@ -1232,7 +1232,7 @@ static void __stdcall sub_0046CDC0_AiType2(D2UnitStrc* pTarget, unsigned int nDi
         {
             if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 66)
             {
-                sub_0046C7D0_StepAwayFromUnit(pUnit, 8, 1, 30, pTarget);
+                GFX_StepAwayFromUnit(pUnit, 8, 1, 30, pTarget);
             }
             else
             {
@@ -1254,7 +1254,7 @@ static void GFX_AiType3(D2UnitStrc* pUnit)
         int* pState = MONSTER_GetAiValuePtr(pUnit);
         if (pState)
         {
-            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+            D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
             const int nDistance = DRLG_UnitEdgeDistance(pUnit, pPlayer);
             if (*pState && nDistance > 25)
             {
@@ -1294,7 +1294,7 @@ static void GFX_AiType3(D2UnitStrc* pUnit)
             const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
             const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
             PATH_SetNewDistance(pUnit->pDynamicPath, 90);
-            sub_0046CA60_CommandToXY(1, pUnit, 3 * nTargetX - 2 * nUnitX, 0, 3 * nTargetY - 2 * nUnitY);
+            GFX_CommandToXY(1, pUnit, 3 * nTargetX - 2 * nUnitX, 0, 3 * nTargetY - 2 * nUnitY);
         }
     }
 }
@@ -1308,7 +1308,7 @@ static void __stdcall sub_0046D070_AiType4(D2UnitStrc* pTarget, D2UnitStrc* pUni
         return;
     }
 
-    if (sub_0046CBF0_IsSamePosition(pTarget, pUnit))
+    if (GFX_IsSamePosition(pTarget, pUnit))
     {
         sub_0046CAB0_CommandMode8(pUnit);
         return;
@@ -1341,7 +1341,7 @@ static void __stdcall GFX_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2U
         return;
     }
 
-    if (nDistance < 2 && sub_0046CBF0_IsSamePosition(pTarget, pUnit))
+    if (nDistance < 2 && GFX_IsSamePosition(pTarget, pUnit))
     {
         sub_0046CAB0_CommandMode8(pUnit);
         return;
@@ -1354,7 +1354,7 @@ static void __stdcall GFX_AiType5(unsigned int nDistance, D2UnitStrc* pUnit, D2U
 
     if (nDistance < 4)
     {
-        sub_0046C7D0_StepAwayFromUnit(pUnit, 6, 1, 0, pTarget);
+        GFX_StepAwayFromUnit(pUnit, 6, 1, 0, pTarget);
         return;
     }
 
@@ -1422,7 +1422,7 @@ static void __stdcall sub_0046D280_AiType6(unsigned int nDistance, D2UnitStrc* p
         return;
     }
 
-    if (sub_0046CBF0_IsSamePosition(pTarget, pUnit))
+    if (GFX_IsSamePosition(pTarget, pUnit))
     {
         sub_0046CAB0_CommandMode8(pUnit);
         return;
@@ -1432,7 +1432,7 @@ static void __stdcall sub_0046D280_AiType6(unsigned int nDistance, D2UnitStrc* p
     {
         if (nDistance <= 1)
         {
-            sub_0046C7D0_StepAwayFromUnit(pUnit, 4, 1, 0, pTarget);
+            GFX_StepAwayFromUnit(pUnit, 4, 1, 0, pTarget);
             return;
         }
 
@@ -1469,7 +1469,7 @@ static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
             if (nDistance < 6)
             {
                 PATH_SetFootprintCollisionMask(pPath, 0xC01);
-                if (!sub_0046C7D0_StepAwayFromUnit(pUnit, 6, 1, 0x78, pFound))
+                if (!GFX_StepAwayFromUnit(pUnit, 6, 1, 0x78, pFound))
                 {
                     GFX_StepRandom(6, 1, 0x78, pUnit);
                 }
@@ -1566,7 +1566,7 @@ static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 
     if (nRoll < 80 && pTarget)
     {
-        sub_0046C7D0_StepAwayFromUnit(pUnit, 8, 1, 4, pTarget);
+        GFX_StepAwayFromUnit(pUnit, 8, 1, 4, pTarget);
         return;
     }
 
@@ -1574,7 +1574,7 @@ static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
 }
 
 // 0x0046D780
-void __fastcall sub_0046D780_RunClientAi(D2UnitStrc* pUnit)
+void __fastcall GFX_RunClientAi(D2UnitStrc* pUnit)
 {
     int* pTimer = sub_004AE110_GetAiTimer(pUnit);
     if (!pTimer)
@@ -1592,7 +1592,7 @@ void __fastcall sub_0046D780_RunClientAi(D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = GFX_FindNearestTarget(pUnit, &nDistance);
     if (!pTarget)
     {
-        pTarget = sub_00463DD0_GetPlayerUnit();
+        pTarget = CUNIT_GetPlayerUnit();
         if (!pTarget)
         {
             AI_SetTimer_Inline(pUnit, 25);
@@ -1603,7 +1603,7 @@ void __fastcall sub_0046D780_RunClientAi(D2UnitStrc* pUnit)
 
     if (nDistance > 30)
     {
-        sub_0046CBD0_SetAiTimerClamped(pUnit, nDistance - 15);
+        GFX_SetAiTimerClamped(pUnit, nDistance - 15);
         sub_0046CB40_CommandMode7(pUnit);
         return;
     }
@@ -2047,7 +2047,7 @@ void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int 
     if (bPerspective && (!pUnit || pUnit->dwUnitType != UNIT_ITEM || UNITS_GetAnimOrSeqMode(pUnit) == 3))
     {
         SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
-        switch (sub_0045AE90_GetPanelSlideMode())
+        switch (AUTOMAP_GetPanelSlideMode())
         {
         case 1:
             nX -= gnScreenWidth / 4;
@@ -2633,7 +2633,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
     if (!FOG_IsExpansion() && pTxt->wPreDraw >= 0x64)
         return;
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pUnit)
     {
         if (UNIT_HasFlagEx(pUnit, 0x40000))
@@ -3007,7 +3007,7 @@ static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverla
     int nDrawX = nX - PLAYER_GetScreenOffsetX();
     int nDrawY = nY - PLAYER_GetScreenOffsetY();
     int bPerspective = D2GFX_CheckPerspective();
-    int nBorder = sub_0045AE90_GetPanelSlideMode();
+    int nBorder = AUTOMAP_GetPanelSlideMode();
     if (bPerspective)
     {
         switch (nBorder)
@@ -3018,7 +3018,7 @@ static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverla
     }
     int bRestoreTown = 0;
     int nTown = D2GFX_CheckUnitPerspective();
-    if (nTown && bPerspective && pUnit == sub_00463DD0_GetPlayerUnit() && nUnitType == 0)
+    if (nTown && bPerspective && pUnit == CUNIT_GetPlayerUnit() && nUnitType == 0)
     {
         D2GFX_SetTownMode(0);
         bRestoreTown = 1;
@@ -3062,7 +3062,7 @@ static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverla
     int bUseItemShift = 1;
     if (STATES_CheckStateMaskGreenOnUnit(pUnit))
     {
-        if (pUnit != sub_00463DD0_GetPlayerUnit())
+        if (pUnit != CUNIT_GetPlayerUnit())
         {
             bUseItemShift = 0;
         }
@@ -3181,7 +3181,7 @@ __declspec(noinline) int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
     int nY = nOffsetY - PLAYER_GetScreenOffsetY() + UNITS_GetClientCoordY(pUnit) + GFXUTIL_GetMotionAY(pUnit);
     if (bPerspective)
     {
-        switch (sub_0045AE90_GetPanelSlideMode())
+        switch (AUTOMAP_GetPanelSlideMode())
         {
         case 1:
             nX += -(gnScreenWidth / 4);
@@ -3251,7 +3251,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     bTownMode = 0;
 // build: symbol ?D2GFX_CheckUnitPerspective@* 0x004F5170
     nPrevMode = D2GFX_CheckUnitPerspective();
-    if (nPrevMode && D2GFX_CheckPerspective() && pUnit == sub_00463DD0_GetPlayerUnit() && !GFX_GetConvertedUnitType(pUnit))
+    if (nPrevMode && D2GFX_CheckPerspective() && pUnit == CUNIT_GetPlayerUnit() && !GFX_GetConvertedUnitType(pUnit))
     {
 // build: symbol ?D2GFX_SetTownMode@* 0x004F5190
         D2GFX_SetTownMode(0);
@@ -3300,7 +3300,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
 
     if (bPerspective)
     {
-        switch (sub_0045AE90_GetPanelSlideMode())
+        switch (AUTOMAP_GetPanelSlideMode())
         {
         case 1:
             nDrawX += -(gnScreenWidth_0071146C / 4);
@@ -3413,7 +3413,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
     int nY = nOffsetY - PLAYER_GetScreenOffsetY() + UNITS_GetClientCoordY(pUnit);
     if (bPerspective)
     {
-        switch (sub_0045AE90_GetPanelSlideMode())
+        switch (AUTOMAP_GetPanelSlideMode())
         {
         case 1:
             nX += -(gnScreenWidth / 4);
@@ -3455,7 +3455,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
         {
             int nZ = PARTICLE_GetGfxClientZ(pUnit);
             SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), nZ, &nX, &nY);
-            switch (sub_0045AE90_GetPanelSlideMode())
+            switch (AUTOMAP_GetPanelSlideMode())
             {
             case 1:
                 nX += -(gnScreenWidth / 4);
@@ -3598,7 +3598,7 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
 
     const int nPaletteShift = pUnit->nPaletteIndex;
     unsigned char* pPalShift = 0;
-    if (nPaletteShift && pUnit != sub_00463DD0_GetPlayerUnit())
+    if (nPaletteShift && pUnit != CUNIT_GetPlayerUnit())
     {
         pPalShift = D2Win_10175_GetPL2Shift(nPaletteShift - 1);
     }
@@ -3638,7 +3638,7 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
     const int nDrawY = nOffsetY + nY - PLAYER_GetScreenOffsetY();
     if (bPerspective)
     {
-        switch (sub_0045AE90_GetPanelSlideMode())
+        switch (AUTOMAP_GetPanelSlideMode())
         {
         case 1:
             nDrawX -= gnScreenWidth / 4;
@@ -3660,7 +3660,7 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
 
     if (nUnitType == UNIT_MISSILE)
     {
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pUnit->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(pUnit->dwClassId);
         int nDrawMode = 5;
         if (pMissilesTxtRecord->nTrans == 1)
         {

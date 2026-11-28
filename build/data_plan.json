@@ -250,7 +250,7 @@
    "definitions": 27,
    "externs": [
     "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
-    "extern \"C\" void __cdecl sub_00460190_DrawFrame(); // 0x00460190",
+    "extern \"C\" void __cdecl UI_DrawFrame(); // 0x00460190",
     "extern \"C\" void __cdecl sub_0044AB70_McpIncomingIgnore(); // 0x0044AB70",
     "extern \"C\" void __cdecl sub_0044ABA0_McpIncoming02(); // 0x0044ABA0",
     "extern \"C\" void __cdecl sub_0044ABC0_McpIncoming07(); // 0x0044ABC0",
@@ -352,7 +352,7 @@
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeap(); // 0x004C8C60",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeapAttack(); // 0x004C8ED0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoCollide(); // 0x004C9320",
-    "extern \"C\" void __cdecl sub_004C9490_MissileAroundUnit(); // 0x004C9490",
+    "extern \"C\" void __cdecl SKILLS_MissileAroundUnit(); // 0x004C9490",
     "extern \"C\" void __cdecl sub_004C97C0(); // 0x004C97C0",
     "extern \"C\" void __cdecl sub_004E0A30_CltDoClearSeqSpeed(); // 0x004E0A30",
     "extern \"C\" void __cdecl GFXUTIL_CltDoSetAnimFrameFromCalc(); // 0x004E0F40",
@@ -426,8 +426,8 @@
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartPosition(); // 0x004C83C0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartLeap(); // 0x004C8D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartRun(); // 0x004C9120",
-    "extern \"C\" void __cdecl sub_004E0BD0_CltStartClearCollision(); // 0x004E0BD0",
-    "extern \"C\" void __cdecl sub_004E0EB0_CltStartPathToTarget(); // 0x004E0EB0",
+    "extern \"C\" void __cdecl GFXUTIL_CltStartClearCollision(); // 0x004E0BD0",
+    "extern \"C\" void __cdecl GFXUTIL_CltStartPathToTarget(); // 0x004E0EB0",
     "extern \"C\" void __cdecl PLRSKILLS_SkillStartMarkTarget(); // 0x004E0FD0",
     "extern \"C\" void __cdecl sub_004E12D0_SkillClearTargetFlags(); // 0x004E12D0",
     "extern \"C\" void __cdecl sub_004E1720_SkillSetTargetFlags(); // 0x004E1720",
@@ -438,14 +438,14 @@
     "extern \"C\" void __cdecl MISSILE_SkillStartSpawnRing(); // 0x004E27C0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoPrgState(); // 0x004E3060",
     "extern \"C\" void __cdecl MISSILE_CheckTargetInRange(); // 0x004E3350",
-    "extern \"C\" void __cdecl sub_004E39A0_CheckTargetRoom(); // 0x004E39A0",
+    "extern \"C\" void __cdecl SKILLSMON_CheckTargetRoom(); // 0x004E39A0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoSoundMissile(); // 0x004F0160",
     "extern \"C\" void __cdecl SKILLDESC_CltDoDirectionMissile(); // 0x004F01F0",
     "extern \"C\" void __cdecl SKILLSMON_RequestMissile(); // 0x004F0350",
     "extern \"C\" void __cdecl sub_004F0650_CreateClientMissiles(); // 0x004F0650",
     "extern \"C\" void __cdecl SKILLSMON_StartTimedState(); // 0x004F0AB0",
-    "extern \"C\" void __cdecl sub_004F0C20_StoreTargetPos(); // 0x004F0C20",
-    "extern \"C\" void __cdecl sub_004F0DD0_StoreTargetInfo(); // 0x004F0DD0",
+    "extern \"C\" void __cdecl SKILLSMON_StoreTargetPos(); // 0x004F0C20",
+    "extern \"C\" void __cdecl SKILLSMON_StoreTargetInfo(); // 0x004F0DD0",
     "extern \"C\" void __cdecl sub_004F1640_AuraStateOverlay(); // 0x004F1640",
     "extern \"C\" void __cdecl GFXUTIL_CltDoSetParamFromCalc(); // 0x004F20C0",
     "extern \"C\" void __cdecl sub_004F2590_StartStateListEntry(); // 0x004F2590",
@@ -478,7 +478,7 @@
     "extern \"C\" void __cdecl SKILLDESC_VolleyAtTarget(); // 0x004E2F40",
     "extern \"C\" void __cdecl SKILLDESC_MissileAtTargetUnit(); // 0x004E3C50",
     "extern \"C\" void __cdecl GFXUTIL_SkillStartPlace(); // 0x004E0A40",
-    "extern \"C\" void __cdecl sub_004E0C90_SetSkillTargetPos(); // 0x004E0C90",
+    "extern \"C\" void __cdecl GFXUTIL_SetSkillTargetPos(); // 0x004E0C90",
     "extern \"C\" void __cdecl sub_004E1320_CastMissileBurst(); // 0x004E1320"
    ],
    "fn_types": {},
@@ -577,10 +577,10 @@
     "extern \"C\" void __cdecl HIREABLES_PetIconClickMsg(); // 0x00493430",
     "extern \"C\" void __cdecl WARDENCLIENT_HandlePetIconClick(); // 0x004936E0",
     "extern \"C\" void __cdecl PANEL_CloseUIVarsMsg(); // 0x00498C00",
-    "extern \"C\" void __cdecl sub_0049BB60_OnRosterMouseDown(); // 0x0049BB60",
+    "extern \"C\" void __cdecl TEXT_OnRosterMouseDown(); // 0x0049BB60",
     "extern \"C\" void __cdecl sub_0049BDD0(); // 0x0049BDD0",
     "extern \"C\" void __cdecl TEXT_WaypointKeyMsg(); // 0x0049CEC0",
-    "extern \"C\" void __cdecl sub_0049D160_WaypointMouseDown(); // 0x0049D160",
+    "extern \"C\" void __cdecl TEXT_WaypointMouseDown(); // 0x0049D160",
     "extern \"C\" void __cdecl TEXT_PanelClickMsg(); // 0x0049FEA0",
     "extern \"C\" void __cdecl TEXT_CloseQuestPanelMsg(); // 0x004A2840",
     "extern \"C\" void __cdecl sub_004A3E40(); // 0x004A3E40",
@@ -590,8 +590,8 @@
     "extern \"C\" void __cdecl sub_004A6790(); // 0x004A6790",
     "extern \"C\" void __cdecl TEXT_StatButtonUpMsg(); // 0x004A6840",
     "extern \"C\" void __cdecl TEXT_SkillButtonUpMsg(); // 0x004A6920",
-    "extern \"C\" void __cdecl sub_004A7720_OnLButtonDown(); // 0x004A7720",
-    "extern \"C\" void __cdecl sub_004A78C0_OnLButtonUp(); // 0x004A78C0",
+    "extern \"C\" void __cdecl TEXT_OnLButtonDown(); // 0x004A7720",
+    "extern \"C\" void __cdecl TEXT_OnLButtonUp(); // 0x004A78C0",
     "extern \"C\" void __cdecl SPELLSEL_SkillSelectClickMsg(); // 0x004A9BD0",
     "extern \"C\" void __cdecl sub_004AB7E0_SkillTreeLButtonDown(); // 0x004AB7E0",
     "extern \"C\" void __cdecl sub_004ABC30(); // 0x004ABC30",
@@ -816,7 +816,7 @@
    "definitions": 20,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
-    "extern \"C\" void __cdecl sub_004A6000_RegisterPressMsgHandler(); // 0x004A6000",
+    "extern \"C\" void __cdecl TEXT_RegisterPressMsgHandler(); // 0x004A6000",
     "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
     "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
     "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0"
@@ -1062,7 +1062,7 @@
    "bytes": 160,
    "definitions": 4,
    "externs": [
-    "extern \"C\" void __cdecl sub_004E9000_SkillDescAttackRatingMain(); // 0x004E9000",
+    "extern \"C\" void __cdecl SKILLDESC_SkillDescAttackRatingMain(); // 0x004E9000",
     "extern \"C\" void __cdecl PLRSKILLS_DescAttackRating(); // 0x004E9040",
     "extern \"C\" void __cdecl SKILLDESC_DescAttackRating(); // 0x004E9510",
     "extern \"C\" void __cdecl SKILLDESC_DescAttackRate(); // 0x004E9590",
@@ -3609,7 +3609,7 @@
     "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
     "extern \"C\" void __cdecl TEXT_HotkeyMsg(); // 0x004A1870",
     "extern \"C\" void __cdecl TEXT_KeyDownMsg(); // 0x004A18C0",
-    "extern \"C\" void __cdecl sub_004A6000_RegisterPressMsgHandler(); // 0x004A6000",
+    "extern \"C\" void __cdecl TEXT_RegisterPressMsgHandler(); // 0x004A6000",
     "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
     "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
     "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0"
@@ -15307,7 +15307,7 @@
      8,
      "0x00460190",
      "names.json",
-     "sub_00460190_DrawFrame",
+     "UI_DrawFrame",
      0,
      "func"
     ]
@@ -31220,7 +31220,7 @@
      8,
      "0x004A7720",
      "names.json",
-     "sub_004A7720_OnLButtonDown",
+     "TEXT_OnLButtonDown",
      0,
      "func"
     ],
@@ -31228,7 +31228,7 @@
      20,
      "0x004A78C0",
      "names.json",
-     "sub_004A78C0_OnLButtonUp",
+     "TEXT_OnLButtonUp",
      0,
      "func"
     ]
@@ -31939,7 +31939,7 @@
      8,
      "0x0049D160",
      "names.json",
-     "sub_0049D160_WaypointMouseDown",
+     "TEXT_WaypointMouseDown",
      0,
      "func"
     ],
@@ -31955,7 +31955,7 @@
      32,
      "0x0049D160",
      "names.json",
-     "sub_0049D160_WaypointMouseDown",
+     "TEXT_WaypointMouseDown",
      0,
      "func"
     ],
@@ -32041,7 +32041,7 @@
      8,
      "0x0049BB60",
      "names.json",
-     "sub_0049BB60_OnRosterMouseDown",
+     "TEXT_OnRosterMouseDown",
      0,
      "func"
     ],
@@ -37597,7 +37597,7 @@
      32,
      "0x00460420",
      "owner",
-     "sub_00460420_SetCancelFlag",
+     "UI_SetCancelFlag",
      0,
      "func"
     ],
@@ -38983,7 +38983,7 @@
      120,
      "0x00468A90",
      "owner",
-     "sub_00468A90_ToggleSetting",
+     "CMDTBL_ToggleSetting",
      0,
      "func"
     ],
@@ -39079,7 +39079,7 @@
      264,
      "0x00468F00",
      "owner",
-     "sub_00468F00_ShowBelt",
+     "CMDTBL_ShowBelt",
      0,
      "func"
     ],
@@ -39440,7 +39440,7 @@
      0,
      "0x0046B0C0",
      "names.json",
-     "sub_0046B0C0_ResetPulseTick",
+     "VIEW_ResetPulseTick",
      0,
      "func"
     ],
@@ -39448,7 +39448,7 @@
      4,
      "0x0046AEE0",
      "names.json",
-     "sub_0046AEE0_ObjectMissileTimedBox",
+     "VIEW_ObjectMissileTimedBox",
      0,
      "func"
     ],
@@ -39456,7 +39456,7 @@
      12,
      "0x0046B100",
      "names.json",
-     "sub_0046B100_EventObject98Request",
+     "VIEW_EventObject98Request",
      0,
      "func"
     ],
@@ -39464,7 +39464,7 @@
      24,
      "0x0046B1E0",
      "names.json",
-     "sub_0046B1E0_EventObject95Request",
+     "VIEW_EventObject95Request",
      0,
      "func"
     ],
@@ -39480,7 +39480,7 @@
      52,
      "0x0046B3A0",
      "names.json",
-     "sub_0046B3A0_StartTimer",
+     "VIEW_StartTimer",
      0,
      "func"
     ],
@@ -49666,7 +49666,7 @@
      8,
      "0x004A6000",
      "names.json",
-     "sub_004A6000_RegisterPressMsgHandler",
+     "TEXT_RegisterPressMsgHandler",
      0,
      "func"
     ],
@@ -49674,7 +49674,7 @@
      20,
      "0x004A6000",
      "names.json",
-     "sub_004A6000_RegisterPressMsgHandler",
+     "TEXT_RegisterPressMsgHandler",
      0,
      "func"
     ],
@@ -49682,7 +49682,7 @@
      32,
      "0x004A60B0",
      "names.json",
-     "sub_004A60B0_KeyDownMsgHandler",
+     "TEXT_KeyDownMsgHandler",
      0,
      "func"
     ],
@@ -49690,7 +49690,7 @@
      44,
      "0x004A60B0",
      "names.json",
-     "sub_004A60B0_KeyDownMsgHandler",
+     "TEXT_KeyDownMsgHandler",
      0,
      "func"
     ],
@@ -49698,7 +49698,7 @@
      56,
      "0x004A61A0",
      "names.json",
-     "sub_004A61A0_KeyUpMsgHandler",
+     "TEXT_KeyUpMsgHandler",
      0,
      "func"
     ],
@@ -49706,7 +49706,7 @@
      68,
      "0x004A61A0",
      "names.json",
-     "sub_004A61A0_KeyUpMsgHandler",
+     "TEXT_KeyUpMsgHandler",
      0,
      "func"
     ]
@@ -53045,7 +53045,7 @@
      156,
      "0x004B6650",
      "names.json",
-     "sub_004B6650_InitHandler",
+     "NPCMENU_InitHandler",
      0,
      "func"
     ],
@@ -55359,7 +55359,7 @@
      136,
      "0x004C9490",
      "names.json",
-     "sub_004C9490_MissileAroundUnit",
+     "SKILLS_MissileAroundUnit",
      0,
      "func"
     ],
@@ -55375,7 +55375,7 @@
      144,
      "0x004C96D0",
      "names.json",
-     "sub_004C96D0_CreateMissileAtTarget",
+     "SKILLS_CreateMissileAtTarget",
      0,
      "func"
     ],
@@ -55767,7 +55767,7 @@
      340,
      "0x004CA030",
      "names.json",
-     "sub_004CA030_TickEvent",
+     "SKILLS_TickEvent",
      0,
      "func"
     ],
@@ -56186,7 +56186,7 @@
      68,
      "0x004E39A0",
      "names.json",
-     "sub_004E39A0_CheckTargetRoom",
+     "SKILLSMON_CheckTargetRoom",
      0,
      "func"
     ],
@@ -56314,7 +56314,7 @@
      132,
      "0x004E0BD0",
      "names.json",
-     "sub_004E0BD0_CltStartClearCollision",
+     "GFXUTIL_CltStartClearCollision",
      0,
      "func"
     ],
@@ -56322,7 +56322,7 @@
      136,
      "0x004E0C90",
      "names.json",
-     "sub_004E0C90_SetSkillTargetPos",
+     "GFXUTIL_SetSkillTargetPos",
      0,
      "func"
     ],
@@ -56330,7 +56330,7 @@
      140,
      "0x004E0EB0",
      "names.json",
-     "sub_004E0EB0_CltStartPathToTarget",
+     "GFXUTIL_CltStartPathToTarget",
      0,
      "func"
     ],
@@ -56450,7 +56450,7 @@
      200,
      "0x004F0C20",
      "names.json",
-     "sub_004F0C20_StoreTargetPos",
+     "SKILLSMON_StoreTargetPos",
      0,
      "func"
     ],
@@ -56458,7 +56458,7 @@
      204,
      "0x004F0DD0",
      "names.json",
-     "sub_004F0DD0_StoreTargetInfo",
+     "SKILLSMON_StoreTargetInfo",
      0,
      "func"
     ],
@@ -62792,7 +62792,7 @@
      120,
      "0x004D04D0",
      "names.json",
-     "sub_004D04D0_HitRing64",
+     "MISSILE_HitRing64",
      0,
      "func"
     ],
@@ -63487,7 +63487,7 @@
      36,
      "0x004D9160",
      "names.json",
-     "sub_004D9160_RefreshPassiveSkills",
+     "PLRSKILLS_RefreshPassiveSkills",
      0,
      "func"
     ],
@@ -67719,7 +67719,7 @@
      4,
      "0x004E9000",
      "source",
-     "sub_004E9000_SkillDescAttackRatingMain",
+     "SKILLDESC_SkillDescAttackRatingMain",
      0,
      "func"
     ],

@@ -184,7 +184,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
 
-void __fastcall sub_004BA840_StopSound(void* pUnitSfx); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(void* pUnitSfx); // 0x004BA840
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
@@ -835,7 +835,8 @@ int __fastcall SKILLS_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nF
         {
             return 0;
         }
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(pTarget->dwClassId);
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+        D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(pTarget->dwClassId);
         if (!pMissilesTxtRecord || pMissilesTxtRecord->nMissileFlags[0] & gdwBitMasks[1])
         {
             return 0;
@@ -1332,7 +1333,8 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         {
             SKILLS_AddSkill(pUnit, nSkillId);
             pSkill = SKILLS_GetSkillById(pUnit, nSkillId, nOwnerGUID);
-            if (pSkill && pUnit == sub_00463DD0_GetPlayerUnit() && nOwnerGUID == -1)
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+            if (pSkill && pUnit == CUNIT_GetPlayerUnit() && nOwnerGUID == -1)
             {
                 SKILLS_SetFlags(pSkill, 8);
             }
@@ -1368,7 +1370,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         }
     }
 
-    if (pUnit != sub_00463DD0_GetPlayerUnit())
+    if (pUnit != CUNIT_GetPlayerUnit())
     {
         const int nMaxLevel = SPELLSEL_GetSkillMaxLevel(nSkillId);
         if (nSkillLevel > nMaxLevel)
@@ -1397,7 +1399,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
         UNITS_SetUsedSkill(pUnit, NULL);
         int aArgs[7] = {};
         sub_00480C10_UnitEvent(7, pUnit, aArgs, 0);
-        if (pUnit == sub_00463DD0_GetPlayerUnit())
+        if (pUnit == CUNIT_GetPlayerUnit())
         {
             UNITSND_PlayPlayerSpeech(pUnit, 0x18);
         }
@@ -1682,7 +1684,7 @@ int __fastcall SKILLS_DoClientSkill(D2UnitStrc* unit,int skillId,int skillLevel,
   if(target)GFX_AddUnitOverlay(target,skill->wTgtOverlay,2,0,0,0,0,0);
  }
  int delay=SKILLS_EvaluateSkillFormula(unit,skill->dwDelay,skillId,skillLevel);
- if(delay>0 && sub_00463DD0_GetPlayerUnit()==unit){
+ if(delay>0 && CUNIT_GetPlayerUnit()==unit){
   if(delay>12)delay=12;
   if(skill->nAnim!=18 || !(unit->dwSeqFrame & 0xffffff00))
    GAME_SetSkillDelayUntil(sub_0044DA90_GetTickCounter()+delay);
@@ -2780,7 +2782,8 @@ inline int UNITS_GetYInline(D2UnitStrc* pUnit)
     }
 }
 
-static inline D2UnitStrc* sub_004C9D50_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)
+// build: symbol ?SKILLS_FindDestinationById@* 0x004C9D50
+static inline D2UnitStrc* SKILLS_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)
 {
     return sub_004C5EB0_FindDestination(pUnit, 0, 0, 3, 3, nUnitId, 0);
 }

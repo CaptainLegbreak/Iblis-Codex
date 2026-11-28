@@ -69,7 +69,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 #include "D2GfxApi.h"
 
 
-D2MissilesTxt* __fastcall sub_0046ACE0_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
+D2MissilesTxt* __fastcall VIEW_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -1426,7 +1426,7 @@ int __fastcall SKILLS_SrvDo095_MonInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         return 0;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(nMissile);
+    D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(nMissile);
     D2MissileStrc missileParams;
     memset(&missileParams, 0, sizeof(missileParams));
     missileParams.dwFlags = 0x25;
@@ -1494,7 +1494,7 @@ int __fastcall SKILLS_SrvDo152_DiabLight(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         return 0;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(nMissile);
+    D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(nMissile);
     D2MissileStrc missileParams;
     memset(&missileParams, 0, sizeof(missileParams));
     missileParams.dwFlags = 0x25;
@@ -2597,7 +2597,7 @@ int __fastcall SKILLS_SrvDo148_DoomKnightMissile(D2GameStrc* pGame, D2UnitStrc* 
 
     const unsigned char nComponent = (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->nComponent[10] : 0;
     nMissileId += nComponent;
-    if (nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0_GetMissilesTxtRecord(nMissileId))
+    if (nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !VIEW_GetMissilesTxtRecord(nMissileId))
     {
         return 0;
     }
@@ -2641,7 +2641,7 @@ int __fastcall SKILLS_SrvDo149_NecromageMissile(D2GameStrc* pGame, D2UnitStrc* p
 
     const unsigned char nComponent = (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->nComponent[11] : 0;
     nMissileId += nComponent;
-    if (nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0_GetMissilesTxtRecord(nMissileId))
+    if (nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !VIEW_GetMissilesTxtRecord(nMissileId))
     {
         return 0;
     }
@@ -2685,7 +2685,7 @@ int __fastcall SKILLS_SrvDo110_Hireable_RogueMissile(D2GameStrc* pGame, D2UnitSt
     int nMissileId = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nSkillLevel);
     if (nMissileId && nMissileId != MISSILE_BOLT)
     {
-        if (sub_0046ACE0_GetMissilesTxtRecord(nMissileId))
+        if (VIEW_GetMissilesTxtRecord(nMissileId))
         {
             SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
             return 1;
@@ -2695,7 +2695,7 @@ int __fastcall SKILLS_SrvDo110_Hireable_RogueMissile(D2GameStrc* pGame, D2UnitSt
     }
 
     nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0_GetMissilesTxtRecord(nMissileId))
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !VIEW_GetMissilesTxtRecord(nMissileId))
     {
         return 0;
     }

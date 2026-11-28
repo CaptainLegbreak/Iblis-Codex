@@ -415,15 +415,15 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 void __fastcall CUNIT_DispatchMouseWheel(int nSteps); // 0x004693B0
 
-void __cdecl sub_00469270_RunMButtonUp(); // 0x00469270
+void __cdecl CMDTBL_RunMButtonUp(); // 0x00469270
 
-void __cdecl sub_00469230_RunMButtonDown(); // 0x00469230
+void __cdecl CMDTBL_RunMButtonDown(); // 0x00469230
 
-void __cdecl sub_004692B0_RunXButton1Down(); // 0x004692B0
+void __cdecl CMDTBL_RunXButton1Down(); // 0x004692B0
 
-void __cdecl sub_00469330_RunXButton2Down(); // 0x00469330
+void __cdecl CMDTBL_RunXButton2Down(); // 0x00469330
 
-void __cdecl sub_004692F0_RunXButton1Up(); // 0x004692F0
+void __cdecl CMDTBL_RunXButton1Up(); // 0x004692F0
 
 void __cdecl CMDTBL_CallBoundCommand(); // 0x00469370
 
@@ -467,7 +467,7 @@ void __fastcall ROSTER_SetPrimaryClientFlag(int bClear); // 0x0047A9B0
 
 extern char gszRealm[]; // 0x007A0500
 
-void __cdecl sub_004776E0_SetModeValuesOne(); // 0x004776E0
+void __cdecl INV_SetModeValuesOne(); // 0x004776E0
 
 void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
 
@@ -479,7 +479,7 @@ void __cdecl INV_SetRenderModeDirect3D(); // 0x00477710
 
 void __cdecl INV_SetRenderModeRave(); // 0x00477720
 
-void __fastcall sub_004776C0_SetGamma(int nGamma); // 0x004776C0
+void __fastcall INV_SetGamma(int nGamma); // 0x004776C0
 
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 
@@ -1660,7 +1660,7 @@ void __cdecl PLAYER_ClearCommandPending(); // 0x00462920
 void __cdecl SELECT_UpdateHoverUnit(); // 0x00467AC0
 int __cdecl CHAT_HandleBnetChatMessage(); // 0x0047BDF0
 void __fastcall WARDENCLIENT_TickModule(int nDelta); // 0x00480320
-void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
+void __fastcall UNITMODE_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
 extern unsigned int gdwFrameTime; // 0x0070EF1C
 extern unsigned int gdwLastCheck_007A04A0; // 0x007A04A0
 unsigned int gdwLastFrame; // 0x007A0490
@@ -1687,7 +1687,7 @@ void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F
 void __cdecl AUTOMAP_UpdateAutomapOrigin(); // 0x0045B440
 void __fastcall UI_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 void __fastcall sub_00468820_Nop(int nArg1, int nArg2); // 0x00468820
-void __fastcall sub_00477980_DrawFpsStats(); // 0x00477980
+void __fastcall INV_DrawFpsStats(); // 0x00477980
 #pragma pack(push, 1)
 #pragma pack(pop)
 extern unsigned short gawLoadingStrings[]; // 0x0070F384
@@ -2373,7 +2373,8 @@ void __stdcall GAME_HandleLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
     if (gbPositionalSound)
     {
         gbLeftButtonDown = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         int nFlags = 0;
         if (gbRunKeyHeld)
             nFlags = 8;
@@ -2418,7 +2419,7 @@ void __cdecl GAME_StartClick()
     if (gbPositionalSound && gbLeftButtonDown && !gbClickHandled)
     {
         gbLeftClickRepeating = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         const int nFlags = sub_0044BEC0_GetClickFlags_static();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
@@ -2449,7 +2450,7 @@ void __cdecl GAME_ResetLeftClick()
     SELECT_UnlockHover();
     if (gbPositionalSound)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
             PLAYER_PlayerCommand(2, sub_00468730(), sub_00468740(), CLIENT_GetClickFlags_inl());
     }
@@ -2465,7 +2466,8 @@ void __stdcall GAME_HandleLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
 static inline int GAME_IsInLeftPanel(int nX, int nY)
 {
     int bLeftPanel = 0;
-    if (sub_0045AE90_GetPanelSlideMode() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+    if (AUTOMAP_GetPanelSlideMode() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
     {
         bLeftPanel = 1;
     }
@@ -2476,7 +2478,7 @@ static inline int GAME_IsInLeftPanel(int nX, int nY)
 static inline int GAME_IsInRightPanel(int nX, int nY)
 {
     int bRightPanel = 0;
-    if (sub_0045AE90_GetPanelSlideMode() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
+    if (AUTOMAP_GetPanelSlideMode() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
     {
         bRightPanel = 1;
     }
@@ -2489,19 +2491,19 @@ void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
     gnRightClickState = 4;
     gbClickHandled = 0;
     SELECT_UnlockHover();
-    if (!gbPositionalSound || sub_0045AE90_GetPanelSlideMode() == 3)
+    if (!gbPositionalSound || AUTOMAP_GetPanelSlideMode() == 3)
     {
         return;
     }
     const int nY = pMsg->nYpos;
     const int nX = pMsg->nXpos;
     int bLeftPanel = 0;
-    if (sub_0045AE90_GetPanelSlideMode() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
+    if (AUTOMAP_GetPanelSlideMode() == 2 && nX > 0 && nX < gnScreenWidth / 2 && nY > 0 && nY < gnScreenHeight - 0x2F)
     {
         bLeftPanel = 1;
     }
     int bRightPanel = 0;
-    if (sub_0045AE90_GetPanelSlideMode() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
+    if (AUTOMAP_GetPanelSlideMode() == 1 && nX > gnScreenWidth / 2 && nX < gnScreenWidth && nY > 0 && nY < gnAutomapHeight_007A521C)
     {
         bRightPanel = 1;
     }
@@ -2513,7 +2515,7 @@ void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
     gbRightButtonDown = 1;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     const int nFlags = sub_0044BEC0_GetClickFlags_static();
     if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
     {
@@ -2531,7 +2533,7 @@ void __cdecl GAME_StartRightClick()
     if (gbPositionalSound && gbRightButtonDown)
     {
         gbRightClickConsumed = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         const int nFlags = CLIENT_GetClickFlags_inl();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
             PLAYER_PlayerCommand(4, sub_00468730(), sub_00468740(), nFlags);
@@ -2558,7 +2560,7 @@ void __stdcall GAME_HandleRightButtonUp(SMSGHANDLER_PARAMS* pMsg)
     SELECT_UnlockHover();
     if (gbPositionalSound)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
         {
             gbRightButtonDown = PLAYER_PlayerCommand(5, pMsg->nXpos, pMsg->nYpos, pMsg->wParamLow);
@@ -2591,7 +2593,7 @@ void __stdcall GAME_HandleMiddleButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gbPositionalSound)
     {
-        sub_00469270_RunMButtonUp();
+        CMDTBL_RunMButtonUp();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2603,7 +2605,7 @@ void __stdcall GAME_HandleMiddleButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gbPositionalSound)
     {
-        sub_00469230_RunMButtonDown();
+        CMDTBL_RunMButtonDown();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2617,9 +2619,9 @@ void __stdcall GAME_HandleXButtonDown(SMSGHANDLER_PARAMS* pMsg)
     {
         unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
-            sub_004692B0_RunXButton1Down();
+            CMDTBL_RunXButton1Down();
         else if (nCode == 2)
-            sub_00469330_RunXButton2Down();
+            CMDTBL_RunXButton2Down();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2633,7 +2635,7 @@ void __stdcall GAME_HandleXButtonUp(SMSGHANDLER_PARAMS* pMsg)
     {
         unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
-            sub_004692F0_RunXButton1Up();
+            CMDTBL_RunXButton1Up();
         else if (nCode == 2)
             CMDTBL_CallBoundCommand();
         pMsg->bReturn = 1;
@@ -2726,9 +2728,11 @@ void __cdecl GAME_InitRooms()
     {
         if (!(pRoom->dwFlags & 1))
         {
-            sub_0046C460_PopulateRoom(pRoom);
+// build: symbol ?VIEW_PopulateRoom@* 0x0046C460
+            VIEW_PopulateRoom(pRoom);
             VIEW_SpawnRoomPresets(pRoom);
-            sub_0046BE60_ApplyDenOfEvilRoom(pRoom);
+// build: symbol ?VIEW_ApplyDenOfEvilRoom@* 0x0046BE60
+            VIEW_ApplyDenOfEvilRoom(pRoom);
             pRoom->dwFlags |= 1;
         }
     }
@@ -2741,7 +2745,8 @@ void __cdecl GAME_UpdateGameState()
     GAME_InitRooms();
     CUNIT_ResetUnitTables();
     DUNGEON_AnimateTiles(CUNIT_GetPlayerRoom());
-    sub_0046BEB0_UpdateTimers();
+// build: symbol ?VIEW_UpdateTimers@* 0x0046BEB0
+    VIEW_UpdateTimers();
     GFX_PreloadTick(1);
     if (ENVIRONMENT_UpdatePeriodOfDay(gpAct, CUNIT_GetPlayerRoom()))
         CUNIT_UpdateObjectsForPeriod();
@@ -2836,7 +2841,7 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
     if (WINDOW_GetState())
         return;
 
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2RectStrc tRect;
     sub_00476070_GetViewRect(gpClientView, &tRect.nLeft, &tRect.nTop, &tRect.nRight, &tRect.nBottom);
     int nY;
@@ -2865,14 +2870,14 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
 // build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
     D2Win_10179_UpdatePaletteFlash();
     AUTOMAP_UpdateAutomapOrigin();
-    if (sub_0045AE90_GetPanelSlideMode() != 3)
+    if (AUTOMAP_GetPanelSlideMode() != 3)
         VIEW_PrepareSceneLighting(gpClientView);
     UI_DrawUIPanels(gpClientView);
     D2Win_UpdateAndDraw();
     sub_00468820_Nop(10, 10);
     if (!bNoCursor)
         CURSOR_DrawCursor();
-    sub_00477980_DrawFpsStats();
+    INV_DrawFpsStats();
 // build: symbol ?gnClearScreenCount@* 0x0070F2C0
     if (gnClearScreenCount)
     {
@@ -3395,7 +3400,7 @@ void __fastcall sub_0044D750_ApplyConfigNop(D2ConfigStrc* pConfig)
 void __fastcall GAME_ApplyConfigWindow(D2ConfigStrc* pConfig)
 {
     if (pConfig->bWindow)
-        sub_004776E0_SetModeValuesOne();
+        INV_SetModeValuesOne();
 }
 
 // 0x0044D770
@@ -3442,7 +3447,7 @@ void __fastcall sub_0044D7C0_ApplyConfigNop(D2ConfigStrc* pConfig)
 void __fastcall GAME_ApplyConfigGamma(D2ConfigStrc* pConfig)
 {
     if (pConfig->dwGamma)
-        sub_004776C0_SetGamma(pConfig->dwGamma);
+        INV_SetGamma(pConfig->dwGamma);
 }
 
 // 0x0044D7E0
@@ -4815,7 +4820,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
 {
     int bFrame = 0;
     int bDrawn = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (gnGameType == 0 || gnGameType == 1)
     {
         if (WINDOW_GetState())
@@ -4898,7 +4903,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
 
         if (gbPositionalSound)
         {
-            sub_00481600_RunPendingAction(pPlayer);
+            UNITMODE_RunPendingAction(pPlayer);
         }
     }
 
@@ -5089,7 +5094,8 @@ int __cdecl GAME_RunGameSession()
     SCMD_RunMessageLoop(GAME_RunGameFrame);
     GetTickCount();
     D2SOUNDSMP_FadeOutMasterVolume(180);
-    sub_00481830_StopAllSounds();
+// build: symbol ?UNITMODE_StopAllSounds@* 0x00481830
+    UNITMODE_StopAllSounds();
     if(GAME_IsTimerRunning(&gtLoadingTimer) && !gnDifficultyDirty && !gnCinematicPlayed)SCMD_RunMessageLoop(GAME_LoadingTimerCallback);
     if(RECORD_IsRecordingEnabled())RECORD_WriteRecordFile();
     if(gnBetaScreens)

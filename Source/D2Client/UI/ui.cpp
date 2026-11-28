@@ -479,7 +479,7 @@ extern "C" void __cdecl QUESTLOG_ResetQuestButtonState(); // 0x004A3000
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-int __cdecl sub_00478150_GetProgress(); // 0x00478150
+int __cdecl DLIGHTMAP_GetProgress(); // 0x00478150
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -518,7 +518,7 @@ void __cdecl GAME_DrawLevelLoadingScreen(); // 0x00455510
 
 void __cdecl HIREABLES_UpdateHirelingPanel(); // 0x00493340
 
-void __cdecl sub_00494020_DrawPetIcons(); // 0x00494020
+void __cdecl HIREABLES_DrawPetIcons(); // 0x00494020
 
 void __cdecl INV_DrawMercPanel(); // 0x004929F0
 
@@ -539,7 +539,7 @@ void __cdecl TEXT_DrawWaypointPanel(); // 0x0049C9C0
 
 void __cdecl HIREABLES_LoadHelpCels(); // 0x00494320
 
-void __cdecl sub_00494EB0_DrawHelpShade(); // 0x00494EB0
+void __cdecl HIREABLES_DrawHelpShade(); // 0x00494EB0
 
 void __cdecl PANEL_DrawControlPanel(); // 0x00499450
 
@@ -576,7 +576,7 @@ void __cdecl UI_DrawStoredUnitNumber(); // 0x00453B30
 
 void __cdecl UI_DrawDeathScreen(); // 0x00453100
 
-void __cdecl sub_0046C130_DrawCountdown(); // 0x0046C130
+void __cdecl VIEW_DrawCountdown(); // 0x0046C130
 
 D2CelFileStrc* gpLoadingScreen; // 0x007A2888
 
@@ -806,7 +806,7 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
 
 
 
-void __fastcall sub_004898A0_DisableGoldButton(int nMode);                                                                    // 0x004898A0
+void __fastcall CUNIT_DisableGoldButton(int nMode);                                                                    // 0x004898A0
 
 void* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
 
@@ -816,7 +816,7 @@ void __fastcall DIALOG_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int 
 
 void __fastcall DIALOG_AddWidget(void* pPanel, void* pControl, int nArg3, int nArg4);                // 0x004B7C00
 
-extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
+extern "C" void __cdecl MONSTER_SendState(); // 0x004B90B0
 
 int __cdecl UI_GoldPanelCloseCallback();                                                                                 // 0x00453FC0
 
@@ -857,7 +857,8 @@ int __fastcall UI_GetMonsterLifeFraction(D2UnitStrc* pUnit)
     if (pUnit && (!pUnit ? 6 : pUnit->dwUnitType) == 1 && !CUNIT_IsDeadOrDying(pUnit))
     {
         int bPaired;
-        if ((!pUnit ? 0 : (pUnit->dwFlags >> 2) & 1) && CUNIT_IsHostileTo(sub_00463DD0_GetPlayerUnit(), pUnit))
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if ((!pUnit ? 0 : (pUnit->dwFlags >> 2) & 1) && CUNIT_IsHostileTo(CUNIT_GetPlayerUnit(), pUnit))
         {
             bPaired = 1;
         }
@@ -1032,7 +1033,7 @@ static void __stdcall UI_GetPlayerHoverName(D2UnitStrc* pUnit, Unicode* pDst, in
     *pValue = ROSTER_GetOtherPartyLife(!pUnit ? -1 : pUnit->dwUnitId) * 128 / 100;
     *pFlag = 0;
     const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
 // build: symbol ?ROSTER_IsHostileRelation@* 0x0047A070
     if (ROSTER_IsHostileRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nUnitId))
     {
@@ -1090,7 +1091,7 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
     sub_00526320_ToUnicode(pDst, szName, 0x80);
     *pValue = ROSTER_GetOtherPartyLife(nIndex) * 128 / 100;
     *pFlag = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (ROSTER_IsHostileRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nIndex))
     {
         *pFlag = 1;
@@ -1101,11 +1102,12 @@ static int __stdcall UI_GetRosterHoverName(D2UnitStrc* pUnit, Unicode* pDst, int
 // 0x00452D20
 void __cdecl UI_DrawPetHover()
 {
-    if (sub_0045AE90_GetPanelSlideMode() == 3)
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+    if (AUTOMAP_GetPanelSlideMode() == 3)
     {
         return;
     }
-    const int nPetId = ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
+    const int nPetId = ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         return;
@@ -1179,7 +1181,7 @@ void __cdecl UI_DrawDeathScreen()
 {
     char szPath[0x104];
     char szLanguage[4];
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return;
 
@@ -1244,12 +1246,12 @@ second_text:
 // 0x00453330
 void __fastcall UI_DrawPartyMemberText(D2UnitStrc* pUnit)
 {
-    const int nBorder = sub_0045AE90_GetPanelSlideMode();
+    const int nBorder = AUTOMAP_GetPanelSlideMode();
     if (nBorder == 3)
     {
         return;
     }
-    if (pUnit == sub_00463DD0_GetPlayerUnit())
+    if (pUnit == CUNIT_GetPlayerUnit())
     {
         return;
     }
@@ -1423,7 +1425,8 @@ void __fastcall sub_M117_Emit_004535F0(D2SlotOwnerStrc* pOwner, int nIndex, int 
 // 0x00453900
 int __cdecl UI_IsDialogOpen()
 {
-    return sub_004B85E0_GetDialogCount() != 0;
+// build: symbol ?DIALOG_GetDialogCount@* 0x004B85E0
+    return DIALOG_GetDialogCount() != 0;
 }
 
 // 0x00453910
@@ -1435,7 +1438,7 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
     {
         if (nUIVar == 0x05 || nUIVar == 0x09)
         {
-            if (sub_004B85E0_GetDialogCount() && nUIVar == 0x05 && !gaUIVarStates[0x18])
+            if (DIALOG_GetDialogCount() && nUIVar == 0x05 && !gaUIVarStates[0x18])
             {
                 return 0;
             }
@@ -1445,7 +1448,7 @@ static int UI_CanSetUIVar(int nUIVar, int nState)
             }
             if (nUIVar == 0x09)
             {
-                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+                D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
                 if (!pPlayer)
                 {
                     return 0;
@@ -1601,14 +1604,17 @@ void __cdecl UI_DrawStoredUnitNumber()
 void __cdecl UI_LoadPlayerUI()
 {
     PANEL_LoadPartyCels();
-    sub_004A7AA0_InitTextEntryLengths();
+// build: symbol ?TEXT_InitTextEntryLengths@* 0x004A7AA0
+    TEXT_InitTextEntryLengths();
     sub_004AA920_LoadPanelCel();
     SPELLSEL_InitSkillIcons();
-    sub_004B8720_ResetTradeState();
+// build: symbol ?MONSTER_ResetTradeState@* 0x004B8720
+    MONSTER_ResetTradeState();
     INV_ResetHover();
     PANEL_ClearPair();
     INV_FreeHoradricCel();
-    sub_004A3050_ResetQuestPages();
+// build: symbol ?QUESTLOG_ResetQuestPages@* 0x004A3050
+    QUESTLOG_ResetQuestPages();
     TEXT_LoadPopupHireling();
     AUTOMAP_ResetBaseOffset(1);
     sub_0047E720_LoadAlwaysRun();
@@ -1757,11 +1763,11 @@ int __cdecl UI_GoldSpinnerChanged()
     unsigned int nMax;
     if (gnGoldPanelMode == 4)
     {
-        nMax = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
+        nMax = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLDBANK, 0);
     }
     else
     {
-        nMax = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+        nMax = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
     }
     if (nDirection == 1)
     {
@@ -1804,7 +1810,8 @@ int __cdecl UI_ConfirmGoldDialog()
     if (!gnGoldPanelValue)
     {
         if (gnGoldPanelMode == 2)
-            sub_004B9110_SendGoldRequest(gnGoldPanelValue);
+// build: symbol ?MONSTER_SendGoldRequest@* 0x004B9110
+            MONSTER_SendGoldRequest(gnGoldPanelValue);
         return 1;
     }
     switch (gnGoldPanelMode)
@@ -1812,13 +1819,13 @@ int __cdecl UI_ConfirmGoldDialog()
     case 0:
     case 1:
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         int nId = GetUnitId(pPlayer);
         MSG_SendTwoDwords(0x50, nId, gnGoldPanelValue);
         return 1;
     }
     case 2:
-        sub_004B9110_SendGoldRequest(gnGoldPanelValue);
+        MONSTER_SendGoldRequest(gnGoldPanelValue);
         break;
     case 4:
         MSG_SendShorts(0x4F, 0x13, gwDialogAmountHigh, gnGoldPanelValue);
@@ -1845,12 +1852,12 @@ int __cdecl UI_CancelGoldDialog()
 // 0x00454150
 void __fastcall UI_OpenGoldPanel(int nMode)
 {
-    if (!sub_00463DD0_GetPlayerUnit())
+    if (!CUNIT_GetPlayerUnit())
     {
         UI_CloseGoldDialog();
         return;
     }
-    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
+    if (INVENTORY_GetCursorItem(CUNIT_GetPlayerUnit()->pInventory))
     {
         UI_CloseGoldDialog();
         return;
@@ -1873,27 +1880,27 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     case 0:
         TEXT_SetGoldDialogFlag();
         nStringId = 0xFC1;
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 1:
         nStringId = 0xFC1;
-        sub_004898A0_DisableGoldButton(1);
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+        CUNIT_DisableGoldButton(1);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 2:
         nStringId = 0xFCE;
-        sub_004898A0_DisableGoldButton(2);
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+        CUNIT_DisableGoldButton(2);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 3:
         nStringId = 0xFD1;
-        sub_004898A0_DisableGoldButton(3);
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+        CUNIT_DisableGoldButton(3);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
         break;
     case 4:
         nStringId = 0xFD2;
-        sub_004898A0_DisableGoldButton(4);
-        nGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0);
+        CUNIT_DisableGoldButton(4);
+        nGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLDBANK, 0);
         break;
     default:
         UI_CloseGoldDialog();
@@ -1909,7 +1916,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     memset(wszText, 0, sizeof(wszText));
     if (nMode == 5)
     {
-        sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(nStringId), STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0));
+        sub_005269D0_FormatText(0x100, wszText, D2LANG_GetStringFromTblIndex(nStringId), STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLDBANK, 0) + STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0));
     }
     else
     {
@@ -1943,7 +1950,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
 
     if (nMode == 2)
     {
-        sub_004B90B0_SendState();
+        MONSTER_SendState();
         return;
     }
     if (nMode == 3 || nMode == 7 || nMode == 6)
@@ -2147,7 +2154,7 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
         int nY;
 // build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
         SCALE_AdjustPerspectivePosition(nPrecisionX, nPrecisionY, 0, &nX, &nY);
-        switch (sub_0045AE90_GetPanelSlideMode())
+        switch (AUTOMAP_GetPanelSlideMode())
         {
         case 1:
             nX -= gnScreenWidth / 4;
@@ -2238,7 +2245,7 @@ void __cdecl UI_DrawHoverText()
 // 0x00454F30
 void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
 {
-    if (sub_0045AE90_GetPanelSlideMode() == 3)
+    if (AUTOMAP_GetPanelSlideMode() == 3)
     {
         return;
     }
@@ -2247,7 +2254,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         return;
     }
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType == 5 && DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 100)
+    if (nUnitType == 5 && DRLG_UnitEdgeDistance(pUnit, CUNIT_GetPlayerUnit()) > 100)
     {
         return;
     }
@@ -2524,7 +2531,8 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         return;
     case 0x17:
         CMDTBL_SetHotkeyHandlers(0, 0x1);
-        sub_004B8920_ClearTradeGold();
+// build: symbol ?MONSTER_ClearTradeGold@* 0x004B8920
+        MONSTER_ClearTradeGold();
         INV_ClearPanelPage();
         UI_SetPanelHotkeys(&gtMpTradeHotkeys);
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
@@ -2669,7 +2677,8 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         UI_CloseGoldDialog();
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         UI_StartUIVarDelay();
-        sub_004B8940_CloseWait(0);
+// build: symbol ?MONSTER_CloseWait@* 0x004B8940
+        MONSTER_CloseWait(0);
         CMDTBL_SetHotkeyHandlers(0x1, 0x1);
         return;
     case 0x19:
@@ -2731,7 +2740,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg)
     {
         return 0;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     switch (nState)
     {
     case 0:
@@ -2956,7 +2965,7 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
             D2GFX_DrawBox(gnScreenWidth / 2 - 0x82, gnScreenHeight / 2 + 0x9E, gnScreenWidth / 2 + 0x82, gnScreenHeight / 2 + 0xB2, gnLoadingBoxColor, 1);
             D2GFX_DrawBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, gnScreenWidth / 2 + 0x80, gnScreenHeight / 2 + 0xB0, 0, 5);
 
-            const int nWidth = sub_00478150_GetProgress();
+            const int nWidth = DLIGHTMAP_GetProgress();
             if (nWidth)
             {
                 AUTOMAP_DrawFramedBox(gnScreenWidth / 2 - 0x80, gnScreenHeight / 2 + 0xA0, nWidth, 0x10, gnLoadingBarColor, 5);
@@ -3030,7 +3039,7 @@ void __cdecl UI_ToggleMiniPanel()
             }
         }
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
         gaUIVarStates[UIVAR_MINIPANEL] = gaUIVarStates[UIVAR_MINIPANEL] == 0;
     if (!bWasOn)
@@ -3059,7 +3068,7 @@ void __cdecl UI_InitUI()
     TEXT_InitNpcMenu();
     AUTOMAP_InitAutomap();
     TEXT_InitWaypointData();
-    sub_004B8720_ResetTradeState();
+    MONSTER_ResetTradeState();
 // build: symbol ?gpGoldPanel@* 0x007A27A0
     gpGoldPanel = 0;
     gpGoldControlA = 0;
@@ -3106,7 +3115,7 @@ void __cdecl UI_InitUI()
                 }
             }
         }
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
             gaUIVarStates[0] = 1;
         if (!bWasOn)
@@ -3162,7 +3171,7 @@ mini_panel:
                     goto load_cels;
             }
         }
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
             gaUIVarStates[0x22] = 1;
         if (!bWasOn)
@@ -3206,7 +3215,7 @@ void __cdecl UI_ShutdownUI()
         GAME_IsExpansion();
     }
     D2_ASSERT(gnUIVarCount == 0x26, 0x1397);
-    sub_00463DD0_GetPlayerUnit();
+    CUNIT_GetPlayerUnit();
     gaUIVarStates[0] = 0;
     if (nPrevState)
     {
@@ -3215,7 +3224,7 @@ void __cdecl UI_ShutdownUI()
     sub_00468730();
     sub_00468740();
     HIREABLES_FreePanelCels();
-    if (sub_00463DD0_GetPlayerUnit())
+    if (CUNIT_GetPlayerUnit())
     {
         SPELLSEL_FreeSkillIcons();
         sub_004AA980_FreePanelCel();
@@ -3297,12 +3306,12 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         PANEL_DrawDurabilityIcons();
         PANEL_DrawQuantityWarningIcons();
     }
-    if (gaUIVarStates[10] && sub_0045AE90_GetPanelSlideMode() != 3)
+    if (gaUIVarStates[10] && AUTOMAP_GetPanelSlideMode() != 3)
         PLAYER_DrawAutomap();
     GAME_DrawLevelLoadingScreen();
     HIREABLES_UpdateHirelingPanel();
     if (gaUIVarStates[19])
-        sub_00494020_DrawPetIcons();
+        HIREABLES_DrawPetIcons();
     if (gaUIVarStates[36])
         INV_DrawMercPanel();
     if (gaUIVarStates[37])
@@ -3314,14 +3323,16 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         INV_DrawInventoryPanel();
     if (gaUIVarStates[23])
     {
-        sub_004B8730_DrawDialogHover();
+// build: symbol ?MONSTER_DrawDialogHover@* 0x004B8730
+        MONSTER_DrawDialogHover();
         INV_DrawInventoryPanel();
     }
     UI_DrawProgressiveStates();
     if (gaUIVarStates[4])
         sub_004AC690_DrawSkillPanel();
     if (gaUIVarStates[2])
-        sub_004A7D00_DrawCharStats();
+// build: symbol ?TEXT_DrawCharStats@* 0x004A7D00
+        TEXT_DrawCharStats();
     if (gaUIVarStates[22])
         PANEL_DrawPartyPanel();
     if (gpGoldPanel)
@@ -3333,7 +3344,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[33])
     {
         HIREABLES_LoadHelpCels();
-        sub_00494EB0_DrawHelpShade();
+        HIREABLES_DrawHelpShade();
     }
     PANEL_DrawControlPanel();
     if (gaUIVarStates[3])
@@ -3346,11 +3357,13 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[6])
         TEXT_DrawStatButton();
     else
-        sub_004A6A70_DrawLeftPanelButton();
+// build: symbol ?TEXT_DrawLeftPanelButton@* 0x004A6A70
+        TEXT_DrawLeftPanelButton();
     if (gaUIVarStates[7])
         TEXT_DrawSkillButton();
     else
-        sub_004A6DA0_DrawRightPanelButton();
+// build: symbol ?TEXT_DrawRightPanelButton@* 0x004A6DA0
+        TEXT_DrawRightPanelButton();
     if (gaUIVarStates[17])
         QUESTLOG_DrawQuestButton();
     PANEL_DrawLifeManaText();
@@ -3401,7 +3414,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
             }
         }
         {
-            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+            D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
             if (!pPlayer || (pPlayer->dwUnitType == UNIT_PLAYER && !CUNIT_IsDeadOrDying(pPlayer)))
                 gaUIVarStates[33] = gaUIVarStates[33] == 0;
             if (!bWasOn)
@@ -3423,7 +3436,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
 done:
         INV_DrawHelpScreen();
     }
-    if (gaUIVarStates[13] && sub_0045AE90_GetPanelSlideMode() != 3)
+    if (gaUIVarStates[13] && AUTOMAP_GetPanelSlideMode() != 3)
     {
         SHOWITEMS_DrawUnitNames();
         if (GAME_GetConnectionType())
@@ -3441,7 +3454,7 @@ done:
     UI_DrawHoverName();
     UI_DrawStoredUnitNumber();
     UI_DrawDeathScreen();
-    sub_0046C130_DrawCountdown();
+    VIEW_DrawCountdown();
 }
 
 

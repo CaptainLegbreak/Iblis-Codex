@@ -740,7 +740,7 @@ int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInvent
 
 void __stdcall INV_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInfoStrc* grid, int x, int y); // 0x00483E40
 
-void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6850
+void __fastcall SKILLDESC_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6850
 
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 
@@ -983,7 +983,7 @@ extern D2InventoryGridInfoStrc gtCubeGrid;        // 0x007BCB70
 
 void __cdecl sub_0048A730_SwapWeapons(); // 0x0048A730
 
-extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
+extern "C" void __cdecl MONSTER_SendState(); // 0x004B90B0
 
 typedef int (__fastcall *D2BodyClickFn)(D2UnitStrc*,D2InventoryStrc*,int);
 
@@ -1187,7 +1187,7 @@ int __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText); // 0
 
 void __stdcall INV_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText); // 0x00485EE0
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 
 void __fastcall WARDENCLIENT_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6560
 
@@ -1454,7 +1454,8 @@ void __fastcall INV_PlayCinematic(int nIndex)
         strcpy(szName, gaAuxLevelEntries[nIndex].szFile);
     }
 
-    sub_00481830_StopAllSounds();
+// build: symbol ?UNITMODE_StopAllSounds@* 0x00481830
+    UNITMODE_StopAllSounds();
     sub_004DCA30();
 // build: symbol ?ARCHIVE_UnloadExpansionArchives@* 0x004FAD70
     ARCHIVE_UnloadExpansionArchives();
@@ -1484,7 +1485,9 @@ void __fastcall INV_PlayCinematic(int nIndex)
     }
 
     PLAYER_SetCinematicExpansion(bExpansion);
-    if (ARCHIVE_LoadVideoArchives(bExpansion ? (void*)sub_00460500_RunPopup : (void*)sub_00460680_RunOkCancel, 0, bExpansion))
+// build: symbol ?UI_RunPopup@* 0x00460500
+// build: symbol ?UI_RunOkCancel@* 0x00460680
+    if (ARCHIVE_LoadVideoArchives(bExpansion ? (void*)UI_RunPopup : (void*)UI_RunOkCancel, 0, bExpansion))
     {
         bLoaded = 1;
         if (gaAuxLevelEntries[nIndex].bLocalized)
@@ -1522,7 +1525,7 @@ void __fastcall INV_PlayCinematic(int nIndex)
             D2Win_10004(D2GFX_GetResolutionMode());
 
         PLAYER_SetCinematicExpansion(1);
-        if (ARCHIVE_LoadVideoArchives((void*)sub_00460500_RunPopup, 0, 1))
+        if (ARCHIVE_LoadVideoArchives((void*)UI_RunPopup, 0, 1))
         {
             nIndex = 6;
             if (gbCinematicWide)
@@ -1570,7 +1573,7 @@ lMissing:
     }
 
     ARCHIVE_UnloadExpansionArchives();
-    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpClientConfig);
+    ARCHIVE_LoadExpansionArchives(UI_RunPopup, sub_004605A0_RunPopup, 0, gpClientConfig);
     gbCinematicBusy = 0;
 }
 

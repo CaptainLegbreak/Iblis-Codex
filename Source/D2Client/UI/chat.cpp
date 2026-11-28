@@ -838,7 +838,7 @@ struct D2MenuItemStrc
 
 int __cdecl sub_004DF980_IsSoundMode1Or2();
 
-void __fastcall sub_004776C0_SetGamma(void* pArg);
+void __fastcall INV_SetGamma(void* pArg); // 0x004776C0
 
 
 
@@ -1754,7 +1754,7 @@ static int __stdcall CHAT_HandleWhisperCommand(int bCheckStored, char* szInput, 
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0047C420
-static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char* szText, int nSkip)
+static void __stdcall CHAT_HandleChatCommand(const Unicode* pLine, char* szText, int nSkip)
 {
     D2ChatSendStrc tSend;
     memset(tSend.szText, 0, sizeof(tSend.szText));
@@ -1763,7 +1763,8 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
     char* pCommand = pText;
     if (!_stricmp(pText, "/fps"))
     {
-        sub_00477C60_CheckCacheStats();
+// build: symbol ?INV_CheckCacheStats@* 0x00477C60
+        INV_CheckCacheStats();
         UI_SetUIVar(5, 1, 0);
         return;
     }
@@ -1964,7 +1965,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         CHAT_PushChatHistory(pText);
         char szText[0x104];
         WideCharToMultiByte(0, 0x250, (const wchar_t*)gwszChatLine_007BB638, -1, szText, 0x100, 0, 0);
-        sub_0047C420_HandleChatCommand(gwszChatLine_007BB638, szText, nSkip);
+        CHAT_HandleChatCommand(gwszChatLine_007BB638, szText, nSkip);
         break;
     }
     default:

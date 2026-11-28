@@ -154,7 +154,7 @@ int __cdecl sub_0045AE80()
 }
 
 // 0x0045AE90
-int __cdecl sub_0045AE90_GetPanelSlideMode()
+int __cdecl AUTOMAP_GetPanelSlideMode()
 {
     return gnPanelSlideMode;
 }
@@ -443,7 +443,8 @@ void __cdecl AUTOMAP_UpdateAutomapOrigin()
     {
         gnAutomapPanelShiftX = 0;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     int nX = UNITS_GetClientCoordX(pPlayer);
     int nY = UNITS_GetClientCoordY(pPlayer);
     gnAutomapOriginX = nX - gnScreenWidth / 2;

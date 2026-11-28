@@ -17,7 +17,7 @@ void __cdecl sub_00477DD0();                                                    
 void __cdecl SCMD_DrawLoadingTexts();                                                               // 0x0045FC60
 void __stdcall VIEW_DrawPanelCel(int nFrame);                                                       // 0x0045FD20
 void __cdecl UI_DrawCenteredString();                                                             // 0x0045FD80
-void __fastcall sub_00460190_DrawFrame(int nUnused);                                                        // 0x00460190
+void __fastcall UI_DrawFrame(int nUnused);                                                        // 0x00460190
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                             // 0x004788B0
 void __fastcall GAME_SetClientState(int nState);                                                    // 0x0044C930
 void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
@@ -35,7 +35,7 @@ static int gbOkCancelAccepted;                                                  
 static int gbOkCancelCancelled;                                                                                      // 0x007A525C
 
 // 0x0045FB40
-void __cdecl sub_0045FB40_LoadPopupCels()
+void __cdecl UI_LoadPopupCels()
 {
     gpPopupOkCelA = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
     gpPopupOkCelB = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
@@ -277,7 +277,7 @@ int __cdecl PLAYER_IsOkCancelDone()
 }
 
 // 0x00460190
-void __cdecl sub_00460190_DrawFrame()
+void __cdecl UI_DrawFrame()
 {
     if (WINDOW_GetState())
         return;
@@ -379,7 +379,7 @@ void __stdcall SCMD_ConfirmOkCancelPopup(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00460420
-void __stdcall sub_00460420_SetCancelFlag(int nArg)
+void __stdcall UI_SetCancelFlag(int nArg)
 {
     gbOkCancelCancelled = 1;
 }
@@ -412,7 +412,7 @@ void __fastcall PLAYER_SetCinematicExpansion(int bExpansion)
 }
 
 // 0x00460490
-int __stdcall sub_00460490_DrawPopup(int nArg)
+int __stdcall UI_DrawPopup(int nArg)
 {
     sub_00477DD0();
     if (!WINDOW_GetState() && D2GFX_StartDraw(1, 0, 0, 0))
@@ -432,7 +432,7 @@ int __stdcall sub_00460490_DrawPopup(int nArg)
 }
 
 // 0x00460500
-int __cdecl sub_00460500_RunPopup()
+int __cdecl UI_RunPopup()
 {
     gbPopupDismissed = 0;
 // build: symbol ?D2Win_10176_StartPaletteFlash@* 0x004FB130
@@ -443,7 +443,7 @@ int __cdecl sub_00460500_RunPopup()
     sub_004FB480_SetActA(0);
     GAME_SetClientState(1);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
-    SCMD_RunMessageLoop(sub_00460490_DrawPopup);
+    SCMD_RunMessageLoop(UI_DrawPopup);
     sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPopupHandlers, 4);
     GAME_SetClientState(0);
     UI_FreeCels();
@@ -461,7 +461,7 @@ int __cdecl sub_004605A0_RunPopup()
     sub_004FB480_SetActA(0);
     GAME_SetClientState(1);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
-    SCMD_RunMessageLoop(sub_00460490_DrawPopup);
+    SCMD_RunMessageLoop(UI_DrawPopup);
     sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPopupHandlers, 4);
     GAME_SetClientState(0);
     UI_FreeCels();
@@ -469,10 +469,10 @@ int __cdecl sub_004605A0_RunPopup()
 }
 
 // 0x00460640
-int __stdcall sub_00460640_PaintConfirmFrame(int nArg)
+int __stdcall UI_PaintConfirmFrame(int nArg)
 {
     sub_00477DD0();
-    sub_00460190_DrawFrame(1);
+    UI_DrawFrame(1);
     SOUNDHDR_TickSound();
     if (!gbOkCancelAccepted && !gbOkCancelCancelled)
         return 0;
@@ -480,7 +480,7 @@ int __stdcall sub_00460640_PaintConfirmFrame(int nArg)
 }
 
 // 0x00460680
-int __cdecl sub_00460680_RunOkCancel()
+int __cdecl UI_RunOkCancel()
 {
     int nResult = 1;
     gbOkCancelCancelled = 0;
@@ -492,7 +492,7 @@ int __cdecl sub_00460680_RunOkCancel()
     sub_004FB480_SetActA(0);
     GAME_SetClientState(2);
     SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaOkCancelHandlers, 4);
-    SCMD_RunMessageLoop(sub_00460640_PaintConfirmFrame);
+    SCMD_RunMessageLoop(UI_PaintConfirmFrame);
     if (gbOkCancelCancelled)
         nResult = 0;
     sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaOkCancelHandlers, 4);

@@ -98,7 +98,7 @@ extern int gnShrineHandlerCount;                                                
 
 void __fastcall AUTOMAP_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
 
-void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
+void __fastcall VIEW_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
 
 
 
@@ -548,9 +548,9 @@ static void OBJECT_UpdateObjectFrame(D2UnitStrc* pUnit)
             if (pTxt->dwParm[7])
             {
                 if (pTxt->dwParm[7] == 0xFF)
-                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_MINISPIDER, 4);
+                    VIEW_SpawnAroundUnit(pUnit, MONSTER_MINISPIDER, 4);
                 else
-                    sub_0046C320_SpawnAroundUnit(pUnit, MONSTER_RAT, 4);
+                    VIEW_SpawnAroundUnit(pUnit, MONSTER_RAT, 4);
             }
 
             pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;
@@ -1161,7 +1161,8 @@ char __fastcall OBJECT_RemoveWhenFar(D2UnitStrc* pUnit)
             return 1;
         }
 
-        if (DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 25)
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if (DRLG_UnitEdgeDistance(pUnit, CUNIT_GetPlayerUnit()) > 25)
         {
             CUNIT_RemoveServerSideUnit(pUnit->dwUnitId, 2);
             return 0;
@@ -1188,9 +1189,9 @@ char __fastcall OBJECT_AutoOperateQuestObject(D2UnitStrc* pUnit)
 {
     if (!pUnit || !pUnit->dwAnimMode)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         if (pPlayer && QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x27, 0) && !QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x27, 4)
-            && DRLG_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) < 25)
+            && DRLG_UnitEdgeDistance(pUnit, CUNIT_GetPlayerUnit()) < 25)
         {
             if (pPlayer->pDynamicPath)
             {
@@ -1354,7 +1355,7 @@ void __fastcall ITEM_ApplyTownPortalState(D2GSPacketSrv60* pPacket)
 
 
 // 0x004BDFD0
-char* __fastcall sub_004BDFD0_GetObjectOwner(D2UnitStrc* pUnit)
+char* __fastcall OBJECT_GetObjectOwner(D2UnitStrc* pUnit)
 {
     return pUnit->pObjectData->szOwner;
 }

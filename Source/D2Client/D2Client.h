@@ -543,7 +543,7 @@ int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit); // 0x004AE320
 int __fastcall MONSTER_IsGhostlyMonster(D2UnitStrc* pUnit); // 0x004AE340
 int __fastcall MONSTER_IsConvertible(D2UnitStrc* pUnit); // 0x004B11F0
 int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2MonAnimRecStrc* pRecord); // 0x004B1280
-int __fastcall sub_004B95C0_IsHintPlaying(int nKey); // 0x004B95C0
+int __fastcall SOUNDINST_IsHintPlaying(int nKey); // 0x004B95C0
 int __fastcall sub_004B9610_FindHint(int nId); // 0x004B9610
 int __fastcall UNITSND_GetFootstepSound(D2UnitStrc* pUnit, int nMode); // 0x004CAEB0
 int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel); // 0x004CC7C0
@@ -764,7 +764,7 @@ void __cdecl TEXT_LayoutSlider(); // 0x004A5060
 void __cdecl TEXT_RegisterKeyCaptureHandlers(); // 0x004A5D00
 void __cdecl sub_004AB2F0(); // 0x004AB2F0
 void __cdecl NPCMENU_ShowTradeDialog(); // 0x004B2F50
-void __cdecl sub_004BA8F0_StopSongs(); // 0x004BA8F0
+void __cdecl SOUNDINST_StopSongs(); // 0x004BA8F0
 void __cdecl SOUNDINST_LockSpeechSounds(); // 0x004BAA50
 void __cdecl SOUNDINST_RefreshGroupTimers(); // 0x004BAAB0
 void __cdecl USEITEM_CloseUseItemPanel(); // 0x004C0090

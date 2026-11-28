@@ -280,7 +280,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 
 
-void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 int gdwViewEffectStartTick; // 0x007B8D10
 
@@ -622,7 +622,8 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
     gnSceneScaleFactor = SCALE_GetFactor();
     if (D2GFX_CheckPerspective())
     {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
         int nX = UNITS_GetPrecisionX(pPlayer);
         int nY = UNITS_GetPrecisionY(pPlayer);
         int nOffsetX = 0;
@@ -647,7 +648,7 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
     }
 
     WALL2_UpdateRoomColor();
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
     {
@@ -676,7 +677,8 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
     {
         sub_004DF480_UpdateAllTileLights((D2TileLightCtxStrc*)pView);
     }
-    sub_004DED10_UpdateView(pView);
+// build: symbol ?WALL2_UpdateView@* 0x004DED10
+    WALL2_UpdateView(pView);
     sub_00473C00_DrawWeatherLayers();
     if (pView->dwDrawFlags & gdwBitMasks[3])
     {
@@ -769,7 +771,8 @@ void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg)
     D2_ASSERT(pView, 0x1DD);
     if (pView->tRect.right || pView->tRect.bottom)
     {
-        if (sub_0045AE90_GetPanelSlideMode() != 3)
+// build: symbol ?AUTOMAP_GetPanelSlideMode@* 0x0045AE90
+        if (AUTOMAP_GetPanelSlideMode() != 3)
             WALL2_PrepareWallCells(pView, nArg);
         pView->dwFlags &= ~1;
     }
@@ -806,7 +809,8 @@ static void VIEW_UpdateShakeSound(int nIntensity)
         return;
     }
 
-    const int nCurrent = sub_004B9B20_GetValue(ghShakeSound);
+// build: symbol ?SOUNDINST_GetValue@* 0x004B9B20
+    const int nCurrent = SOUNDINST_GetValue(ghShakeSound);
     if (nVolume == nCurrent)
     {
         return;
@@ -836,7 +840,7 @@ static void VIEW_UpdateShakeSound(int nIntensity)
         return;
     }
 
-    sub_004BA840_StopSound(ghShakeSound);
+    SOUNDINST_StopSound(ghShakeSound);
     ghShakeSound = 0;
 }
 
@@ -1130,7 +1134,7 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
 
     if (nMagnitude)
     {
-        D2SeedStrc* pSeed = &sub_00463DD0_GetPlayerUnit()->pSeed;
+        D2SeedStrc* pSeed = &CUNIT_GetPlayerUnit()->pSeed;
         gnViewShiftX = sub_00472280_RollInRange(pSeed, -nMagnitude, 2 * nMagnitude);
         const int nOffsetY = sub_00472280_RollInRange(pSeed, -nMagnitude, 2 * nMagnitude);
         *pX += gnViewShiftX;
@@ -1143,7 +1147,7 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
 
-void __cdecl sub_00477760_DrawCacheStats(); // 0x00477760
+void __cdecl INV_DrawCacheStats(); // 0x00477760
 
 int __stdcall GAME_GetPing(); // 0x0044CE60
 

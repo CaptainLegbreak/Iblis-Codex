@@ -32,14 +32,14 @@ void __fastcall ROSTER_SetCtrlState(void* pPanel, int nValue); // 0x004B8370
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(void* pPanel, const Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6,
     int (__cdecl* pfnArg7)(), int nArg8); // 0x004B85F0
-int __cdecl sub_004B8A30_OnCancel(); // 0x004B8A30
-int __cdecl sub_004B8A80_OnClose(); // 0x004B8A80
+int __cdecl MONSTER_OnCancel(); // 0x004B8A30
+int __cdecl MONSTER_OnClose(); // 0x004B8A80
 extern D2ClientDialogStrc* gpTradeWaitDialog; // 0x007C0E6C
 extern unsigned long gdwTradeTimeoutTick; // 0x007C0E70
 extern unsigned long gdwSecondaryTradeGold; // 0x007C0E78
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-int __cdecl sub_004B8BA0_OnClose2(); // 0x004B8BA0
+int __cdecl MONSTER_OnClose2(); // 0x004B8BA0
 
 
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
@@ -109,14 +109,14 @@ void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog); // 0x004B8100
 
 
 // 0x004B8720
-void __cdecl sub_004B8720_ResetTradeState()
+void __cdecl MONSTER_ResetTradeState()
 {
     gnTradeState = 0;
     gbGlobal_007C0E74 = 0;
 }
 
 // 0x004B8730
-void __cdecl sub_004B8730_DrawDialogHover()
+void __cdecl MONSTER_DrawDialogHover()
 {
     int nX = sub_00468730();
     int nY = sub_00468740();
@@ -130,9 +130,10 @@ void __cdecl sub_004B8730_DrawDialogHover()
             D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1022), gnPanelOffsetX + 0x107, 0x17E - gnPanelOffsetY, 0, 0);
     }
 
-    if (sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    if (CUNIT_GetPlayerUnit())
     {
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(CUNIT_GetPlayerUnit());
         if (CUNIT_IsPlayerDeadOrMissing() || (pRoom && !DUNGEON_IsTownLevelId(DUNGEON_GetLevelIdFromRoom(pRoom))))
         {
             if (GAME_GetUIVarState(0x17))
@@ -165,7 +166,7 @@ void __cdecl sub_004B8730_DrawDialogHover()
 
 
 // 0x004B8920
-void __cdecl sub_004B8920_ClearTradeGold()
+void __cdecl MONSTER_ClearTradeGold()
 {
     gdwSecondaryTradeGold = 0;
     gdwPrimaryTradeGold = 0;
@@ -173,7 +174,7 @@ void __cdecl sub_004B8920_ClearTradeGold()
 }
 
 // 0x004B8940
-void __fastcall sub_004B8940_CloseWait(int bReopen)
+void __fastcall MONSTER_CloseWait(int bReopen)
 {
     gbTradeActive = 0;
     if (gpTradeWaitDialog)
@@ -217,24 +218,24 @@ void __fastcall sub_004B8940_CloseWait(int bReopen)
 }
 
 // 0x004B8AD0
-int __cdecl sub_004B8AD0_OpenWait()
+int __cdecl MONSTER_OpenWait()
 {
     if (gpTradeRequestDialog)
     {
         return 0;
     }
 
-    gpTradeRequestDialog = DIALOG_CreateDialog(0x140, 0x64, sub_004B8A80_OnClose, sub_004B8A80_OnClose, 0, 1, 1, 0, 0, 0, 1);
+    gpTradeRequestDialog = DIALOG_CreateDialog(0x140, 0x64, MONSTER_OnClose, MONSTER_OnClose, 0, 1, 1, 0, 0, 0, 1);
     ROSTER_SetCtrlState(gpTradeRequestDialog, 1);
     DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xFCA), 0xF, 0, 0, 1, 0, 0);
-    DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, sub_004B8A30_OnCancel, 1);
-    DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B8A80_OnClose, 1);
+    DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, MONSTER_OnCancel, 1);
+    DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, MONSTER_OnClose, 1);
     sub_004B82F0_Select(gpTradeRequestDialog, -1);
     return 1;
 }
 
 // 0x004B8CB0
-void __cdecl sub_004B8CB0_BeginTradeWait()
+void __cdecl MONSTER_BeginTradeWait()
 {
     MSG_SendShorts(0x4F, 2, 0, 0);
     if (gnTradeState != 7)
@@ -246,7 +247,7 @@ void __cdecl sub_004B8CB0_BeginTradeWait()
 }
 
 // 0x004B9070
-void __cdecl sub_004B9070_SendPosition()
+void __cdecl MONSTER_SendPosition()
 {
     gnTradeState = 7;
     MSG_SendShorts(0x4F, 4, (unsigned short)(gdwPrimaryTradeGold >> 16), (unsigned short)gdwPrimaryTradeGold);
@@ -256,13 +257,13 @@ void __cdecl sub_004B9070_SendPosition()
 D2ClientDialogStrc* gpTradeWaitDialog; // 0x007C0E6C
 
 // 0x004B8BF0
-void __cdecl sub_004B8BF0_OpenWait2()
+void __cdecl MONSTER_OpenWait2()
 {
     D2_ASSERT(!gpTradeWaitDialog, 0x13D);
-    gpTradeWaitDialog = DIALOG_CreateDialog(0x140, 0x64, sub_004B8BA0_OnClose2, sub_004B8BA0_OnClose2, 0, 1, 1, 0, 0, 0, 1);
+    gpTradeWaitDialog = DIALOG_CreateDialog(0x140, 0x64, MONSTER_OnClose2, MONSTER_OnClose2, 0, 1, 1, 0, 0, 0, 1);
     ROSTER_SetCtrlState(gpTradeWaitDialog, 1);
     DIALOG_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xFCB), 0xF, 0, 0, 1, 0, 0);
-    DIALOG_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B8BA0_OnClose2, 1);
+    DIALOG_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, MONSTER_OnClose2, 1);
     sub_004B82F0_Select(gpTradeWaitDialog, -1);
 }
 
@@ -285,7 +286,7 @@ int __cdecl CUNIT_IsTrading()
 
 
 // 0x004B8A30
-int __cdecl sub_004B8A30_OnCancel()
+int __cdecl MONSTER_OnCancel()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
     DIALOG_DestroyDialog(gpTradeRequestDialog);
@@ -296,7 +297,7 @@ int __cdecl sub_004B8A30_OnCancel()
 }
 
 // 0x004B8A80
-int __cdecl sub_004B8A80_OnClose()
+int __cdecl MONSTER_OnClose()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
     DIALOG_DestroyDialog(gpTradeRequestDialog);
@@ -308,7 +309,7 @@ int __cdecl sub_004B8A80_OnClose()
 }
 
 // 0x004B8BA0
-int __cdecl sub_004B8BA0_OnClose2()
+int __cdecl MONSTER_OnClose2()
 {
     sub_004B9A00(2, 0, 0, 0, 0);
     DIALOG_DestroyDialog(gpTradeWaitDialog);
@@ -320,7 +321,7 @@ int __cdecl sub_004B8BA0_OnClose2()
 }
 
 // 0x004B8CF0
-void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
+void __fastcall MONSTER_HandleTradePacket(const unsigned char* pPacket)
 {
     switch (pPacket[1])
     {
@@ -338,12 +339,12 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
 
     case 12:
         gnTradeState = 0;
-        sub_004B8940_CloseWait(0);
+        MONSTER_CloseWait(0);
         return;
 
     case 13:
         gnTradeState = 0;
-        sub_004B8940_CloseWait(1);
+        MONSTER_CloseWait(1);
         return;
 
     case 0:
@@ -353,7 +354,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             {
                 if (!UI_SetUIVar(0x17, 0, 0))
                 {
-                    sub_004B8CB0_BeginTradeWait();
+                    MONSTER_BeginTradeWait();
                     return;
                 }
 
@@ -362,16 +363,16 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             }
 
             gnTradeState = 1;
-            sub_004B8BF0_OpenWait2();
+            MONSTER_OpenWait2();
             INV_SetTradePanelOpen(0);
             return;
         }
 
-        sub_004B8CB0_BeginTradeWait();
+        MONSTER_BeginTradeWait();
         return;
 
     case 9:
-        UNITSND_PlayPlayerSpeech(sub_00463DD0_GetPlayerUnit(), 0x17);
+        UNITSND_PlayPlayerSpeech(CUNIT_GetPlayerUnit(), 0x17);
         return;
 
     case 10:
@@ -387,14 +388,15 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
     case 1:
         if (!gnTradeState)
         {
-            D2InventoryStrc* const pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+            D2InventoryStrc* const pInventory = CUNIT_GetPlayerUnit()->pInventory;
             if (INVENTORY_GetCursorItem(pInventory))
             {
                 MSG_SendShorts(0x4F, 2, 0, 0);
                 return;
             }
 
-            if (sub_004B85E0_GetDialogCount() || !sub_004B8AD0_OpenWait() || GAME_GetUIVarState(5))
+// build: symbol ?DIALOG_GetDialogCount@* 0x004B85E0
+            if (DIALOG_GetDialogCount() || !MONSTER_OpenWait() || GAME_GetUIVarState(5))
             {
                 MSG_SendShorts(0x4F, 2, 0, 0);
                 return;
@@ -404,7 +406,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             {
                 if (!UI_SetUIVar(0x17, 0, 0))
                 {
-                    sub_004B8CB0_BeginTradeWait();
+                    MONSTER_BeginTradeWait();
                     return;
                 }
 
@@ -416,12 +418,12 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
         }
 
-        sub_004B8CB0_BeginTradeWait();
+        MONSTER_BeginTradeWait();
         return;
 
     case 2:
         INV_UpdateTradeAcceptSound(0, 0);
-        sub_004B8940_CloseWait(0);
+        MONSTER_CloseWait(0);
         return;
 
     case 5:
@@ -450,7 +452,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
 
         default:
-            sub_004B8CB0_BeginTradeWait();
+            MONSTER_BeginTradeWait();
             return;
         }
 
@@ -490,7 +492,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
             return;
 
         default:
-            sub_004B8CB0_BeginTradeWait();
+            MONSTER_BeginTradeWait();
             return;
         }
 
@@ -524,14 +526,14 @@ int __cdecl MONSTER_GetPrimaryTradeGold()
 
 
 // 0x004B90B0
-extern "C" void __cdecl sub_004B90B0_SendState()
+extern "C" void __cdecl MONSTER_SendState()
 {
     sub_00478600_SendPacket(0x4F, 7, 0, 0);
     gPacketState = 3;
 }
 
 // 0x004B90D0
-void __fastcall sub_004B90D0_SetValue(unsigned long nValue, bool bFirst)
+void __fastcall MONSTER_SetValue(unsigned long nValue, bool bFirst)
 {
     if (bFirst)
     {
@@ -544,7 +546,7 @@ void __fastcall sub_004B90D0_SetValue(unsigned long nValue, bool bFirst)
 }
 
 // 0x004B9110
-void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
+void __fastcall MONSTER_SendGoldRequest(unsigned long nGold)
 {
     if (gnTradeState == 4 || gnTradeState == 5 || gnTradeState == 6)
     {
@@ -553,7 +555,7 @@ void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
         return;
     }
 
-    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
+    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(CUNIT_GetPlayerUnit(), STAT_GOLD, 0);
     if (nGold >= nMaxGold)
     {
         gdwPrimaryTradeGold = nMaxGold;
@@ -567,7 +569,7 @@ void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
 }
 
 // 0x004B9180
-int __cdecl sub_004B9180_PollWait()
+int __cdecl MONSTER_PollWait()
 {
     if (gnTradeState == 7)
     {
@@ -576,7 +578,7 @@ int __cdecl sub_004B9180_PollWait()
 // build: symbol ?INV_ResetNpcCursor@* 0x0048A6A0
             INV_ResetNpcCursor();
             gnTradeState = 0;
-            sub_004B8940_CloseWait(0);
+            MONSTER_CloseWait(0);
             sub_00477EE0();
             WINMAIN_SetExitApplication(0);
             GAME_SetCinematicExit(1);
@@ -592,7 +594,7 @@ int __cdecl sub_004B9180_PollWait()
 // 0x004B91F0
 void __cdecl sub_004B91F0_CloseWait()
 {
-    sub_004B8940_CloseWait(0);
+    MONSTER_CloseWait(0);
 }
 
 // 0x004B9010
