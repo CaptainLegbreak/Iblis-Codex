@@ -3475,11 +3475,6 @@ static D2PoolSystemStrc* ERRORMANAGER_GetPoolSystem(D2PoolSystemStrc* pSystem)
     return pSystem;
 }
 
-D2PoolSystemStrc* __fastcall sub_M126_Emit_004099C0(int a, D2PoolSystemStrc* pSystem, int nUnused)
-{
-    return ERRORMANAGER_GetPoolSystem(pSystem);
-}
-
 // 0x004095D0
 void __cdecl sub_004095D0_Nop()
 {
@@ -3682,10 +3677,7 @@ static void ERRORMANAGER_MoveBlockToFront(D2MemPoolRecStrc* pPool, D2MemPoolBloc
 // 0x00409AB0
 void __fastcall ERRORMANAGER_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory, const char* szFile, int nLine)
 {
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
+    pSystem = ERRORMANAGER_GetPoolSystem(pSystem);
     if (!*ppMemory)
     {
         return;
@@ -3893,10 +3885,7 @@ static int __stdcall ERRORMANAGER_GetFreeSlot(D2MemPoolBlockStrc** ppBlock, D2Me
 // 0x0040A080
 void* __fastcall ERRORMANAGER_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine)
 {
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
+    pSystem = ERRORMANAGER_GetPoolSystem(pSystem);
     if (!gtPoolManager.bInit)
     {
         FOG_CreateNewPoolSystem(0, "Global Pool System", 0x40000, 0x8000);
@@ -3952,10 +3941,7 @@ void* __fastcall ERRORMANAGER_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
 void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine)
 {
     D2PoolSystemStrc* pSystem = pPool;
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
+    pSystem = ERRORMANAGER_GetPoolSystem(pSystem);
     if (!pMemory)
     {
         void* pNew = ERRORMANAGER_PoolAlloc(pPool, nSize, szFile, nLine);
@@ -4011,10 +3997,7 @@ void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory
 // 0x00409FF0
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc)
 {
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
+    pSystem = ERRORMANAGER_GetPoolSystem(pSystem);
     if (pSystem->nPools)
     {
         EnterCriticalSection(&pSystem->tLock);
@@ -4031,10 +4014,7 @@ void __cdecl sub_0040A030_Nop()
 // 0x0040A040
 int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem)
 {
-    if (!pSystem)
-    {
-        pSystem = &gtDefaultPoolSystem_0074F104;
-    }
+    pSystem = ERRORMANAGER_GetPoolSystem(pSystem);
     EnterCriticalSection(&pSystem->tLock);
     int nCount = pSystem->nCount;
     LeaveCriticalSection(&pSystem->tLock);
