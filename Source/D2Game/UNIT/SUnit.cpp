@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2StateIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -37,9 +38,7 @@ struct D2MapAIStrc;
 
 #define UNITFLAG_HASEVENTSOUND 0x400
 
-#define EVENTTYPE_MODECHANGE 0
 
-#define EVENTTYPE_ENDANIM 1
 
 #define COLLISION_PATTERN_SMALL_NO_PRESENCE 5
 
@@ -57,7 +56,6 @@ struct D2MapAIStrc;
 
 #define STAT_ALIGNMENT 172
 
-#define EVENTTYPE_REMOVESKILLCOOLDOWN 14
 
 struct D2MonsterRegionStrc;
 
@@ -1057,7 +1055,6 @@ struct D2W11RoomTileOwnerStrc
     D2W11RoomTileRecordStrc* pRecord;
 };
 
-#define EVENTTYPE_AITHINK 2
 
 #define DAMAGERESULTFLAG_WILLDIE 0x02
 

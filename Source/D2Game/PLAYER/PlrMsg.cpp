@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2ObjectIds.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
@@ -364,7 +365,6 @@ int __fastcall D2GAME_NPC_BuyItemHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 
 #define BODYLOC_BELT 8
 
-#define EVENTTYPE_AITHINK 2
 
 #define EVENTTYPE_PLAYERLEFT 3
 

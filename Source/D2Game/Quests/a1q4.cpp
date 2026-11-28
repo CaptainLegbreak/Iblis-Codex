@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2MissileIds.h"
 #include "D2MonsterIds.h"
 #include "D2LevelIds.h"
@@ -1818,7 +1819,6 @@ int __fastcall ACT1Q4_CreateUberFinalePortal(D2GameStrc* pGame, D2UnitStrc* pUni
     return 0;
 }
 
-#define EVENTTYPE_QUESTFN 7
 
 #define QUESTFN_DELAY 25
 

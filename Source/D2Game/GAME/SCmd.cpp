@@ -3002,6 +3002,7 @@ int __fastcall D2GAME_PACKETS_SendPacket0xAE(D2ClientStrc* pClient, const void* 
         return 1;
     }
     D2_ASSERT(nSize <= 0x1FD, 0xE38);
+    return 0;
 }
 
 int __cdecl sub_005A0110()

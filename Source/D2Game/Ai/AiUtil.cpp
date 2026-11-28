@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2PlayerModes.h"
@@ -245,7 +246,6 @@ enum D2C_F41AiUtilConstants
     UNITFLAG_CANBEATTACKED = 4,
     MONTYPEFLAG_UNIQUE_SUPERUNIQUE = 10,
     AISPECIALSTATE_TERROR = 11,
-    EVENTTYPE_AITHINK = 2,
 };
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);

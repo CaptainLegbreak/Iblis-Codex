@@ -1,3 +1,4 @@
+#include "D2GameEvents.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2MonsterIds.h"
@@ -65,7 +66,6 @@ struct D2SkillsTxt;
 
 enum D2MiscConstants
 {
-    EVENTTYPE_MONUMOD = 7,
     ELEMTYPE_NONE = 0,
     ELEMTYPE_FIRE = 1,
     ELEMTYPE_LTNG = 2,
@@ -217,12 +217,7 @@ int __fastcall MISSMODE_CreatePantherPotGreenSubmissiles(D2GameStrc* pGame, D2Un
 
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame);                                 // 0x006260B0
 
-#define EVENTTYPE_REMOVESTATE 12
 
-enum D2C_Q05MissModeConstants
-{
-    EVENTTYPE_ENDANIM = 1,
-};
 
 void __fastcall SKILLS_ApplyTargetAuraAndMissile(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nFrame, int nSkillId, int nSkillLevel); // 0x005C7DB0
 
