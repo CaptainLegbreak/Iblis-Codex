@@ -256,7 +256,6 @@ int gnCelDataCacheMaxMemory; // 0x0088DB24
 
 struct D2CmpCelFileViewStrc;
 
-void* __fastcall sub_0040B430(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 struct D2CmpCelFileViewStrc
 {
@@ -836,7 +835,7 @@ void __fastcall D2CMPSpriteCacheCreate(D2SpriteCacheStrc* pCache, D2PoolSystemSt
     pCache->nArg = nArg;
     pCache->pMemPool = pMemPool;
     pCache->nTotalSize = 0;
-    pCache->pNodes = (D2SpriteCacheNodeStrc*)sub_0040B430(pMemPool, sizeof(D2SpriteCacheNodeStrc) * 0x1400, ".\\SRC\\SpriteCache.cpp", 2273, 0);
+    pCache->pNodes = (D2SpriteCacheNodeStrc*)FOG_AllocPool(pMemPool, sizeof(D2SpriteCacheNodeStrc) * 0x1400, ".\\SRC\\SpriteCache.cpp", 2273, 0);
     memset(pCache->pNodes, 0, sizeof(D2SpriteCacheNodeStrc) * 0x1400);
 
     for (int i = 0; i < 0x1400; ++i)

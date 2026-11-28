@@ -76,7 +76,7 @@ D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x0
 
 int __fastcall GFXUTIL_InitMonsterCelContext(D2GfxDataStrc* pContext, int nA, int nB, int nLayer, int nMode, unsigned int dwCode, D2HashedFileEntryStrc* pEntry, D2MonCofInfoStrc* pInfo, D2MonStatsTxt* pMonStats, int nIndex); // 0x004DBCF0
 
-int __stdcall sub_006001F0(D2GfxDataStrc* pContext, int nArg2, int nArg3); // 0x006001F0
+int __stdcall D2CMPSpriteValidate(D2GfxDataStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 
 
 
@@ -354,7 +354,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                 {
                     if (bLoadNow)
                     {
-                        if (!sub_006001F0(&tContext, 1, 1))
+                        if (!D2CMPSpriteValidate(&tContext, 1, 1))
                         {
                             tContext.nArg34 = 0;
 // build: symbol ?D2CMPSpriteRequest@* 0x006004E0
@@ -363,7 +363,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                     }
                     else
                     {
-                        sub_006001F0(&tContext, 0, 0);
+                        D2CMPSpriteValidate(&tContext, 0, 0);
                     }
                 }
             }
@@ -376,7 +376,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
             {
                 if (bLoadNow)
                 {
-                    if (!sub_006001F0(&tContext, 1, 1))
+                    if (!D2CMPSpriteValidate(&tContext, 1, 1))
                     {
                         tContext.nArg34 = 0;
                         D2CMPSpriteRequest(&tContext);
@@ -384,7 +384,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                 }
                 else
                 {
-                    sub_006001F0(&tContext, 0, 0);
+                    D2CMPSpriteValidate(&tContext, 0, 0);
                 }
             }
         }
@@ -877,7 +877,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
         int nItemId;
         if (GFXUTIL_InitUnitCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), 0, &nItemId, nLayer, nMode))
         {
-            if (!sub_006001F0(&tContext, bAsync, bAsync))
+            if (!D2CMPSpriteValidate(&tContext, bAsync, bAsync))
             {
                 tContext.nArg34 = 0;
                 if (!D2CMPSpriteRequest(&tContext))

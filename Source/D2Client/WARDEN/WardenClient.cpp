@@ -864,7 +864,7 @@ void WardenClient::WARDENCLIENT_SetWardenBuffer(const void* pData, unsigned int 
     }
     gpWardenBuffer = SMemAlloc(nSize, ".\\WARDEN\\WardenClient.cpp", 0x284, 0);
     gnWardenBufferSize = nSize;
-    sub_0041D2A0_MemCopy(gpWardenBuffer, pData, nSize);
+    SMemCopy(gpWardenBuffer, pData, nSize);
 }
 
 // 0x00480150
@@ -877,7 +877,7 @@ bool WardenClient::WARDENCLIENT_TakeWardenBuffer(void* pDst, unsigned int* pSize
     }
     unsigned int nSize = *pSize < gnWardenBufferSize ? *pSize : gnWardenBufferSize;
     *pSize = nSize;
-    sub_0041D2A0_MemCopy(pDst, pBuffer, nSize);
+    SMemCopy(pDst, pBuffer, nSize);
     SMemFree(gpWardenBuffer, ".\\WARDEN\\WardenClient.cpp", 0x292, 0);
     gpWardenBuffer = 0;
     gnWardenBufferSize = 0;

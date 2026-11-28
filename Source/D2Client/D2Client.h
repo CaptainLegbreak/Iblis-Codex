@@ -945,7 +945,7 @@ void __stdcall UNITS_UpdateDirectionAndSpeed(D2UnitStrc* pUnit, int nX, int nY);
 void __stdcall UNITS_UpdateFrame(D2UnitStrc* pUnit); // 0x00621310
 void __stdcall WAYPOINTS_CopyAndValidateWaypointData(D2WaypointDataStrc* pDest, const void* pSource); // 0x00661030
 void __stdcall WINDOW_OpenSmackCutscene(const char* szFile, int nResolution, void* pfFrame); // 0x004F5D90
-void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
+void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 void __stdcall CHATDLG_SetMcpResult(int nValue); // 0x00449BF0
 void __stdcall CHATDLG_SetCharCreateReceived(int nValue); // 0x00449C20
 void __stdcall sub_0048B0A0(D2UnitStrc* pUnit); // 0x0048B0A0
@@ -985,7 +985,7 @@ void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath); // 0x00650590
 void* __cdecl sub_00454600(); // 0x00454600
 void* __fastcall FOG_AllocPool(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsyncData); // 0x0040A9E0
-void* __fastcall sub_0040B430(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2PoolSystemStrc* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize); // 0x00517993
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
