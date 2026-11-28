@@ -230,7 +230,8 @@ int __cdecl MONSTER_OpenWait()
     DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xFCA), 0xF, 0, 0, 1, 0, 0);
     DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD49), 0xF, 0, 0, 1, MONSTER_OnCancel, 1);
     DIALOG_AddTextLine(gpTradeRequestDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, MONSTER_OnClose, 1);
-    sub_004B82F0_Select(gpTradeRequestDialog, -1);
+// build: symbol ?DIALOG_SelectLine@* 0x004B82F0
+    DIALOG_SelectLine(gpTradeRequestDialog, -1);
     return 1;
 }
 
@@ -264,7 +265,7 @@ void __cdecl MONSTER_OpenWait2()
     ROSTER_SetCtrlState(gpTradeWaitDialog, 1);
     DIALOG_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xFCB), 0xF, 0, 0, 1, 0, 0);
     DIALOG_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, MONSTER_OnClose2, 1);
-    sub_004B82F0_Select(gpTradeWaitDialog, -1);
+    DIALOG_SelectLine(gpTradeWaitDialog, -1);
 }
 
 // 0x004B8A00
