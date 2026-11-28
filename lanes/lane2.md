@@ -6,16 +6,17 @@ Lane 2, one day: placeholder function names in D2Client (`sub_<VA>_<Verb>`). Eac
 
 ### Ready
 
+- `lane2/names-ui` ea9796967 (on #505): D2Client UI, 11 names. DIALOG_SelectLine; CMDTBL_ShowBelt; the mouse-button command runners CMDTBL_RunMButtonDown/Up, CMDTBL_RunXButton1Down/Up and CMDTBL_RunXButton2Down; NPCMENU_CloseConfirmAndRebuild (NPCMENU_CloseConfirmDialog is already 0x004B4070's name); HIREABLES_DrawHelpShade; INV_IsInStashRect and INV_IsInCubeRect, the page-4 and page-3 grid hit tests. VERIFIED d6f7db8d (on #504; rebased onto #505 cleanly, precheck equal, namesync nothing). Audit guard: no count rose. linkdebt: 17,965 -> 17,965, no module rising. Left in UI: the identical copies (spellsel's three FindSkill, npcmenu's five FinishPendingAction callbacks, Hireables' two DrawHelpText), the edit box's field setters (SetUnk04/18/20/24, Slot12/14/15) until those fields are named, and the inv packet senders 0x67/0x6B.
 - `lane2/names-engine-sound` 20e192914 (on #504): D2Client ENGINE and Sound, 6 names: CURSOR_GetCursorState (51 refs), CURSOR_ResetCursorState, SOUNDINST_StopSound, SOUNDINST_FindSoundHandle, SOUNDINST_UpdateSounds, SOUNDINST_IsHintPlaying. These two folders share a branch because each is that small. VERIFIED 0ca5d95b. Audit guard: no count rose. linkdebt: 17,965 -> 17,965, no module rising. Left: Gfx.cpp's client critter AI handlers (sub_0046CCD0_AiType1 ... AiType7, CommandMode7/8) until their monster commands are named; the Nop/Empty stubs.
-- `lane2/names-unit` 2ab06b5a7 (on #504): D2Client UNIT, 8 placeholder function names. 0x00463DD0 CUNIT_GetPlayerUnit (463 refs), 0x00463DE0 CUNIT_GetPlayerUnit2 (its identical twin, 65 refs), MONUNIQUE_CheckMonTypeFlag, MONUNIQUE_GetBossHcIdx, MONUNIQUE_SetBossHcIdx, MONUNIQUE_SetNameSeed, UNITMODE_StopAllSounds, UNITMODE_RunPendingAction. apply.py's way: 74 `// build: symbol` lines where a caller had no address for the new name. VERIFIED 3df50ad1 (on #503; rebased onto #504 cleanly, precheck of 211 units equal, namesync nothing). Audit guard: no count rose. linkdebt: 17,991 -> 17,991, no module rising. Left UNIT's no-evidence stubs (Return0/Nop/AlwaysOne/Empty), the two player inventory-table getters and the ring hit. Also left three identical copies that already have names: PLRSKILLS_GetThirdsTier, ITEM_RefreshUnitItems, PLRSKILLS_RefreshPassiveSkills.
 
 ### Claimed
 
-- `lane2/names-ui`: the placeholder functions defined in Source/D2Client/UI (dialog, CmdTbl, npcmenu, Hireables, inv), with every reference to them.
-- `lane2/names-unit` (Ready): the placeholder functions defined in Source/D2Client/UNIT (CUnit, MonUnique, Monster, UnitMode, PlayerList, PlrSkills, Item, Missile, Object, Player), plus every reference to those names (D2Client and Source/Include/D2ClientApi.h).
+- `lane2/names-game` (building): Game.cpp's six getters, with every reference to them.
+- `lane2/names-root-a` (building): 21 placeholders defined in D2Client Unknown_ files (plan below), with every reference to them. The only edits in lane 4's claimed Unknown_004EDCA0, Unknown_004E89A0 and Unknown_004B5810 are call-site renames, which namesync takes care of on a rebase. I left 0x004E89A0 and 0x004EDCA0 themselves (lane 4's join targets) unnamed.
 
 ### Status
 
+- Sat Nov 28 03:51 PST 2026: names-unit merged in #505; names-engine-sound and names-ui Ready; names-game and names-root-a in their full builds. A branch takes about 40 minutes end to end on this 2-core machine.
 - Sat Nov 28 02:24 PST 2026: started. Setup is reused (checkout, toolchain, gen/ and Game.exe from the earlier lane 2 run; the machine has 2 cores, so a full verify takes about 20 minutes). First branch: UNIT, led by the 0x00463DD0/0x00463DE0 player-unit getters (463 and 65 references). Questions: AGENTS.md and docs/names/ aren't on main or coord. Should they be? Until someone answers, I'm naming from names.csv and the code.
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
