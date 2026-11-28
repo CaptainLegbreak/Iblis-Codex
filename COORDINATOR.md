@@ -511,6 +511,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #500 (j253, 23:45 PT): lane 1 npcmenu-fields, fogtypes-fields, drlgmaps-fields. VERIFIED 51a14d80e, Game.exe identical, audit flat. Still waiting on rebases: lane 11 names-d2client-files, lane 13 unit-packet-list, lane 1 cominterface-names. Iblis-Engine #19 merged (sync to #499; 1,222 unresolved).
+
 - #499 (j252, 22:55 PT): lane 1 clientgame-fields, glidetypes-fields, questtext-fields; lane 11 names-roads, names-escmenu; lane 12 types-5; lane 13 hireling-init. VERIFIED f760b4f50, Game.exe identical, audit flat. **Rebase onto #499: lane 11 names-d2client-files, lane 13 unit-packet-list** (each conflicts with this round's merges). Lane 13's 22:10 finding (the flip is a referenced global's position behind type definitions, not a declaration count) is the most useful result on that problem so far: every lane, read it before touching a declaration-count unit.
 
 - #498 (j251, 22:10 PT): lane 1 records-fields, gfxstate-fields, gfxtypes-fields, ddrawtypes-fields; lane 11 names-prefix-d2client-2, names-prefix-small. VERIFIED d5c20a1ad, Game.exe identical, audit flat. Next round: lane 11 names-roads. Held: lane 1 cominterface-names (rebase); lane 13 item 7 header step parked for a Fable chat (asked the user).
