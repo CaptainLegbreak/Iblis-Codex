@@ -1747,14 +1747,14 @@ typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 extern "C" const char gszD2NetSourceFile[];
 
 // build: symbol ?gnConnectionMode@* 0x00882D10
-extern int gnConnectionMode;
+extern int gnConnectionMode; // 0x00882D10
 
 typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClassId);
 
 extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 
 
-extern unsigned short gwValue_0077905C;
+extern unsigned short gwValue_0077905C; // 0x0077905C
 
 
 struct D2GameHashLinkStrc

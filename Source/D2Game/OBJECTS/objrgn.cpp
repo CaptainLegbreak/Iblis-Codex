@@ -248,7 +248,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 extern "C" const char gszD2NetSourceFile[];
 
 // build: symbol ?gnConnectionMode@* 0x00882D10
-extern int gnConnectionMode;
+extern int gnConnectionMode; // 0x00882D10
 
 int gbD2ServerCallbackFunctionsInitialized;                                                        // 0x00883D54
 
@@ -260,7 +260,7 @@ extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 void* __fastcall sub_0040B430(D2PoolSystemStrc* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 
-extern unsigned short gwValue_0077905C;
+extern unsigned short gwValue_0077905C; // 0x0077905C
 
 
 struct D2GameHashLinkStrc

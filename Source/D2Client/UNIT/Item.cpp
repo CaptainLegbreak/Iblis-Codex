@@ -326,7 +326,7 @@ extern "C" unsigned int gnTableCount; // 0x00727A3C
 
 extern "C" unsigned int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
 
-void __stdcall sub_0063BE30_Return(int nUnused1, int nUnused2);
+void __stdcall sub_0063BE30_Return(int nUnused1, int nUnused2); // 0x0063BE30
 
 extern "C" const char szItemCppFile[];
 

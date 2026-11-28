@@ -128,7 +128,7 @@ struct D2SkillListStrc;
 
 struct D2SkillsTxt;
 
-extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType);
+extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType); // 0x00478A20
 
 struct D2ClientStrc;
 
