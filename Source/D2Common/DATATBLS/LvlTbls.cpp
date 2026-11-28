@@ -1026,12 +1026,6 @@ static int DATATBLS_GetAutomapTileType(const char* szTileName)
     return 0;
 }
 
-void __stdcall sub_M14_EmitAutomapLookups(const char* pAutomapRecord, int* pTypes)
-{
-    pTypes[0] = DATATBLS_GetAutomapLevelType(pAutomapRecord);
-    pTypes[1] = DATATBLS_GetAutomapTileType(pAutomapRecord + 16);
-}
-
 // 0x0061C540
 void __fastcall DATATBLS_LoadLevelsTxt(void* hArchive)
 {
