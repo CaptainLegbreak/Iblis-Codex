@@ -159,7 +159,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
 
 
-void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 

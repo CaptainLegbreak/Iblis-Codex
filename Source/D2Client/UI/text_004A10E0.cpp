@@ -12,7 +12,7 @@ struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; i
 #pragma pack(pop)
 
 void __fastcall GAME_ResetMouseState(); // 0x0044DA40
-D2SoundStrc* __fastcall sub_004B9610_GetSoundHandle(int nSound); // 0x004B9610
+D2SoundStrc* __fastcall SOUNDINST_FindSoundHandle(int nSound); // 0x004B9610
 void __fastcall SOUNDINST_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall SELECT_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
@@ -63,7 +63,7 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
     GAME_ResetMouseState();
     if (gnHintId)
     {
-        D2SoundStrc* pSound = sub_004B9610_GetSoundHandle(gnHintId);
+        D2SoundStrc* pSound = SOUNDINST_FindSoundHandle(gnHintId);
         if (pSound)
             SOUNDINST_ArmHint(pSound, 0, 0, 4);
         gnHintId = 0;

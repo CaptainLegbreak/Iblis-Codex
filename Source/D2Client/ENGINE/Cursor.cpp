@@ -232,7 +232,7 @@ int __cdecl CURSOR_GetCursorFrame()
 }
 
 // 0x00468040
-void __fastcall sub_00468040_ResetCursorState(int nArg, int nArg2)
+void __fastcall CURSOR_ResetCursorState(int nArg, int nArg2)
 {
     gpCursorItem = 0;
     gnCursorAnim = 6;
@@ -582,7 +582,7 @@ void __fastcall sub_00468820_Nop(int nArg1, int nArg2)
 }
 
 // 0x00468830
-int __cdecl sub_00468830_GetCursorState()
+int __cdecl CURSOR_GetCursorState()
 {
     return gnCursorState;
 }

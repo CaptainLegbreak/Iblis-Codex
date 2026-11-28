@@ -18046,7 +18046,7 @@
     {
      "va": "0x00468040",
      "length": 42,
-     "name": "?sub_00468040_ResetCursorState@@YIXHH@Z"
+     "name": "?CURSOR_ResetCursorState@@YIXHH@Z"
     },
     {
      "va": "0x00468070",
@@ -18128,7 +18128,7 @@
     {
      "va": "0x00468830",
      "length": 6,
-     "name": "sub_00468830_GetCursorState"
+     "name": "CURSOR_GetCursorState"
     },
     {
      "va": "0x00468840",
@@ -25971,12 +25971,12 @@
     {
      "va": "0x004B95C0",
      "length": 68,
-     "name": "?sub_004B95C0_IsHintPlaying@@YIHH@Z"
+     "name": "?SOUNDINST_IsHintPlaying@@YIHH@Z"
     },
     {
      "va": "0x004B9610",
      "length": 37,
-     "name": "?sub_004B9610_GetSoundHandle@@YIPAXH@Z"
+     "name": "?SOUNDINST_FindSoundHandle@@YIPAXH@Z"
     },
     {
      "va": "0x004B9640",
@@ -26129,7 +26129,7 @@
     {
      "va": "0x004BA840",
      "length": 78,
-     "name": "?sub_004BA840_StopSound@@YIXH@Z"
+     "name": "?SOUNDINST_StopSound@@YIXH@Z"
     },
     {
      "va": "0x004BA890",

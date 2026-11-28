@@ -1820,7 +1820,8 @@ void __stdcall MINIPANEL_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     if (INVENTORY_GetCursorItem(pInventory))
         return;
-    if (sub_00468830_GetCursorState() != 7)
+// build: symbol ?CURSOR_GetCursorState@* 0x00468830
+    if (CURSOR_GetCursorState() != 7)
         CURSOR_SetCursorItemState(0);
     int nCount = 8;
     if (gbSmallPanel)

@@ -3511,7 +3511,8 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox)
     }
 
     const int bBusy = D2SOUND_GetMasterVolumeOption();
-    if (!gtTextState.hHintSound || sub_004B95C0_IsHintPlaying(gtTextState.hHintSound) || !bBusy)
+// build: symbol ?SOUNDINST_IsHintPlaying@* 0x004B95C0
+    if (!gtTextState.hHintSound || SOUNDINST_IsHintPlaying(gtTextState.hHintSound) || !bBusy)
     {
         gtTextState.hHintSound = 0;
         if (sub_0049D5A0_UpdateTextBox(pTextBox))
