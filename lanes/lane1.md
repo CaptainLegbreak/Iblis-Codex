@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/npcmenu-fields** (a08bc39b0, on main #498 3f6ca97c6; VERIFIED tree d341309f3b138c91d2120bb9ab3cbb93dd8f9359; independent). D2ClientNpcMenu.h: 5 `unk0x..` -> 0, none named by any code: `unused0x<off>` (packed menu state, item slot), `pad0x02` (item slot gap before its seed). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,253 -> 19,253 (main #498 measured here), every module unchanged.
+
 - **lane1/questtext-fields** (eb650fe30, on main #496 89e75a2de; VERIFIED tree 12ca51897383dab6d1d6857cb0389f218dc96d4f; independent). D2ClientQuestText.h: 4 `unk0x..` -> 0, none named by any code; the quest log state is packed, so its unread bytes are all `unused0x<off>`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,430 -> 19,430 (main #496), every module unchanged.
 - **lane1/glidetypes-fields** (95bff6aa0, on main #496 89e75a2de; VERIFIED tree f9991c331a6b5c219086a181bbd280f3360eabac; independent). D2GlideTypes.h: 3 `unk0x..` -> 0, none named by any code: `unused0x<off>` (sprite vertex, tile record). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,430 -> 19,430 (main #496), every module unchanged.
 
@@ -16,6 +18,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 22:32 PST 2026: check-in. npcmenu-fields Ready. fogtypes and drlgmaps building.
 - Fri Nov 27 22:00 PST 2026: check-in. Building on #498: npcmenu-fields (D2ClientNpcMenu.h), fogtypes-fields (D2FogTypes.h: its PEB, TEB and PEB_LDR_DATA copies take winternl.h's own Reserved/BeingDebugged members), drlgmaps-fields (D2DrlgMaps.h). Claimed: those three headers.
 - Fri Nov 27 21:54 PST 2026: check-in. Main took gfxstate-fields, records-fields, ddrawtypes-fields, gfxtypes-fields (Ready lines dropped). questtext-fields and glidetypes-fields Ready (both merge clean on #497). Next: the remaining headers with one or two `unk0x` fields, then queue item 2.
 - Fri Nov 27 21:37 PST 2026: clientgame-fields Ready. glidetypes and questtext building.
