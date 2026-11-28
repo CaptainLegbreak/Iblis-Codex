@@ -8,6 +8,7 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Status
 
+- Sat Nov 28 02:39:06 PST 2026: join-skills-c51d0 builds equal, full build running. First results: Unknown_004DC7B0.cpp is not PlrSkills.cpp's (inlining evidence, below); Missile.cpp, SkillDesc.cpp and npcmenu.cpp joins need view work, in progress.
 - Sat Nov 28 02:23:20 PST 2026: restarted on main #503. Surveying the 61 files for name evidence (file-name strings, docs/names/, D2MOO, object boundaries).
 
 ### Ready
@@ -16,7 +17,11 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Claimed
 
-- Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004DC7B0.cpp -> UNIT/PlrSkills.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp. Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
+- Joins with an object-map clear lead and no language-table copy of their own (one branch each, lane4/join-<owner>-<va>): Unknown_004D1300.cpp -> UNIT/Missile.cpp; Unknown_004EDCA0.cpp and Unknown_004E89A0.cpp -> UI/SkillDesc.cpp; Unknown_004B5810.cpp -> UI/npcmenu.cpp; Unknown_004BC1B0_004BE770.cpp -> Unknown_004BC1B0.cpp; Unknown_004A6260.cpp -> Unknown_004A43E0.cpp; Unknown_004C51D0.cpp -> SKILLS/Skills.cpp. Lane 2: these owner files get the placeholder's functions; I keep their names as they are.
+
+### No join (evidence against)
+
+- Unknown_004DC7B0.cpp (0x4DC7B0, 0x4DC9D0) is not part of UNIT/PlrSkills.cpp's object although every call into it comes from there: 0x4DC7B0 calls PlrSkills.cpp's 5-byte wrappers PLRSKILLS_CallSkillSeqDoForward/Backward (0x4D85B0, 0x4D8650) out of line. In one /Ob2 unit those wrappers inline, the two switch cases become identical and the compiler merges them (tried: the joined unit differs there and only there). A separate object, name not known.
 
 ## Before the restart (stopped lane's record)
 
