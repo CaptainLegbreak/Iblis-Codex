@@ -1014,7 +1014,6 @@ extern "C" void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const 
 #define KEY_WHEEL_DOWN 0x104
 #define KEY_WHEEL_UP 0x103
 // build: symbol ?CUNIT_FindClientUnit@* 0x00463990
-#define NPC_GET_INTERACT_UNIT() (gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0)
 #define NULL 0
 #define SUMMIT_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))

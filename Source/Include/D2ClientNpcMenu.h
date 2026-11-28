@@ -106,3 +106,6 @@ struct D2NpcMenuStateStrc
 #pragma pack(pop)
 
 extern D2NpcMenuStateStrc gtNpcMenu; // 0x007C0C68
+
+// The NPC the menu is talking to, or 0 when it isn't talking to one.
+#define NPC_GET_INTERACT_UNIT() (gtNpcMenu.bInteracting ? CUNIT_FindClientUnit(gtNpcMenu.nInteractNpcId, 1) : 0)

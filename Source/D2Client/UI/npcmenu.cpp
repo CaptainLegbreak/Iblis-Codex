@@ -1315,7 +1315,7 @@ void __fastcall NPCMENU_OnNpcPacketStoreSubId(D2NpcPacketStrc* pPacket)
 // 0x004B2620
 void __fastcall NPCMENU_CopyQuestBuffer(unsigned char* pBuffer)
 {
-    QUESTRECORD_CopyBufferToRecord((D2BitBufferStrc*)gtNpcMenu.pGameQuestFlags, pBuffer, 0x60, 0);
+    QUESTRECORD_CopyBufferToRecord(gtNpcMenu.pGameQuestFlags, pBuffer, 0x60, 0);
 }
 
 // 0x004B2640
