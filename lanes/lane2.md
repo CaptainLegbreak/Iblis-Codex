@@ -6,11 +6,12 @@ Lane 2, one day: placeholder function names in D2Client (`sub_<VA>_<Verb>`). Eac
 
 ### Ready
 
+- `lane2/names-engine-sound` 20e192914 (on #504): D2Client ENGINE and Sound, 6 names: CURSOR_GetCursorState (51 refs), CURSOR_ResetCursorState, SOUNDINST_StopSound, SOUNDINST_FindSoundHandle, SOUNDINST_UpdateSounds, SOUNDINST_IsHintPlaying. These two folders share a branch because each is that small. VERIFIED 0ca5d95b. Audit guard: no count rose. linkdebt: 17,965 -> 17,965, no module rising. Left: Gfx.cpp's client critter AI handlers (sub_0046CCD0_AiType1 ... AiType7, CommandMode7/8) until their monster commands are named; the Nop/Empty stubs.
 - `lane2/names-unit` 2ab06b5a7 (on #504): D2Client UNIT, 8 placeholder function names. 0x00463DD0 CUNIT_GetPlayerUnit (463 refs), 0x00463DE0 CUNIT_GetPlayerUnit2 (its identical twin, 65 refs), MONUNIQUE_CheckMonTypeFlag, MONUNIQUE_GetBossHcIdx, MONUNIQUE_SetBossHcIdx, MONUNIQUE_SetNameSeed, UNITMODE_StopAllSounds, UNITMODE_RunPendingAction. apply.py's way: 74 `// build: symbol` lines where a caller had no address for the new name. VERIFIED 3df50ad1 (on #503; rebased onto #504 cleanly, precheck of 211 units equal, namesync nothing). Audit guard: no count rose. linkdebt: 17,991 -> 17,991, no module rising. Left UNIT's no-evidence stubs (Return0/Nop/AlwaysOne/Empty), the two player inventory-table getters and the ring hit. Also left three identical copies that already have names: PLRSKILLS_GetThirdsTier, ITEM_RefreshUnitItems, PLRSKILLS_RefreshPassiveSkills.
 
 ### Claimed
 
-- `lane2/names-engine`, `lane2/names-sound`: Cursor.cpp's cursor-state pair and SoundInst.cpp's four, with every reference to them.
+- `lane2/names-ui`: the placeholder functions defined in Source/D2Client/UI (dialog, CmdTbl, npcmenu, Hireables, inv), with every reference to them.
 - `lane2/names-unit` (Ready): the placeholder functions defined in Source/D2Client/UNIT (CUnit, MonUnique, Monster, UnitMode, PlayerList, PlrSkills, Item, Missile, Object, Player), plus every reference to those names (D2Client and Source/Include/D2ClientApi.h).
 
 ### Status
