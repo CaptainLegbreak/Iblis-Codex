@@ -724,16 +724,6 @@ static inline void WALL2_FillCells(D2GridCellStrc* pCells)
     }
 }
 
-int __fastcall sub_M131_Emit_004DDE40(D2GridRectStrc* pRect, int nX, int nY, D2GridCellStrc* pCells)
-{
-    if (!WALL2_IsPointInRect(pRect, nX, nY))
-    {
-        return 0;
-    }
-    WALL2_FillCells(pCells);
-    return 1;
-}
-
 // 0x004DDEF0
 static void __stdcall WALL2_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells)
 {
@@ -862,21 +852,6 @@ D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pR
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* ptRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-
-static void sub_B08_FillCellsInline(D2GridCellStrc* pCells)
-{
-    for (int j = 0; j < 8; ++j)
-    {
-        for (int i = 0; i < 8; ++i)
-        {
-            pCells->nIntensity = 0xFF;
-            pCells->nRed = 0xFF;
-            pCells->nBlue = 0xFF;
-            pCells->nGreen = 0xFF;
-            ++pCells;
-        }
-    }
-}
 
 // 0x004DDFD0
 static void __stdcall WALL2_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode)
@@ -1083,8 +1058,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
     }
 
     D2GridRectStrc* pRect = &pOwner->tRect;
-    D2_ASSERT(pRect, 0x76);
-    if (nX < pRect->nLeft || nX >= pRect->nRight || nY < pRect->nTop || nY >= pRect->nBottom)
+    if (!WALL2_IsPointInRect(pRect, nX, nY))
     {
         return;
     }
@@ -1101,7 +1075,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
     {
         if (pInfo->wFlags & 0x100)
         {
-            sub_B08_FillCellsInline(tLarge);
+            WALL2_FillCells(tLarge);
         }
         else
         {
