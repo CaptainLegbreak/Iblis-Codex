@@ -118,6 +118,7 @@ int __stdcall sub_0063E510_InventoryGridQuery(D2UnitStrc* pUnit, unsigned char* 
 #include "D2CommonApi2.h"
 #include "D2ClientApi.h"
 #include "D2BNClientApi.h"
+#include "D2SavedItem.h"
 
 struct D2ClientUnitUpdateSortStrc
 {
@@ -1548,30 +1549,6 @@ extern int gnUnchangedSaveCount; // 0x00883D6C
 
 
 
-
-struct D2SavedItemStrc
-{
-    unsigned char nBodyLoc;
-    unsigned char nSocketedItems;
-    int nItemLevel;
-    int nItemId;
-    unsigned char nSpawnType;
-    unsigned char nItemQuality;
-    int nQuantity;
-    int nMinDurability;
-    int nMaxDurability;
-    int nX;
-    int nY;
-    int nItemIndex;
-    unsigned int nItemFlags;
-    unsigned int nSeed;
-    unsigned int nItemSeed;
-    unsigned char nInvPage;
-    unsigned char nEarLevel;
-    char szName[16];
-    unsigned short nItemFormat;
-    unsigned int nItemCode;
-};
 
 
 

@@ -340,29 +340,7 @@ extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 
 #pragma pack(push, 1)
 
-struct D2SavedItemStrc
-{
-    unsigned char nBodyLoc;
-    unsigned char nSocketedItems;
-    int nItemLevel;
-    int nItemId;
-    unsigned char nSpawnType;
-    unsigned char nItemQuality;
-    int nQuantity;
-    int nMinDurability;
-    int nMaxDurability;
-    int nX;
-    int nY;
-    int nItemIndex;
-    unsigned int nItemFlags;
-    unsigned int nSeed;
-    unsigned int nItemSeed;
-    unsigned char nInvPage;
-    unsigned char nEarLevel;
-    char szName[16];
-    unsigned short nItemFormat;
-    unsigned int nItemCode;
-};
+#include "D2SavedItem.h"
 
 #pragma pack(pop)
 
