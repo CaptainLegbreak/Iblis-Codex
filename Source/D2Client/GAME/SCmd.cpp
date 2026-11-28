@@ -422,7 +422,7 @@ void __fastcall TEXT_HandleNpcTextPacket(D2GSPacketSrv27Strc* pPacket); // 0x004
 
 
 
-int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 
 int __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, int nStatId, int nValue, int nLayer); // 0x004D9D70

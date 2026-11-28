@@ -301,7 +301,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
-D2CelFileStrc* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szFile); // 0x004520C0
 
 int __cdecl sub_00468830_GetCursorState(); // 0x00468830
 
