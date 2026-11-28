@@ -1,0 +1,223 @@
+# va	name	why not defined in unsourced-strings-1
+0x006CC780	gszUnknownText	also a string literal in its file's code, pooled at the same address
+0x006D5514	gszCofTokenFormat	also a string literal in its file's code, pooled at the same address
+0x006D5680	gszCmdUnsquelch	also a string literal in its file's code, pooled at the same address
+0x006D5698	gszCmdSquelch	also a string literal in its file's code, pooled at the same address
+0x006D66F0	gszAutomapFile	also a string literal in its file's code, pooled at the same address
+0x006D6A34	gszPlayerCpp	also a string literal in its file's code, pooled at the same address
+0x006D6C1C	gszGfxFile	also a string literal in its file's code, pooled at the same address
+0x006D9BE8	gszFormatLd	also a string literal in its file's code, pooled at the same address
+0x006DA0CC	gszFormat2u	also a string literal in its file's code, pooled at the same address
+0x006DA630	gszNpcMenuFile	also a string literal in its file's code, pooled at the same address
+0x006DAB88	gszSkillsCppFile	also a string literal in its file's code, pooled at the same address
+0x006DB974	gszGfxUtilCpp	also a string literal in its file's code, pooled at the same address
+0x006DE090	gDisplayError	also a string literal in its file's code, pooled at the same address
+0x006DE0A8	gCoopError	also a string literal in its file's code, pooled at the same address
+0x006DF45C	gszAdListRegKey	also a string literal in its file's code, pooled at the same address
+0x006DF464	gszAdListRegValue	also a string literal in its file's code, pooled at the same address
+0x006E0A30	szSUnitProxyCppFile	also a string literal in its file's code, pooled at the same address
+0x006E0BC8	gszSUnitInactiveSourceFile	also a string literal in its file's code, pooled at the same address
+0x006E1050	gszPlrMsgSourceFile	also a string literal in its file's code, pooled at the same address
+0x006E1164	szItemModeCpp	also a string literal in its file's code, pooled at the same address
+0x006E11D8	szPlrTradeCpp	also a string literal in its file's code, pooled at the same address
+0x006E17E0	gszPlrModesSourceFile	also a string literal in its file's code, pooled at the same address
+0x006E3500	gszAiThink4Source	also a string literal in its file's code, pooled at the same address
+0x006E7C68	gszTxtField_name	also a string literal in its file's code, pooled at the same address
+0x006E84DC	gszLvlTblsSourceFile	also a string literal in its file's code, pooled at the same address
+0x006E9754	gszTxtField_usesound	also a string literal in its file's code, pooled at the same address
+0x006E9760	gszTxtField_dropsfxframe	also a string literal in its file's code, pooled at the same address
+0x006E9770	gszTxtField_dropsound	also a string literal in its file's code, pooled at the same address
+0x006E9828	gszTxtField_invfile	also a string literal in its file's code, pooled at the same address
+0x006E9830	gszTxtField_flippyfile	also a string literal in its file's code, pooled at the same address
+0x006E9908	gszTxtField_rarity	also a string literal in its file's code, pooled at the same address
+0x006EE540	gszMisStreamSourceFile	also a string literal in its file's code, pooled at the same address
+0x006D6C94	gszCofPathFormat	its gen block leaves 1-3 bytes borrowed before it
+0x006DAEF4	gszMissileSourceFile	its gen block leaves 1-3 bytes borrowed before it
+0x006DCC34	gszCharsDir	its gen block leaves 1-3 bytes borrowed before it
+0x006DEC7C	gszConfiguration	its gen block leaves 1-3 bytes borrowed before it
+0x006E879C	gszField_Dt1Mask	its gen block leaves 1-3 bytes borrowed before it
+0x006CC837	gszEmptyAssertText	the "" literal of many units is pooled here
+0x006E15F0	gszNpcSourceFile	no unclaimed included referencing unit
+0x006EE7C4	gszDrlgPresetSourceFile	declared as one char, text is 18 bytes
+0x006FC460	gszQServerCppFile	no unclaimed included referencing unit
+0x006DCCE0	gszTxtField_code	no unclaimed included referencing unit
+0x006E15D8	gszPlayerPetsSourceFile	no unclaimed included referencing unit
+0x006FC8A0	gszQServerNTFile	no unclaimed included referencing unit
+0x006FC4A8	gszHack	no unclaimed included referencing unit
+0x006D41C0	gszMainMenusFile	no unclaimed included referencing unit
+0x006DC840	gszD2WinTextBoxCpp	no unclaimed included referencing unit
+0x006DCC20	gszD2CompSourceFile	no unclaimed included referencing unit
+0x006CF084	gszSFileCpp_006CF084	placeholder name gszSFileCpp_006CF084
+0x006D4230	gszSaveFormat_006D4230	placeholder name gszSaveFormat_006D4230
+0x006F28F8	gData_006F28F8	placeholder name gData_006F28F8
+0x006DC9FC	gszD2WinFontSourceFile	no unclaimed included referencing unit
+0x006E30AC	gszSkillDruidSourceFile	no unclaimed included referencing unit
+0x006DD634	gtVideoKey	declared as one char, text is 22 bytes
+0x006FCC30	gszSCmdFile_006FCC30	placeholder name gszSCmdFile_006FCC30
+0x006D5830	gszStar	no unclaimed included referencing unit
+0x006D9B90	gszCmnItemsH	no unclaimed included referencing unit
+0x006D9BC0	gszInvCpp	no unclaimed included referencing unit
+0x006E364C	gszSpriteCacheSourceFile	no unclaimed included referencing unit
+0x006FC2A4	gszFailedToLockMemorySurface	no unclaimed included referencing unit
+0x006FC284	gszFailedToUnlockMemorySurface	no unclaimed included referencing unit
+0x006CD628	gszExceptionsCppFile	no unclaimed included referencing unit
+0x006CC824	gszDelete_006CC824	placeholder name gszDelete_006CC824
+0x006DEB68	gszD2SoundUtilFile	no unclaimed included referencing unit
+0x006E0200	gszGrid	no unclaimed included referencing unit
+0x006E1C48	gszA1Q4SourceFile	no unclaimed included referencing unit
+0x006FCB1C	gszSource	no unclaimed included referencing unit
+0x006CCA2C	gszDash	no unclaimed included referencing unit
+0x006FFCD8	gszNewLine2	no unclaimed included referencing unit
+0x006D39E8	gszFeCharPalDat	no unclaimed included referencing unit
+0x006D4E24	gszLevelFormat	no unclaimed included referencing unit
+0x006D4DBC	gszCharSelFile	no unclaimed included referencing unit
+0x006CC8B8	gszDiabloII	no unclaimed included referencing unit
+0x006DD52C	gszCourier	no unclaimed included referencing unit
+0x006DF78C	gszBnMessQueueFile	no unclaimed included referencing unit
+0x006E09AC	gszPlrSaveSourceFile	no unclaimed included referencing unit
+0x006D69E0	gszFileModeWb	no unclaimed included referencing unit
+0x006E0A48	szClientsCppFile	no unclaimed included referencing unit
+0x006E1560	gszMonsterAISourceFile	no unclaimed included referencing unit
+0x006E5F1C	gszLRUCacheSourceFile	no unclaimed included referencing unit
+0x006D7268	szRosterCpp_006D7268	placeholder name szRosterCpp_006D7268
+0x006DB440	gaRingOffsetX	overlaps a planned definition
+0x006DB340	gaRingOffsetY	overlaps a planned definition
+0x006DC770	gszD2DataMpq	no unclaimed included referencing unit
+0x006DC728	gszPatchD2Mpq	no unclaimed included referencing unit
+0x006DC77C	gszD2CharMpq	no unclaimed included referencing unit
+0x006DCC68	gszBinExtension	no unclaimed included referencing unit
+0x006DCCBC	gszItemsFieldLevel	no unclaimed included referencing unit
+0x006DCD14	gszItemTypesFieldEquiv1	no unclaimed included referencing unit
+0x006DCD0C	gszItemTypesFieldEquiv2	no unclaimed included referencing unit
+0x006DEB10	gfMaxSoundDistance	no unclaimed included referencing unit
+0x006DECAC	gszOverrideGateways	no unclaimed included referencing unit
+0x006DEC8C	gszDiabloGateways	no unclaimed included referencing unit
+0x006DEE70	gszCacheFile	no declaration found
+0x006DF228	gszBNNewsFile	no unclaimed included referencing unit
+0x006E11B8	gszTaskSourceFile	no unclaimed included referencing unit
+0x006E1B24	gszAiGeneralSourceFile	no unclaimed included referencing unit
+0x006E1FB0	gszA2Q3SourceFile	no unclaimed included referencing unit
+0x006E1F60	gszA2Q1SourceFile	no declaration found
+0x006E2F7C	gszAct3Q6SourceFile	no unclaimed included referencing unit
+0x006E323C	gszSkillPalSourceFile	no unclaimed included referencing unit
+0x006DCD90	gszTxtField_gold	no unclaimed included referencing unit
+0x006E5F44	szGfxHashFile	no unclaimed included referencing unit
+0x006E1150	gszItemsSourceFile	no unclaimed included referencing unit
+0x006E90E4	gszItemTblsSourceFile	path names itemtbls.cpp, no such referencing unit
+0x006F112C	gaDesertBorderIds	name already planned
+0x006FC4B0	gszHackListSizeFormat	no unclaimed included referencing unit
+0x006FC47C	gszQServerTag	no unclaimed included referencing unit
+0x006CCB2C	gData_006CCB2C	placeholder name gData_006CCB2C
+0x006CCB28	gData_006CCB28	placeholder name gData_006CCB28
+0x006CCB24	gData_006CCB24	placeholder name gData_006CCB24
+0x006CCB20	gData_006CCB20	placeholder name gData_006CCB20
+0x006CCB1C	gData_006CCB1C	placeholder name gData_006CCB1C
+0x006CCB18	gData_006CCB18	placeholder name gData_006CCB18
+0x006CCB14	gData_006CCB14	placeholder name gData_006CCB14
+0x006CCB10	gData_006CCB10	placeholder name gData_006CCB10
+0x006CCB0C	gData_006CCB0C	placeholder name gData_006CCB0C
+0x006CCB08	gData_006CCB08	placeholder name gData_006CCB08
+0x006CCB04	gData_006CCB04	placeholder name gData_006CCB04
+0x006CCB00	gData_006CCB00	placeholder name gData_006CCB00
+0x006CCC10	gdDaysPerMonth	declared as one char, text is 9 bytes
+0x006CE1DC	gszLogTimeStampFormat	no unclaimed included referencing unit
+0x006CD880	gszLogUnreadable	no unclaimed included referencing unit
+0x006D41D4	gszSaveMask	no unclaimed included referencing unit
+0x006D48E0	gszTextExt	no unclaimed included referencing unit
+0x006FF9B8	gszBackslash_006FF9B8	placeholder name gszBackslash_006FF9B8
+0x006CF324	gszCloseParen_006CF324	placeholder name gszCloseParen_006CF324
+0x006CFF08	gszSLogNewline	no unclaimed included referencing unit
+0x006CCAD8	gszDot	no unclaimed included referencing unit
+0x006D4E2C	gszTagFormat	no unclaimed included referencing unit
+0x006D4E34	gszNameTagFormat	no unclaimed included referencing unit
+0x006D423C	gszPassword	no unclaimed included referencing unit
+0x006D57C0	gszMaxPlayer	no unclaimed included referencing unit
+0x006D57DC	gszDiffLevel	no unclaimed included referencing unit
+0x006D57CC	gszLvlRest	no unclaimed included referencing unit
+0x006D9BF4	gszQuote	no unclaimed included referencing unit
+0x006D6A48	gszCUnitFile	no unclaimed included referencing unit
+0x006D7284	gData_006D7284	placeholder name gData_006D7284
+0x006D7280	gData_006D7280	placeholder name gData_006D7280
+0x006DA13C	gszTextSourceFile	no unclaimed included referencing unit
+0x006DC764	gszD2SfxMpq	no unclaimed included referencing unit
+0x006DC788	gszD2XVideoMpq	no unclaimed included referencing unit
+0x006DCCF8	gszItemsTableWeapons	no unclaimed included referencing unit
+0x006DCCE8	gszItemsFieldType	no unclaimed included referencing unit
+0x006DCCD0	gszItemsFieldAlternateGfx	no unclaimed included referencing unit
+0x006DCCC4	gszItemsFieldSpawnable	no unclaimed included referencing unit
+0x006DCCB0	gszItemsFieldComponent	no unclaimed included referencing unit
+0x006DCCA8	gszItemsFieldWClass	no unclaimed included referencing unit
+0x006DCC98	gszItemsField2HandedWClass	no unclaimed included referencing unit
+0x006DCC8C	gszItemsField1or2Handed	no unclaimed included referencing unit
+0x006DCC80	gszItemsFieldTransform	no unclaimed included referencing unit
+0x006DCC78	gszItemsTableArmor	no unclaimed included referencing unit
+0x006DCC70	gszItemsTableMisc	no unclaimed included referencing unit
+0x006DCD00	gszItemTypesTable	no unclaimed included referencing unit
+0x006DEBCC	gszFaultError	no unclaimed included referencing unit
+0x006DEC6C	gszBNetGWFile	no unclaimed included referencing unit
+0x006D5D64	gszZero	no unclaimed included referencing unit
+0x006DED24	gszWritingDefaultGateways	no unclaimed included referencing unit
+0x006DEF00	gszCorruptCache	no declaration found
+0x006E0B88	gszPartySourceFile	no unclaimed included referencing unit
+0x006E0CF8	gszMonsterRegion	no unclaimed included referencing unit
+0x006E1ABC	gszA5Q5SourceFile	no unclaimed included referencing unit
+0x006E35D4	gszFmtItemsDc6	no unclaimed included referencing unit
+0x006E3580	gszAiBaal	no unclaimed included referencing unit
+0x006E5DD0	gszCelCmp	no unclaimed included referencing unit
+0x006DCDA0	gszPalShiftGrey	no unclaimed included referencing unit
+0x006DCD98	gszPalShiftGrey2	no unclaimed included referencing unit
+0x006DCD88	gszPalShiftBrown	no unclaimed included referencing unit
+0x006DCD7C	gszPalShiftGreyBrown	no unclaimed included referencing unit
+0x006DCD74	gszPalShiftInvGrey	no unclaimed included referencing unit
+0x006DCD68	gszPalShiftInvGrey2	no unclaimed included referencing unit
+0x006DCD58	gszPalShiftInvGreyBrown	no unclaimed included referencing unit
+0x006E5F08	szFastCmpFile	no unclaimed included referencing unit
+0x006FF97C	gszFileModeW	no unclaimed included referencing unit
+0x006DCF50	gszHitclassTxtName	no unclaimed included referencing unit
+0x006E070C	gszTxtField_Amazon	no unclaimed included referencing unit
+0x006E0700	gszTxtField_Sorceress	no unclaimed included referencing unit
+0x006E06F4	gszTxtField_Necromancer	no unclaimed included referencing unit
+0x006E06EC	gszTxtField_Paladin	no unclaimed included referencing unit
+0x006E06E0	gszTxtField_Barbarian	no unclaimed included referencing unit
+0x006E06D8	gszTxtField_Druid	no unclaimed included referencing unit
+0x006E06CC	gszTxtField_Assassin	no unclaimed included referencing unit
+0x006E7B3C	gszTxtField_exp	no unclaimed included referencing unit
+0x006E6438	gszOpenBracket	no unclaimed included referencing unit
+0x006E6434	gszCloseBracket	no unclaimed included referencing unit
+0x006E9CCC	gszTxtField_index	no unclaimed included referencing unit
+0x006ED5B4	gData_006ED5B4	placeholder name gData_006ED5B4
+0x006DCFBC	gszTxtField_magic	no unclaimed included referencing unit
+0x006E6850	gszTxtField_Id	no unclaimed included referencing unit
+0x006EAA88	gszTxtField_Height	no unclaimed included referencing unit
+0x006E8654	gszTxtField_SizeX	no unclaimed included referencing unit
+0x006E864C	gszTxtField_SizeY	no unclaimed included referencing unit
+0x006EABFC	gszTxtField_HD	no unclaimed included referencing unit
+0x006EABF8	gszTxtField_TR	no unclaimed included referencing unit
+0x006EABF4	gszTxtField_LG	no unclaimed included referencing unit
+0x006EABF0	gszTxtField_RA	no unclaimed included referencing unit
+0x006EABEC	gszTxtField_LA	no unclaimed included referencing unit
+0x006EABE8	gszTxtField_RH	no unclaimed included referencing unit
+0x006EABE4	gszTxtField_LH	no unclaimed included referencing unit
+0x006EABE0	gszTxtField_SH	no unclaimed included referencing unit
+0x006EABDC	gszTxtField_S1	no unclaimed included referencing unit
+0x006EABD8	gszTxtField_S2	no unclaimed included referencing unit
+0x006EABD4	gszTxtField_S3	no unclaimed included referencing unit
+0x006EABD0	gszTxtField_S4	no unclaimed included referencing unit
+0x006EABCC	gszTxtField_S5	no unclaimed included referencing unit
+0x006EABC8	gszTxtField_S6	no unclaimed included referencing unit
+0x006EABC4	gszTxtField_S7	no unclaimed included referencing unit
+0x006EABC0	gszTxtField_S8	no unclaimed included referencing unit
+0x006EABB4	gszTxtField_TotalPieces	no unclaimed included referencing unit
+0x006E7A7C	gszTxtField_light_r	no unclaimed included referencing unit
+0x006E7A74	gszTxtField_light_g	no unclaimed included referencing unit
+0x006E7A6C	gszTxtField_light_b	no unclaimed included referencing unit
+0x006EC9A8	gszTxtField_Utrans	no unclaimed included referencing unit
+0x006EC99C	gszTxtField_Utrans_N_	no unclaimed included referencing unit
+0x006EC990	gszTxtField_Utrans_H_	no unclaimed included referencing unit
+0x006EBE70	gszMonsterTblsSourceFile	no unclaimed included referencing unit
+0x006E65B0	gszField_item1	no unclaimed included referencing unit
+0x006E659C	gszField_item2	no unclaimed included referencing unit
+0x006E6588	gszField_item3	no unclaimed included referencing unit
+0x006FC2C4	gCreateFailure	no unclaimed included referencing unit
+0x006FC358	gszD3DSmackFile	no unclaimed included referencing unit
+0x006FC418	gszSocketFile	no unclaimed included referencing unit
