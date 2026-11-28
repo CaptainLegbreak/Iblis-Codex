@@ -8,12 +8,13 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### Status
 
+- Sat Nov 28 03:01:14 PST 2026: join-skills-c51d0 Ready on #504. Next: the other clear joins (SkillDesc.cpp, npcmenu.cpp, the list-box piece) by inserting each placeholder's functions at their addresses without reordering the owner.
 - Sat Nov 28 02:39:06 PST 2026: join-skills-c51d0 builds equal, full build running. First results: Unknown_004DC7B0.cpp is not PlrSkills.cpp's (inlining evidence, below); Missile.cpp, SkillDesc.cpp and npcmenu.cpp joins need view work, in progress.
 - Sat Nov 28 02:23:20 PST 2026: restarted on main #503. Surveying the 61 files for name evidence (file-name strings, docs/names/, D2MOO, object boundaries).
 
 ### Ready
 
-(none yet)
+- **lane4/join-skills-c51d0** (1fe9b15c2, on main #504 87b6da6dc; VERIFIED tree ae701cf31635990c0b5ec388b8654e77d6f57074 on #503). SKILLS/Skills.cpp takes Unknown_004C51D0.cpp: 0x4C51D0 (the states table's record count) and 0x4C53D0 (the direction scale-down beside SKILLS_ScaleUpDirection at 0x4C5390) go in at their addresses between Skills.cpp's own functions; nothing else in Skills.cpp moves. Placeholders -1. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal, borrowed data 253 B (main's). Audit guard: no count rose. linkdebt: 17,991 -> 17,991 (main #503), every module unchanged. Rebased onto #504: namesync clean, Skills.cpp equal.
 
 ### Claimed
 
