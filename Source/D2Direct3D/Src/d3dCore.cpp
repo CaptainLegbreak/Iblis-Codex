@@ -10,6 +10,8 @@
 #include "StormApi.h"
 #include "FogApi.h"
 #include "D2HellApi.h"
+#include "D2GlideApi.h"
+#include "D2DDrawApi.h"
 
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey);
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* lpSubKey, unsigned long Reserved, char* lpClass, unsigned long dwOptions, unsigned long samDesired, void* lpSecurityAttributes, void** phkResult, unsigned long* lpdwDisposition);
@@ -484,8 +486,6 @@ extern D2GuidStrc gDeviceGuid_0096F3AC; // 0x0096F3AC
 
 extern D2ComObjectStrc* gpDirect3D3; // 0x00970E64
 
-extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
-
 extern D2DDrawSurfaceStrc* gpDevice_00970E68; // 0x00970E68
 
 void __fastcall sub_006BBCE0_Run(int a, int b, int c); // 0x006BBCE0
@@ -523,8 +523,6 @@ extern D2ComObject006B5550Strc* gpObject_00970E60; // 0x00970E60
 
 
 extern D2CriticalSectionStrc* gpCriticalSection_007C9134; // 0x007C9134
-
-extern int gbRenderPaused; // 0x007C9144
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 
@@ -575,10 +573,6 @@ extern int gnVideoState; // 0x00970E44
 extern D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
 
 typedef long (__stdcall* D2DDFlipFn)(D2ComObjectStrc* pThis, D2ComObjectStrc* pTarget, unsigned long dwFlags);
-
-extern int gnSceneScaleFactor; // 0x007B57E4
-
-extern D2PaletteTableStrc* gpGfxPaletteView; // 0x007C9150
 
 D2PaletteTableStrc gPaletteView; // 0x0096F280
 
@@ -1072,8 +1066,6 @@ extern D2TextureCacheStrc gTextureCache_00970EE4; // 0x00970EE4
 extern D2TextureCacheStrc gTextureCache_00970F00; // 0x00970F00
 
 extern int gbD3DBusy; // 0x00970E50
-extern char gnFloorCacheSize[]; // 0x007C90C8
-
 // build: symbol ??0CAtlException@ATL@@QAE@J@Z 0x006B1A20
 // build: symbol __TI1?AVCAtlException@ATL@@ 0x007020B4
 // 0x006B1A30

@@ -4,6 +4,8 @@
 #include "FogApi.h"
 #include "StormApi2.h"
 #include "D2GfxApi.h"
+#include "D2ClientApi.h"
+#include "D2GfxApi2.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -26,27 +28,7 @@ struct D2PaletteStrc
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern int gnClipBottom; // 0x007C978C
-
-extern int gnClipLeft; // 0x007C9794
-
-extern int gnInnerRight; // 0x007C9784
-
-extern int gnInnerBottom; // 0x007C9790
-
-extern int gnInnerTop; // 0x007CA31C
-
-extern int gnClipRight; // 0x007D2324
-
-extern int gnInnerLeft; // 0x007D2328
-
-extern int gnClipTop; // 0x007D232C
-
 extern D2PaletteStrc gatLightPalettes[]; // 0x007D2348
-
-extern unsigned char* gpScreenBuffer; // 0x007D5448
-
-extern int gnScreenPitch; // 0x007D544C
 
 extern "C" int gfSStrInitialized;
 
@@ -60,8 +42,6 @@ extern "C" int gnSoundSerial;
 // build: symbol _gnSubsystemActive 0x007A0458
 extern "C" int gnSubsystemActive;
 
-extern "C" void __cdecl sub_004E4280_ResetEnvironSounds(); // 0x004E4280
-
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
 extern D2PaletteTableStrc gtPaletteTables; // 0x007D5458
@@ -72,8 +52,6 @@ extern int gnDisplayType; // 0x007C8CB0
 
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 
-extern unsigned char* gpScreenBuffer; // 0x007D5448
-
 int gnLightingOff; // 0x007D2340
 
 // 0x004F8DC0
@@ -82,10 +60,6 @@ extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
     CMNSUBTILE_BuildGouraudCache();
     gnBufferBase_007D5448 = 0;
 }
-
-extern "C" void __cdecl SOUNDINST_ResetSoundState(); // 0x004B9D00
-
-extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
 // 0x004F8DD0
 void __cdecl sub_004F8DD0_Empty()
