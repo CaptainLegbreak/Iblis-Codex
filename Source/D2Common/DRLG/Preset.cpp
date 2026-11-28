@@ -217,7 +217,7 @@ struct D2DataTablesStrc;
 struct D2DrlgPresetInfoStrc;
 
 
-extern unsigned short gwValue_0077905C;
+extern unsigned short gwValue_0077905C; // 0x0077905C
 
 struct D2Storm4167B0Strc
 {

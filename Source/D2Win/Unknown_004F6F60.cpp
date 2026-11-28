@@ -34,7 +34,7 @@ extern "C" int gfSStrInitialized;
 
 extern "C" int gnBufferBase_007D5448; // 0x007D5448
 
-extern "C" int gbClientSoundReady;
+extern "C" int gbClientSoundReady; // 0x007C545C
 
 // build: symbol _gnSoundSerial 0x007C5460
 extern "C" int gnSoundSerial;

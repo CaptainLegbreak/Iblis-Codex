@@ -214,7 +214,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 extern "C" const char gszD2NetSourceFile[];
 
 // build: symbol ?gnConnectionMode@* 0x00882D10
-extern int gnConnectionMode;
+extern int gnConnectionMode; // 0x00882D10
 
 int gbD2ServerCallbackFunctionsInitialized;                                                        // 0x00883D54
 
@@ -343,7 +343,7 @@ struct D2StormHashTableStrc
     void GrowListArray(); // 0x0052FF20
 };
 
-extern unsigned short gwValue_0077905C;
+extern unsigned short gwValue_0077905C; // 0x0077905C
 
 struct D2StormListStrc
 {
@@ -2113,35 +2113,35 @@ void __fastcall D2GAME_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat, int nVal
 
 
 // build: symbol ?NET_IsSimulatedLagConnection@* 0x0052B800
-int __fastcall NET_IsSimulatedLagConnection();
+int __fastcall NET_IsSimulatedLagConnection(); // 0x0052B800
 
 
 
 
 
 // build: symbol ?NET_GetBits12@* 0x0052BE00
-unsigned int __fastcall NET_GetBits12(unsigned int nValue);
+unsigned int __fastcall NET_GetBits12(unsigned int nValue); // 0x0052BE00
 
 // build: symbol ?NET_GetField0D0@* 0x0052BE10
-char* __fastcall NET_GetField0D0(D2Net52BE10Strc* pRecord);
+char* __fastcall NET_GetField0D0(D2Net52BE10Strc* pRecord); // 0x0052BE10
 
 // build: symbol ?NET_DefaultLeaveGame@* 0x0052BE40
-void __stdcall NET_DefaultLeaveGame(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6, int nUnused7, int nUnused8, int nUnused9, int nUnused10, int nUnused11, int nUnused12, int nUnused13, int nUnused14, int nUnused15, int nUnused16, int nUnused17, int nUnused18);
+void __stdcall NET_DefaultLeaveGame(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6, int nUnused7, int nUnused8, int nUnused9, int nUnused10, int nUnused11, int nUnused12, int nUnused13, int nUnused14, int nUnused15, int nUnused16, int nUnused17, int nUnused18); // 0x0052BE40
 
 // build: symbol ?NET_DefaultSaveDatabaseCharacter@* 0x0052BE60
-void __stdcall NET_DefaultSaveDatabaseCharacter(int nUnused1, int nUnused2, int nUnused3, int nUnused4);
+void __stdcall NET_DefaultSaveDatabaseCharacter(int nUnused1, int nUnused2, int nUnused3, int nUnused4); // 0x0052BE60
 
 // build: symbol ?NET_DefaultServerLogMessage@* 0x0052BE70
-void __cdecl NET_DefaultServerLogMessage();
+void __cdecl NET_DefaultServerLogMessage(); // 0x0052BE70
 
 // build: symbol ?NET_DefaultEnterGame@* 0x0052BE80
-void __stdcall NET_DefaultEnterGame(int nUnused1, int nUnused2, int nUnused3);
+void __stdcall NET_DefaultEnterGame(int nUnused1, int nUnused2, int nUnused3); // 0x0052BE80
 
 // build: symbol ?NET_DefaultFindPlayerToken@* 0x0052BE90
-int __stdcall NET_DefaultFindPlayerToken(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6, int nUnused7);
+int __stdcall NET_DefaultFindPlayerToken(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5, int nUnused6, int nUnused7); // 0x0052BE90
 
 // build: symbol ?NET_DefaultUpdateCharacterLadder@* 0x0052BED0
-void __stdcall NET_DefaultUpdateCharacterLadder(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5);
+void __stdcall NET_DefaultUpdateCharacterLadder(int nUnused1, int nUnused2, int nUnused3, int nUnused4, int nUnused5); // 0x0052BED0
 
 // 0x0052BEF0
 void __cdecl GAME_DefaultGetGameServerInfo()

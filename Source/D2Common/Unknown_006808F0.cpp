@@ -23,7 +23,7 @@ extern const unsigned char gRoadPatternCodes[256]; // 0x006F2700
 
 
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200
-void __stdcall sub_00681000_SetRoadEnds(D2DrlgLevelStrc* pLevel);
+void __stdcall sub_00681000_SetRoadEnds(D2DrlgLevelStrc* pLevel); // 0x00681000
 
 // 0x006808F0
 static int sub_006808F0_GetPatternCode(int pFlags[3][3])

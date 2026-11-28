@@ -1229,7 +1229,7 @@ int __cdecl VIEW_SetNpcMenuMode()
     return 1;
 }
 
-void __cdecl PANEL_SetBlackColour();
+void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 

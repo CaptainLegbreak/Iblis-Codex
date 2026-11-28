@@ -19,7 +19,7 @@ struct D2CriticalSectionStrc;
 
 // The lock that serialises every dbghelp call.
 // build: symbol ?gtSymbolLock@* 0x0098A6F0
-extern D2CriticalSectionStrc gtSymbolLock;
+extern D2CriticalSectionStrc gtSymbolLock; // 0x0098A6F0
 
 struct D2CrashGuidStrc
 {

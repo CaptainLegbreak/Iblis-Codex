@@ -383,9 +383,9 @@ static int __stdcall SKILLDESC_AddSummonDamage(D2UnitStrc* pUnit, Unicode* wszTe
 static int __stdcall SKILLDESC_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nMissileId, int nSkillLevel);
 
 
-short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem);
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
 
-short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem);
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 
 
 

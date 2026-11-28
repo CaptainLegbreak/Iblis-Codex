@@ -3042,10 +3042,10 @@ static inline D2MissilesTxt* CLTMISS_GetMissilesTxtRecord(int nMissileId)
 }
 
 // build: symbol ?MISSILE_InitFromOwner@* 0x004CC870
-void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg);
+void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg); // 0x004CC870
 
 // build: symbol ?MISSILE_CltHitFlagOwner@* 0x004CCCA0
-int __fastcall MISSILE_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit);
+int __fastcall MISSILE_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x004CCCA0
 
 // 0x005AD910
 int __fastcall MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillLevel, int nUnused)
@@ -3067,7 +3067,7 @@ static inline void MISSMODE_BaalFxOpenPortal(D2GameStrc* pGame, D2UnitStrc* pMis
 }
 
 // build: symbol ?MISSILE_CltHitClearGlobals@* 0x004CCF00
-int __fastcall MISSILE_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUnit);
+int __fastcall MISSILE_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x004CCF00
 
 // 0x005AD970
 int __fastcall MISSMODE_SrvHit57_BaalFxControl(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)

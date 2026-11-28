@@ -2087,7 +2087,7 @@ CELLIST* TSHashTable<CELLIST, HASHKEY_NONE>::InternalFind(unsigned int hashval, 
 template<>
 int TSHashTable<CELLIST, HASHKEY_NONE>::MonitorFullness(unsigned int slot);
 template<>
-HCELLIST__* TSExportTableSimple<CELLIST, HCELLIST__*, 0>::GenerateHandle();
+HCELLIST__* TSExportTableSimple<CELLIST, HCELLIST__*, 0>::GenerateHandle(); // 0x0052E6D0
 
 
 // 0x00601B10
@@ -2474,8 +2474,8 @@ template TCELENTRY* D2CelEntryList::Next(const TCELENTRY*);
 template CELLIST* TSList<CELLIST, TSGetExplicitLink<CELLIST> >::Next(const CELLIST*);
 template TCELENTRY* D2CelEntryList::RawNext(const TCELENTRY*);
 template void D2CelListSyncTable::Unlock(HLOCKEDCELLIST__*);
-template void D2CelListTable::Delete(CELLIST*);
-template void D2CelListSyncTable::DeleteUnlock(CELLIST*, HLOCKEDCELLIST__*);
+template void D2CelListTable::Delete(CELLIST*); // 0x0052E590
+template void D2CelListSyncTable::DeleteUnlock(CELLIST*, HLOCKEDCELLIST__*); // 0x0052E5D0
 template TCELENTRY* D2CelEntryList::DeleteNode(TCELENTRY*);
 template CELLIST* TSList<CELLIST, TSGetExplicitLink<CELLIST> >::DeleteNode(CELLIST*);
 template TSGrowableArray<CELLIST>::TSGrowableArray();

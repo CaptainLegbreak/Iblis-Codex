@@ -716,7 +716,7 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue); //
 
 void __cdecl INV_ResetButtonsFromMenuReturn(); // 0x00487D40
 
-void __cdecl sub_004B17A0_ProcessNpcEntries();
+void __cdecl sub_004B17A0_ProcessNpcEntries(); // 0x004B17A0
 
 struct D2ClientDialogStrc;
 
