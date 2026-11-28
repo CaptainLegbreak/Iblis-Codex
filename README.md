@@ -120,6 +120,9 @@ definition each one needs to agree with, and `--module <M> --max <N>` fails when
 `python tools/genheaders.py --module <M>` lists every function and global of module M that another module's
 unit declares, with the definition's prototype and the export header in `Source/Include` it goes to; `--apply`
 writes the header and replaces those units' private copies with an include (rebuild the units it lists).
+`python tools/namecount.py --diff origin/main` lists the units a change moves by other than a multiple of 64
+declared names, which is when their code can change; [docs/declaration-order.md](docs/declaration-order.md) explains
+why and how to fix a unit that has stopped matching.
 
 ### CMake
 

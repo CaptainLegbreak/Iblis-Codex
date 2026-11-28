@@ -837,7 +837,7 @@ void __fastcall DATATBLS_LoadLvlSubTxt(void* archive,int loadFiles,int extra)
   {gszField_CheckAll,2,0,0x40,0},
   {gszField_BordType,2,0,0x44,0},
   {gszField_GridSize,2,0,0x4c,0},
-  {gszField_Dt1Mask,2,0,0x48,0},
+  {"Dt1Mask",2,0,0x48,0},
   {gszField_Prob0,2,0,0x11c,0},
   {gszField_Trials0,2,0,0x130,0},
   {gszField_Max0,2,0,0x144,0},
@@ -1024,12 +1024,6 @@ static int DATATBLS_GetAutomapTileType(const char* szTileName)
     }
 
     return 0;
-}
-
-void __stdcall sub_M14_EmitAutomapLookups(const char* pAutomapRecord, int* pTypes)
-{
-    pTypes[0] = DATATBLS_GetAutomapLevelType(pAutomapRecord);
-    pTypes[1] = DATATBLS_GetAutomapTileType(pAutomapRecord + 16);
 }
 
 // 0x0061C540
