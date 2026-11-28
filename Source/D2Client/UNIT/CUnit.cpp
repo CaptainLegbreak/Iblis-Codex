@@ -314,7 +314,6 @@ struct D2ItemsTxt;
 
 struct D2PresetUnitStrc;
 
-extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 
@@ -496,7 +495,7 @@ void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit); // 0x00465070
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int id); // 0x0045C4B0
 
 
-extern const unsigned char gdwBitMask1; // 0x006CE26C
+extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 
 
@@ -1815,14 +1814,14 @@ int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* unit, D2UnitStrc* target)
         if (skill)
         {
             D2SkillsTxt* record = sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(skill, ".\\UNIT\\CUnit.cpp", 0xB4A));
-            if (record && (record->nFlags[3] & gdwBitMask1))
+            if (record && (record->nFlags[3] & gdwBitMasks[1]))
                 enabled = 1;
         }
         skill = UNITS_GetRightSkill(unit);
         if (skill)
         {
             D2SkillsTxt* record = sub_0045C4B0_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(skill, ".\\UNIT\\CUnit.cpp", 0xB55));
-            if (record && (record->nFlags[3] & gdwBitMask1))
+            if (record && (record->nFlags[3] & gdwBitMasks[1]))
                 enabled = 1;
         }
         if (enabled)

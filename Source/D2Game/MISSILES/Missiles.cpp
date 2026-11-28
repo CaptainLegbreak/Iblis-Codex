@@ -61,7 +61,6 @@ union D2SeedStrc;
 
 #pragma pack(pop)
 
-extern const unsigned char gnMissileFlag_006CE27C; // 0x006CE27C
 
 
 
@@ -495,7 +494,7 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
     if (!pOwner)
         return;
     D2MissilesTxt* pMissilesTxt = GetMissilesTxtRecord(pMissile->dwClassId);
-    if (!pMissilesTxt || !(pMissilesTxt->nMissileFlags[0] & gnMissileFlag_006CE27C))
+    if (!pMissilesTxt || !(pMissilesTxt->nMissileFlags[0] & gdwBitMasks[5]))
         return;
     D2GSPacketSrv73 packet = {};
     packet.nHeader = 0x73;
