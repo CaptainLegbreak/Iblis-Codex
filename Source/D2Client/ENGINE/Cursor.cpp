@@ -147,8 +147,6 @@ static inline void CURSOR_SetCursorAnim(int nIndex)
     gnCursorAnimFrame = 0;
 }
 
-void __stdcall sub_M121_Emit_00467EE0(int nIndex) { CURSOR_SetCursorAnim(nIndex); }
-
 // 0x00467EF0
 void __stdcall CURSOR_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -175,8 +173,7 @@ void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg)
     if (gnCursorState != 5 && gaPanelAnim[gnCursorAnim].pData)
     {
         gnCursorState = 5;
-        gnCursorAnim = 4;
-        gnCursorAnimFrame = 0;
+        CURSOR_SetCursorAnim(4);
     }
     pMsg->bReturn = 0;
 }
@@ -272,8 +269,7 @@ int __fastcall CURSOR_InitCursor(int nArg)
     }
     gbCursorVisible = 1;
     gnCursorState = 1;
-    gnCursorAnim = 5;
-    gnCursorAnimFrame = 0;
+    CURSOR_SetCursorAnim(5);
     gwGlobal_007A6AE4 = 0;
     gdwLastMouseMoveTick = GetTickCount();
     gnCursorX = gnScreenWidth / 2;
@@ -338,15 +334,13 @@ void __cdecl CURSOR_AdvanceCursorAnim()
     if (gnCursorState == 2)
     {
         gnCursorState = 4;
-        gnCursorAnim = 3;
-        gnCursorAnimFrame = 0;
+        CURSOR_SetCursorAnim(3);
         return;
     }
     if (gnCursorState == 5)
     {
         gnCursorState = 1;
-        gnCursorAnim = 5;
-        gnCursorAnimFrame = 0;
+        CURSOR_SetCursorAnim(5);
         return;
     }
     D2_ASSERT(false, 0x1E9);
@@ -364,8 +358,7 @@ void __cdecl CURSOR_StepCursorAnim()
             return;
         }
         gnCursorState = 1;
-        gnCursorAnim = 5;
-        gnCursorAnimFrame = 0;
+        CURSOR_SetCursorAnim(5);
     }
 }
 
@@ -390,8 +383,7 @@ void __cdecl CURSOR_UpdateCursor()
     if (gnCursorState == 1 && gdwLastMouseMoveTick + 5000 < dwTick)
     {
         gnCursorState = 2;
-        gnCursorAnim = 2;
-        gnCursorAnimFrame = 0;
+        CURSOR_SetCursorAnim(2);
     }
 }
 
@@ -620,8 +612,7 @@ void __stdcall CURSOR_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
     if (gnCursorState == 4 || gnCursorState == 2)
     {
         gnCursorState = 3;
-        gnCursorAnim = 2;
-        gnCursorAnimFrame = 0;
+        CURSOR_SetCursorAnim(2);
         gnCursorAnimFrame = CURSOR_GetCursorAnimLength(gnCursorAnim) - 0x100;
     }
     pMsg->bReturn = 0;
