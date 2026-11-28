@@ -229,7 +229,7 @@ extern char gaTextMsgHandlers[]; // 0x00722600
 void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
 void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
-void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, void* pTable, int nCount); // 0x00451E10
 
 // 0x004A0770

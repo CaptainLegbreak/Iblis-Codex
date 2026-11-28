@@ -123,9 +123,9 @@ extern int gnPetIconPopupState; // 0x007BEECC
 
 
 
-void __fastcall AUTOMAP_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 int gbTextHandlersRegistered; // 0x007BF27C
 
@@ -1157,7 +1157,7 @@ struct D2HoverClearPacketStrc
     int dwUnitId;
 };
 #pragma pack(pop)
-void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+void __fastcall sub_00451E10_RegisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
 int gbTextBoxShown; // 0x007BF1C8
 
@@ -3798,12 +3798,12 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
 // calling-convention shim (not game code)
 static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox)
 {
-    int nA = WINDOW_GetWindow();
-    int nB = WINDOW_GetWindow();
-    SELECT_SetSelectionRect((void*)nA);
-    SELECT_SetSelectionRect((void*)nB);
-    SELECT_SetSelectionRect((void*)nA);
-    SELECT_SetSelectionRect((void*)nB);
+    void* nA = WINDOW_GetWindow();
+    void* nB = WINDOW_GetWindow();
+    SELECT_SetSelectionRect(nA);
+    SELECT_SetSelectionRect(nB);
+    SELECT_SetSelectionRect(nA);
+    SELECT_SetSelectionRect(nB);
     pTextBox->nScroll = 1;
     return *(char*)pTextBox;
 }
