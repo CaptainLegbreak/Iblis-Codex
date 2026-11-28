@@ -8,6 +8,17 @@ first; the extra definitions of duplicated globals removed. Branches lane12/<top
 it is on main; from #473, based on main.
 
 ## Ready
+- Fri Nov 27 19:04 PST 2026: **lane12/types-3** (a97a9b87e, stacked on types-2): eleven more targets. GAME_IsExpansion,
+  SUNIT_ResetInteractInfo and OBJRGN_GetObjectControlFromGame defined with C++ linkage as their callers declare
+  them; FOG_FreePool's 19 `void` declarations take its int return (no caller reads it); PATH_SetVelocity's
+  definition names its last two parameters szFile/nLine, as its callers pass __FILE__/__LINE__ (its code doesn't
+  read them); CUNIT_FindClientUnit, D3DCORE_LogDDrawError, UNITS_GetInventoryRecordId (callers take the
+  definition's int), DUNGEON_GetAdjacentRoomsListFromRoom, AUTOMAP_UnregisterHandlerTable take the definition's
+  prototype. BUTTON_SetIsPressed left as it is: C++ linkage would help nothing (its D2Multi callers also differ in
+  the control type) and MainMenus.cpp keeps its C declaration (a declaration-count unit), so D2Launch would rise by
+  2. Full build 538 units equal. VERIFIED tree 9992f75223eb37941722d46bd9796a34a6e15bad. linkdebt vs types-2:
+  20,655 -> 20,414 (type_disagreement 4,563 -> 4,322; D2Client -152, D2Game -52, D2Direct3D -16, D2Common -15,
+  Fog -6; no module rises). auditguard: no count rose.
 - Fri Nov 27 18:15 PST 2026: **lane12/types-2** (1e934e11e, stacked on width-1): queue item 3, the next most-referenced targets.
   UNICODE_StrLen (0x526800) defined as its 40 callers and D2Lang.h declare it, `int __fastcall (const Unicode*)`,
   not a C function on unsigned short (two D2Client C declarations follow; three casts go); ITEMS_CheckItemFlag
