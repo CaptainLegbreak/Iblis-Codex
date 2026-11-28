@@ -59557,7 +59557,7 @@
     {
      "va": "0x005DC480",
      "length": 164,
-     "name": "?AIUTIL_GetDistanceToCoordinates_HalfUnitSize@@YIHPAUSynUnit@@HH@Z"
+     "name": "?AIUTIL_GetDistanceToCoordinates_HalfUnitSize@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005DC530",

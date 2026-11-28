@@ -368,29 +368,7 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget,
     return (nXDiff + 2 * nYDiff) / 2;
 }
 
-struct SynCoord;
-
-struct SynStatic;
-
-struct SynUnit;
-
-struct SynCoord
-{
-    int nX;
-    int nY;
-};
-
-struct SynStatic
-{
-    char unk0[0x0C];
-    SynCoord tGameCoords;
-};
-
-struct SynUnit { int dwUnitType; char unk4[0x28]; union { SynStatic* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
-
-int __stdcall sub_00620510_UNITS_GetUnitSizeX(SynUnit* pUnit); // 0x00620510
-
-static inline int synh_GetUnitX(SynUnit* pUnit)
+static inline int synh_GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -403,7 +381,7 @@ static inline int synh_GetUnitX(SynUnit* pUnit)
     }
 }
 
-static inline int synh_GetUnitY(SynUnit* pUnit)
+static inline int synh_GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
@@ -416,7 +394,7 @@ static inline int synh_GetUnitY(SynUnit* pUnit)
     }
 }
 
-static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
+static __forceinline int DistanceWithSize(int nX, int nY, D2UnitStrc* pUnit)
 {
     int nXDiff = synh_GetUnitX(pUnit) - nX;
     int nYDiff = synh_GetUnitY(pUnit) - nY;
@@ -429,7 +407,7 @@ static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
         nYDiff = -nYDiff;
     }
 
-    const int nSize = ((unsigned int)sub_00620510_UNITS_GetUnitSizeX(pUnit) >> 1) + 1;
+    const int nSize = ((unsigned int)UNITS_GetUnitSizeX(pUnit) >> 1) + 1;
     nXDiff -= nSize;
     nYDiff -= nSize;
     if (nXDiff < 0)
@@ -450,7 +428,7 @@ static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
 }
 
 // 0x005DC480
-int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(SynUnit* pUnit, int nX, int nY)
+int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(D2UnitStrc* pUnit, int nX, int nY)
 {
     return DistanceWithSize(nX, nY, pUnit);
 }
