@@ -2391,11 +2391,6 @@ int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short*
     return 0;
 }
 
-void __fastcall sub_M110_Emit_00469A50(int bInstallDir)
-{
-    CMDTBL_LoadKeyConfigInline(bInstallDir + 1);
-}
-
 // 0x00469D20
 void __cdecl CMDTBL_SaveHotkeys()
 {
@@ -2540,7 +2535,7 @@ void __cdecl CMDTBL_LoadHotkeyFile()
     }
 
 LOAD_DEFAULT:
-    CMDTBL_LoadKeyConfig(1);
+    CMDTBL_LoadKeyConfigInline(1);
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {
         gtHotkeys_007A6F90[i].nKey = HOTKEY_UNBOUND;
