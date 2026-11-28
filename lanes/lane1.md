@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/gameaux-fields** (79a3516c7, on main #492 7442280f1; VERIFIED tree c9618a6301fd7a03baea447c2fa202a106c9e0df; merges clean on #493; independent). D2GameAux.h: 7 `unk0x..` -> 0. D2EffectStrc 0x1C is D2MOO's nCallbackParam (SKILLS_ApplyAreaEffect passes it to the area-effect callback; Skills.cpp's one read renamed). The rest no code names: `unused0x18` (pet argument), `pad0x<off>` (5). Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose (casts 4,849 -> 4,849). linkdebt: 21,648 -> 21,648 (main #492 measured here), every module unchanged.
+- **lane1/cmpcache-fields** (7acfdf079, on main #492 7442280f1; VERIFIED tree d1c34da55a5d2f4881b384155ea4b765a5c5d771; merges clean on #493; independent). D2CmpCache.h: 8 `unk0x..` -> 0, none named by any code: `unused0x<off>`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose (casts 4,849 -> 4,849). linkdebt: 21,648 -> 21,648 (main #492 measured here), every module unchanged.
+
 - **lane1/unitdata-fields** (77bbb5824, on main #491 09eccfff4; VERIFIED tree a5310a652cec5c70901674bcaaa3ed0c2f01d56e; merges clean on #492; independent). D2UnitData.h: 8 `unk0x..` -> 0. D2PlayerDataStrc 0x94 is only zeroed (the two switch-skill resets in Units.cpp, next to nWeaponGUID) and never read: `unused0x94`, both writes renamed; the other unread spans `unused0x<off>`, alignment gaps `pad0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #491), every module unchanged.
 
 - **lane1/structs-fields** (805704a01, on main #491 09eccfff4; VERIFIED tree 1b40b67995d16fbc1e7c6b06d1ab4e9671450967; independent). D2Structs.h: 11 `unk0x..` -> 0. D2CorpseStrc 0x08 is nMercNameId (INVENTORY_GetCorpseMercNameId returns it; INVENTORY_CreateCorpseForPlayer's `a3` stores it and takes the name; a1/v12 89 -> 87). The rest no code names (D2MOO leaves them unknown too): D2UnitStrc's spans at 0x84, 0xB4, 0xBC `unused0x<off>`, the alignment gaps `pad0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 21,832 -> 21,832 (main #491 measured here), every module unchanged.
@@ -16,6 +19,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 18:06 PST 2026: gameaux-fields and cmpcache-fields Ready. drlgrooms-fields building.
 - Fri Nov 27 17:49 PST 2026: check-in. #493 took gamerecords-fields (Ready line dropped). cmpcache-fields verified on #492 (pushed; Ready once main #492's link debt is measured, #492 moved it to 21,648); gameaux-fields rebuilding (D2EffectStrc 0x1C is D2MOO's nCallbackParam, passed to the area-effect callback in Skills.cpp). Next: drlgrooms-fields (D2DrlgRooms.h, 7; claimed).
 - Fri Nov 27 17:23 PST 2026: unitdata-fields Ready. Building on #492: cmpcache-fields (D2CmpCache.h, 8), then gameaux-fields (D2GameAux.h, 7); claimed: those two headers.
 - #492 took itemsworld-fields (Ready line dropped).
