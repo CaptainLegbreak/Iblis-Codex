@@ -3340,7 +3340,7 @@ void __stdcall UNITS_GetSwitchRightSkillDataResetRightSkill(D2UnitStrc* pUnit, i
         pPlayerData->nRightSkillId = 0;
         pPlayerData->nRightSkillFlags = -1;
         pPlayerData->nWeaponGUID = -1;
-        pPlayerData->unk0x94 = 0;
+        pPlayerData->unused0x94 = 0;
     }
 }
 
@@ -3364,7 +3364,7 @@ void __stdcall UNITS_GetSwitchLeftSkillDataResetLeftSkill(D2UnitStrc* pUnit, int
         pPlayerData->nLeftSkillId = 0;
         pPlayerData->nLeftSkillFlags = -1;
         pPlayerData->nWeaponGUID = -1;
-        pPlayerData->unk0x94 = 0;
+        pPlayerData->unused0x94 = 0;
     }
 }
 
