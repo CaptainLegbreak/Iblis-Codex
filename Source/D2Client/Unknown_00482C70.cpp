@@ -1234,9 +1234,9 @@ static void __stdcall INV_AppendStackQuantity(D2UnitStrc* pItem, Unicode* pText)
 
 static int __stdcall INV_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, unsigned int nX, unsigned int nY, char nPage);
 
-static int sub_00483B40_IsInRect(int nX, int nY);
+static int INV_IsInStashRect(int nX, int nY); // 0x00483B40
 
-static int sub_00483BF0_IsInRect(int nX, int nY);
+static int INV_IsInCubeRect(int nX, int nY); // 0x00483BF0
 
 
 

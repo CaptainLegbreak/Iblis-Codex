@@ -39366,7 +39366,7 @@
      264,
      "0x00468F00",
      "owner",
-     "sub_00468F00_ShowBelt",
+     "CMDTBL_ShowBelt",
      0,
      "func"
     ],

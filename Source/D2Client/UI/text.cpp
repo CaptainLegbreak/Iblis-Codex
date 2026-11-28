@@ -3275,7 +3275,8 @@ void TEXT_OpenMessageLogDialog()
     {
         DIALOG_AddWidget(gpListDialog, gpListBox, 0x19, 0x1E);
         TEXT_FillListBox();
-        sub_004B82F0_Select(gpListDialog, -1);
+// build: symbol ?DIALOG_SelectLine@* 0x004B82F0
+        DIALOG_SelectLine(gpListDialog, -1);
     }
 }
 

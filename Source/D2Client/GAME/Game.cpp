@@ -415,15 +415,15 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 void __fastcall CUNIT_DispatchMouseWheel(int nSteps); // 0x004693B0
 
-void __cdecl sub_00469270_RunMButtonUp(); // 0x00469270
+void __cdecl CMDTBL_RunMButtonUp(); // 0x00469270
 
-void __cdecl sub_00469230_RunMButtonDown(); // 0x00469230
+void __cdecl CMDTBL_RunMButtonDown(); // 0x00469230
 
-void __cdecl sub_004692B0_RunXButton1Down(); // 0x004692B0
+void __cdecl CMDTBL_RunXButton1Down(); // 0x004692B0
 
-void __cdecl sub_00469330_RunXButton2Down(); // 0x00469330
+void __cdecl CMDTBL_RunXButton2Down(); // 0x00469330
 
-void __cdecl sub_004692F0_RunXButton1Up(); // 0x004692F0
+void __cdecl CMDTBL_RunXButton1Up(); // 0x004692F0
 
 void __cdecl CMDTBL_CallBoundCommand(); // 0x00469370
 
@@ -2592,7 +2592,7 @@ void __stdcall GAME_HandleMiddleButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gbPositionalSound)
     {
-        sub_00469270_RunMButtonUp();
+        CMDTBL_RunMButtonUp();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2604,7 +2604,7 @@ void __stdcall GAME_HandleMiddleButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gbPositionalSound)
     {
-        sub_00469230_RunMButtonDown();
+        CMDTBL_RunMButtonDown();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2618,9 +2618,9 @@ void __stdcall GAME_HandleXButtonDown(SMSGHANDLER_PARAMS* pMsg)
     {
         unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
-            sub_004692B0_RunXButton1Down();
+            CMDTBL_RunXButton1Down();
         else if (nCode == 2)
-            sub_00469330_RunXButton2Down();
+            CMDTBL_RunXButton2Down();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -2634,7 +2634,7 @@ void __stdcall GAME_HandleXButtonUp(SMSGHANDLER_PARAMS* pMsg)
     {
         unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
-            sub_004692F0_RunXButton1Up();
+            CMDTBL_RunXButton1Up();
         else if (nCode == 2)
             CMDTBL_CallBoundCommand();
         pMsg->bReturn = 1;
