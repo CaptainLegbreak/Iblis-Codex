@@ -15,6 +15,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 16:30 PST 2026: check-in. Interface merge, step 1 (D2Client's D2ClientNotifyStrc -> D2ComInterfaceStrc; its four slots match exactly) **parked**: inv.cpp changes whenever it includes D2ComInterface.h, wherever the include sits (top, include block, in place of its forward declaration), and the shared WINMAIN_GetClientNotify declaration can't stay old for that one unit. Reverted; nothing pushed. The D2Multi copy (D2LaunchFuncsStrc) disagrees with the others on most slot types; also parked. Next: D2Structs.h (11; claimed: that header).
 - #491 took wintypes-fields (Ready line dropped).
 - Fri Nov 27 16:09 PST 2026: gamerecords-fields Ready. Next: the BnClient interface merge. D2Multi's D2LaunchFuncsStrc and D2ComInterfaceStrc disagree on most slots' return types, calling conventions and argument types (e.g. 0x74 takes `(int, int, void*, D2LaunchRecord3Strc*)` in one and D2MOO's account/keys/values strings in the other), so it goes slot by slot against the callers, no cast rise allowed.
 - Fri Nov 27 15:54 PST 2026: check-in. #490 took clientui, gameclient and gameserver (Ready lines dropped). cominterface-names Ready. gamerecords-fields building. Next: the interface merge (D2LaunchFuncsStrc, D2ClientNotifyStrc -> D2ComInterfaceStrc), then D2Structs.h.
@@ -43,6 +44,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 ## Questions
 
 ## Notes for other lanes
+
+- The BnClient interface table has three definitions: D2ComInterfaceStrc (D2ComInterface.h, D2Launch/Main/D2Client Game.cpp), D2LaunchFuncsStrc (D2MultiTypes.h, D2Multi), D2ClientNotifyStrc (D2ClientUi.h, D2Client). D2Launch's gpFuncTable (0x0077ABF0), D2Multi's gpLaunchFuncs (0x0077B09C) and D2Client's gpComInterface (0x007A05F4) all hold the same pointer. One definition is blocked by inv.cpp's declaration sensitivity (any new include changes it).
 
 - D2CmpTypes.h's D2CmpSpriteContextStrc and D2CmpCelContextStrc are views of the 0x48 cel context, D2CelContext.h's D2GfxDataStrc (same offsets: nFrames 0x30, pCelFile 0x34, nDrawFlag 0x38, pCel 0x3C, nDirection 0x40). Folding them into D2GfxDataStrc is queue item 2 (D2CMP's folder); I'll take it there.
 
