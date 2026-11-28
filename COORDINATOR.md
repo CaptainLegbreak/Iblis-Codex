@@ -525,6 +525,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #507 (j260, 05:45 PT): lane 12 abi-3; lane 13 client-fields-1/-2; lane 14 scaffolding-4; lane 4 join-df4b0-e1770, join-monunique-add90-2, join-skillsemon-eda80; lane 5 quest-views, quest-ex-views, syn-views; lane 1 game-offsets, saveditem. VERIFIED a8b5aa9fa, Game.exe identical, audit flat. **Rebase onto #507: lane 2 names-game, lane 3 names-storm-src-2** (both conflict with this round's merges; lanes 2 and 3 touch files the other lanes renamed: rebase right before posting).
+
 - #506 (j259, 04:50 PT): lane 13 datatables-2b; lane 11 string-literals-2; lane 14 scaffolding-2; lane 2 names-engine-sound; lane 5 monster-views, struct-copies-2; lane 1 common-copies, plrmsg-packets. VERIFIED 73613a0d9, Game.exe identical, audit flat. **Rebase onto #506 and post again: lane 12 abi-1, abi-2, markers-1; lane 14 scaffolding-3; lane 3 names-storm-src; lane 2 names-ui.** Lane 4 join-a43e0-a6260 and lane 13 client-fields-1: post Ready lines when built. Iblis-Engine #22 merged.
 
 - #505 (j258, 03:55 PT): lane 2 names-unit, lane 3 names-storm, lane 4 join-skills-c51d0 (first branches of the one-day lanes); lane 14 files-small, pieces-2; lane 1 bnclient-copies, d3d-copies. VERIFIED 4d6c6ba6a, Game.exe identical, audit flat. **Rebase onto #505: lane 12 abi-1 + abi-2, lane 11 string-literals-2.** Lane 5 struct-copies-1: post Ready when its full build is done. Iblis-Engine #21 merged.
