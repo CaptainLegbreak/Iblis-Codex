@@ -1813,13 +1813,6 @@ struct D2LowQualityItemsTxt
     unsigned short wTblId;
 };
 
-struct D2RareAffixTxt
-{
-    char unk0x00[0x0C];
-    unsigned short wStringId;
-    char unk0x0E[0x18];
-    char szName[0x20];
-};
 
 #pragma intrinsic(memset, strcpy, strcat, strlen)
 

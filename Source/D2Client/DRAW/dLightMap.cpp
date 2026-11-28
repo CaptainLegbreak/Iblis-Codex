@@ -31,7 +31,6 @@ struct D2UnitRefStrc;
 
 struct D2LightCellStrc;
 
-struct D2P08LightSourceStrc;
 
 struct D2R01LightStrc;
 
@@ -137,13 +136,6 @@ struct D2GridCellStrc
     unsigned char nValue3;
 };
 
-struct D2P08LightSourceStrc
-{
-    unsigned char unk0x00[0x25];
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
 
 unsigned int gadwReciprocals[0x100]; // 0x007B0A68
 

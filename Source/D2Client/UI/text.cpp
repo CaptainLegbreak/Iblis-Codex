@@ -58,7 +58,6 @@ struct D2CommonChatIgnoreListStrc;
 
 struct D2TextBoxStrc;
 
-class D2ListBoxViewStrc;
 
 struct D2ClientTextDataStrc;
 
@@ -170,11 +169,6 @@ char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x00622150
 static bool TEXT_IsLanguageCompatible(int nLangId);
 
 
-class D2ListBoxViewStrc
-{
-public:
-    virtual ~D2ListBoxViewStrc();
-};
 
 
 

@@ -17,14 +17,6 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
-struct D2UiBlockRectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-    char unk0x10[0x110];
-};
 
 extern int gnItemLabelCount;                                                                       // 0x007C54A0
 

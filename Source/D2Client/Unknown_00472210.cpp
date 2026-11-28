@@ -18,7 +18,6 @@ struct CellResource;
 union D2SeedStrc;
 struct D2WeatherSplashStrc;
 struct D2PeriodLightStrc;
-struct D2B10EmitWeatherStrc;
 
 extern "C" double __cdecl fabs(double x);
 
@@ -35,13 +34,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 extern const D2PeriodLightStrc gaPeriodLights[]; // 0x006D6E40
 
-struct D2B10EmitWeatherStrc
-{
-    char unk0x00[0x10];
-    int nValue;
-    char unk0x14[0x10];
-    unsigned char nOut2;
-};
 
 extern CellResource* gHelpBorder;
 extern CellResource* gWhiteBullet;

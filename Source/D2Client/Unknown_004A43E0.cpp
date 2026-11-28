@@ -53,13 +53,11 @@ struct D2TextListStrc;
 
 
 
-struct D2GSPacketSrv26;
 
 struct D2CommonChatIgnoreListStrc;
 
 struct D2TextBoxStrc;
 
-class D2ListBoxViewStrc;
 
 struct D2ClientTextDataStrc;
 
@@ -91,9 +89,7 @@ struct UnitView;
 
 class ListBoxImplementation;
 
-class UIWidget;
 
-class ListBoxWrapper;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
@@ -128,18 +124,6 @@ void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTab
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
 
-struct D2GSPacketSrv26
-{
-    unsigned char nHeader;
-    unsigned char nMessageType;
-    unsigned char nLang;
-    unsigned char nUnitType;
-    unsigned int dwUnitGUID;
-    unsigned char nMessageColor;
-    unsigned char nNameColor;
-    char szName[16];
-    char szMessage[256];
-};
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, Unicode* wszDest, int nDest); // 0x006CC29C
 
@@ -165,11 +149,6 @@ extern int gnGameFrame; // 0x007BF20E
 static bool TEXT_IsLanguageCompatible(int nLangId);
 
 
-class D2ListBoxViewStrc
-{
-public:
-    virtual ~D2ListBoxViewStrc();
-};
 
 
 
@@ -187,55 +166,7 @@ int __fastcall UNICODE_StrLen(const Unicode* pString); // 0x00526800
 
 
 
-class UIWidget
-{
-public:
-    static void* operator new(size_t nSize)
-    {
-// build: symbol ?gszNew@* 0x006CC82C
-        return SMemAlloc(nSize, gszNew, -1, 0);
-    }
 
-    virtual ~UIWidget();
-    virtual void Draw() = 0;
-    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int GetValue() = 0;
-
-    int unk0x04;
-};
-
-class ListBoxWrapper : public UIWidget
-{
-public:
-    ListBoxWrapper(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18, int nArg1C,
-        int nArg20);                                                                                        // 0x004BF8F0
-    virtual ~ListBoxWrapper();
-    virtual void Draw();
-    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
-    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
-    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
-    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
-    virtual int GetValue();
-    virtual void sub_004BBFB0_GetRepeatStep();
-    virtual void Slot13();
-    virtual void Slot14();
-    virtual void Refresh();
-
-    ListBoxImplementation* pImpl;
-};
 
 
 

@@ -23,16 +23,6 @@ void __cdecl sub_004B5140(); // 0x004B5140
 
 
 
-class D2NpcTradeObjStrc
-{
-public:
-    virtual ~D2NpcTradeObjStrc();
-    virtual void Draw(); virtual void Slot02(); virtual void Slot03(); virtual void Slot04(); virtual void Slot05();
-    virtual void Slot06(); virtual void Slot07(); virtual void Slot08(); virtual void Slot09(); virtual void Slot10();
-    virtual int GetCount();
-    virtual void sub_004BBFB0_GetRepeatStep();
-    virtual unsigned int GetAt(int nIndex);
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
