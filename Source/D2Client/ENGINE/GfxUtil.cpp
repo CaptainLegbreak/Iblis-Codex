@@ -1524,7 +1524,8 @@ static int __stdcall GFXUTIL_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode,
     switch (nUnitType)
     {
     case 0:
-        if (!gbCharArchiveLoaded && pUnit == sub_00463DD0_GetPlayerUnit())
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+        if (!gbCharArchiveLoaded && pUnit == CUNIT_GetPlayerUnit())
         {
             nDirections = 16;
         }
@@ -2244,7 +2245,7 @@ found:
         {
         case 0:
         {
-            if (pUnit == sub_00463DD0_GetPlayerUnit())
+            if (pUnit == CUNIT_GetPlayerUnit())
                 pToken->nFlags |= 8;
 
             if (!pInventory)

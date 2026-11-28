@@ -111,7 +111,8 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 
         if (gtTimedHint.nArgG && sub_0044DB00_GetTickCounter() >= gtTimedHint.nEndTickF)
         {
-            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+            D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
             if (!CUNIT_IsDeadOrDying(pPlayer))
             {
                 sub_004B9A00(gtTimedHint.nArgE, pPlayer, 0, 0, 0);

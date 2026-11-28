@@ -1454,7 +1454,8 @@ void __fastcall INV_PlayCinematic(int nIndex)
         strcpy(szName, gaAuxLevelEntries[nIndex].szFile);
     }
 
-    sub_00481830_StopAllSounds();
+// build: symbol ?UNITMODE_StopAllSounds@* 0x00481830
+    UNITMODE_StopAllSounds();
     sub_004DCA30();
 // build: symbol ?ARCHIVE_UnloadExpansionArchives@* 0x004FAD70
     ARCHIVE_UnloadExpansionArchives();

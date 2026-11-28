@@ -1670,7 +1670,8 @@ void __cdecl CMDTBL_Hotkey15()
 // 0x00468F00
 void __cdecl sub_00468F00_ShowBelt()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, BODYLOC_BELT);
@@ -1761,7 +1762,7 @@ void __cdecl CMDTBL_Phrase20()
 void __cdecl CMDTBL_HotkeyRunOn()
 {
     GAME_SetRunKeyHeld(1);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return;
     if (GAME_IsExitPending())
@@ -1856,7 +1857,7 @@ void __cdecl CMDTBL_HotkeyPetUi()
 {
     if (!GAME_IsExpansion())
         return;
-    if (ROSTERPETS_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
+    if (ROSTERPETS_FindPetIdByOwner(CUNIT_GetPlayerUnit(), 7, 0) == -1)
         return;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (!FOG_IsExpansion())
@@ -1874,7 +1875,7 @@ void __cdecl CMDTBL_HotkeyClearMessages()
 void __cdecl CMDTBL_HotkeyRunOff()
 {
     GAME_SetRunKeyHeld(0);
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (!pPlayer)
         return;
     if (GAME_GetAlwaysRun())

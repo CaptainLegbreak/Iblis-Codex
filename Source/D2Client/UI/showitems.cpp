@@ -194,7 +194,8 @@ int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int*
 void __cdecl SHOWITEMS_DrawUnitNames()
 {
     int bPerspective=D2GFX_CheckPerspective();
-    D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer=CUNIT_GetPlayerUnit();
     if(!pPlayer)return;
     D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPlayer);
     if(!pRoom)return;

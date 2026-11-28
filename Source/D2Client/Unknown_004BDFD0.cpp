@@ -10,7 +10,8 @@ struct Sub004BDFD0;
 // 0x004BF990
 D2UnitStrc* __cdecl sub_004BF990_GetPlayerCursorItem()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+// build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0
+    D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (pPlayer)
     {
         return INVENTORY_GetCursorItem(pPlayer->pInventory);
