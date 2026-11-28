@@ -184,7 +184,7 @@ void __fastcall ACT1Q0_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfActiveFilter = ACT1Q0_ActiveFilterCallback;
 }
 
-#include "gen/data/Source/D2Game/Unknown_0058F870.inc"
+#include "gen/data/Source/D2Game/Quests/a1q0.inc"
 
 // 0x0058FA90
 void __fastcall ACT1Q0_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)

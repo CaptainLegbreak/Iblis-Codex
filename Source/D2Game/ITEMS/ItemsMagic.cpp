@@ -1880,4 +1880,4 @@ void __fastcall SKILLS_DamagePaladinCaster(D2GameStrc* pGame, D2UnitStrc* pUnit,
 }
 
 
-#include "gen/data/Source/D2Game/Unknown_005C0D00.inc"
+#include "gen/data/Source/D2Game/ITEMS/ItemsMagic.inc"
