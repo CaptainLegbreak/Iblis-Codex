@@ -1080,7 +1080,8 @@ bool __fastcall ACT2Q6_Timer_UpdateObjects(D2GameStrc* pGame, D2QuestDataStrc* p
                 const int nX = CLIENTS_GetUnitX(pHoradricOrifice) - 13;
                 const int nY = CLIENTS_GetUnitY(pHoradricOrifice) + 3;
 
-                D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pHoradricOrifice), nX, nY);
+// build: symbol ?COLLISION_GetRoomBySubTileCoordinates@* 0x00463740
+                D2ActiveRoomStrc* pRoom = COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pHoradricOrifice), nX, nY);
                 if (pRoom)
                 {
                     D2UnitStrc* pDurielLairPortal = SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_PORTAL_TO_DURIELS_LAIR, nX, nY, pGame, pRoom, 1, 1, 0);
@@ -1395,7 +1396,7 @@ void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2Un
     D2ActiveRoomStrc* hRoomObject = UNITS_GetRoom(pObject);
     D2_ASSERT(hRoomObject, 1670);
 
-    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(hRoomObject, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
+    D2ActiveRoomStrc* pRoom = COLLISION_GetRoomBySubTileCoordinates(hRoomObject, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
     DUNGEON_ToggleHasPortalFlag(hRoomObject, 0);
     if (pRoom)
     {

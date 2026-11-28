@@ -78,7 +78,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern D2NpcSoundStrc gaNpcSounds[];                                                               // 0x0072AE28
 
 
-int __fastcall sub_004E40A0_RollPlayerSeed(int nRange);                                                                    // 0x004E40A0
+int __fastcall SKILLDESC_RollPlayerSeed(int nRange);                                                                    // 0x004E40A0
 
 
 int __fastcall SOUNDINST_CompareSounds(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
@@ -160,7 +160,7 @@ int __cdecl sub_004DF870_IsSoundSystemInit()
 }
 
 // 0x004DF880
-int __cdecl sub_004DF880_IsSoundSystemInit()
+int __cdecl SOUNDINST_IsSoundSystemInit()
 {
     return gbSoundSystemInit;
 }
@@ -462,7 +462,7 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
 }
 
 // 0x004E0000
-int __fastcall sub_004E0000_SetSoundMode(int nMode)
+int __fastcall SOUNDINST_SetSoundMode(int nMode)
 {
 // build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
     if (nMode == 1 && !D2SOUND_IsPositionalSoundEnabled())
@@ -485,8 +485,8 @@ int __fastcall sub_004E0000_SetSoundMode(int nMode)
 void __fastcall sub_004E0050_RestartSound(int nArg)
 {
     gnSoundRestartArg = nArg;
-    if (!sub_004E0000_SetSoundMode(sub_00514C90_GetSoundMode()))
-        sub_004E0000_SetSoundMode(0);
+    if (!SOUNDINST_SetSoundMode(sub_00514C90_GetSoundMode()))
+        SOUNDINST_SetSoundMode(0);
 }
 
 // 0x004E00C0
@@ -510,9 +510,9 @@ int __cdecl sub_004E00D0_ToggleSoundMode01()
     else
         nNew = 0;
     D2SOUNDSMP_FadeOutMasterVolume(0xB4);
-    const int nResult = sub_004E0000_SetSoundMode(nNew);
+    const int nResult = SOUNDINST_SetSoundMode(nNew);
     if (!nResult)
-        sub_004E0000_SetSoundMode(nOld);
+        SOUNDINST_SetSoundMode(nOld);
 // build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
     D2SOUNDSMP_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnSoundModeSwitchLock);
@@ -533,9 +533,9 @@ int __cdecl sub_004E0140_ToggleSoundMode12()
     else
         nNew = 2;
     D2SOUNDSMP_FadeOutMasterVolume(0xB4);
-    const int nResult = sub_004E0000_SetSoundMode(nNew);
+    const int nResult = SOUNDINST_SetSoundMode(nNew);
     if (!nResult)
-        sub_004E0000_SetSoundMode(nOld);
+        SOUNDINST_SetSoundMode(nOld);
     D2SOUNDSMP_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnSoundModeSwitchLock);
     return nResult;
@@ -692,7 +692,7 @@ static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
 }
 
 // 0x004E0590
-int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
+int __fastcall SOUNDINST_PickNpcSound(D2UnitStrc* pUnit, int nType)
 {
     int nSound;
     D2NpcSoundStrc* pSound = sub_004E0370_GetNpcSoundRecord(pUnit);
@@ -710,14 +710,14 @@ int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
     for (unsigned int i = 0; i < 20; ++i)
     {
         nSound = pSound->nDefaultSound;
-        if (!nType && pSound->nDaySound && !sub_004E40A0_RollPlayerSeed(2))
+        if (!nType && pSound->nDaySound && !SKILLDESC_RollPlayerSeed(2))
         {
             nSound = pSound->nDaySound;
         }
 
         if (pSound->nNightSound)
         {
-            if (!nSound || !sub_004E40A0_RollPlayerSeed(3))
+            if (!nSound || !SKILLDESC_RollPlayerSeed(3))
             {
                 const int nCycle = ENVIRONMENT_GetCycleIndexFromAct(gpAct);
                 nSound = pSound->nNightSound;

@@ -803,7 +803,8 @@ int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
     {
 // build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
         SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
-        switch (sub_0045AE90_GetPanelSlideMode())
+// build: symbol ?UI_GetPanelSlideMode@* 0x0045AE90
+        switch (UI_GetPanelSlideMode())
         {
         case 1:
             nX -= gnScreenWidth / 4;
@@ -917,7 +918,7 @@ void __cdecl GFXUTIL_DrawFadeBox()
     int nYEnd = gnScreenHeight - 47;
     int nXEnd = gnScreenWidth;
     int nXStart = 0;
-    switch (sub_0045AE90_GetPanelSlideMode())
+    switch (UI_GetPanelSlideMode())
     {
     case 1:
         nXEnd -= gnScreenWidth / 2;
@@ -1541,7 +1542,8 @@ static int __stdcall GFXUTIL_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode,
 
     case 3:
     {
-        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0_GetMissilesTxtRecord(nClassId);
+// build: symbol ?VIEW_GetMissilesTxtRecord@* 0x0046ACE0
+        D2MissilesTxt* pMissilesTxtRecord = VIEW_GetMissilesTxtRecord(nClassId);
         if (pMissilesTxtRecord)
         {
             nDirections = pMissilesTxtRecord->nNumDirections;

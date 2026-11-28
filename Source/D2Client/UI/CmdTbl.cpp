@@ -1812,7 +1812,8 @@ void __cdecl CMDTBL_HotkeyEscape()
         return;
     if (GAME_GetUIVarState(9))
     {
-        sub_0047E200_CloseMenus(1);
+// build: symbol ?ESCMENU_CloseMenus@* 0x0047E200
+        ESCMENU_CloseMenus(1);
         return;
     }
     if (UI_CloseUIVars(0, 1))

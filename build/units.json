@@ -15250,7 +15250,7 @@
     {
      "va": "0x0045AE90",
      "length": 6,
-     "name": "sub_0045AE90_GetPanelSlideMode"
+     "name": "UI_GetPanelSlideMode"
     },
     {
      "va": "0x0045AEA0",
@@ -16219,12 +16219,12 @@
     {
      "va": "0x00478A20",
      "length": 36,
-     "name": "@sub_00478A20_GetPetTypeTxtRecord@4"
+     "name": "@ROSTERPETS_GetPetTypeTxtRecord@4"
     },
     {
      "va": "0x004833E0",
      "length": 36,
-     "name": "@sub_004833E0_GetCharStatsTxtRecord@4"
+     "name": "@INV_GetCharStatsTxtRecord@4"
     }
    ]
   },
@@ -16516,7 +16516,7 @@
     {
      "va": "0x0045B960",
      "length": 61,
-     "name": "?sub_0045B960_FilePrintf@@YAXPAXPBDZZ"
+     "name": "?ARCHIVE_FilePrintf@@YAXPAXPBDZZ"
     },
     {
      "va": "0x0045B9A0",
@@ -16685,7 +16685,7 @@
     {
      "va": "0x0045C4B0",
      "length": 36,
-     "name": "?sub_0045C4B0_GetSkillsTxtRecord@@YIPAUD2SkillsTxt@@H@Z"
+     "name": "?SCMD_GetSkillsTxtRecord@@YIPAUD2SkillsTxt@@H@Z"
     }
    ]
   },
@@ -18722,7 +18722,7 @@
     {
      "va": "0x0046ACE0",
      "length": 36,
-     "name": "?sub_0046ACE0_GetMissilesTxtRecord@@YIPAUD2MissilesTxt@@H@Z"
+     "name": "?VIEW_GetMissilesTxtRecord@@YIPAUD2MissilesTxt@@H@Z"
     },
     {
      "va": "0x0046AD10",
@@ -19604,7 +19604,7 @@
     {
      "va": "0x00472210",
      "length": 39,
-     "name": "?sub_00472210_SeedRollMasked@@YIHPATD2SeedStrc@@H@Z"
+     "name": "?SEED_RollMasked@@YIHPATD2SeedStrc@@H@Z"
     },
     {
      "va": "0x00472240",
@@ -19614,7 +19614,7 @@
     {
      "va": "0x00472280",
      "length": 98,
-     "name": "?sub_00472280_RollInRange@@YIHPATD2SeedStrc@@HH@Z"
+     "name": "?SEED_RollInRange@@YIHPATD2SeedStrc@@HH@Z"
     },
     {
      "va": "0x004722F0",
@@ -19834,7 +19834,7 @@
     {
      "va": "0x004B1D70",
      "length": 67,
-     "name": "?sub_004B1D70_FindNpcEntry@@YAHXZ"
+     "name": "?NPCMENU_FindNpcEntry@@YAHXZ"
     }
    ]
   },
@@ -20151,7 +20151,7 @@
     {
      "va": "0x004776C0",
      "length": 7,
-     "name": "sub_004776C0_SetGamma"
+     "name": "VIEW_SetGamma"
     },
     {
      "va": "0x004776D0",
@@ -21567,7 +21567,7 @@
     {
      "va": "0x0047E200",
      "length": 85,
-     "name": "?sub_0047E200_CloseMenus@@YIXH@Z"
+     "name": "?ESCMENU_CloseMenus@@YIXH@Z"
     },
     {
      "va": "0x0047E260",
@@ -22663,7 +22663,7 @@
     {
      "va": "0x004A89D0",
      "length": 69,
-     "name": "?sub_004A89D0_SkillDescRec@@YIPAUD2SkillDescTxt@@H@Z"
+     "name": "?TEXT_GetSkillDescTxtRecord@@YIPAUD2SkillDescTxt@@H@Z"
     }
    ],
    "flags": [
@@ -23807,7 +23807,7 @@
     {
      "va": "0x0049C6C0",
      "length": 56,
-     "name": "?sub_0049C6C0_SendWaypointClose@@YAXXZ"
+     "name": "?TEXT_SendWaypointClose@@YAXXZ"
     },
     {
      "va": "0x0049C700",
@@ -29356,7 +29356,7 @@
     {
      "va": "0x004D9FC0",
      "length": 50,
-     "name": "@sub_004D9FC0_GetSkillUseState@8"
+     "name": "@PLRSKILLS_GetSkillUseState@8"
     }
    ]
   },
@@ -29921,7 +29921,7 @@
     {
      "va": "0x004DF880",
      "length": 6,
-     "name": "sub_004DF880_IsSoundSystemInit"
+     "name": "SOUNDINST_IsSoundSystemInit"
     },
     {
      "va": "0x004DF890",
@@ -30000,7 +30000,7 @@
     {
      "va": "0x004E0000",
      "length": 74,
-     "name": "?sub_004E0000_SetSoundMode@@YIHH@Z"
+     "name": "?SOUNDINST_SetSoundMode@@YIHH@Z"
     },
     {
      "va": "0x004E0050",
@@ -30452,7 +30452,7 @@
     {
      "va": "0x004E40A0",
      "length": 85,
-     "name": "?sub_004E40A0_RollPlayerSeed@@YIHH@Z"
+     "name": "?SKILLDESC_RollPlayerSeed@@YIHH@Z"
     }
    ]
   },
@@ -30533,7 +30533,7 @@
     {
      "va": "0x004E6850",
      "length": 1023,
-     "name": "?sub_004E6850_BuildSocketFillerText@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
+     "name": "?SKILLDESC_BuildSocketFillerText@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
     }
    ],
    "flags": [

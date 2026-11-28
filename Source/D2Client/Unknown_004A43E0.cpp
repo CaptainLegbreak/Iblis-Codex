@@ -778,7 +778,7 @@ struct D2GSPacketSrv5A;
 
 struct D2SuperUniquesTxt;
 
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+void __fastcall SKILLDESC_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 
 
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
@@ -1638,7 +1638,8 @@ void __cdecl TEXT_AcceptKeyConfig()
 {
     CMDTBL_SaveAndBindHotkeys();
     UI_SetUIVar(11, 1, 0);
-    sub_0047E200_CloseMenus(1);
+// build: symbol ?ESCMENU_CloseMenus@* 0x0047E200
+    ESCMENU_CloseMenus(1);
 }
 
 // 0x004A5040

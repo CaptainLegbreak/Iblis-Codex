@@ -84,7 +84,7 @@ void __fastcall D2SOUNDUTIL_ListRemove(D2ClientCacheNodeStrc** ppList, int nId);
 void __fastcall D2SOUNDUTIL_ListAddTail(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516A70
 
 
-int __fastcall sub_004E40A0_RollPlayerSeed(int nRange); // 0x004E40A0
+int __fastcall SKILLDESC_RollPlayerSeed(int nRange); // 0x004E40A0
 
 typedef char NodeFlags[(OFFSET(PlayerNode, flags) == 4) ? 1 : -1];
 
@@ -580,12 +580,12 @@ int __fastcall SOUNDHDR_PickVariant(int nIndex)
         return nIndex;
 
     int nRecent = nVariants - 1 < 2 ? nVariants - 1 : 2;
-    if (nVariants <= 3 && !sub_004E40A0_RollPlayerSeed(nVariants + 1))
+    if (nVariants <= 3 && !SKILLDESC_RollPlayerSeed(nVariants + 1))
         --nRecent;
 
     for (;;)
     {
-        const int nResult = sub_004E40A0_RollPlayerSeed(pEntry->nGroupSize) + nIndex;
+        const int nResult = SKILLDESC_RollPlayerSeed(pEntry->nGroupSize) + nIndex;
         bool bFound = false;
         for (int i = 0; i < nRecent; i++)
         {
