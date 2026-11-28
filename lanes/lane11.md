@@ -47,6 +47,15 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Sat Nov 28 04:34 PST 2026: check-in. Why the 8 units left out of string-literals-2 change when their `""` assert text becomes a literal:
+    - **7 of them:** the declaration-order effect (docs/declaration-order.md).
+        - The literal is created where its function is, so its count is the names ahead of the function. `&gszEmptyAssertText` counted from the header's declaration instead.
+        - The code differs only in the order of two reloads after the FOG_DisplayHalt call, e.g. TokTbls.cpp 0x0065ADC0 `mov ecx,[ebp-4]; mov edx,[ebp-8]` comes out with the two loads swapped.
+        - Each unit can be fixed by moving the count ahead of that function (step 4 of the doc). That is one unit at a time.
+    - **D2CMP Unknown_006009C0.cpp:** a different case: equal code, but a target differs. The original has a second empty string there, which the unit's own `""` would merge with.
+    - unsourced-strings-1, storm-caller and names-d2client-view are on main.
+    - names-d2client-files waits until today's D2Client restart scope is over.
+    - Next: the other spellings of unsourced-strings-1's strings take the defined names, renamed in place with no declaration dropped. D2Client, Storm, Fog and D2CMP are left out today.
 - Sat Nov 28 03:42 PST 2026: check-in. string-literals-2 posted (unsourced_data -1,708 refs). Next: find out why those 8 units change with a `""` literal (string-pool order?), then the unused declarations.
 - Sat Nov 28 01:18 PST 2026: check-in. storm-caller and names-d2client-view posted. The other spellings of the 130 defined strings wait for unsourced-strings-1 to land, because their definitions are only on that branch.
 - Sat Nov 28 00:43 PST 2026: check-in. Taking lane 14's 21:20 finding first (from-lane14.md): Storm SMEM.CPP's GetCallerId writes gdwCallerId, gdwCallerWord, gnCallerLine and gszCallerFile, which no source defined. lane11/storm-caller turns their four externs in SMEM.CPP into definitions; the declaration count is unchanged (same four names). Full build running. gbCallerFirst is already defined twice: `int gbCallerFirst = 1;` in Fog/Unknown_00410790.cpp, and gbCallerFirst_00708340 in the data plan. That is left for whichever lane owns that file. Then: the other spellings of the 130 defined strings, renamed in place (no declaration dropped, per the declaration-count rule).
