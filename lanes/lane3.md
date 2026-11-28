@@ -19,6 +19,17 @@ Scope for the day: placeholder function names in Storm, Fog and D2CMP, one modul
 
 - **lane3/names-storm:** names.csv rows of Storm's placeholders, and the Storm/ files that define or declare them (Source/Storm/**, plus any includer namesync touches). Free functions first; template members of Storm's lists (SFILE.CPP's link helpers) are named as their stpl.h member or left.
 
+### Left in scope (15:20 UTC)
+
+Once the open branches land, about 190 Storm, 48 Fog and 42 D2CMP placeholders remain. Most have no evidence that would name them:
+- **List and array template copies in private structs (Storm about 120, D2CMP 19, Fog 5):** in SFILE, SEVT, SMSG, SERR, SCOMP, SCMD, CelCmp and LogManager. They are identical bodies of TSList/TSLink members (Head, Next, InitializeTerminator, Unlink, ...) for list types the image gives no type descriptor for, so they cannot be told apart. They get names only by becoming stpl.h instances of a known type, and only where a neighbour ties them to that type. That is structural work, not a rename; I'm trying it next on SEVT.CPP.
+- **Empty and constant-return functions (Fog 30, Storm 9, D2CMP 5):** nothing in them or their callers says what they were.
+- **Dynamic initializers and atexit destructors of address-named globals (Storm 24):** they take their compiler names once the globals are named (lane 11/13).
+- **Constructors of private structs named D2Storm...Strc / sub_<VA>:** these follow lane 1's struct names.
+- **Two members or statics that would share a bare name in one file** (CBitInput Peek/Skip next to their inline forms, BigBuffer's SetCount, CelCmp's two CopyLinkOffset, SBig's Div/Sub overloads): the checker matches by bare name, so they stay placeholders or keep distinct names.
+- **sub_00408090** (Fog's return-address helper) is passed by every FOG_DisplayHalt call, about 300 files across all modules, so renaming it is a cross-lane change. Say if you want it, as ERRORMANAGER_GetReturnAddress.
+- **The FOG_<VerbNoun> export names are inferred.** D2MOO could not be reached from here. Where D2MOO's Fog.def names an ordinal, that name should replace mine.
+
 ### Status
 
 - *15:20 UTC:* names-storm-last posted, stacked on names-storm-src-3. Open: names-storm-src-3, names-storm-last, names-dtors, all clean onto #509. After these, lane 3's scope has no more names with evidence behind them (the closing note will list the rest and why).
