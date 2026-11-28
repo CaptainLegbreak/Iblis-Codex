@@ -20,7 +20,7 @@ Scope for the day: placeholder function names in Storm, Fog and D2CMP, one modul
 
 ### Status
 
-- *14:40 UTC:* names-fog-2 is in #509. names-dtors posted. names-storm-src-3 still merges clean onto #509. The last Storm round waits for it.
+- *14:31 UTC:* names-fog-2 is in #509. names-dtors posted. names-storm-src-3 still merges clean onto #509. The last Storm round waits for it.
 - *14:12 UTC:* names-d2cmp is in #508. names-storm-src-3 posted (2ca7a348b on #507, clean onto #508). names-fog-2 still merges clean onto #508. names-dtors reapplied on #508 (names.csv only; it also lists zlib's inflate_fast and inflate_table as library names) and builds next. After that comes a last small Storm round (IncWeights, CBitInput::Get, BigNum::ToBinary/FromBinary), once storm-src-3 is in, since it touches the same files.
 - *13:35 UTC:* names-d2cmp posted. names-fog (b97a53b7e, pushed on #506) conflicts with #507 in FogApi2.h; it is reposting as names-fog-2 on #507 and building now. names-storm-src-2 conflicts with #507 (lane 12's address markers on the same declaration lines); it is reapplied on #507 as names-storm-src-3, which builds next. Held back: lane3/names-dtors, names.csv only (13 deleting destructors of Storm's records and the cel list's templates take the decorated names their symbol lines give; it also fixes 0x604700/0x604870, which were listed the wrong way round). It waits for names-d2cmp so the two don't conflict in names.csv.
 - *12:45 UTC:* names-storm-src-2 posted (#505, merges clean onto #506). names-fog and names-d2cmp rebuilt on #506 now (both conflicted with #506 in names.csv and were reapplied there).
