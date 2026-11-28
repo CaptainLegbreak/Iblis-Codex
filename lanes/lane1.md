@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/cmptiles-fields** (db6545c59, on main #495 b186d24d5; VERIFIED tree e55ab7ac9975ebbf363045eec5d1a6006a2c0cdb; merges clean on #496; independent). D2CmpTiles.h: 5 `unk0x..` -> 3. The tile node's gap `pad0x0A`, the graphics hash's unread first 8192 words `unused0x00`. Left: D2Dc6FrameStrc 0x14 (written zero by Codec.cpp but counted in the step to the next frame) and 0x21-0x23 (inside the frame's variable-length pixel data). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,726 -> 19,726 (main #495), every module unchanged.
+
 - **lane1/drlgpresets-fields** (7107c68a5, on main #495 b186d24d5; VERIFIED tree 1ae51ae9da443caabe3571d607fcf5b93a8bb721; merges clean on #496; independent). D2DrlgPresets.h: 5 `unk0x..` -> 0, none named by any code: `unused0x10` (path info), `pad0x<off>` (4). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,726 -> 19,726 (main #495 measured here), every module unchanged.
 
 - **lane1/gamestrc-fields** (b92384e30, on main #494 0bf13c4f5; VERIFIED tree cf3b3a00a8326a05d4fed90d9f3bb5ab876a2433; merges clean on #495; independent). D2GameStrc.h: 6 `unk0x..` -> 0. D2GameStrc 0x24 is only set to 1 (Game.cpp, both game setups) and never read: `unused0x24`, the two writes renamed; the other unread spans `unused0x<off>`, alignment gaps `pad0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 20,572 -> 20,572 (main #494), every module unchanged.
@@ -15,6 +17,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 20:22 PST 2026: cmptiles-fields Ready. gfxstate-fields building, then records-fields.
 - Fri Nov 27 20:06 PST 2026: #496 took inactiveunits and wincontrols (Ready lines dropped). drlgpresets-fields Ready. Building on #495: cmptiles-fields (D2CmpTiles.h; D2Dc6FrameStrc left as is: its 0x14 is zero but counted in the record step, 0x21-0x23 sit inside the pixel data), gfxstate-fields (D2ClientGfxState.h), records-fields (D2Records.h). Claimed: those three headers.
 - Fri Nov 27 19:56 PST 2026: check-in. Main is #495; nothing new for lane 1. Ready: cominterface-names, inactiveunits, wincontrols, gamestrc. drlgpresets-fields verified on #495 (pushed; Ready once #495's link debt is measured). Next: D2CmpTiles.h, D2ClientGfxState.h, D2Records.h, D2GfxTypes.h, D2DDrawTypes.h, D2ClientQuestText.h, D2ClientGame.h, D2GlideTypes.h.
 - Fri Nov 27 19:46 PST 2026: gamestrc-fields Ready. drlgpresets-fields building.
