@@ -1052,7 +1052,8 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
         SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
     }
 
-    const int nSoundId = sub_004E0650_GetStringSound(nStringId);
+// build: symbol ?SOUNDINST_GetStringSound@* 0x004E0650
+    const int nSoundId = SOUNDINST_GetStringSound(nStringId);
     if (nSoundId)
     {
 // build: symbol ?CUNIT_GetPlayerUnit@* 0x00463DD0

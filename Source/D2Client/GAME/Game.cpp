@@ -2786,13 +2786,14 @@ int __cdecl GAME_IsCinematicExit()
 // 0x0044C880
 void __cdecl GAME_FreeWeather()
 {
-    sub_00472BD0_FreeWeatherCels();
+// build: symbol ?GFX_FreeWeatherCels@* 0x00472BD0
+    GFX_FreeWeatherCels();
 }
 
 // 0x0044C890
 void __cdecl GAME_ReleaseGameState()
 {
-    sub_00472BD0_FreeWeatherCels();
+    GFX_FreeWeatherCels();
     PALSHIFT_FreePalShifts();
     CUNIT_FreeAllUnits();
     if (gpAct)

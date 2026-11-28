@@ -432,7 +432,7 @@ int __stdcall UI_DrawPopup(int nArg)
 }
 
 // 0x00460500
-int __cdecl sub_00460500_RunPopup()
+int __cdecl UI_RunPopup()
 {
     gbPopupDismissed = 0;
 // build: symbol ?D2Win_10176_StartPaletteFlash@* 0x004FB130
@@ -451,7 +451,7 @@ int __cdecl sub_00460500_RunPopup()
 }
 
 // 0x004605A0
-int __cdecl sub_004605A0_RunPopup()
+int __cdecl UI_RunPopup2()
 {
     gbPopupDismissed = 0;
     D2Win_10176_StartPaletteFlash(0);
@@ -480,7 +480,7 @@ int __stdcall UI_PaintConfirmFrame(int nArg)
 }
 
 // 0x00460680
-int __cdecl sub_00460680_RunOkCancel()
+int __cdecl UI_RunOkCancel()
 {
     int nResult = 1;
     gbOkCancelCancelled = 0;

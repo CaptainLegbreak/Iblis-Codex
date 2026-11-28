@@ -1485,7 +1485,9 @@ void __fastcall INV_PlayCinematic(int nIndex)
     }
 
     PLAYER_SetCinematicExpansion(bExpansion);
-    if (ARCHIVE_LoadVideoArchives(bExpansion ? (void*)sub_00460500_RunPopup : (void*)sub_00460680_RunOkCancel, 0, bExpansion))
+// build: symbol ?UI_RunPopup@* 0x00460500
+// build: symbol ?UI_RunOkCancel@* 0x00460680
+    if (ARCHIVE_LoadVideoArchives(bExpansion ? (void*)UI_RunPopup : (void*)UI_RunOkCancel, 0, bExpansion))
     {
         bLoaded = 1;
         if (gaAuxLevelEntries[nIndex].bLocalized)
@@ -1523,7 +1525,7 @@ void __fastcall INV_PlayCinematic(int nIndex)
             D2Win_10004(D2GFX_GetResolutionMode());
 
         PLAYER_SetCinematicExpansion(1);
-        if (ARCHIVE_LoadVideoArchives((void*)sub_00460500_RunPopup, 0, 1))
+        if (ARCHIVE_LoadVideoArchives((void*)UI_RunPopup, 0, 1))
         {
             nIndex = 6;
             if (gbCinematicWide)
@@ -1571,7 +1573,8 @@ lMissing:
     }
 
     ARCHIVE_UnloadExpansionArchives();
-    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpClientConfig);
+// build: symbol ?UI_RunPopup2@* 0x004605A0
+    ARCHIVE_LoadExpansionArchives(UI_RunPopup, UI_RunPopup2, 0, gpClientConfig);
     gbCinematicBusy = 0;
 }
 

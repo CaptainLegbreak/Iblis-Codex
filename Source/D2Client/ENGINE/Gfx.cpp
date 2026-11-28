@@ -227,7 +227,7 @@ extern "C" int __stdcall ImmGetConversionStatus(HIMC__* hImc, unsigned long* pCo
 
 int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 
-void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
+void __cdecl GFX_ResetPhaseState(); // 0x00472400
 
 
 int __fastcall ROSTERPETS_IsPetFriendly(D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00478E70
@@ -859,7 +859,7 @@ typedef int (__stdcall* D2CelDrawRetFn)(D2GfxDataStrc*, int, int, unsigned int, 
 
 static int gbLightningEnabled; // 0x007A8A08
 
-void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
+void __cdecl GFX_ResetPhaseState(); // 0x00472400
 
 static inline void GFX_SetPhaseActive(int bValue); // 0x00472530
 
@@ -3695,7 +3695,8 @@ static inline void GFX_SetPhaseActive(int bValue)
 {
     gbPhaseActive = bValue;
     if (bValue)
-        sub_00473D00_SetPhase(2);
+// build: symbol ?GFX_SetWeatherPhase@* 0x00473D00
+        GFX_SetWeatherPhase(2);
 }
 
 // 0x00475B80

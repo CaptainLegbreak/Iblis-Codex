@@ -85,7 +85,8 @@ static inline D2SkillDescTxt* SKILLTREE_GetSkillDescRec(int nSkillId)
     return 0;
 }
 
-static int sub_004AA9C0_GetSkillRowY(unsigned char nRow)
+// build: symbol ?SKILLTREE_GetSkillRowY@* 0x004AA9C0
+static int SKILLTREE_GetSkillRowY(unsigned char nRow)
 {
     if (nRow == 1)
         return gnScreenHeight + gnPanelOffsetY - 0x1A2;
@@ -102,10 +103,11 @@ static int sub_004AA9C0_GetSkillRowY(unsigned char nRow)
     return 0;
 }
 
-int sub_004AAA50_GetSkillColumnX(unsigned char nColumn); // 0x004AAA50
+int SKILLTREE_GetSkillColumnX(unsigned char nColumn); // 0x004AAA50
 
 // 0x0045FB80
-static int __stdcall sub_004AB5F0_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
+// build: symbol ?SKILLTREE_IsMouseInRect@* 0x004AB5F0
+static int __stdcall SKILLTREE_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
@@ -114,26 +116,28 @@ static int __stdcall sub_004AB5F0_IsMouseInRect(int nX, int nY, int nWidth, int 
     return 0;
 }
 
-void __cdecl sub_004AB630_DrawTabHint()
+// build: symbol ?SKILLTREE_DrawTabHint@* 0x004AB630
+void __cdecl SKILLTREE_DrawTabHint()
 {
     if (gnTabSelection == 1)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+        if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
             sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnScreenWidth - gnPanelOffsetX - 0x86, gnScreenHeight + gnPanelOffsetY - 0x62, 0, 1);
     }
     else if (gnTabSelection == 2)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+        if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
             sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnScreenWidth - gnPanelOffsetX - 0xCD, gnScreenHeight + gnPanelOffsetY - 0x62, 0, 1);
     }
     else if (gnTabSelection == 3)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+        if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
             sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnScreenWidth - gnPanelOffsetX - 0x122, gnScreenHeight + gnPanelOffsetY - 0x62, 0, 1);
     }
 }
 
-void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
+// build: symbol ?SKILLTREE_OnLButtonDown@* 0x004AB7E0
+void __stdcall SKILLTREE_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     int nMouseY = pMsg->nYpos;
@@ -174,10 +178,10 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
                 if (gnSkillPage == pDesc->nSkillPage)
                 {
-                    const int nY = sub_004AA9C0_GetSkillRowY(pDesc->nSkillRow);
+                    const int nY = SKILLTREE_GetSkillRowY(pDesc->nSkillRow);
                     if (nMouseY > nY - 0x30 && nMouseY < nY)
                     {
-                        const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
+                        const int nX = SKILLTREE_GetSkillColumnX(pDesc->nSkillColumn);
                         if (nMouseX > nX && nMouseX < nX + 0x30 && !gaSkillButtonState[i] && !BITARRAY_CHECK(pSkillsTxt->nFlags, 4))
                         {
                             MSG_SendTwoDwords(0x3C, pSkillsTxt->nSkillId, -1);
@@ -220,7 +224,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (gnTabSelection == 1)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+        if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
         {
             sub_004B9A00(4, 0, 0, 0, 0);
             gbSkillTabPressed = 1;
@@ -228,7 +232,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     else if (gnTabSelection == 2)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+        if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
         {
             sub_004B9A00(4, 0, 0, 0, 0);
             gbSkillTabPressed = 1;
@@ -236,7 +240,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     else if (gnTabSelection == 3)
     {
-        if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+        if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
         {
             sub_004B9A00(4, 0, 0, 0, 0);
             gbSkillTabPressed = 1;
@@ -260,11 +264,11 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 if (gnSkillPage != pDesc->nSkillPage)
                     continue;
 
-                const int nY = sub_004AA9C0_GetSkillRowY(pDesc->nSkillRow);
+                const int nY = SKILLTREE_GetSkillRowY(pDesc->nSkillRow);
                 if (nMouseY <= nY - 0x30 || nMouseY >= nY)
                     continue;
 
-                const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
+                const int nX = SKILLTREE_GetSkillColumnX(pDesc->nSkillColumn);
                 if (nMouseX <= nX || nMouseX >= nX + 0x30 || gaSkillButtonState[i])
                     continue;
 
@@ -293,7 +297,8 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 0;
 }
 
-void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
+// build: symbol ?SKILLTREE_OnLButtonUp@* 0x004ABC30
+void __stdcall SKILLTREE_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;
@@ -321,17 +326,17 @@ LNotHandled:
         gbSkillTabPressed = 0;
         if (gnTabSelection == 1)
         {
-            if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+            if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x95, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
                 UI_SetUIVar(4, 2, 0);
         }
         else if (gnTabSelection == 2)
         {
-            if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+            if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0xDC, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
                 UI_SetUIVar(4, 2, 0);
         }
         else if (gnTabSelection == 3)
         {
-            if (sub_004AB5F0_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
+            if (SKILLTREE_IsMouseInRect(gnScreenWidth - gnPanelOffsetX - 0x131, gnScreenHeight + gnPanelOffsetY - 0x3F, 0x22, 0x22))
                 UI_SetUIVar(4, 2, 0);
         }
 
@@ -359,10 +364,10 @@ LNotHandled:
 
                 if (gnSkillPage == pDesc->nSkillPage)
                 {
-                    const int nY = sub_004AA9C0_GetSkillRowY(pDesc->nSkillRow);
+                    const int nY = SKILLTREE_GetSkillRowY(pDesc->nSkillRow);
                     if (nMouseY > nY - 0x30 && nMouseY < nY)
                     {
-                        const int nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
+                        const int nX = SKILLTREE_GetSkillColumnX(pDesc->nSkillColumn);
                         if (nMouseX > nX && nMouseX < nX + 0x30 && gaSkillButtonState[i] == 1)
                         {
                             if (pSkillsTxt->dwSkPoints != -1)
@@ -382,7 +387,8 @@ LNotHandled:
                                 if (pSkill)
                                     nLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 0);
 
-                                if (nLevel <= SPELLSEL_GetSkillMaxLevel(pSkillsTxt->nSkillId) && !sub_004AA900_IsStateOrValue())
+// build: symbol ?SKILLTREE_IsSkillPointsHighlighted@* 0x004AA900
+                                if (nLevel <= SPELLSEL_GetSkillMaxLevel(pSkillsTxt->nSkillId) && !SKILLTREE_IsSkillPointsHighlighted())
                                 {
                                     MSG_SendWord(0x3B, nSkillId);
                                     gbSkillPointsHighlight = 0;
@@ -414,7 +420,8 @@ LDone:
     pMsg->bReturn = 0;
 }
 
-void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode)
+// build: symbol ?SKILLTREE_DrawSkillIcon@* 0x004ABF60
+void __stdcall SKILLTREE_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode)
 {
     D2SkillDescTxt* pDesc;
     int nFrame;
@@ -428,8 +435,8 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
     if (!pDesc)
         return;
 
-    nY = sub_004AA9C0_GetSkillRowY(pDesc->nSkillRow);
-    nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
+    nY = SKILLTREE_GetSkillRowY(pDesc->nSkillRow);
+    nX = SKILLTREE_GetSkillColumnX(pDesc->nSkillColumn);
     nMouseX = sub_00468730();
     nMouseY = sub_00468740();
     pCellFile = SPELLSEL_GetSkillIconCel(0);

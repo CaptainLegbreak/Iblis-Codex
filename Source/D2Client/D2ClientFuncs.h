@@ -167,9 +167,9 @@ void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY); // 0x0045AFF0
 void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 void __stdcall UI_DrawCelPair(int bFirst); // 0x0045FBC0
 void __fastcall PLAYER_SetCinematicExpansion(int bExpansion); // 0x00460480
-int __cdecl sub_00460500_RunPopup(); // 0x00460500
-int __cdecl sub_004605A0_RunPopup(); // 0x004605A0
-int __cdecl sub_00460680_RunOkCancel(); // 0x00460680
+int __cdecl UI_RunPopup(); // 0x00460500
+int __cdecl UI_RunPopup2(); // 0x004605A0
+int __cdecl UI_RunOkCancel(); // 0x00460680
 int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
@@ -242,11 +242,11 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, i
 void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __cdecl sub_00472320_InitWeather(); // 0x00472320
 void __cdecl sub_004723C0_FreeWeather(); // 0x004723C0
-void __cdecl sub_00472BD0_FreeWeatherCels(); // 0x00472BD0
+void __cdecl GFX_FreeWeatherCels(); // 0x00472BD0
 void __fastcall sub_00473C90_SetGlobal(int nValue); // 0x00473C90
 void __cdecl sub_00473CE0_Nop(); // 0x00473CE0
 void __cdecl sub_00473CF0_Nop(); // 0x00473CF0
-void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
+void __fastcall GFX_SetWeatherPhase(int nPhase); // 0x00473D00
 int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY); // 0x00474080
 void __cdecl DLIGHTMAP_ScanGridCollision(); // 0x004756D0
 void __cdecl DLIGHTMAP_FreeAllLights(); // 0x004758D0
@@ -493,8 +493,8 @@ int __fastcall sub_004A9B30_FindSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004
 int __fastcall sub_004A9B80_FindSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004A9B80
 void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
-int __cdecl sub_004AA900_IsStateOrValue(); // 0x004AA900
-void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
+int __cdecl SKILLTREE_IsSkillPointsHighlighted(); // 0x004AA900
+void __cdecl SKILLTREE_DrawTabCel(); // 0x004AB530
 void __fastcall NPCMENU_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
 void __fastcall MONSTER_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags); // 0x004AE0A0
 void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
@@ -568,7 +568,7 @@ void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, i
 unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 void __fastcall PLAYERLIST_InitGfxData(D2UnitStrc* pUnit); // 0x004DC510
 void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId); // 0x004DF6C0
-int __cdecl sub_004DF870_IsSoundSystemInit(); // 0x004DF870
+int __cdecl SOUNDINST_IsSoundSystemInit2(); // 0x004DF870
 int __cdecl sub_004DF880_IsSoundSystemInit(); // 0x004DF880
 void __fastcall SKILLDESC_ToggleStateOffCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004E3050
 D2UnitStrc* __fastcall SKILLDESC_CltDoRandomMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E31C0
@@ -596,7 +596,7 @@ void __fastcall MISSILE_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 int __fastcall GFXUTIL_InitUnitCelContext(D2GfxDataStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
-int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId); // 0x004E0650
+int __fastcall SOUNDINST_GetStringSound(unsigned short nStringId); // 0x004E0650
 void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset); // 0x004E2ED0
 unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int skillId, int stringIndex); // 0x004E6CE0
 void __fastcall SKILLDESC_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, int nArg3, int nArg4, int nArg5, int nX, int nY); // 0x004EF990
@@ -655,11 +655,11 @@ void __fastcall SPELLSEL_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB,
 void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 void __fastcall SPELLSEL_CycleHotkey(int nDelta); // 0x004AA740
 void __cdecl SPELLSEL_ResetSkillIcons(); // 0x004AA7E0
-void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
-void __cdecl sub_004AA980_FreePanelCel(); // 0x004AA980
-void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
-void __cdecl sub_004ABF10_ClearSkillStates(); // 0x004ABF10
-void __cdecl sub_004AC690_DrawSkillPanel(); // 0x004AC690
+void __cdecl SKILLTREE_LoadPanelCel(); // 0x004AA920
+void __cdecl SKILLTREE_FreePanelCel(); // 0x004AA980
+void __stdcall SKILLTREE_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
+void __cdecl SKILLTREE_ClearSkillStates(); // 0x004ABF10
+void __cdecl SKILLTREE_DrawPanel(); // 0x004AC690
 unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit); // 0x004AC740
 short __fastcall MONUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x004AC7C0
 void __stdcall MONSTER_RunUModCallbacks(D2UnitStrc* pUnit, D2UnitStrc* pArgument, int nMode); // 0x004ADD90
@@ -815,23 +815,23 @@ D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList(); // 0x004DC270
 void __fastcall PLAYERLIST_AddRosterInfo(int nUnitId1, int nUnitId2); // 0x004DC320
 void __fastcall GFXUTIL_SetRelationFlag(int nUnitId1, int nUnitId2, unsigned int nFlags, int bSet); // 0x004DC3E0
 void __fastcall GFXUTIL_SetRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC4C0
-void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick); // 0x004DCAA0
+void __fastcall SOUNDHDR_UpdateLevelSong(unsigned int dwTick); // 0x004DCAA0
 void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView); // 0x004DCF30
 void __fastcall DFLOOR_UpdateFloorView(D2ViewStrc* pView); // 0x004DEA70
 void __fastcall WALL2_UpdateView(void* pArg); // 0x004DED10
 void __cdecl WALL2_UpdateRoomColor(); // 0x004DED20
 void __fastcall sub_004DF480_UpdateAllTileLights(D2TileLightCtxStrc* pCtx); // 0x004DF480
-void __cdecl sub_004DF800_StopAllSlots(); // 0x004DF800
-void __cdecl sub_004DF890_ReleaseFinishedSlots(); // 0x004DF890
-int __cdecl sub_004DF940_IsPositionalSoundEnabled(); // 0x004DF940
-int __cdecl sub_004DF960_IsEaxEnabled(); // 0x004DF960
-int __cdecl sub_004DF9B0_IsSoundMode2(); // 0x004DF9B0
-void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
-void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
-int __cdecl sub_004E00D0_ToggleSoundMode01(); // 0x004E00D0
-int __cdecl sub_004E0140_ToggleSoundMode12(); // 0x004E0140
+void __cdecl SOUNDINST_StopAllSlots(); // 0x004DF800
+void __cdecl SOUNDINST_ReleaseFinishedSlots(); // 0x004DF890
+int __cdecl SOUNDINST_IsPositionalSoundEnabled(); // 0x004DF940
+int __cdecl SOUNDINST_IsEaxEnabled(); // 0x004DF960
+int __cdecl SOUNDINST_IsSoundMode2(); // 0x004DF9B0
+void __fastcall SOUNDINST_RestartSound(int nArg); // 0x004E0050
+void __cdecl SOUNDINST_CloseSoundChannels(); // 0x004E00C0
+int __cdecl SOUNDINST_ToggleSoundMode01(); // 0x004E00D0
+int __cdecl SOUNDINST_ToggleSoundMode12(); // 0x004E0140
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
-void __fastcall sub_004E0690_SetSoundTableFlag(int nValue); // 0x004E0690
+void __fastcall SOUNDINST_SetNpcSpeechAudio(int nValue); // 0x004E0690
 int __fastcall PLRSKILLS_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E1B10
 void __fastcall sub_004E1C80_CltMissileInitDiabWall(D2UnitStrc* pMissile, int nInitSeed); // 0x004E1C80
 void __fastcall sub_004E3170_SetMissileFrames(D2UnitStrc* pMissile, int nDivisor); // 0x004E3170

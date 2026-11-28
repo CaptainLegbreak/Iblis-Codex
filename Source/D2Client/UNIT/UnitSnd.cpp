@@ -131,7 +131,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
 
 int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
 
-void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg); // 0x004DCE10
+void __fastcall SOUNDHDR_UpdateTimedHint(int nDelay, int nArg); // 0x004DCE10
 
 void __stdcall UNITSND_ReleaseMonsterSfx(D2UnitStrc* pUnit); // 0x004CB2C0
 
@@ -1075,7 +1075,7 @@ void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, uns
         sub_004B9A00(0xA4B, pUnit, 0, 0, 0);
         return;
     case 92:
-        sub_004DCE10_UpdateTimedHint(0x19, 1);
+        SOUNDHDR_UpdateTimedHint(0x19, 1);
         return;
     case 91:
         sub_004B9A00(8, CUNIT_GetPlayerUnit(), 0, 0, 0);

@@ -176,7 +176,7 @@ struct D2MenuItemStrc
 
 
 
-int __cdecl sub_004DF980_IsSoundMode1Or2(); // 0x004DF980
+int __cdecl SOUNDINST_IsSoundMode1Or2(); // 0x004DF980
 
 void __fastcall sub_004776C0_SetGamma(void* pArg); // 0x004776C0
 
@@ -354,7 +354,7 @@ void __fastcall ESCMENU_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CE50
 void __fastcall ESCMENU_SoundModeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_004DF980_IsSoundMode1Or2();
+    pItem->dwMoveCount = SOUNDINST_IsSoundMode1Or2();
 }
 
 // 0x0047CE70
@@ -372,7 +372,8 @@ void __fastcall ESCMENU_PositionalBiasOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CED0
 void __fastcall ESCMENU_SoundMode2Option(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_004DF9B0_IsSoundMode2();
+// build: symbol ?SOUNDINST_IsSoundMode2@* 0x004DF9B0
+    pItem->dwMoveCount = SOUNDINST_IsSoundMode2();
 }
 
 // 0x0047CEE0
@@ -389,15 +390,16 @@ void __fastcall ESCMENU_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAM
     switch (pItem->dwMoveCount)
     {
     case 0:
-        sub_004E0690_SetSoundTableFlag(1);
+// build: symbol ?SOUNDINST_SetNpcSpeechAudio@* 0x004E0690
+        SOUNDINST_SetNpcSpeechAudio(1);
         TEXT_SaveTextDisplaySetting(0);
         break;
     case 1:
-        sub_004E0690_SetSoundTableFlag(0);
+        SOUNDINST_SetNpcSpeechAudio(0);
         TEXT_SaveTextDisplaySetting(1);
         break;
     case 2:
-        sub_004E0690_SetSoundTableFlag(1);
+        SOUNDINST_SetNpcSpeechAudio(1);
         TEXT_SaveTextDisplaySetting(1);
         break;
     }
@@ -756,31 +758,35 @@ int __fastcall sub_0047CD90_IsSoundEnabled()
 // 0x0047CE30
 int __fastcall ESCMENU_Is3DSoundEnabled()
 {
-    return sub_004DF940_IsPositionalSoundEnabled();
+// build: symbol ?SOUNDINST_IsPositionalSoundEnabled@* 0x004DF940
+    return SOUNDINST_IsPositionalSoundEnabled();
 }
 
 // 0x0047CE40
 void __fastcall ESCMENU_3DSoundSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004E00D0_ToggleSoundMode01();
+// build: symbol ?SOUNDINST_ToggleSoundMode01@* 0x004E00D0
+    SOUNDINST_ToggleSoundMode01();
 }
 
 // 0x0047CE60
 int __fastcall ESCMENU_Is3DBiasEnabled()
 {
-    return sub_004DF980_IsSoundMode1Or2();
+    return SOUNDINST_IsSoundMode1Or2();
 }
 
 // 0x0047CEB0
 int __fastcall ESCMENU_IsEAXEnabled()
 {
-    return sub_004DF960_IsEaxEnabled();
+// build: symbol ?SOUNDINST_IsEaxEnabled@* 0x004DF960
+    return SOUNDINST_IsEaxEnabled();
 }
 
 // 0x0047CEC0
 void __fastcall ESCMENU_EAXSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004E0140_ToggleSoundMode12();
+// build: symbol ?SOUNDINST_ToggleSoundMode12@* 0x004E0140
+    SOUNDINST_ToggleSoundMode12();
 }
 
 // 0x0047D040

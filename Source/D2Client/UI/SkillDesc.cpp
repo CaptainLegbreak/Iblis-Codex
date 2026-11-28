@@ -906,7 +906,8 @@ int __cdecl SKILLDESC_IsOutsideDayCycle()
 // 0x004E42E0
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
 {
-    if (!sub_004DF870_IsSoundSystemInit())
+// build: symbol ?SOUNDINST_IsSoundSystemInit2@* 0x004DF870
+    if (!SOUNDINST_IsSoundSystemInit2())
         return;
     const int nLevelId = UNITMODE_GetPlayerLevelId();
     if (!nLevelId)

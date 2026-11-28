@@ -123,7 +123,8 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
 // build: symbol ?SOUNDINST_LockSpeechSounds@* 0x004BAA50
         SOUNDINST_LockSpeechSounds();
         gtTextState.hHintSound = 0;
-        int nSound = sub_004E0650_GetStringSound(nMessage);
+// build: symbol ?SOUNDINST_GetStringSound@* 0x004E0650
+        int nSound = SOUNDINST_GetStringSound(nMessage);
         if (nSound)
         {
             UNITSND_ReleaseSkillSfx(pUnit);
