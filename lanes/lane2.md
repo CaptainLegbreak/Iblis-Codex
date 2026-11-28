@@ -6,11 +6,12 @@ Lane 2, one day: placeholder function names in D2Client (`sub_<VA>_<Verb>`). Eac
 
 ### Ready
 
-(none yet)
+- `lane2/names-unit` 2ab06b5a7 (on #504): D2Client UNIT, 8 placeholder function names. 0x00463DD0 CUNIT_GetPlayerUnit (463 refs), 0x00463DE0 CUNIT_GetPlayerUnit2 (its identical twin, 65 refs), MONUNIQUE_CheckMonTypeFlag, MONUNIQUE_GetBossHcIdx, MONUNIQUE_SetBossHcIdx, MONUNIQUE_SetNameSeed, UNITMODE_StopAllSounds, UNITMODE_RunPendingAction. apply.py's way: 74 `// build: symbol` lines where a caller had no address for the new name. VERIFIED 3df50ad1 (on #503; rebased onto #504 cleanly, precheck of 211 units equal, namesync nothing). Audit guard: no count rose. linkdebt: 17,991 -> 17,991, no module rising. Left UNIT's no-evidence stubs (Return0/Nop/AlwaysOne/Empty), the two player inventory-table getters and the ring hit. Also left three identical copies that already have names: PLRSKILLS_GetThirdsTier, ITEM_RefreshUnitItems, PLRSKILLS_RefreshPassiveSkills.
 
 ### Claimed
 
-- `lane2/names-unit`: the placeholder functions defined in Source/D2Client/UNIT (CUnit, MonUnique, Monster, UnitMode, PlayerList, PlrSkills, Item, Missile, Object, Player), plus every reference to those names (D2Client and Source/Include/D2ClientApi.h).
+- `lane2/names-engine`, `lane2/names-sound`: Cursor.cpp's cursor-state pair and SoundInst.cpp's four, with every reference to them.
+- `lane2/names-unit` (Ready): the placeholder functions defined in Source/D2Client/UNIT (CUnit, MonUnique, Monster, UnitMode, PlayerList, PlrSkills, Item, Missile, Object, Player), plus every reference to those names (D2Client and Source/Include/D2ClientApi.h).
 
 ### Status
 
