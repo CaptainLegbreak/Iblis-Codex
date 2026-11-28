@@ -10,11 +10,11 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
   - **LvlTbls.cpp (0x0096C9F0-0x0096CA1C):** the portal levels, the level types table and the tile library hash are statics with one name each. As one non-static definition they change 0x0061DD00 and 0x0061FAE0; as statics both are equal. gpLvlWarpTxt and gpLvlMazeTxt lose their `void*` second declarations.
   - **TokTbls.cpp:** gMonModeDataTables (0x0096D4B8) and gObjModeDataTables (0x0096D4C8) are defined as their structs, in place of four separate globals each. D2TokRecord has its fields: name, token, and monmode.txt's sixteen direction counts under D2MOO's names. The local D2ObjModeTypeTxt was the same record and is gone. The sixteen members also keep DATATBLS_LoadPlrType_ModeTxt (0x0065ADC0) equal after the count change (room for 4 more names, at least 5 fewer).
   - One rebase conflict, in LvlTbls.cpp: #507 gave DATATBLS_AllocGlobalTileLibraryHash its parameter; I took main's line with my rename.
-  - **Counts, measured on #507 (#507 -> the same commit there); the #509 baseline is compiling and I will replace these with its numbers:**
-    - linkdebt total: 15,100 -> 15,052. D2Common 1,578 -> 1,530; no other module changed.
+  - **Counts, main #509 -> this:**
+    - linkdebt total: 14,849 -> 14,801. D2Common 1,536 -> 1,488; no other module changed.
     - data_cluster: 110 refs / 22 globals -> 90 / 14 (nine clusters, 112 B -> seven, 80 B).
-    - duplicate_data: 426 -> 400. different_identifier: 5,189 -> 5,187.
-    - shortdata: 414 -> 414.
+    - duplicate_data: 426 -> 400. different_identifier: 5,163 -> 5,161.
+    - shortdata: 425 -> 425.
   - **The casts, for a ruling:** the three are `(D2LvlWarpTxt*)`, `(D2LvlMazeTxt*)` and `(D2TokRecord*)` on DATATBLS_CompileTxt's `void*` result, where a second declaration typed `void*` used to stand in for the cast. datatables-2b, already on main, removed three more than it wrote. If this branch has to pay for its own, say so and I'll split the LvlTbls warp/maze part out.
   - Left: ItemTbls.cpp's six count/pointer pairs (0x0096CA58-0x0096CC60) and the unique-name tables (0x0096D488): 90 refs, and five more casts of the same kind.
 ## Claimed
