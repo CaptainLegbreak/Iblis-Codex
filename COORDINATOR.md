@@ -508,6 +508,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #493 (j246, 17:45 PT): lane 1 gamerecords-fields, lane 12 types-1, lane 13 interior-2. VERIFIED 3b7934139, Game.exe identical, audit flat. **Still held: lane 1 cominterface-names (not rebased onto #492 yet; CharSel.cpp).** Lane 13 npc-state conflicts with main: rebase onto #493. Lane 1 path-fields and structs-fields seen, not posted Ready yet. Iblis-Engine: lane 14's #2-#5 merged (all 538 files compile with VS 2022); its compile findings are lane 12 item 5.
+
 - #492 (j245, 16:45 PT): lane 12 api-modules-1, lane 13 queue-1-2 + interior-1, lane 1 itemsworld-fields. VERIFIED 87f29aeb5, Game.exe identical; audit: pointer casts 4,873 -> 4,849. linkdebt 21,832 -> 21,648 (type_disagreement 5,593, interior 93, renamed_definition 64). **Held: lane 1 cominterface-names: alone it is equal, but with api-modules-1 CharSel.cpp goes NOT_ALL_EQUAL (declaration-count unit). Rebase onto #492, build CharSel.cpp, post again.**
 
 - 16:10 PT: lane 14 moved to the Iblis-Engine repo (the user); its Codex board file removed.
