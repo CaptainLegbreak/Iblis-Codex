@@ -1,0 +1,26 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00547F50	sub_00547F50_GetWaypointData	PLRMSG_GetWaypointData	inferred	Source/D2Game/PLAYER/PlrMsg.cpp	medium	PLRMSG: the prefix 54 named functions of the unit carry
+0x0054DAC0	sub_0054DAC0_GetSpawnBounds	MONSTERREGION_GetSpawnBounds	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054DB50	sub_0054DB50_IsNearWarpOrSpawn	MONSTERREGION_IsNearWarpOrSpawn	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054E090	sub_0054E090_SpawnGroupAtPoint	MONSTERREGION_SpawnGroupAtPoint	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054E190	sub_0054E190_SpawnMonsterAtFreePosition	MONSTERREGION_SpawnMonsterAtFreePosition	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054E1E0	sub_0054E1E0_SpawnChampionMinions	MONSTERREGION_SpawnChampionMinions	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054E260	sub_0054E260_SpawnMonsterWithMinions	MONSTERREGION_SpawnMonsterWithMinions	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054E2A0	sub_0054E2A0_GetFallenVariantForLevel	MONSTERREGION_GetFallenVariantForLevel	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054E490	sub_0054E490_SpawnRegularPresetMonster	MONSTERREGION_SpawnRegularPresetMonster	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054EBC0	sub_0054EBC0_CanPopulateRoom	MONSTERREGION_CanPopulateRoom	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054EC40	sub_0054EC40_IsSpecialBaseMonster	MONSTERREGION_IsSpecialBaseMonster	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054EF50	sub_0054EF50_SpawnWandering	MONSTERREGION_SpawnWandering	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x0054EFF0	sub_0054EFF0_CheckWandering	MONSTERREGION_CheckWandering	inferred	Source/D2Game/Unknown_0054DAC0.cpp	medium	MONSTERREGION: the prefix 5 named functions of the unit carry
+0x005706A0	sub_005706A0_UseActEntry	PLAYERSTATS_UseActEntry	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00570870	sub_00570870_ForwardToLivingPlayers	PLAYERSTATS_ForwardToLivingPlayers	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00570A50	sub_00570A50_SpendStatPointsOnStrength	PLAYERSTATS_SpendStatPointsOnStrength	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00570A80	sub_00570A80_AddEnergyPoints	PLAYERSTATS_AddEnergyPoints	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00570B30	sub_00570B30_SpendStatPointsOnDexterity	PLAYERSTATS_SpendStatPointsOnDexterity	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00570B60	sub_00570B60_AddVitalityPoints	PLAYERSTATS_AddVitalityPoints	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00570C80	sub_00570C80_PLAYERSTATS_ResetToBaseStats	PLAYERSTATS_ResetToBaseStats	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00570E10	sub_00570E10_GetStateMaskCount	PLAYERSTATS_GetStateMaskCount	inferred	Source/D2Game/Unknown_00570420.cpp	medium	PLAYERSTATS: the prefix 3 named functions of the unit carry
+0x00573CB0	sub_00573CB0_InitializeStats	MONSTER_InitializeStats	inferred	Source/D2Game/MONSTER/Monster.cpp	medium	MONSTER: D2MOO defines it in D2Game/src/MONSTER/Monster.cpp (its 1.14d address comment), whose functions carry that prefix
+0x005C1BF0	sub_005C1BF0_RollRareItemNew	ITEMS_RollRareItemNew	inferred	Source/D2Game/Unknown_005C0D00.cpp	medium	ITEMS: the prefix 18 named functions of the unit carry
+0x005C25C0	sub_005C25C0_RollSetItemRecord	ITEMS_RollSetItemRecord	inferred	Source/D2Game/Unknown_005C0D00.cpp	medium	ITEMS: the prefix 18 named functions of the unit carry
+0x005DCF70	sub_005DCF70_FindTargetInAdjacentActiveRooms	AIUTIL_FindTargetInAdjacentActiveRooms	inferred	Source/D2Game/Ai/AiUtil.cpp	medium	AIUTIL: D2MOO defines it in D2Game/src/AI/AiUtil.cpp (its 1.14d address comment), whose functions carry that prefix
