@@ -17,19 +17,11 @@ it is on main; from #473, based on main.
   8c3a186bb2dc11950581061046adfbfbeb685f56. linkdebt vs types-3: 20,414 -> 20,266 (type_disagreement 4,322 ->
   4,174; D2Client -45, Storm -36, D2Game -30, D2Common -23, D2DDraw -14; no module rises). auditguard: no count
   rose. The rest of the top targets need a caller's or a definition's type changed by hand.
-- Fri Nov 27 19:04 PST 2026: **lane12/types-3** (a97a9b87e, stacked on types-2): eleven more targets. GAME_IsExpansion,
-  SUNIT_ResetInteractInfo and OBJRGN_GetObjectControlFromGame defined with C++ linkage as their callers declare
-  them; FOG_FreePool's 19 `void` declarations take its int return (no caller reads it); PATH_SetVelocity's
-  definition names its last two parameters szFile/nLine, as its callers pass __FILE__/__LINE__ (its code doesn't
-  read them); CUNIT_FindClientUnit, D3DCORE_LogDDrawError, UNITS_GetInventoryRecordId (callers take the
-  definition's int), DUNGEON_GetAdjacentRoomsListFromRoom, AUTOMAP_UnregisterHandlerTable take the definition's
-  prototype. BUTTON_SetIsPressed left as it is: C++ linkage would help nothing (its D2Multi callers also differ in
-  the control type) and MainMenus.cpp keeps its C declaration (a declaration-count unit), so D2Launch would rise by
-  2. Full build 538 units equal. VERIFIED tree 9992f75223eb37941722d46bd9796a34a6e15bad. linkdebt vs types-2:
-  20,655 -> 20,414 (type_disagreement 4,563 -> 4,322; D2Client -152, D2Game -52, D2Direct3D -16, D2Common -15,
-  Fog -6; no module rises). auditguard: no count rose.
 
 ## Claimed
+- Fri Nov 27 20:37 PST 2026: status. Ready: types-4. Running: types-5, the next 120 type_disagreement targets (1,221 refs) one
+  address at a time with each unit rebuilt (43 of 120 done); then the hand cases (PostStatToStatList's stat-list
+  struct, SStrChr's const, DIALOG_AddTextLine's dialog type).
 - Fri Nov 27 15:10 PST 2026: status. On top of api-d2client-2: D2Game (11 copies), and a second genheaders pass over the modules
   module-api-headers covered (D2Gfx 16, D2CMP 4, D2Sound 12, D2Net 2, D2MCPClient 49 copies so far), with new
   exports in <M>Api2.h and existing header lines left alone (--no-fix-headers: correcting them flipped
