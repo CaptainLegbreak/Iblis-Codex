@@ -873,9 +873,8 @@ static int __stdcall GLSPRITE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, cons
 
     if (pClip->nHeight <= 0)
     {
-// build: symbol ?gszEmptyString@* 0x006CC837
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
-        FOG_DisplayHalt(gszEmptyString, sub_00408090(), 1060);
+        FOG_DisplayHalt("", sub_00408090(), 1060);
         exit(-1);
     }
     return 0;

@@ -24,7 +24,7 @@
 
 struct D2ActiveRoomStrc;
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct BitStreamContext;
 
@@ -1052,7 +1052,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
 
     if (!DATATBLS_GetItemsTxtRecord(!gpBeltItemA ? -1 : gpBeltItemA->dwClassId))
     {
-        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x61D);
+        FOG_DisplayHalt("", sub_00408090(), 0x61D);
         exit(-1);
     }
 
@@ -1707,7 +1707,7 @@ void __fastcall PANEL_SetBeltType(int nIndex)
         gnUiRecordIndex = nIndex;
         return;
     }
-    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xB07);
+    FOG_DisplayHalt("", sub_00408090(), 0xB07);
     exit(-1);
 }
 
@@ -1814,7 +1814,7 @@ void __cdecl PANEL_DrawBelt()
             }
             else
             {
-                FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xB07);
+                FOG_DisplayHalt("", sub_00408090(), 0xB07);
                 exit(-1);
             }
         }

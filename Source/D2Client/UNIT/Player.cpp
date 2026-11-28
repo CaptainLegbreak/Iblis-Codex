@@ -25,7 +25,7 @@ struct D2SkillStrc;
 
 struct D2UnitStrc;
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2GfxLightStrc;
 
@@ -1844,7 +1844,7 @@ no_target:
             if (!PLAYER_CheckSkillUse(ppSkill, &nUseState, pCmd->pPlayer))
                 return;
             D2SkillStrc* pSkill = *ppSkill;
-            if (pSkill && !SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp, 0x7AF) && nUseState == 1 && !bNoTarget)
+            if (pSkill && !SKILLS_GetSkillIdFromSkill(pSkill, ".\\UNIT\\Player.cpp", 0x7AF) && nUseState == 1 && !bNoTarget)
             {
                 if (!PLAYER_ClampTarget(pCmd->pPlayer, pCmd))
                     return;

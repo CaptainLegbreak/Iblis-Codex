@@ -38,7 +38,7 @@ void __cdecl sub_006C8930_Init(); // 0x006C8930
 void __fastcall sub_006C82D0_Apply(int nArg); // 0x006C82D0
 void __stdcall CelDraw(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2BitmapInfoStrc
 {

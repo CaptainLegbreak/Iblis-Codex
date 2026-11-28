@@ -22,7 +22,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2PoolSystemStrc;
 struct D2StaticPathStrc;
@@ -790,7 +790,7 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                     QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q1.cpp", 0xDE);
                     if (IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter))
                     {
-                        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xDF);
+                        FOG_DisplayHalt("", sub_00408090(), 0xDF);
                         exit(-1);
                     }
                     pQuestData->pfSeqFilter(pQuestData);

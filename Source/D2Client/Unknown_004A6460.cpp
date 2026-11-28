@@ -445,7 +445,7 @@ extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
 
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2TextNodeStrc;
 
@@ -2489,7 +2489,7 @@ NEXT_TEXT:;
 
         case STAT_STAMINA:
             nValue >>= 8;
-            wsprintfA((char*)anNumber, gszFormatLd, nValue);
+            wsprintfA((char*)anNumber, "%ld", nValue);
             bCheckWidth = 1;
             break;
 

@@ -1,7 +1,7 @@
 #include "FogApi.h"
 #pragma intrinsic(memset)
 
-#define TEXT_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define TEXT_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2PoolSystemStrc;
 struct D2TextNodeStrc;

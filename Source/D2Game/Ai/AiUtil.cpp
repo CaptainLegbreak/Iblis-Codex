@@ -21,7 +21,7 @@
 #include "FogApi.h"
 // build: symbol _gaszLanguageNames 0x00741C48
 
-#define D2_ASSERT(expr,line) if(!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
+#define D2_ASSERT(expr,line) if(!(expr)) { FOG_DisplayHalt("",sub_00408090(),line);exit(-1); }
 
 struct D2MonsterDataStrc;
 

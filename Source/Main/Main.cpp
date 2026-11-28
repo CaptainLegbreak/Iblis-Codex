@@ -453,7 +453,7 @@ int sub_M371_Emit_00406470(int nAdd)
 // 0x004064C0
 int __fastcall GameInit(int argc, const char** argv)
 {
-    const char* lpArgvCmd = &gszEmptyAssertText;
+    const char* lpArgvCmd = "";
     if (argc > 1)
     {
         lpArgvCmd = argv[argc - 1];

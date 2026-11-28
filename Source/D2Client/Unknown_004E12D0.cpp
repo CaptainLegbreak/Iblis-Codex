@@ -8,7 +8,7 @@
 #include "D2CommonApi2.h"
 
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

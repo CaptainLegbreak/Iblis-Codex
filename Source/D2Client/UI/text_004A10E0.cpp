@@ -113,8 +113,7 @@ void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, 
         gpTextBox = TEXT_CreateTextBox(D2LANG_GetStringFromTblIndex(nMessage), 2);
         if (!gpTextBox)
         {
-// build: symbol ?gszEmptyString@* 0x006CC837
-            FOG_DisplayHalt(gszEmptyString, sub_00408090(), 0x1024);
+            FOG_DisplayHalt("", sub_00408090(), 0x1024);
             exit(-1);
         }
         D2Win_10127_SetFont(nPreviousFont);

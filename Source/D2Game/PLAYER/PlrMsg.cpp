@@ -42,7 +42,7 @@ struct D2InventoryStrc;
 
 #define QFLAG_UPDATEQUESTLOG 12
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -2483,7 +2483,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x15_HandleChatMessage(D2GameStrc* pGame
     SStrCopy(packet15.szName, pText, 16);
     SStrLen(pText);
     D2GSPacketSrv26 packet26;
-    const char* pName = CLIENTS_GetName(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0x9E7));
+    const char* pName = CLIENTS_GetName(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0x9E7));
     if (SStrLen(pName) > 0) SStrCopy(packet26.szName, pName, 0x7FFFFFFF);
     else packet26.szName[0] = 0;
     const int nReceiverLength = SStrLen(packet15.szName);
@@ -2522,7 +2522,7 @@ MalformedChat:
             SStrCopy(packet5A.szText, packet15.szName, 0x7FFFFFFF);
             packet5A.nType = 13;
             packet5A.szText[15] = 0;
-            D2GAME_PACKETS_SendPacket0x5A(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0xA2C), &packet5A);
+            D2GAME_PACKETS_SendPacket0x5A(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0xA2C), &packet5A);
         }
         else if (!gbWhispReceiverInGame)
         {
@@ -2533,7 +2533,7 @@ MalformedChat:
             SStrCopy(packet5A.szText, packet15.szName, 0x7FFFFFFF);
             packet5A.nType = 4;
             packet5A.szText[15] = 0;
-            D2GAME_PACKETS_SendPacket0x5A(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0xA38), &packet5A);
+            D2GAME_PACKETS_SendPacket0x5A(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0xA38), &packet5A);
         }
         else
         {
@@ -2547,7 +2547,7 @@ MalformedChat:
         reply.szName[15] = 0;
         reply.nLang = 0;
         memcpy(reply.szMessage, packet15.szMessage, 256);
-        D2GAME_PACKETS_SendPacket0x26_ServerMessage(UnitGetClient(pUnit, gszPlrMsgSourceFile, 0xA46), &reply);
+        D2GAME_PACKETS_SendPacket0x26_ServerMessage(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0xA46), &reply);
         }
     }
     return 0;
@@ -4976,7 +4976,7 @@ int __fastcall D2GAME_PACKET_Handler(D2GameStrc* pGame,D2UnitStrc* pUnit,unsigne
         if (pGame->nSyncTimer > 1) pGame->nSyncTimer = SYSTEM_GetSyncTime();
         if (IsBadCodePtr((void*)sgcptIncomingMessageChart[nHeader].pfCallback))
         {
-            FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),6564);
+            FOG_DisplayHalt("",sub_00408090(),6564);
             exit(-1);
         }
         return sgcptIncomingMessageChart[nHeader].pfCallback(pGame,pUnit,pPacket,nSize);

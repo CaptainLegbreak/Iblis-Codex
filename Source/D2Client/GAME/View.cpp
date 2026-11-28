@@ -33,7 +33,7 @@
 #include "D2ClientApi.h"
 #include "D2WinApi2.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 struct D2ClientListNodeStrc;
 
@@ -374,7 +374,7 @@ struct Obj004DCF10
 
 typedef char Obj004DCF10Size[(sizeof(Obj004DCF10) == 0xEABC) ? 1 : -1];
 
-#define SYN_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define SYN_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt("", sub_00408090(), line); exit(-1); }
 
 void __fastcall sub_004DDDF0_Nop(void* rows, void* data); // 0x004DDDF0
 
