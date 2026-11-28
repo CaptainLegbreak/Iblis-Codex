@@ -13,7 +13,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
     4. **unsourced_data:** the `gsz` strings and other data no source defines (5,292 refs, 607 targets): one definition each in the file that owns it, through the data plan.
     5. **Placeholder function names** (2,458 `sub_<VA>_<Verb>`): name from Blizzard's names in docs/names/, then D2MOO, then what the function does in Blizzard's naming style; namesync for the rename. One module per branch, D2Common first.
 - **LANE 12 QUEUE (coordinator-kept):**
-    1. Land api-d2client-2: **it still conflicts with main (#491). Rebase it first, then stack the D2Game / second-pass genheaders work on the rebased branch**, or the stack will need the same rebase twice.
+    1. Done: api-modules-1 landed in #492 (replaces api-d2client-2, which can be dropped). Next: the parameter-width ruling below (STATLIST_* and the rest).
     2. genheaders for D2Game, then the second pass over D2Win/D2Gfx/D2CMP/D2Sound.
     3. The remaining **type_disagreement** (6,372 refs at #481), most-referenced targets first; then **duplicate_data**, **local_copy**, **renamed_definition**.
     4. Keep a list in your board file of every unit that flips when its declarations change (CharSel.cpp, inv*.cpp, UnitSnd.cpp, SUnitMsg.cpp, LvlTbls.cpp, Preset.cpp, ...), with the declaration that flips it: that list is the Fable chat's first queue.
@@ -31,7 +31,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - **LANE 1 RESTARTS (the user, 2026-11-27 08:36 PT), new chat: the structs.** The coordinator keeps lane 1's queue here; lane 1 works it top down, claims files in lanes/lane1.md (a new section at the top of that file; the old content is the stopped lane's record) and posts Ready as usual.
   - **Lane 1 queue (newest main first; skip anything another lane has claimed):**
     0. **First, for the D2DataTablesStrc cluster (lane 13's 11:08 findings in lane13.md):** move the sub-table record types it holds into shared headers, one definition each: D2ItemDataTbl (three copies: D2ItemDataTbl.h, MonsterTbls.cpp, Inventory.cpp), D2GemDataTbl, D2ItemRatioDataTbl, D2MonModeDataTbl, D2ObjModeDataTbl, D2PlrModeDataTbl, D2QualityItemDataTbl and D2RareAffixDataTbl (D2Game.h), D2LowQualityItemDataTbl (Unknown_005C0D00.cpp), D2BookDataTbl.h (make it compile on its own), D2MonItemPercentDataTbl, D2UniqueNameTablesStrc, D2HirelingTableGlobals (MonsterTbls.cpp), D2AutomapIndexStrc (LvlTbls.cpp), D2InventoryComponentItemTypeStrc (Inventory.cpp). Expect declaration-count flips (inv.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, UnitSnd.cpp, SUnitMsg.cpp, LvlTbls.cpp, Preset.cpp): keep a flipping unit on its old declarations and list it. After that the struct itself goes to a Fable chat.
-    1. **Unnamed fields in the shared headers** (227 left on #491; done: QuestData, Txt, MultiTypes, CmpTypes, AiCallbackArgs, Packets, LevelTxt, TxtItems, Drlg, GameTypes, GameServer, GameClient, ClientUi, WinTypes): next D2Structs.h (11), D2ItemsWorld.h (11, includes D2MonsterRegionStrc: nCount = rooms populated so far, nMonsterRegionLevel = populated rooms in the level, per MONSTERCHOOSE_GetBossSpawnType), D2ComInterface.h (11), D2GameRecords.h (10), D2Path.h (9), D2UnitData.h (8), then the rest by count. D2DataTbls.h waits for item 0.
+    1. **Unnamed fields in the shared headers** (215 left on #492; done: QuestData, Txt, MultiTypes, CmpTypes, AiCallbackArgs, Packets, LevelTxt, TxtItems, Drlg, GameTypes, GameServer, GameClient, ClientUi, WinTypes, ItemsWorld): next D2Structs.h (11), D2ComInterface.h (11), D2GameRecords.h (10), D2Path.h (9), D2UnitData.h (8), then the rest by count. D2DataTbls.h waits for item 0.
     2. **Struct definitions private to a .cpp** (1,686; D2Client 551, D2Game 258, D2Common 185, D2CMP 134): where a private struct duplicates a shared one, use the shared one; where it is a real type of its own used by several files, move it to the module's header. One folder per branch.
     3. **Raw offset reads in D2Game** ([lanes/raw-offsets.md](lanes/raw-offsets.md): 111 of the 168 lines; lane 13 keeps the rest): each becomes a named, typed field.
   - **Rules as every lane:** byte-identical full build, audit guard (no count may rise; casts and raw offsets should fall), linkdebt no module rising, base on the newest main, claim files first, 30-minute check-ins, status line hourly.
@@ -505,6 +505,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - **Lane 10:** storm-sfile and storm-rest are in naming round n1: 150 renames including other spellings, 4 of them names.csv only, since the source already used the name. Good plans; keep the format. Take the next scope.
 
 ## Merge log (newest first)
+
+- #492 (j245, 16:45 PT): lane 12 api-modules-1, lane 13 queue-1-2 + interior-1, lane 1 itemsworld-fields. VERIFIED 87f29aeb5, Game.exe identical; audit: pointer casts 4,873 -> 4,849. linkdebt 21,832 -> 21,648 (type_disagreement 5,593, interior 93, renamed_definition 64). **Held: lane 1 cominterface-names: alone it is equal, but with api-modules-1 CharSel.cpp goes NOT_ALL_EQUAL (declaration-count unit). Rebase onto #492, build CharSel.cpp, post again.**
 
 - 16:10 PT: lane 14 moved to the Iblis-Engine repo (the user); its Codex board file removed.
 
