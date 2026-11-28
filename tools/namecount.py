@@ -16,8 +16,9 @@ others are listed with the amount, largest group first. For the functions listed
 reports the change at the symbol itself, which is what decides.
 
 What a declaration counts (measured against the compiler; see the page above):
-  variable or typedef 1 - enum 1 + enumerators - prototype 1 + parameters, every redeclaration again -
-  struct/class/union 6 + data members, +1 for a tag not seen before - forward declaration 1 if the tag is new -
+  variable or typedef 1 - enum 1 + enumerators - prototype 1 + parameters, every redeclaration again; the
+  parameters of a function-pointer parameter or typedef count too - struct/class/union 6 + data members, +1 for
+  a tag not seen before or for no tag at all - forward declaration 1 if the tag is new -
   D2_CHECK_SIZE 2, D2_CHECK_OFFSET 3 - function definition 2 + parameters + locals + string literals -
   a file included for the first time 1.
 Methods, templates and function bodies are approximated; a change inside one is marked `~`.
@@ -109,7 +110,8 @@ def params_of(decl):
     inner = decl[i + 1:end].strip()
     if inner in ("", "void"):
         return 0
-    return len(split_top(inner))
+    # a parameter that is itself a function pointer brings its own parameters, named or not
+    return sum(1 + (params_of(p) if re.search(r"\(\s*(?:__\w+\s*)?\*[^()]*\)\s*\(", p) else 0) for p in split_top(inner))
 
 
 def statements(code, line0=1):
@@ -192,7 +194,7 @@ class Counter(object):
             hd = re.sub(r"^(public|private|protected)\s*:\s*", "", hd)
             m = re.match(r"^(typedef\s+)?(struct|class|union)\b\s*(\w*)", hd)
             if blk is not None and m and "(" not in hd:
-                n += 6 + self.members(blk) + (1 if m.group(3) and m.group(3) not in self.tags else 0)
+                n += 6 + self.members(blk) + (0 if m.group(3) and m.group(3) in self.tags else 1)
                 if m.group(3): self.tags.add(m.group(3))
                 n += len(split_top(tail)) if tail else 0
             elif blk is not None and hd.startswith("enum"):
@@ -256,6 +258,8 @@ class Counter(object):
             base = re.sub(r"=.*$", "", decl) if blk is None else decl
             names = re.findall(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*(?:=|,|$|\()", re.sub(r"\([^()]*\)", "()", base))
             fnptr = re.search(r"\(\s*(?:__\w+\s*)?\*\s*(\w+)\s*\)\s*\(", decl)
+            if fnptr and "(" in decl[:fnptr.start()]:
+                fnptr = None    # a prototype with a function-pointer parameter, not a function-pointer variable
             if fnptr:
                 n += 1 + params_of(decl); nm = fnptr.group(1); kind = "variable"
             elif re.search(r"\w\s*\(", base) and not base.startswith("typedef") or (base.startswith("typedef") and "(" in base):
