@@ -1121,20 +1121,6 @@ int __fastcall SKILLS_ScanFindCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit)
 
 struct Unicode;
 
-class D2SquelchListStrc
-{
-public:
-    virtual int Squelch(const char* szName);
-    virtual int Unsquelch(const char* szName);
-    virtual int IsSquelched(const char* szName);
-    virtual int AddFilter(const char* szText);
-    virtual int RemoveFilter(const char* szText);
-    virtual int IsFiltered(const char* szText);
-    virtual void VirtSlot6();
-    virtual void VirtSlot7();
-    virtual int IsPersistent();
-    virtual void SetPersistent(int bPersistent);
-};
 
 // 0x004C5EB0
 int __fastcall SKILLS_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, int nArg, int* pOut)

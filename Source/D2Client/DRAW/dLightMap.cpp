@@ -511,16 +511,6 @@ extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 
-class D2SquelchListStrc
-{
-public:
-    virtual void Squelch(const char* szName);
-    virtual void Unsquelch(const char* szName);
-    virtual int IsSquelched(const char* szName);
-    virtual void VirtSlot3();
-    virtual void VirtSlot4();
-    virtual int IsFiltered(const char* szText);
-};
 
 int __fastcall SCMD_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BDD0
 

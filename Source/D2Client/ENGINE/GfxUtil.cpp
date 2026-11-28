@@ -791,20 +791,6 @@ struct Unicode;
 
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
 
-class D2SquelchListStrc
-{
-public:
-    virtual int Squelch(const char* szName);
-    virtual int Unsquelch(const char* szName);
-    virtual int IsSquelched(const char* szName);
-    virtual int AddFilter(const char* szText);
-    virtual int RemoveFilter(const char* szText);
-    virtual int IsFiltered(const char* szText);
-    virtual void VirtSlot6();
-    virtual void VirtSlot7();
-    virtual int IsPersistent();
-    virtual void SetPersistent(int bPersistent);
-};
 
 int __fastcall GFXUTIL_GetCofLayerValue(const unsigned char* pData, int nCode); // 0x004DB0D0
 

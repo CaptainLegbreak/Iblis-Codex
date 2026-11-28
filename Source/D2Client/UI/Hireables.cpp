@@ -519,17 +519,6 @@ void __cdecl HIREABLES_TogglePetIconPopup()
 }
 
 
-class D2SquelchListStrc
-{
-public:
-    virtual void Squelch(const char* szName);
-    virtual void Unsquelch(const char* szName);
-    virtual int IsNameSquelched(const char* szName);
-    virtual void Unknown0C();
-    virtual void Unknown10();
-    virtual int IsTextSquelched(const char* szText);
-    virtual void AddName(const char* szName, int nSize);
-};
 
 
 // 0x004938E0

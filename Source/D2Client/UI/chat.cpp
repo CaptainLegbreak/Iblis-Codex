@@ -26,6 +26,7 @@
 #include "D2CMPApi.h"
 #include "D2SoundApi.h"
 #include "D2WinApi2.h"
+#include "D2SquelchList.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -1300,20 +1301,6 @@ static void CHAT_CopyCharacterPart(const char* szSource, char* szDest)
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
 
-class D2SquelchListStrc
-{
-public:
-    virtual int Squelch(const char* szName);
-    virtual int Unsquelch(const char* szName);
-    virtual int IsSquelched(const char* szName);
-    virtual int AddFilter(const char* szText);
-    virtual int RemoveFilter(const char* szText);
-    virtual int IsFiltered(const char* szText);
-    virtual void VirtSlot6();
-    virtual void VirtSlot7();
-    virtual int IsPersistent();
-    virtual void SetPersistent(int bPersistent);
-};
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 

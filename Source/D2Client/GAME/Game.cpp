@@ -1704,16 +1704,6 @@ typedef char D2MsgHandlerEntrySize[(sizeof(D2MsgHandlerEntryStrc) == 12) ? 1 : -
 extern int gbGameServerReady; // 0x007A0618
 void __cdecl GAME_DrawLoadingText(); // 0x0044CB60
 unsigned long gdwPingSamples; // 0x007A04CC
-class D2SquelchListStrc
-{
-public:
-    virtual void Squelch(const char* szName);
-    virtual void Unsquelch(const char* szName);
-    virtual int IsSquelched(const char* szName);
-    virtual void VirtSlot3();
-    virtual void VirtSlot4();
-    virtual int IsFiltered(const char* szText);
-};
 struct D2LaunchMsgStrc;
 struct D2MsgRecordStrc;
 struct D2MsgRecordChunkStrc;
