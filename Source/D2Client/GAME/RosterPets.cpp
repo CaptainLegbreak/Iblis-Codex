@@ -670,7 +670,8 @@ int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg)
     gnInvMouseY = nY;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
     if (nX < gnGlobal_007BCAA0 || nX >= gnGlobal_007BCAA4 || nY < gnGlobal_007BCAA8 || nY > gnGlobal_007BCAAC)
     {
         gbPanelButtonDown = 0;
@@ -682,7 +683,7 @@ int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         sub_004C0440();
     }
     gbPanelButtonDown = 0;
@@ -704,7 +705,7 @@ void __stdcall ROSTERPETS_HandlePanelButtonDown(SMSGHANDLER_PARAMS* pMsg)
     sub_004A4AD0_Press(pMsg->nXpos, pMsg->nYpos);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 #include "gen/data/Source/D2Client/GAME/RosterPets.inc"

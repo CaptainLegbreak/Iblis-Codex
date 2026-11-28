@@ -253,7 +253,8 @@ static void __stdcall HashSignatureData(unsigned int nLen, const unsigned char* 
     Sha1 tHash;
     tHash.Initialize();
     tHash.Append(pData, nLen);
-    tHash.sub_00425F00_Final(pDigest);
+// build: symbol ?Final@* 0x00425F00
+    tHash.Final(pDigest);
 }
 
 // 0x0041D3B0
@@ -339,7 +340,7 @@ int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, con
         unsigned char* pDigest = (unsigned char*)_alloca(nSize);
         SMemFill(pDigest, nSize, 0xBB);
         pDigest[pBuffer->nSignSize - 1] = 0x0B;
-        pBuffer->tHash.sub_00425F00_Final(pDigest);
+        pBuffer->tHash.Final(pDigest);
         unsigned char* pSign = (unsigned char*)_alloca(pBuffer->nSignSize);
         SMemCopy(pSign, pBuffer->pBuffer + 4, pBuffer->nSignSize);
         Crypt::RSA tKey;

@@ -2449,7 +2449,8 @@ void __stdcall SCMD_HandleHotkeyMessage(SMSGHANDLER_PARAMS* pMsg)
             gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -3026,7 +3027,7 @@ void __stdcall CMDTBL_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
             gaHotkeyCommands[gaHotkeys[i].nAction].pfnUnk0x04();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }

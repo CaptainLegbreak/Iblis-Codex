@@ -1266,7 +1266,8 @@ void __stdcall SCMD_HandleResetMessage(SMSGHANDLER_PARAMS* pMsg)
     TEXT_ClearListFlags();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
 }
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700

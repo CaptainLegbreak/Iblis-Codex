@@ -2021,7 +2021,8 @@ int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg)
     gnInvMouseY = nY;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
     if (nX >= gtPlayerInvRect.nLeft && nX < gtPlayerInvRect.nRight && nY >= gtPlayerInvRect.nTop && nY <= gtPlayerInvRect.nBottom)
     {
         INV_HandlePanelClick(pMsg);
@@ -2045,7 +2046,7 @@ void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
@@ -2066,7 +2067,7 @@ void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_004B90B0_SendState();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverTradeButtonLeft(nX, nY))
@@ -2085,7 +2086,7 @@ void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverTradeButtonRight(nX, nY))
@@ -2096,7 +2097,7 @@ void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverGoldButton(nX, nY))
@@ -2118,7 +2119,7 @@ void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     gbTradeCancelButtonDown = 0;
     gbTradeAcceptButtonDown = 0;
 }

@@ -1315,7 +1315,8 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
             if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+            SMsgBreakHandlerChain(message);
             return;
         }
     }
@@ -1329,7 +1330,7 @@ void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
             if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
+            SMsgBreakHandlerChain(message);
             return;
         }
     }
@@ -1361,7 +1362,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
             if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
+            SMsgBreakHandlerChain(message);
             return;
         }
     }
@@ -1374,7 +1375,7 @@ void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
             if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
             message->bReturn = 1;
             message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
+            SMsgBreakHandlerChain(message);
             return;
         }
     }
@@ -1406,7 +1407,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             UI_SetUIVar(2, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -1418,7 +1419,7 @@ void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             UI_SetUIVar(2, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -1452,7 +1453,7 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             UI_SetUIVar(4, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -1464,7 +1465,7 @@ void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             UI_SetUIVar(4, 0, 0);
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -1981,7 +1982,7 @@ static int TEXT_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
         if (sub_00468830_GetCursorState() == 6)
             UI_CancelCursorItemUse();
         pMsg->bReturn = 1;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return 1;
     }
     return 0;
@@ -1998,7 +1999,7 @@ void __stdcall TEXT_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
@@ -2015,14 +2016,14 @@ void __stdcall TEXT_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                     pMsg->bReturn = 1;
                     pMsg->lResult = 0;
                     sub_004B9A00(5, 0, 0, 0, 0);
-                    sub_00420290_BreakHandlerChain(pMsg);
+                    SMsgBreakHandlerChain(pMsg);
                     return;
                 }
             }
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (!TEXT_ClaimLeftPanelClick(pMsg))
@@ -2074,7 +2075,7 @@ void __stdcall TEXT_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         GAME_ResetMouseButtons();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (!TEXT_ClaimLeftPanelClick(pMsg))

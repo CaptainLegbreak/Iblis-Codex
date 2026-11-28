@@ -3768,7 +3768,8 @@ static void __stdcall INV_ClickOutsidePanel(int nY, SMSGHANDLER_PARAMS* pMsg, in
     pMsg->bReturn = 1;
     gbHoverInGrid = 0;
     gbHoverInBodyLoc = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
 }
 
 void __stdcall sub_E05_Emit_00486E60(SMSGHANDLER_PARAMS* pMsg)
@@ -3806,7 +3807,7 @@ void __stdcall INV_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->lResult = 0;
         pMsg->bReturn = 1;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -4834,7 +4835,7 @@ void __stdcall INV_ResetShopCursorMsg(SMSGHANDLER_PARAMS* pMsg)
         CURSOR_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory));
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         gbPanelButtonClicked = 0;
         NPCMENU_CloseNpcShop();
         gnInvMouseX = 0;
@@ -4928,7 +4929,7 @@ void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
                     {
                         pMsg->bReturn = 1;
                         pMsg->lResult = 0;
-                        sub_00420290_BreakHandlerChain(pMsg);
+                        SMsgBreakHandlerChain(pMsg);
                         gbPanelButtonClicked = 0;
                         D2InventoryStrc* const pPlayerInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
                         if (!INVENTORY_GetCursorItem(pPlayerInventory))
@@ -4993,7 +4994,7 @@ void __stdcall INV_NpcPanelButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         gbPanelButtonClicked = 0;
     }
 
@@ -5036,7 +5037,7 @@ void __stdcall INV_OpenChatKeyMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x00488EC0
@@ -5103,13 +5104,13 @@ int __fastcall INV_ClickNpcPanel(SMSGHANDLER_PARAMS* pMsg)
     const int nY = pMsg->nYpos;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     if (INV_IsInNpcPanelRect(nX, nY))
     {
         gbPanelButtonDown = 1;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return 1;
     }
     return 0;
@@ -5272,7 +5273,7 @@ void __stdcall INV_TradePanelMsg(SMSGHANDLER_PARAMS* pMsg)
             gbTradeAcceptButtonDown = 0;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
         if (INV_IsOverTradeButtonRight(nX, nY))
@@ -5286,7 +5287,7 @@ void __stdcall INV_TradePanelMsg(SMSGHANDLER_PARAMS* pMsg)
             gbPanelButtonClicked = 0;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
         if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
@@ -5321,13 +5322,13 @@ void __stdcall INV_TradePanelMsg(SMSGHANDLER_PARAMS* pMsg)
             gbTradeAcceptButtonDown = 0;
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     if (gbTradeAccepted)
     {
         sub_004B90B0_SendState();
@@ -5537,7 +5538,7 @@ void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg)
         gbPanelButtonClicked = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     gbStashButtonDown = 0;
@@ -5577,12 +5578,12 @@ void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg)
         gbStashButtonClicked = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     gbPanelButtonClicked = 0;
     gbStashButtonDown = 0;
     gbTradeAccepted = 0;
@@ -5843,7 +5844,7 @@ void __stdcall INV_CubeClickMsg(SMSGHANDLER_PARAMS* pMsg)
         gbCubeButtonClicked = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverCubeButton(nX, nY))
@@ -5857,7 +5858,7 @@ void __stdcall INV_CubeClickMsg(SMSGHANDLER_PARAMS* pMsg)
         gbPanelButtonClicked = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     gbCubeButtonDown = 0;
@@ -5899,12 +5900,12 @@ void __stdcall INV_CubeClickMsg(SMSGHANDLER_PARAMS* pMsg)
         gbCubeButtonClicked = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     gbPanelButtonClicked = 0;
     gbCubeButtonDown = 0;
     gbCubeCloseButtonDown = 0;
@@ -6763,13 +6764,13 @@ void __stdcall INV_MercPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 static inline int INV_GetUnitIdInline(D2UnitStrc* pUnit)
@@ -6943,7 +6944,7 @@ void __stdcall INV_CloseRecipeScrollClickMsg(SMSGHANDLER_PARAMS* pMsg)
         GAME_ResetMouseButtons();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 
@@ -8500,7 +8501,7 @@ void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
     if(x>gnScreenWidth) {
         pMsg->bReturn=1;
         pMsg->lResult=0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
     D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
     INV_LoadUiRecords();
@@ -8516,7 +8517,7 @@ void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
             pMsg->bReturn=1;
             pMsg->lResult=0;
             sub_004B9A00(4,0,0,0,0);
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -8527,7 +8528,7 @@ void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
             pMsg->bReturn=1;
             pMsg->lResult=0;
             sub_004B9A00(4,0,0,0,0);
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
         pMsg->bReturn=1;
@@ -8567,7 +8568,7 @@ AFTER_BODY:
             if(!handled && GAME_IsExpansion() && INV_IsOverWeaponSwapTab(x,y)) {
                 pMsg->bReturn=1;
                 sub_0048A730_SwapWeapons();
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
                 return;
             }
         }
@@ -8577,7 +8578,7 @@ AFTER_BODY:
             if(sub_00468830_GetCursorState()==6) UI_CancelCursorItemUse();
             else if(sub_00468830_GetCursorState()==8) MSG_SendDword(0x4C,-1);
         }
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         gbHoverInGrid=0;
         gbHoverInBodyLoc=0;
         gpHoverItem=0;
@@ -8592,7 +8593,7 @@ AFTER_BODY:
             pMsg->lResult=0;
             pMsg->bReturn=1;
             gbHoverInGrid=0;gbHoverInBodyLoc=0;gpHoverItem=0;gpLastHoverItem=0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
         break;
@@ -8611,7 +8612,7 @@ AFTER_BODY:
                 pMsg->lResult=0;
                 pMsg->bReturn=1;
                 gbHoverInGrid=0;gbHoverInBodyLoc=0;gpHoverItem=0;gpLastHoverItem=0;
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
                 return;
             }
         }
@@ -8622,7 +8623,7 @@ AFTER_BODY:
             pMsg->lResult=0;
             pMsg->bReturn=1;
             gbHoverInGrid=0;gbHoverInBodyLoc=0;gpHoverItem=0;gpLastHoverItem=0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             if(result) sub_004B90B0_SendState();
             return;
         }
@@ -8675,7 +8676,7 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
             {
                 INV_ResetNpcButtons();
             }
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -8689,14 +8690,14 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
         if (sub_00468830_GetCursorState() == 6)
         {
             UI_CancelCursorItemUse();
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
 
         if (sub_00468830_GetCursorState() == 8)
         {
             MSG_SendDword(0x4C, -1);
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
 
@@ -8704,7 +8705,7 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             INV_ResetNpcButtons();
         }
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
     else
     {
@@ -8759,7 +8760,7 @@ void __stdcall INV_InventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
                 if (nX >= gnGlobal_007BCB5C && nX <= gnGlobal_007BCB60 && nY >= gnGlobal_007BCB64 && nY <= gnGlobal_007BCB68 && gpHoverItem)
                 {
                     int nUnitId;
@@ -8831,7 +8832,7 @@ void __stdcall INV_InventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x00492510
@@ -8851,7 +8852,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverCloseButton(nX, nY))
@@ -8860,7 +8861,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverTransmuteButton(nX, nY))
@@ -8871,7 +8872,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
@@ -8889,7 +8890,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         INV_HandlePanelClick(pMsg);
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         gbTradeAcceptButtonDown = 0;
         gbStashButtonClicked = 0;
         return;
@@ -8899,7 +8900,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         INV_HandlePanelClick(pMsg);
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         gbTradeAcceptButtonDown = 0;
         gbStashButtonClicked = 0;
         return;
@@ -8914,7 +8915,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         gbTradeAcceptButtonDown = 0;
         gbStashButtonClicked = 0;
         return;
@@ -8929,7 +8930,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         gbStashButtonClicked = 0;
         return;
     }
@@ -8943,7 +8944,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gbStashButtonClicked = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     INV_ClickOutsidePanel(nY, pMsg, nX);
@@ -9027,7 +9028,7 @@ void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverButtonC(nX, nY))
@@ -9040,7 +9041,7 @@ void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (INV_IsOverCubeButton(nX, nY))
@@ -9056,7 +9057,7 @@ void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             sub_004B9A00(4, 0, 0, 0, 0);
         }
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (AUTOMAP_IsCursorOverMiniPanelButton(pMsg) == 1)
@@ -9075,7 +9076,7 @@ void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         INV_HandlePanelClick(pMsg);
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
     else if (INV_IsOverGoldButton(nX, nY))
     {
@@ -9088,7 +9089,7 @@ void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
     else if (nX >= gnGlobal_007BCB30 && nX < gnGlobal_007BCB34 && nY >= 0 && nY <= gnGlobal_007BCB3C)
     {
@@ -9101,7 +9102,7 @@ void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         gbCubeCloseClicked = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     if (!pMsg->bReturn)

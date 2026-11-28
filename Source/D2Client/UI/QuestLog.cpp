@@ -850,7 +850,8 @@ void __stdcall TEXT_CloseQuestPanelMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
     if (gtQuestLog.nState == 2)
     {
         gtQuestLog.nState = 0;
@@ -966,7 +967,7 @@ void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_004B9A00(SOUND_ID, 0, 0, 0, 0);
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
     else
     {
@@ -1888,7 +1889,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
                 sub_004A3E40_ClickSlot_Inline(nIndex);
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
                 return;
             }
             else
@@ -1908,7 +1909,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -1993,7 +1994,7 @@ void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         gtQuestLog.bQuestButtonDown = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -2098,7 +2099,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     GAME_ResetMouseButtons();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 

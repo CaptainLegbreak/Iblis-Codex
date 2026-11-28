@@ -299,7 +299,8 @@ void __stdcall DIALOG_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
     }
@@ -324,7 +325,7 @@ void __stdcall DIALOG_LButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     D2_ASSERT(pDialog, 0x123);
     if (pDialog->bActive != 1)
     {
@@ -357,7 +358,7 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -367,7 +368,7 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
                 return;
             }
     }
@@ -391,7 +392,7 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
             }
 // build: symbol ?TEXT_IsInRightPanelButton@* 0x004A6630
             if (GAME_GetUIVarState(7) && TEXT_IsInRightPanelButton(sub_0045AE90_GetPanelSlideMode(), nX, nY))
@@ -405,7 +406,7 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
                 pDialog->pfnDefault();
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
                 return;
             }
             FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x1AA);
@@ -416,7 +417,7 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 handled:
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 void __fastcall sub_M304_Emit_004B7150(D2ClientDialogStrc* pDialog)
@@ -434,7 +435,7 @@ static void __stdcall DIALOG_HandleDialogKey(int bClose, SMSGHANDLER_PARAMS* pMs
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     if (!bClose)
         return;
 
@@ -500,12 +501,12 @@ void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     pTimer = gpTimer_007C0E54;
     D2_ASSERT(pTimer, 0x1C2);
     if (pTimer->nVersion >= 5)
@@ -615,7 +616,7 @@ void __stdcall DIALOG_EnterMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     D2ClientDialogStrc* pDialog = gpDialogList;
     D2_ASSERT(pDialog, 0x2C8);
     if (pDialog->nState < 5)
@@ -666,7 +667,7 @@ void __stdcall DIALOG_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 }
 

@@ -742,7 +742,8 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
             GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
 
@@ -752,7 +753,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
             GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
 
@@ -776,7 +777,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                             {
                                 pMsg->bReturn = 1;
                                 pMsg->lResult = 0;
-                                sub_00420290_BreakHandlerChain(pMsg);
+                                SMsgBreakHandlerChain(pMsg);
                                 return;
                             }
                             if (pSlot->nType == 1)
@@ -802,7 +803,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                             GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
                         }
                     }
@@ -814,7 +815,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
             GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
 
@@ -832,7 +833,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
         GAME_ResetMouseButtons();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
     }
     pMsg->bReturn = 0;
