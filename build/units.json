@@ -13629,7 +13629,7 @@
     {
      "va": "0x00483B40",
      "length": 82,
-     "name": "?sub_00483B40_IsInRect@@YAHHH@Z"
+     "name": "?INV_IsInStashRect@@YAHHH@Z"
     },
     {
      "va": "0x00483BA0",
@@ -13639,7 +13639,7 @@
     {
      "va": "0x00483BF0",
      "length": 41,
-     "name": "?sub_00483BF0_IsInRect@@YAHHH@Z"
+     "name": "?INV_IsInCubeRect@@YAHHH@Z"
     },
     {
      "va": "0x00483C20",
@@ -18322,7 +18322,7 @@
     {
      "va": "0x00468F00",
      "length": 52,
-     "name": "?sub_00468F00_ShowBelt@@YAXXZ"
+     "name": "?CMDTBL_ShowBelt@@YAXXZ"
     },
     {
      "va": "0x00468F40",
@@ -18457,27 +18457,27 @@
     {
      "va": "0x00469230",
      "length": 58,
-     "name": "?sub_00469230_RunMButtonDown@@YAXXZ"
+     "name": "?CMDTBL_RunMButtonDown@@YAXXZ"
     },
     {
      "va": "0x00469270",
      "length": 58,
-     "name": "?sub_00469270_RunMButtonUp@@YAXXZ"
+     "name": "?CMDTBL_RunMButtonUp@@YAXXZ"
     },
     {
      "va": "0x004692B0",
      "length": 58,
-     "name": "?sub_004692B0_RunXButton1Down@@YAXXZ"
+     "name": "?CMDTBL_RunXButton1Down@@YAXXZ"
     },
     {
      "va": "0x004692F0",
      "length": 58,
-     "name": "?sub_004692F0_RunXButton1Up@@YAXXZ"
+     "name": "?CMDTBL_RunXButton1Up@@YAXXZ"
     },
     {
      "va": "0x00469330",
      "length": 58,
-     "name": "?sub_00469330_RunXButton2Down@@YAXXZ"
+     "name": "?CMDTBL_RunXButton2Down@@YAXXZ"
     },
     {
      "va": "0x00469370",
@@ -23057,7 +23057,7 @@
     {
      "va": "0x00494EB0",
      "length": 42,
-     "name": "?sub_00494EB0_DrawHelpShade@@YAXXZ"
+     "name": "?HIREABLES_DrawHelpShade@@YAXXZ"
     },
     {
      "va": "0x00494EE0",
@@ -25396,7 +25396,7 @@
     {
      "va": "0x004B5850",
      "length": 64,
-     "name": "?sub_004B5850_CloseConfirmDialog@@YAHXZ"
+     "name": "?NPCMENU_CloseConfirmAndRebuild@@YAHXZ"
     },
     {
      "va": "0x004B5890",
@@ -25700,7 +25700,7 @@
     {
      "va": "0x004B82F0",
      "length": 114,
-     "name": "?sub_004B82F0_Select@@YIXPAUD2ClientDialogStrc@@H@Z"
+     "name": "?DIALOG_SelectLine@@YIXPAUD2ClientDialogStrc@@H@Z"
     },
     {
      "va": "0x004B8370",

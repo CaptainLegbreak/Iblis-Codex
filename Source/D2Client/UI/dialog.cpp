@@ -978,7 +978,7 @@ void __fastcall DIALOG_DrawDialog(D2ClientDialogStrc* pDialog)
 }
 
 // 0x004B82F0
-void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex)
+void __fastcall DIALOG_SelectLine(D2ClientDialogStrc* pDialog, int nIndex)
 {
     D2_ASSERT(pDialog, 0x4E7);
     D2_ASSERT(nIndex < pDialog->nLines, 0x4ED);
@@ -1140,7 +1140,7 @@ void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* w
     tRect.nRight = pDialog->nX + pDialog->nWidth;
     sub_00467430(&tRect);
     if (pDialog->nHover == -1 && bEnabled)
-        sub_004B82F0_Select(pDialog, nIndex);
+        DIALOG_SelectLine(pDialog, nIndex);
 }
 
 // 0x004B70F0

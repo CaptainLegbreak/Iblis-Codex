@@ -820,7 +820,7 @@ void __cdecl VIEW_DrawHelpPanelCel()
 
 
 // 0x00494EB0
-void __cdecl sub_00494EB0_DrawHelpShade()
+void __cdecl HIREABLES_DrawHelpShade()
 {
     PANEL_SetBlackColour();
     AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);

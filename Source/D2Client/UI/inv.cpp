@@ -197,7 +197,7 @@ int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-void __cdecl sub_00468F00_ShowBelt(); // 0x00468F00
+void __cdecl CMDTBL_ShowBelt(); // 0x00468F00
 
 void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
@@ -1424,9 +1424,9 @@ static void __stdcall INV_AppendStackQuantity(D2UnitStrc* pItem, Unicode* pText)
 
 static int __stdcall INV_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, unsigned int nX, unsigned int nY, char nPage);
 
-static int sub_00483B40_IsInRect(int nX, int nY);
+static int INV_IsInStashRect(int nX, int nY); // 0x00483B40
 
-static int sub_00483BF0_IsInRect(int nX, int nY);
+static int INV_IsInCubeRect(int nX, int nY); // 0x00483BF0
 
 #define LOBYTE(w) ((unsigned char)(((unsigned long)(w)) & 0xFF))
 #define HIBYTE(w) ((unsigned char)((((unsigned long)(w)) >> 8) & 0xFF))
@@ -1962,7 +1962,7 @@ static int INV_IsInTradeGrid(int nX, int nY)
 }
 
 // 0x00483B40
-static int sub_00483B40_IsInRect(int nX, int nY)
+static int INV_IsInStashRect(int nX, int nY)
 {
     if (GAME_IsExpansion())
     {
@@ -2000,7 +2000,7 @@ static int sub_00483BA0_IsInRect(int nX, int nY)
 }
 
 // 0x00483BF0
-static int sub_00483BF0_IsInRect(int nX, int nY)
+static int INV_IsInCubeRect(int nX, int nY)
 {
     if (nX >= gnGlobal_007BCB74 && nX < gnGlobal_007BCB78 && nY >= gnGlobal_007BCB7C && nY <= gnGlobal_007BCB80)
     {
@@ -2328,7 +2328,7 @@ void __stdcall INV_DrawUnitInventory(D2UnitStrc* pUnit)
     case 0xD:
         if (gnSelectedTab == 4)
         {
-            if (!sub_00483B40_IsInRect(nMouseX, nMouseY))
+            if (!INV_IsInStashRect(nMouseX, nMouseY))
             {
                 return;
             }
@@ -2341,7 +2341,7 @@ void __stdcall INV_DrawUnitInventory(D2UnitStrc* pUnit)
     case 0xE:
         if (gnSelectedTab == 3)
         {
-            if (!sub_00483BF0_IsInRect(nMouseX, nMouseY))
+            if (!INV_IsInCubeRect(nMouseX, nMouseY))
             {
                 return;
             }
@@ -4038,7 +4038,7 @@ void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg)
     if (gnInvPanelMode == 0xC)
     {
         const unsigned char nOldTab = gnSelectedTab;
-        if (sub_00483B40_IsInRect(nX, nY))
+        if (INV_IsInStashRect(nX, nY))
         {
             gnSelectedTab = 4;
             D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
@@ -4066,7 +4066,7 @@ void __stdcall INV_UpdateInventoryHover(SMSGHANDLER_PARAMS* pMsg)
     if (gnInvPanelMode == 0xE)
     {
         const unsigned char nOldTab = gnSelectedTab;
-        if (sub_00483BF0_IsInRect(nX, nY))
+        if (INV_IsInCubeRect(nX, nY))
         {
             gnSelectedTab = 3;
             D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
@@ -5044,7 +5044,7 @@ void __stdcall INV_ShopKeyMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if ((gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3 || gnInvPanelMode == 4
         || gnInvPanelMode == 9) && !(pMsg->lParam & 0x40000000))
-        sub_00468F00_ShowBelt();
+        CMDTBL_ShowBelt();
     pMsg->bReturn = 1;
     pMsg->lResult = 1;
     sub_00420290_HandleMsg(pMsg);
@@ -5492,7 +5492,7 @@ void __stdcall INV_StashMouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
         const int nY = pMsg->nYpos;
         gnInvMouseX = nX;
         gnInvMouseY = nY;
-        if (INV_IsInPlayerInvRect(nX, nY) || sub_00483B40_IsInRect(nX, nY))
+        if (INV_IsInPlayerInvRect(nX, nY) || INV_IsInStashRect(nX, nY))
         {
             INV_UpdateInventoryHover(pMsg);
             return;
@@ -5618,7 +5618,7 @@ void __stdcall INV_StashCloseMsg(SMSGHANDLER_PARAMS* pMsg)
 void __stdcall INV_KeyNoRepeatMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!(pMsg->lParam & 0x40000000))
-        sub_00468F00_ShowBelt();
+        CMDTBL_ShowBelt();
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_HandleMsg(pMsg);
@@ -8792,18 +8792,18 @@ void __stdcall INV_InventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
         }
         else if (gnInvPanelMode == 0xE)
         {
-            if (sub_00483BF0_IsInRect(nX, nY))
+            if (INV_IsInCubeRect(nX, nY))
             {
                 UNITSND_PlayPlayerSpeech(pPlayer, 0x13);
             }
         }
-        else if (gnInvPanelMode == 0xC && sub_00483B40_IsInRect(nX, nY))
+        else if (gnInvPanelMode == 0xC && INV_IsInStashRect(nX, nY))
         {
             if (INV_IsInPlayerInvRect(nX, nY))
             {
                 INV_GridClickMsg(pMsg);
             }
-            else if (sub_00483B40_IsInRect(nX, nY))
+            else if (INV_IsInStashRect(nX, nY))
             {
                 INV_ClickGridItem(pPlayer, pPlayer->pInventory, nX, nY, 4);
             }
@@ -8894,7 +8894,7 @@ void __stdcall INV_StashButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gbStashButtonClicked = 0;
         return;
     }
-    if (sub_00483B40_IsInRect(nX, nY))
+    if (INV_IsInStashRect(nX, nY))
     {
         INV_HandlePanelClick(pMsg);
         pMsg->bReturn = 1;
@@ -9070,7 +9070,7 @@ void __stdcall INV_CubeButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
         gbCubeCloseClicked = 0;
         return;
     }
-    if (INV_IsInPlayerInvRect(nX, nY) || sub_00483BF0_IsInRect(nX, nY))
+    if (INV_IsInPlayerInvRect(nX, nY) || INV_IsInCubeRect(nX, nY))
     {
         INV_HandlePanelClick(pMsg);
         pMsg->bReturn = 1;
