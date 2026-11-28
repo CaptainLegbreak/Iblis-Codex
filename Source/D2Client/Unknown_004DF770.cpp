@@ -31,7 +31,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __cdecl sub_004DFA60_ShutdownSound(); // 0x004DFA60
+void __cdecl SOUNDCHANNEL_ShutdownSound(); // 0x004DFA60
 
 #pragma pack(push, 1)
 
@@ -83,7 +83,7 @@ int __fastcall sub_004E40A0_RollPlayerSeed(int nRange);                         
 
 int __fastcall SOUNDINST_CompareSounds(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
 
-void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
+void __fastcall SOUNDCHANNEL_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
 
 void __fastcall D2SOUND_SetSoundNoLoop(D2SoundStrc* pSound, int nValue); // 0x00515A30
 
@@ -101,7 +101,7 @@ extern int gnEnvVolume; // 0x00727568
 static bool __fastcall sub_004DF770_IsType(S* p, char unused, int x) { return p->type == x; }
 
 // 0x004DF790
-void __fastcall sub_004DF790_ReleaseSlotObject(D2SlotStrc* pSlot)
+void __fastcall SOUNDCHANNEL_ReleaseSlotObject(D2SlotStrc* pSlot)
 {
     if (pSlot->pObject)
     {
@@ -112,7 +112,7 @@ void __fastcall sub_004DF790_ReleaseSlotObject(D2SlotStrc* pSlot)
 }
 
 // 0x004DF7B0
-void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)
+void __fastcall SOUNDCHANNEL_StopSlot(D2SlotStrc* pSlot)
 {
     if (pSlot->pSound)
     {
@@ -135,7 +135,7 @@ void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)
 }
 
 // 0x004DF800
-void __cdecl sub_004DF800_StopAllSlots()
+void __cdecl SOUNDCHANNEL_StopAllSlots()
 {
 // build: symbol ?D2SOUND_GetDirectSound@* 0x00513B50
     if (!D2SOUND_GetDirectSound())
@@ -147,7 +147,7 @@ void __cdecl sub_004DF800_StopAllSlots()
     D2SOUNDSMP_SetMasterVolume(0);
     for (int i = 0; i < 16; ++i)
     {
-        sub_004DF7B0_StopSlot(&gaSlots[i]);
+        SOUNDCHANNEL_StopSlot(&gaSlots[i]);
     }
 
     D2SOUNDSMP_SetMasterVolume(0xFF);
@@ -160,7 +160,7 @@ int __cdecl sub_004DF870_IsSoundSystemInit()
 }
 
 // 0x004DF880
-int __cdecl sub_004DF880_IsSoundSystemInit()
+int __cdecl SOUNDCHANNEL_IsSoundSystemInit()
 {
     return gbSoundSystemInit;
 }
@@ -175,7 +175,7 @@ void __cdecl sub_004DF890_ReleaseFinishedSlots()
         {
             if (D2SOUNDSMP_IsSoundStreaming(pSlot->pSound))
             {
-                sub_004DF7B0_StopSlot(pSlot);
+                SOUNDCHANNEL_StopSlot(pSlot);
             }
 
             if (pSlot->pObject)
@@ -189,14 +189,14 @@ void __cdecl sub_004DF890_ReleaseFinishedSlots()
 }
 
 // 0x004DF900
-unsigned int __fastcall sub_004DF900_GetSlotSampleCount(D2SlotStrc* pSlot)
+unsigned int __fastcall SOUNDCHANNEL_GetSlotSampleCount(D2SlotStrc* pSlot)
 {
 // build: symbol ?D2SOUNDSMP_GetStreamPosition@* 0x005159B0
     return D2SOUNDSMP_GetStreamPosition(pSlot->pSound);
 }
 
 // 0x004DF910
-int __cdecl sub_004DF910_GetSoundMode()
+int __cdecl SOUNDCHANNEL_GetSoundMode()
 {
     return sub_00514C90_GetSoundMode();
 }
@@ -212,7 +212,7 @@ void __cdecl sub_004DF930_Nop()
 }
 
 // 0x004DF940
-int __cdecl sub_004DF940_IsPositionalSoundEnabled()
+int __cdecl SOUNDCHANNEL_IsPositionalSoundEnabled()
 {
     if (!gbSoundSystemInit)
     {
@@ -223,7 +223,7 @@ int __cdecl sub_004DF940_IsPositionalSoundEnabled()
 }
 
 // 0x004DF960
-int __cdecl sub_004DF960_IsEaxEnabled()
+int __cdecl SOUNDCHANNEL_IsEaxEnabled()
 {
     if (!gbSoundSystemInit)
     {
@@ -233,7 +233,7 @@ int __cdecl sub_004DF960_IsEaxEnabled()
 }
 
 // 0x004DF980
-int __cdecl sub_004DF980_IsSoundMode1Or2()
+int __cdecl SOUNDCHANNEL_IsSoundMode1Or2()
 {
     if (!gbSoundSystemInit)
     {
@@ -250,7 +250,7 @@ int __cdecl sub_004DF980_IsSoundMode1Or2()
 }
 
 // 0x004DF9B0
-int __cdecl sub_004DF9B0_IsSoundMode2()
+int __cdecl SOUNDCHANNEL_IsSoundMode2()
 {
     if (!gbSoundSystemInit)
     {
@@ -285,7 +285,7 @@ D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
 }
 
 // 0x004DFA40
-int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
+int __fastcall SOUNDCHANNEL_IsSlotPlaying(D2SlotStrc* pSlot)
 {
     if (pSlot && pSlot->pSound)
     {
@@ -296,11 +296,11 @@ int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
 }
 
 // 0x004DFA60
-void __cdecl sub_004DFA60_ShutdownSound()
+void __cdecl SOUNDCHANNEL_ShutdownSound()
 {
     if (gbSoundSystemInit)
     {
-        sub_004DF800_StopAllSlots();
+        SOUNDCHANNEL_StopAllSlots();
         for (int i = 0; i < 16; ++i)
         {
             D2SOUNDSMP_DestroySound(gaSlots[i].pSound);
@@ -312,7 +312,7 @@ void __cdecl sub_004DFA60_ShutdownSound()
 }
 
 // 0x004DFAA0
-static int sub_004DFAA0_InitSoundChannels(int nMode)
+static int SOUNDCHANNEL_InitSoundChannels(int nMode)
 {
 // build: symbol ?D2SOUND_GetDirectSound@* 0x00513B50
     if (!D2SOUND_GetDirectSound())
@@ -333,7 +333,7 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
         gaSlots[i].pSound = D2SOUNDSMP_CreateSound(gaSlots[i].nType, gnSoundRestartArg);
         if (!gaSlots[i].pSound)
         {
-            sub_004DFA60_ShutdownSound();
+            SOUNDCHANNEL_ShutdownSound();
             return 0;
         }
     }
@@ -344,7 +344,7 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
 }
 
 // 0x004DFB50
-static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject, int nType)
+static D2SlotStrc* __stdcall SOUNDCHANNEL_GetFreeSlot(D2SlotObjectStrc* pObject, int nType)
 {
     for (int i = 0; i < 16; ++i)
     {
@@ -381,7 +381,7 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
 }
 
 // 0x004DFC20
-void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
+void __fastcall SOUNDCHANNEL_UpdateSoundSlot(D2SlotStrc* pSlot)
 {
     if (!pSlot->pObject)
     {
@@ -462,7 +462,7 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
 }
 
 // 0x004E0000
-int __fastcall sub_004E0000_SetSoundMode(int nMode)
+int __fastcall SOUNDCHANNEL_SetSoundMode(int nMode)
 {
 // build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
     if (nMode == 1 && !D2SOUND_IsPositionalSoundEnabled())
@@ -471,8 +471,8 @@ int __fastcall sub_004E0000_SetSoundMode(int nMode)
     if (nMode == 2 && !D2SOUND_IsEaxEnabled())
         return 0;
 
-    sub_004DFA60_ShutdownSound();
-    if (!sub_004DFAA0_InitSoundChannels(nMode))
+    SOUNDCHANNEL_ShutdownSound();
+    if (!SOUNDCHANNEL_InitSoundChannels(nMode))
         return 0;
 
     if (sub_00514C90_GetSoundMode() != nMode)
@@ -482,21 +482,21 @@ int __fastcall sub_004E0000_SetSoundMode(int nMode)
 }
 
 // 0x004E0050
-void __fastcall sub_004E0050_RestartSound(int nArg)
+void __fastcall SOUNDCHANNEL_RestartSound(int nArg)
 {
     gnSoundRestartArg = nArg;
-    if (!sub_004E0000_SetSoundMode(sub_00514C90_GetSoundMode()))
-        sub_004E0000_SetSoundMode(0);
+    if (!SOUNDCHANNEL_SetSoundMode(sub_00514C90_GetSoundMode()))
+        SOUNDCHANNEL_SetSoundMode(0);
 }
 
 // 0x004E00C0
-void __cdecl sub_004E00C0_CloseSoundChannels()
+void __cdecl SOUNDCHANNEL_CloseSoundChannels()
 {
-    sub_004DFA60_ShutdownSound();
+    SOUNDCHANNEL_ShutdownSound();
 }
 
 // 0x004E00D0
-int __cdecl sub_004E00D0_ToggleSoundMode01()
+int __cdecl SOUNDCHANNEL_ToggleSoundMode01()
 {
     if (!gbSoundSystemInit || gnSoundModeSwitchLock)
         return 0;
@@ -510,9 +510,9 @@ int __cdecl sub_004E00D0_ToggleSoundMode01()
     else
         nNew = 0;
     D2SOUNDSMP_FadeOutMasterVolume(0xB4);
-    const int nResult = sub_004E0000_SetSoundMode(nNew);
+    const int nResult = SOUNDCHANNEL_SetSoundMode(nNew);
     if (!nResult)
-        sub_004E0000_SetSoundMode(nOld);
+        SOUNDCHANNEL_SetSoundMode(nOld);
 // build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
     D2SOUNDSMP_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnSoundModeSwitchLock);
@@ -520,7 +520,7 @@ int __cdecl sub_004E00D0_ToggleSoundMode01()
 }
 
 // 0x004E0140
-int __cdecl sub_004E0140_ToggleSoundMode12()
+int __cdecl SOUNDCHANNEL_ToggleSoundMode12()
 {
     if (!gbSoundSystemInit || gnSoundModeSwitchLock)
         return 0;
@@ -533,16 +533,16 @@ int __cdecl sub_004E0140_ToggleSoundMode12()
     else
         nNew = 2;
     D2SOUNDSMP_FadeOutMasterVolume(0xB4);
-    const int nResult = sub_004E0000_SetSoundMode(nNew);
+    const int nResult = SOUNDCHANNEL_SetSoundMode(nNew);
     if (!nResult)
-        sub_004E0000_SetSoundMode(nOld);
+        SOUNDCHANNEL_SetSoundMode(nOld);
     D2SOUNDSMP_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnSoundModeSwitchLock);
     return nResult;
 }
 
 // 0x004E01B0
-D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
+D2SlotStrc* __fastcall SOUNDCHANNEL_PlaySlotSound(D2SlotObjectStrc* pObject)
 {
     D2SoundsTxt* pFirst = SOUNDHDR_GetSoundRecord(pObject->nSoundId);
     if (!(pObject->nFlags & 1))
@@ -571,7 +571,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
         if (sub_00514C90_GetSoundMode() == 2)
             nType |= 6;
     }
-    D2SlotStrc* pSlot = sub_004DFB50_GetFreeSlot(pObject, nType);
+    D2SlotStrc* pSlot = SOUNDCHANNEL_GetFreeSlot(pObject, nType);
     if (!pSlot)
         return 0;
     D2SOUNDSMP_ResetSound(pSlot->pSound);
@@ -592,7 +592,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     pSlot->fAttenuation = 0.0f;
     pSlot->nVolume = -1;
     memset(&pSlot->tPos, 0, sizeof(pSlot->tPos));
-    sub_004DFC20_UpdateSoundSlot(pSlot);
+    SOUNDCHANNEL_UpdateSoundSlot(pSlot);
     int bOk;
     if (!pRecord->bStream)
     {
@@ -614,7 +614,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
 }
 
 // 0x004E0370
-static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
+static D2NpcSoundStrc* SOUNDCHANNEL_GetNpcSoundRecord(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -692,10 +692,10 @@ static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
 }
 
 // 0x004E0590
-int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType)
+int __fastcall SOUNDCHANNEL_PickNpcSound(D2UnitStrc* pUnit, int nType)
 {
     int nSound;
-    D2NpcSoundStrc* pSound = sub_004E0370_GetNpcSoundRecord(pUnit);
+    D2NpcSoundStrc* pSound = SOUNDCHANNEL_GetNpcSoundRecord(pUnit);
     if (!pSound)
     {
         return 0;
@@ -782,7 +782,7 @@ int __cdecl MONSTER_GetNpcSpeechAudio()
 }
 
 // 0x004E0690
-void __fastcall sub_004E0690_SetSoundTableFlag(int nValue)
+void __fastcall SOUNDCHANNEL_SetSoundTableFlag(int nValue)
 {
 // build: symbol ?gbNpcSpeechAudio@* 0x0072AE24
     gbNpcSpeechAudio = nValue;

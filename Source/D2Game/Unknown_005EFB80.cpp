@@ -469,7 +469,7 @@ struct D2MonRegDataStrc;
 
 struct D2MonsterRegionStrc;
 
-int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
+int __fastcall WEATHER_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
 
 
 #define GRISWOLD_WALK_FLAGS 7
@@ -5421,7 +5421,7 @@ void __fastcall AITHINK_Fn023_Vulture(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     }
     if (!nState && !AIGENERAL_GetMinionOwner(pUnit) && pTarget && bFar && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 60) {
         AITHINK_RemoveGroundCollision(pGame, pUnit);
-        pAiControl->dwAiParam[0] = sub_00472210_SeedRollMasked(pSeed, 8) + 24;
+        pAiControl->dwAiParam[0] = WEATHER_SeedRollMasked(pSeed, 8) + 24;
         AITACTICS_MoveInRadiusToTarget(pGame, pUnit, pTarget, 8, 8, 8);
         AITACTICS_Idle(pGame, pUnit, 12);
         return;

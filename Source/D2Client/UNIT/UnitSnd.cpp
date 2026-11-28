@@ -129,7 +129,7 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId); // 0x
 
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
-int __fastcall sub_004E0590_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
+int __fastcall SOUNDCHANNEL_PickNpcSound(D2UnitStrc* pUnit, int nType); // 0x004E0590
 
 void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg); // 0x004DCE10
 
@@ -236,7 +236,7 @@ int __fastcall TEXT_TestQuestCondition(int nCondition); // 0x004A4180
 
 int __cdecl SOUNDINST_IsSpeechPlaying(); // 0x004B9C20
 
-int __cdecl sub_004DF880_IsSoundSystemInit(); // 0x004DF880
+int __cdecl SOUNDCHANNEL_IsSoundSystemInit(); // 0x004DF880
 
 unsigned char __fastcall SOUNDHDR_GetGroupSize(int nId); // 0x004818C0
 
@@ -1066,7 +1066,7 @@ void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, uns
         UNITSND_PlayFleeSound(pUnit);
         return;
     case 18:
-        sub_004B9A00(sub_004E0590_PickNpcSound(pUnit, 1), sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
+        sub_004B9A00(SOUNDCHANNEL_PickNpcSound(pUnit, 1), sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
         return;
     case 13:
         sub_004B9A00(0xA4A, pUnit, 0, 0, 0);
@@ -1934,7 +1934,7 @@ int __stdcall sub_M121_Emit_004CAC70(D2UnitStrc* pUnit) { return UNITSND_HasActi
 void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
 {
     D2_ASSERT(pUnit, 0xC47);
-    if (!sub_004DF880_IsSoundSystemInit())
+    if (!SOUNDCHANNEL_IsSoundSystemInit())
     {
         return 0;
     }

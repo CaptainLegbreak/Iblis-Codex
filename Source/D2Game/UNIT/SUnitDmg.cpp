@@ -315,7 +315,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 
 
-int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
+int __fastcall WEATHER_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
 
 static unsigned int SUNITDMG_GetHitClass(D2DamageStrc* pDamage, unsigned int nBaseHitClass); // 0x0057CE30
 
@@ -2042,12 +2042,12 @@ static int __stdcall SUNITDMG_ShouldSkipHitRecovery(D2UnitStrc* pUnit, D2DamageS
         return 1;
     }
 
-    if (pDamage->dwDmgTotal < nMaxLife / (nDivisor / 2) && !sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
+    if (pDamage->dwDmgTotal < nMaxLife / (nDivisor / 2) && !WEATHER_SeedRollMasked(&pUnit->pSeed, 2))
     {
         return 1;
     }
 
-    if (pDamage->dwDmgTotal < nMaxLife / (nDivisor / 4) && !sub_00472210_SeedRollMasked(&pUnit->pSeed, 4))
+    if (pDamage->dwDmgTotal < nMaxLife / (nDivisor / 4) && !WEATHER_SeedRollMasked(&pUnit->pSeed, 4))
     {
         return 1;
     }

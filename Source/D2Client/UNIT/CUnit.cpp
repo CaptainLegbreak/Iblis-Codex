@@ -360,7 +360,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 
 void __cdecl AUTOMAP_SkipAutomapReveal(); // 0x00459140
 
-void __fastcall sub_00472C20_PlayerMoved(int nArg); // 0x00472C20
+void __fastcall WEATHER_PlayerMoved(int nArg); // 0x00472C20
 
 int __stdcall D2Common_11020(D2UnitStrc* pUnit); // 0x00645630
 
@@ -2218,7 +2218,7 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
     AUTOMAP_SkipAutomapReveal();
     if (pUnit == pPlayer)
     {
-        sub_00472C20_PlayerMoved(bFlag);
+        WEATHER_PlayerMoved(bFlag);
     }
     CUNIT_QueueIdleMove(pUnit);
 }

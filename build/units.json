@@ -17007,7 +17007,7 @@
     {
      "va": "0x0045FB80",
      "length": 64,
-     "name": "?sub_004AB5F0_IsMouseInRect@@YGHHHHH@Z"
+     "name": "?SKILLTREE_IsMouseInRect@@YGHHHHH@Z"
     }
    ],
    "flags": [
@@ -19491,12 +19491,12 @@
     {
      "va": "0x00472210",
      "length": 39,
-     "name": "?sub_00472210_SeedRollMasked@@YIHPATD2SeedStrc@@H@Z"
+     "name": "?WEATHER_SeedRollMasked@@YIHPATD2SeedStrc@@H@Z"
     },
     {
      "va": "0x00472240",
      "length": 50,
-     "name": "?sub_00472240_RollMaskOffset@@YIHPATD2SeedStrc@@HH@Z"
+     "name": "?WEATHER_RollMaskOffset@@YIHPATD2SeedStrc@@HH@Z"
     },
     {
      "va": "0x00472280",
@@ -19516,7 +19516,7 @@
     {
      "va": "0x00472320",
      "length": 146,
-     "name": "?sub_00472320_InitWeather@@YAXXZ"
+     "name": "?WEATHER_InitWeather@@YAXXZ"
     },
     {
      "va": "0x004723C0",
@@ -19526,7 +19526,7 @@
     {
      "va": "0x004723F0",
      "length": 6,
-     "name": "?sub_004723F0_GetPhase@@YAHXZ"
+     "name": "?WEATHER_GetPhase@@YAHXZ"
     },
     {
      "va": "0x00472400",
@@ -19535,17 +19535,17 @@
     {
      "va": "0x00472550",
      "length": 57,
-     "name": "?sub_00472550_ResetWeather@@YAXXZ"
+     "name": "?WEATHER_ResetWeather@@YAXXZ"
     },
     {
      "va": "0x00472590",
      "length": 125,
-     "name": "?sub_00472590_SetSplash@@YGXHH@Z"
+     "name": "?WEATHER_SetSplash@@YGXHH@Z"
     },
     {
      "va": "0x00472610",
      "length": 212,
-     "name": "?sub_00472610_InitWindAngle@@YAXXZ"
+     "name": "?WEATHER_InitWindAngle@@YAXXZ"
     },
     {
      "va": "0x004726F0",
@@ -19564,37 +19564,37 @@
     {
      "va": "0x00472C20",
      "length": 37,
-     "name": "?sub_00472C20_PlayerMoved@@YIXH@Z"
+     "name": "?WEATHER_PlayerMoved@@YIXH@Z"
     },
     {
      "va": "0x00472C50",
      "length": 41,
-     "name": "?sub_00472C50_StartLightning@@YIXH@Z"
+     "name": "?WEATHER_StartLightning@@YIXH@Z"
     },
     {
      "va": "0x00472C80",
      "length": 137,
-     "name": "?sub_00472C80_StepSplashes@@YIXH@Z"
+     "name": "?WEATHER_StepSplashes@@YIXH@Z"
     },
     {
      "va": "0x00472D10",
      "length": 137,
-     "name": "?sub_00472D10_StepBubbles@@YIXH@Z"
+     "name": "?WEATHER_StepBubbles@@YIXH@Z"
     },
     {
      "va": "0x00472DA0",
      "length": 275,
-     "name": "?sub_00472DA0_CreateSplash@@YIXHHHH@Z"
+     "name": "?WEATHER_CreateSplash@@YIXHHHH@Z"
     },
     {
      "va": "0x00472EC0",
      "length": 239,
-     "name": "?sub_00472EC0_CreateBubble@@YIXHHHH@Z"
+     "name": "?WEATHER_CreateBubble@@YIXHHHH@Z"
     },
     {
      "va": "0x00472FB0",
      "length": 209,
-     "name": "?sub_00472FB0_GetPeriodLight@@YGXPAEH0@Z"
+     "name": "?WEATHER_GetPeriodLight@@YGXPAEH0@Z"
     },
     {
      "va": "0x00473090",
@@ -19607,22 +19607,22 @@
     {
      "va": "0x00473470",
      "length": 584,
-     "name": "?sub_00473470_DrawWeatherParticles@@YAXXZ"
+     "name": "?WEATHER_DrawWeatherParticles@@YAXXZ"
     },
     {
      "va": "0x004736C0",
      "length": 95,
-     "name": "_sub_004736C0_DrawPanelShade"
+     "name": "_WEATHER_DrawPanelShade"
     },
     {
      "va": "0x00473720",
      "length": 66,
-     "name": "?sub_00473720_GetLevelWeather@@YAXPAH0@Z"
+     "name": "?WEATHER_GetLevelWeather@@YAXPAH0@Z"
     },
     {
      "va": "0x00473770",
      "length": 49,
-     "name": "?sub_00473770_IsMudLevel@@YAHXZ"
+     "name": "?WEATHER_IsMudLevel@@YAHXZ"
     },
     {
      "va": "0x004737B0",
@@ -19631,27 +19631,27 @@
     {
      "va": "0x00473910",
      "length": 341,
-     "name": "?sub_00473910_UpdateWeather@@YAXXZ"
+     "name": "?WEATHER_UpdateWeather@@YAXXZ"
     },
     {
      "va": "0x00473A70",
      "length": 391,
-     "name": "?sub_00473A70_DrawWeatherSplashes@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
+     "name": "?WEATHER_DrawWeatherSplashes@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
     },
     {
      "va": "0x00473C00",
      "length": 51,
-     "name": "?sub_00473C00_DrawWeatherLayers@@YAXXZ"
+     "name": "?WEATHER_DrawWeatherLayers@@YAXXZ"
     },
     {
      "va": "0x00473C40",
      "length": 64,
-     "name": "?sub_00473C40_IsRainLevel@@YAHXZ"
+     "name": "?WEATHER_IsRainLevel@@YAHXZ"
     },
     {
      "va": "0x00473C80",
      "length": 7,
-     "name": "?sub_00473C80_GetPhaseLevel@@YAMXZ"
+     "name": "?WEATHER_GetPhaseLevel@@YAMXZ"
     },
     {
      "va": "0x00473C90",
@@ -19691,7 +19691,7 @@
     {
      "va": "0x00473D00",
      "length": 192,
-     "name": "?sub_00473D00_SetPhase@@YIXH@Z"
+     "name": "?WEATHER_SetPhase@@YIXH@Z"
     },
     {
      "va": "0x00473DC0",
@@ -24732,37 +24732,37 @@
     {
      "va": "0x004AA900",
      "length": 32,
-     "name": "?sub_004AA900_IsStateOrValue@@YAHXZ"
+     "name": "?SKILLTREE_IsStateOrValue@@YAHXZ"
     },
     {
      "va": "0x004AA920",
      "length": 83,
-     "name": "?sub_004AA920_LoadPanelCel@@YAXXZ"
+     "name": "?SKILLTREE_LoadPanelCel@@YAXXZ"
     },
     {
      "va": "0x004AA980",
      "length": 56,
-     "name": "?sub_004AA980_FreePanelCel@@YAXXZ"
+     "name": "?SKILLTREE_FreePanelCel@@YAXXZ"
     },
     {
      "va": "0x004AA9C0",
      "length": 140,
-     "name": "?sub_004AA9C0_GetSkillRowY@@YAHE@Z"
+     "name": "?SKILLTREE_GetSkillRowY@@YAHE@Z"
     },
     {
      "va": "0x004AAA50",
      "length": 66,
-     "name": "?sub_004AAA50_GetSkillColumnX@@YAHE@Z"
+     "name": "?SKILLTREE_GetSkillColumnX@@YAHE@Z"
     },
     {
      "va": "0x004AAAA0",
      "length": 54,
-     "name": "?sub_004AAAA0_DrawSkillTreeText@@YGXHPBUUnicode@@@Z"
+     "name": "?SKILLTREE_DrawSkillTreeText@@YGXHPBUUnicode@@@Z"
     },
     {
      "va": "0x004AAAE0",
      "length": 500,
-     "name": "sub_004AAAE0_DrawPagedPanel"
+     "name": "SKILLTREE_DrawPagedPanel"
     },
     {
      "va": "0x004AACE0",
@@ -24771,7 +24771,7 @@
     {
      "va": "0x004AB2F0",
      "length": 17,
-     "name": "?sub_004AB2F0_SetBlackColor@@YAXXZ"
+     "name": "?SKILLTREE_SetBlackColor@@YAXXZ"
     },
     {
      "va": "0x004AB310",
@@ -24780,27 +24780,27 @@
     {
      "va": "0x004AB530",
      "length": 188,
-     "name": "sub_004AB530_DrawTabCel"
+     "name": "SKILLTREE_DrawTabCel"
     },
     {
      "va": "0x004AB5F0",
      "length": 64,
-     "name": "?sub_004AB5F0_IsMouseInRect@@YGHHHHH@Z"
+     "name": "?SKILLTREE_IsMouseInRect@@YGHHHHH@Z"
     },
     {
      "va": "0x004AB630",
      "length": 377,
-     "name": "?sub_004AB630_DrawTabHint@@YAXXZ"
+     "name": "?SKILLTREE_DrawTabHint@@YAXXZ"
     },
     {
      "va": "0x004AB7B0",
      "length": 36,
-     "name": "?sub_004AB7B0_CheckTickElapsed@@YAHXZ"
+     "name": "?SKILLTREE_CheckTickElapsed@@YAHXZ"
     },
     {
      "va": "0x004AB7E0",
      "length": 1098,
-     "name": "?sub_004AB7E0_SkillTreeLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?SKILLTREE_SkillTreeLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004ABC30",
@@ -24809,7 +24809,7 @@
     {
      "va": "0x004ABF10",
      "length": 76,
-     "name": "?sub_004ABF10_ClearSkillStates@@YAXXZ"
+     "name": "?SKILLTREE_ClearSkillStates@@YAXXZ"
     },
     {
      "va": "0x004ABF60",
@@ -24826,7 +24826,7 @@
     {
      "va": "0x004AC690",
      "length": 155,
-     "name": "?sub_004AC690_DrawSkillPanel@@YAXXZ"
+     "name": "?SKILLTREE_DrawSkillPanel@@YAXXZ"
     }
    ],
    "flags": [
@@ -29933,17 +29933,17 @@
     {
      "va": "0x004DF790",
      "length": 26,
-     "name": "?sub_004DF790_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
+     "name": "?SOUNDCHANNEL_ReleaseSlotObject@@YIXPAUD2SlotStrc@@@Z"
     },
     {
      "va": "0x004DF7B0",
      "length": 66,
-     "name": "?sub_004DF7B0_StopSlot@@YIXPAUD2SlotStrc@@@Z"
+     "name": "?SOUNDCHANNEL_StopSlot@@YIXPAUD2SlotStrc@@@Z"
     },
     {
      "va": "0x004DF800",
      "length": 103,
-     "name": "?sub_004DF800_StopAllSlots@@YAXXZ"
+     "name": "?SOUNDCHANNEL_StopAllSlots@@YAXXZ"
     },
     {
      "va": "0x004DF870",
@@ -29953,7 +29953,7 @@
     {
      "va": "0x004DF880",
      "length": 6,
-     "name": "sub_004DF880_IsSoundSystemInit"
+     "name": "SOUNDCHANNEL_IsSoundSystemInit"
     },
     {
      "va": "0x004DF890",
@@ -29963,12 +29963,12 @@
     {
      "va": "0x004DF900",
      "length": 7,
-     "name": "?sub_004DF900_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
+     "name": "?SOUNDCHANNEL_GetSlotSampleCount@@YIIPAUD2SlotStrc@@@Z"
     },
     {
      "va": "0x004DF910",
      "length": 5,
-     "name": "?sub_004DF910_GetSoundMode@@YAHXZ"
+     "name": "?SOUNDCHANNEL_GetSoundMode@@YAHXZ"
     },
     {
      "va": "0x004DF920",
@@ -29983,22 +29983,22 @@
     {
      "va": "0x004DF940",
      "length": 17,
-     "name": "?sub_004DF940_IsPositionalSoundEnabled@@YAHXZ"
+     "name": "?SOUNDCHANNEL_IsPositionalSoundEnabled@@YAHXZ"
     },
     {
      "va": "0x004DF960",
      "length": 17,
-     "name": "?sub_004DF960_IsEaxEnabled@@YAHXZ"
+     "name": "?SOUNDCHANNEL_IsEaxEnabled@@YAHXZ"
     },
     {
      "va": "0x004DF980",
      "length": 33,
-     "name": "?sub_004DF980_IsSoundMode1Or2@@YAHXZ"
+     "name": "?SOUNDCHANNEL_IsSoundMode1Or2@@YAHXZ"
     },
     {
      "va": "0x004DF9B0",
      "length": 28,
-     "name": "?sub_004DF9B0_IsSoundMode2@@YAHXZ"
+     "name": "?SOUNDCHANNEL_IsSoundMode2@@YAHXZ"
     },
     {
      "va": "0x004DF9D0",
@@ -30008,22 +30008,22 @@
     {
      "va": "0x004DFA40",
      "length": 18,
-     "name": "?sub_004DFA40_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
+     "name": "?SOUNDCHANNEL_IsSlotPlaying@@YIHPAUD2SlotStrc@@@Z"
     },
     {
      "va": "0x004DFA60",
      "length": 56,
-     "name": "?sub_004DFA60_ShutdownSound@@YAXXZ"
+     "name": "?SOUNDCHANNEL_ShutdownSound@@YAXXZ"
     },
     {
      "va": "0x004DFAA0",
      "length": 176,
-     "name": "?sub_004DFAA0_InitSoundChannels@@YAHH@Z"
+     "name": "?SOUNDCHANNEL_InitSoundChannels@@YAHH@Z"
     },
     {
      "va": "0x004DFB50",
      "length": 207,
-     "name": "?sub_004DFB50_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
+     "name": "?SOUNDCHANNEL_GetFreeSlot@@YGPAUD2SlotStrc@@PAUD2SlotObjectStrc@@H@Z"
     },
     {
      "va": "0x004DFC20",
@@ -30032,27 +30032,27 @@
     {
      "va": "0x004E0000",
      "length": 74,
-     "name": "?sub_004E0000_SetSoundMode@@YIHH@Z"
+     "name": "?SOUNDCHANNEL_SetSoundMode@@YIHH@Z"
     },
     {
      "va": "0x004E0050",
      "length": 108,
-     "name": "?sub_004E0050_RestartSound@@YIXH@Z"
+     "name": "?SOUNDCHANNEL_RestartSound@@YIXH@Z"
     },
     {
      "va": "0x004E00C0",
      "length": 5,
-     "name": "?sub_004E00C0_CloseSoundChannels@@YAXXZ"
+     "name": "?SOUNDCHANNEL_CloseSoundChannels@@YAXXZ"
     },
     {
      "va": "0x004E00D0",
      "length": 106,
-     "name": "?sub_004E00D0_ToggleSoundMode01@@YAHXZ"
+     "name": "?SOUNDCHANNEL_ToggleSoundMode01@@YAHXZ"
     },
     {
      "va": "0x004E0140",
      "length": 110,
-     "name": "?sub_004E0140_ToggleSoundMode12@@YAHXZ"
+     "name": "?SOUNDCHANNEL_ToggleSoundMode12@@YAHXZ"
     },
     {
      "va": "0x004E01B0",
@@ -30061,7 +30061,7 @@
     {
      "va": "0x004E0370",
      "length": 536,
-     "name": "?sub_004E0370_GetNpcSoundRecord@@YAPAUD2NpcSoundStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?SOUNDCHANNEL_GetNpcSoundRecord@@YAPAUD2NpcSoundStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004E0590",
@@ -30080,7 +30080,7 @@
     {
      "va": "0x004E0690",
      "length": 7,
-     "name": "?sub_004E0690_SetSoundTableFlag@@YIXH@Z"
+     "name": "?SOUNDCHANNEL_SetSoundTableFlag@@YIXH@Z"
     }
    ],
    "flags": [

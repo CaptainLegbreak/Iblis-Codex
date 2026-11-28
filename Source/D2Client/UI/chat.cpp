@@ -836,7 +836,7 @@ struct D2MenuItemStrc
 
 
 
-int __cdecl sub_004DF980_IsSoundMode1Or2();
+int __cdecl SOUNDCHANNEL_IsSoundMode1Or2(); // 0x004DF980
 
 void __fastcall sub_004776C0_SetGamma(void* pArg);
 

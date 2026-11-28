@@ -3036,7 +3036,8 @@ void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit)
     const int nIndex = sub_004B1D70_FindNpcEntry();
     if (gaNpcEntries[nIndex].bRefreshed)
     {
-        const int nSound = sub_004E0590_PickNpcSound(NPCMENU_GetInteractNpc(), 1);
+// build: symbol ?SOUNDCHANNEL_PickNpcSound@* 0x004E0590
+        const int nSound = SOUNDCHANNEL_PickNpcSound(NPCMENU_GetInteractNpc(), 1);
         if (nSound)
         {
             UNITSND_ReleaseSkillSfx(pUnit);
@@ -3724,7 +3725,7 @@ static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
         }
     }
 
-    const int nSound = sub_004E0590_PickNpcSound(pUnit, nType);
+    const int nSound = SOUNDCHANNEL_PickNpcSound(pUnit, nType);
     if (!nSound)
     {
         return;

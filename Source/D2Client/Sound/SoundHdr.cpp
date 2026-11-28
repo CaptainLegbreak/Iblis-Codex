@@ -450,7 +450,8 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
     if (!D2SOUND_GetDirectSound())
         return;
     SOUNDHDR_LoadSoundTables();
-    sub_004E0050_RestartSound(nArg);
+// build: symbol ?SOUNDCHANNEL_RestartSound@* 0x004E0050
+    SOUNDCHANNEL_RestartSound(nArg);
     SOUNDINST_ResetSoundState();
     sub_004DCA30();
     SKILLS_ResetLevelSpeech();
@@ -467,10 +468,12 @@ void __cdecl SOUNDHDR_ShutdownSound()
 {
     if (!D2SOUND_GetDirectSound())
         return;
-    sub_004DF800_StopAllSlots();
+// build: symbol ?SOUNDCHANNEL_StopAllSlots@* 0x004DF800
+    SOUNDCHANNEL_StopAllSlots();
     SOUNDINST_RefreshGroupTimers();
     SOUNDINST_FreeAllSounds();
-    sub_004E00C0_CloseSoundChannels();
+// build: symbol ?SOUNDCHANNEL_CloseSoundChannels@* 0x004E00C0
+    SOUNDCHANNEL_CloseSoundChannels();
     SOUNDHDR_ReleaseSoundTables();
 }
 

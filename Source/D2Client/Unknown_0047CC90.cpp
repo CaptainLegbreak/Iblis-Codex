@@ -176,7 +176,7 @@ struct D2MenuItemStrc
 
 
 
-int __cdecl sub_004DF980_IsSoundMode1Or2();
+int __cdecl SOUNDCHANNEL_IsSoundMode1Or2(); // 0x004DF980
 
 void __fastcall sub_004776C0_SetGamma(void* pArg);
 
@@ -336,7 +336,8 @@ void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CDE0
 int __fastcall sub_0047CDE0()
 {
-    return sub_004DF880_IsSoundSystemInit();
+// build: symbol ?SOUNDCHANNEL_IsSoundSystemInit@* 0x004DF880
+    return SOUNDCHANNEL_IsSoundSystemInit();
 }
 
 // 0x0047CDF0
@@ -354,7 +355,7 @@ void __fastcall sub_0047CE10_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
 // 0x0047CE50
 void __fastcall sub_0047CE50_SoundModeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_004DF980_IsSoundMode1Or2();
+    pItem->dwMoveCount = SOUNDCHANNEL_IsSoundMode1Or2();
 }
 
 // 0x0047CE70
@@ -372,13 +373,14 @@ void __fastcall sub_0047CE90_PositionalBiasOption(D2MenuItemStrc* pItem, int nAr
 // 0x0047CED0
 void __fastcall sub_0047CED0_SoundMode2Option(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_004DF9B0_IsSoundMode2();
+// build: symbol ?SOUNDCHANNEL_IsSoundMode2@* 0x004DF9B0
+    pItem->dwMoveCount = SOUNDCHANNEL_IsSoundMode2();
 }
 
 // 0x0047CEE0
 int __fastcall sub_0047CEE0()
 {
-    return sub_004DF880_IsSoundSystemInit();
+    return SOUNDCHANNEL_IsSoundSystemInit();
 }
 
 // 0x0047CEF0
@@ -388,15 +390,16 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
     switch (pItem->dwMoveCount)
     {
     case 0:
-        sub_004E0690_SetSoundTableFlag(1);
+// build: symbol ?SOUNDCHANNEL_SetSoundTableFlag@* 0x004E0690
+        SOUNDCHANNEL_SetSoundTableFlag(1);
         TEXT_SaveTextDisplaySetting(0);
         break;
     case 1:
-        sub_004E0690_SetSoundTableFlag(0);
+        SOUNDCHANNEL_SetSoundTableFlag(0);
         TEXT_SaveTextDisplaySetting(1);
         break;
     case 2:
-        sub_004E0690_SetSoundTableFlag(1);
+        SOUNDCHANNEL_SetSoundTableFlag(1);
         TEXT_SaveTextDisplaySetting(1);
         break;
     }
@@ -406,7 +409,7 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
 void __fastcall sub_0047CF50_NpcSpeechOption(D2MenuItemStrc* pItem, int nArg)
 {
     pItem->dwMoveCount = D2SOUND_GetNpcSpeechOption();
-    if (sub_004DF880_IsSoundSystemInit())
+    if (SOUNDCHANNEL_IsSoundSystemInit())
     {
         sub_0047CEF0_NpcSpeechSelect(pItem, (SMSGHANDLER_PARAMS*)nArg);
     }
@@ -743,43 +746,47 @@ extern int gbSlotBarBlocked; // 0x007BC970
 // 0x0047CD80
 int __fastcall sub_0047CD80_IsSoundEnabled()
 {
-    return sub_004DF880_IsSoundSystemInit();
+    return SOUNDCHANNEL_IsSoundSystemInit();
 }
 
 // 0x0047CD90
 int __fastcall sub_0047CD90_IsSoundEnabled()
 {
-    return sub_004DF880_IsSoundSystemInit();
+    return SOUNDCHANNEL_IsSoundSystemInit();
 }
 
 // 0x0047CE30
 int __fastcall sub_0047CE30_Is3DSoundEnabled()
 {
-    return sub_004DF940_IsPositionalSoundEnabled();
+// build: symbol ?SOUNDCHANNEL_IsPositionalSoundEnabled@* 0x004DF940
+    return SOUNDCHANNEL_IsPositionalSoundEnabled();
 }
 
 // 0x0047CE40
 void __fastcall sub_0047CE40_3DSoundSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004E00D0_ToggleSoundMode01();
+// build: symbol ?SOUNDCHANNEL_ToggleSoundMode01@* 0x004E00D0
+    SOUNDCHANNEL_ToggleSoundMode01();
 }
 
 // 0x0047CE60
 int __fastcall sub_0047CE60_Is3DBiasEnabled()
 {
-    return sub_004DF980_IsSoundMode1Or2();
+    return SOUNDCHANNEL_IsSoundMode1Or2();
 }
 
 // 0x0047CEB0
 int __fastcall sub_0047CEB0_IsEAXEnabled()
 {
-    return sub_004DF960_IsEaxEnabled();
+// build: symbol ?SOUNDCHANNEL_IsEaxEnabled@* 0x004DF960
+    return SOUNDCHANNEL_IsEaxEnabled();
 }
 
 // 0x0047CEC0
 void __fastcall sub_0047CEC0_EAXSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004E0140_ToggleSoundMode12();
+// build: symbol ?SOUNDCHANNEL_ToggleSoundMode12@* 0x004E0140
+    SOUNDCHANNEL_ToggleSoundMode12();
 }
 
 // 0x0047D040

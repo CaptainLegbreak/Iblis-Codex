@@ -1908,7 +1908,8 @@ void __fastcall AITHINK_Fn061_Hireable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         bBlocked = 1;
         int nChance = 6;
         if (bRanged) nChance = 12;
-        if (sub_00472210_SeedRollMasked(pSeed, 128) < nChance)
+// build: symbol ?WEATHER_SeedRollMasked@* 0x00472210
+        if (WEATHER_SeedRollMasked(pSeed, 128) < nChance)
         {
             AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
             return;

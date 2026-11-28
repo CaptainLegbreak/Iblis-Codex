@@ -92,7 +92,7 @@ int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x004
 void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
 void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nIndex); // 0x0046F280
 void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
-int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
+int __fastcall WEATHER_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
 int __fastcall sub_00472280_RollInRange(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __fastcall SCMD_SetLightColorBytes(D2ByteRecordStrc* pRecord, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
 void __fastcall DLIGHTMAP_ReleaseLight(D2R01LightStrc* pLight); // 0x004743D0

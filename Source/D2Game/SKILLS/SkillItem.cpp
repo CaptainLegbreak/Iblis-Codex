@@ -249,7 +249,7 @@ enum D2C_J10SkillItemConstants
     SKILLSFLAGINDEX_ITEMTGTDO = 29,
 };
 
-int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax);                                     // 0x00472210
+int __fastcall WEATHER_SeedRollMasked(D2SeedStrc* pSeed, int nMax);                                     // 0x00472210
 
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                   // 0x0045C3E0
 
@@ -499,7 +499,7 @@ int __fastcall SKILLITEM_EventFunc08_Howl(D2GameStrc* pGame, int nEvent, D2UnitS
         return 0;
     }
 
-    if (sub_00472210_SeedRollMasked(&pAttacker->pSeed, 128) >= nChance)
+    if (WEATHER_SeedRollMasked(&pAttacker->pSeed, 128) >= nChance)
     {
         return 0;
     }

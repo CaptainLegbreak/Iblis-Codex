@@ -1602,7 +1602,8 @@ void __cdecl UI_LoadPlayerUI()
 {
     PANEL_LoadPartyCels();
     sub_004A7AA0_InitTextEntryLengths();
-    sub_004AA920_LoadPanelCel();
+// build: symbol ?SKILLTREE_LoadPanelCel@* 0x004AA920
+    SKILLTREE_LoadPanelCel();
     SPELLSEL_InitSkillIcons();
     sub_004B8720_ResetTradeState();
     INV_ResetHover();
@@ -1619,7 +1620,8 @@ void __cdecl UI_FreePlayerUI()
 {
     PANEL_FreePartyCels();
     sub_004A7AD0_Nop();
-    sub_004AA980_FreePanelCel();
+// build: symbol ?SKILLTREE_FreePanelCel@* 0x004AA980
+    SKILLTREE_FreePanelCel();
     SPELLSEL_FreeSkillIcons();
     TEXT_ClearQuestFlags();
     NPCMENU_ResetNpcMenu();
@@ -2584,7 +2586,8 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
     case 0x4:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaSkillTreeHandlers, 0x2);
         UI_StartUIVarDelay();
-        sub_004ABF10_ClearSkillStates();
+// build: symbol ?SKILLTREE_ClearSkillStates@* 0x004ABF10
+        SKILLTREE_ClearSkillStates();
         return;
     case 0x2:
         UI_CloseGoldDialog();
@@ -3218,7 +3221,7 @@ void __cdecl UI_ShutdownUI()
     if (sub_00463DD0_GetPlayerUnit())
     {
         SPELLSEL_FreeSkillIcons();
-        sub_004AA980_FreePanelCel();
+        SKILLTREE_FreePanelCel();
     }
     D2Win_10116();
     TEXT_FreeTextResources();
@@ -3319,7 +3322,8 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     }
     UI_DrawProgressiveStates();
     if (gaUIVarStates[4])
-        sub_004AC690_DrawSkillPanel();
+// build: symbol ?SKILLTREE_DrawSkillPanel@* 0x004AC690
+        SKILLTREE_DrawSkillPanel();
     if (gaUIVarStates[2])
         sub_004A7D00_DrawCharStats();
     if (gaUIVarStates[22])

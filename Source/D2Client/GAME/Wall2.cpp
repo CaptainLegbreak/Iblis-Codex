@@ -847,9 +847,9 @@ struct D2FloorTileViewStrc
 
 
 
-int __cdecl sub_00473770_IsMudLevel(); // 0x00473770
+int __cdecl WEATHER_IsMudLevel(); // 0x00473770
 
-float __cdecl sub_00473C80_GetPhaseLevel(); // 0x00473C80
+float __cdecl WEATHER_GetPhaseLevel(); // 0x00473C80
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -1200,7 +1200,7 @@ void __thiscall D2FloorTileViewStrc::UpdateView(void* pArgument)
     const unsigned int dwTick = sub_0044DB00_GetTickCounter();
     bTickFlag = 0;
     bMudFlag = 0;
-    nPhase = (int)(sub_00473C80_GetPhaseLevel() * 1000.0);
+    nPhase = (int)(WEATHER_GetPhaseLevel() * 1000.0);
     const int nBorderType = sub_0045AE90_GetPanelSlideMode();
     nBorder = nBorderType;
     pArg = (D2FloorViewArgStrc*)pArgument;
@@ -1222,7 +1222,7 @@ void __thiscall D2FloorTileViewStrc::UpdateView(void* pArgument)
             bTickFlag = 1;
     }
 
-    if (sub_00473770_IsMudLevel() && dwTick > dwTickB + 0x19)
+    if (WEATHER_IsMudLevel() && dwTick > dwTickB + 0x19)
     {
         dwTickB = dwTick;
         bMudFlag = 1;

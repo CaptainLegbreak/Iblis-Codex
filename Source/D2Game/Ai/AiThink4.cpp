@@ -655,7 +655,7 @@ struct D2MonRegDataStrc;
 
 struct D2MonsterRegionStrc;
 
-int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
+int __fastcall WEATHER_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
 
 int __fastcall AITACTICS_RunToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005DEDE0
 
@@ -1250,7 +1250,7 @@ void __fastcall AITHINK_Fn085_HighPriest(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         }
         if (pMonStatsTxt->nSkill[0] >= 0 && pGame->dwGameFrame > pAiControl->dwAiParam[1] && nDistance < AI_PARAM(pGame, pMonStatsTxt, 7)
             && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 3)) {
-            int nIndex = sub_00472210_SeedRollMasked(pSeed, 4);
+            int nIndex = WEATHER_SeedRollMasked(pSeed, 4);
             int nX = CLIENTS_GetUnitX(pTarget) + gaHighPriestSkillOffsets[nIndex].nX;
             int nY = CLIENTS_GetUnitY(pTarget) + gaHighPriestSkillOffsets[nIndex].nY;
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[0], pMonStatsTxt->nSkill[0], pTarget, nX, nY);
@@ -3794,22 +3794,22 @@ void __fastcall AITHINK_Formation(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
             int nOffset = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 10);
             if (nPhase < 25)
             {
-                if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
+                if (WEATHER_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
                 nX += nOffset; nY -= 5;
             }
             if (nPhase >= 25 && nPhase < 50)
             {
-                if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
+                if (WEATHER_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
                 nX += 5; nY += nOffset;
             }
             if (nPhase >= 50 && nPhase < 75)
             {
-                if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
+                if (WEATHER_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
                 nX += nOffset; nY += 5;
             }
             if (nPhase >= 75)
             {
-                if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
+                if (WEATHER_SeedRollMasked(&pUnit->pSeed, 2)) nOffset = -nOffset;
                 nX -= 5; nY += nOffset;
             }
             if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nX, nY))
@@ -4189,10 +4189,10 @@ void __fastcall AITHINK_Fn059_BloodRaven(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < pAi->dwAiParam[0]) {
         nDistance = SEED_RollLimitedRandomNumber(pSeed, 15) + 5;
         int nX, nY;
-        if (sub_00472210_SeedRollMasked(pSeed, 2)) { nX = nDistance; nY = ITEMS_RollLimitedRandomNumber(pSeed, nDistance); }
+        if (WEATHER_SeedRollMasked(pSeed, 2)) { nX = nDistance; nY = ITEMS_RollLimitedRandomNumber(pSeed, nDistance); }
         else { nX = ITEMS_RollLimitedRandomNumber(pSeed, nDistance); nY = nDistance; }
-        if (sub_00472210_SeedRollMasked(pSeed, 2)) nX = -nX;
-        if (sub_00472210_SeedRollMasked(pSeed, 2)) nY = -nY;
+        if (WEATHER_SeedRollMasked(pSeed, 2)) nX = -nX;
+        if (WEATHER_SeedRollMasked(pSeed, 2)) nY = -nY;
         AITACTICS_UseSkill(pGame, pUnit, pMonStats->nSkillMode[0], pMonStats->nSkill[0], 0, CLIENTS_GetUnitX(pTarget) + nX, CLIENTS_GetUnitY(pTarget) + nY);
         ++pAi->dwAiParam[1];
         pAi->dwAiParam[0] = 0;

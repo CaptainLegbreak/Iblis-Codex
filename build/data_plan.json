@@ -593,7 +593,7 @@
     "extern \"C\" void __cdecl sub_004A7720_OnLButtonDown(); // 0x004A7720",
     "extern \"C\" void __cdecl sub_004A78C0_OnLButtonUp(); // 0x004A78C0",
     "extern \"C\" void __cdecl SPELLSEL_SkillSelectClickMsg(); // 0x004A9BD0",
-    "extern \"C\" void __cdecl sub_004AB7E0_SkillTreeLButtonDown(); // 0x004AB7E0",
+    "extern \"C\" void __cdecl SKILLTREE_SkillTreeLButtonDown(); // 0x004AB7E0",
     "extern \"C\" void __cdecl sub_004ABC30(); // 0x004ABC30",
     "extern \"C\" void __cdecl ROSTERPETS_HandlePanelButtonDown(); // 0x004A5980",
     "extern \"C\" void __cdecl TEXT_KeyConfigWheelMsg(); // 0x004A59D0",
@@ -31072,7 +31072,7 @@
      8,
      "0x004AB7E0",
      "names.json",
-     "sub_004AB7E0_SkillTreeLButtonDown",
+     "SKILLTREE_SkillTreeLButtonDown",
      0,
      "func"
     ],

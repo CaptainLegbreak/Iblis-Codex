@@ -1689,7 +1689,8 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         const int nAlignment = STATLIST_GetUnitAlignment(pUnit);
         if (nAlignment == 1)
         {
-            if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
+// build: symbol ?WEATHER_SeedRollMasked@* 0x00472210
+            if (WEATHER_SeedRollMasked(&pUnit->pSeed, 2))
             {
                 SUNIT_SetAlignment(pUnit, 2, 1);
             }
@@ -1698,7 +1699,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
                 SUNIT_SetAlignment(pUnit, 0, 1);
             }
         }
-        else if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
+        else if (WEATHER_SeedRollMasked(&pUnit->pSeed, 2))
         {
             if (nAlignment == 0)
             {
