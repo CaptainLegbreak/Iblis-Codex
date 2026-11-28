@@ -179,7 +179,7 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* ptGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 
 struct D2SkillListStrc;

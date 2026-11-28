@@ -99,7 +99,7 @@ D2ClientStrc* gpClientList[256]; // 0x008842A8
 extern D2CriticalSectionStrc gClientListLock; // 0x008846A8
 int gbClientListInitialized; // 0x008846D8
 extern D2CriticalSectionStrc gSrvClientListByNameLock; // 0x008846C0
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* ptGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 typedef int (__stdcall* FARPROC)();
 

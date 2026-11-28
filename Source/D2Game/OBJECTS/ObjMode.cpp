@@ -298,7 +298,7 @@ struct D2TimerArgStrc
     int dwUnitId;
 };
 
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* ptGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
 typedef int (__fastcall* ObjOperateFunction)(D2ObjOperateFnStrc* pOp, int nOperate);
 
