@@ -154,12 +154,7 @@ it is on main; from #473, based on main.
     D2Win/Src/D2WinProgressBar.cpp (1): D2GFX_DrawBox
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
-- (from width-1, merged in #494) **The `width_only` linkdebt category is not in this branch:** my edit to tools/linkdebt.py (a category for
-  integer-width-only disagreements, so they stop counting as type_disagreement) was refused by this session's
-  safety check, as a change to the measuring tool that lowers the count. It needs the user's go-ahead, or the
-  coordinator's own commit; I have the code ready (a name compare that allows only by-value integer codes C-K to
-  differ, not pointees, return type or convention).
-
+- (resolved) width_only: the coordinator ruled at 19:35 PT to keep counting width disagreements as type_disagreement; no linkdebt.py change.
 - Fri Nov 27 16:00 PST 2026: **parameter width, the same kind of question as the void ruling.** The most-referenced type_disagreement
   targets left are definitions taking a narrower parameter than their callers declare: STATLIST_SetUnitStat (197
   refs), STATLIST_UnitGetStatValue (185), STATLIST_GetUnitBaseStat (36), STATLIST_UnitGetItemStatOrSkillStatValue
