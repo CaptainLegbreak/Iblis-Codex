@@ -1467,7 +1467,8 @@ void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner
 D2UnitStrc* __fastcall AIUTIL_FindMonsterAtCoords(D2GameStrc* game,D2ActiveRoomStrc* room,int x,int y,int baseId)
 {
  D2_ASSERT(room,1954);
- room=sub_00463740_FindRoomAtPoint(room,x,y);
+// build: symbol ?COLLISION_GetRoomBySubTileCoordinates@* 0x00463740
+ room=COLLISION_GetRoomBySubTileCoordinates(room,x,y);
  D2_ASSERT(room,1956);
  for(D2UnitStrc* unit=room->pUnitFirst;unit;unit=unit->ptRoomNext) {
   if((!unit ? 6 : unit->dwUnitType)!=1) continue;
@@ -1667,7 +1668,8 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         const int nAlignment = STATLIST_GetUnitAlignment(pUnit);
         if (nAlignment == 1)
         {
-            if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
+// build: symbol ?SEED_RollMasked@* 0x00472210
+            if (SEED_RollMasked(&pUnit->pSeed, 2))
             {
                 SUNIT_SetAlignment(pUnit, 2, 1);
             }
@@ -1676,7 +1678,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
                 SUNIT_SetAlignment(pUnit, 0, 1);
             }
         }
-        else if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
+        else if (SEED_RollMasked(&pUnit->pSeed, 2))
         {
             if (nAlignment == 0)
             {

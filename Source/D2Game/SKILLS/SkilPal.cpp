@@ -884,7 +884,8 @@ int __fastcall SKILLS_SrvSt31_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     SKILLS_SetParam4(pSkill, 7);
     int nVelocity = 256;
     if (pUnit->dwUnitType == UNIT_PLAYER) {
-        D2CharStatsTxt* pRecord = sub_004833E0_GetCharStatsTxtRecord(pUnit->dwClassId);
+// build: symbol ?INV_GetCharStatsTxtRecord@* 0x004833E0
+        D2CharStatsTxt* pRecord = INV_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pRecord) nVelocity = pRecord->nRunSpeed << 8;
     } else {
         const int nMonsterId = pUnit->dwClassId;
