@@ -31199,6 +31199,10 @@
      "name": "?SKILLDESC_AddElemDuration@@YGHPAUUnicode@@PAUD2SkillsTxt@@HHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004EDCA0",
+     "length": 289
+    },
+    {
      "va": "0x004EDDD0",
      "length": 195,
      "name": "?SKILLDESC_AddAttackInfo@@YGHPAUUnicode@@HPAUD2SkillsTxt@@PAUD2UnitStrc@@H@Z"
@@ -31367,30 +31371,6 @@
      "length": 67,
      "name": "?sub_004F26D0_ApplyCltCalc@@YIHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004EDCA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EDCA0",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

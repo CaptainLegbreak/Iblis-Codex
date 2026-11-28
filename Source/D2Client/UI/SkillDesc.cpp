@@ -4636,31 +4636,16 @@ static inline int SkillParam_0D0(int nSkillId, int nLevel)
     return pSkillsTxt->dwParam[0] + (nLevel - 1) * pSkillsTxt->dwParam[1];
 }
 
+// 0x004EDCA0
 static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel)
 {
     const int nLength = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 0);
-    const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * nLength >> 8;
-    const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) * nLength >> 8;
+    int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1);
+    int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1);
+    nMin = nMin * nLength >> 8;
+    nMax = nMax * nLength >> 8;
     SKILLDESC_AddSeconds(nLength, 0x2B0E, 0, wszText);
-    const int nElemType = pSkillsTxt->nEType;
-    Unicode wszNumber[32];
-    char szNumber[32];
-    const unsigned short nString = sub_004E6F60_GetElemDamageText(nElemType);
-    if (nString)
-    {
-        if (IsSingleValue(nMin, nMax))
-        {
-            wsprintfA(szNumber, gszFormatD, nMin);
-        }
-        else
-        {
-            wsprintfA(szNumber, gszFmtRange, nMin, nMax);
-        }
-        sub_00526320_ToUnicode(wszNumber, szNumber, 32);
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
-        sub_00526700(wszText, wszNumber);
-        sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
-    }
+    SKILLDESC_AddElemRange(wszText, nMin, 0, nMax, pSkillsTxt->nEType);
     return 1;
 }
 
