@@ -8,7 +8,7 @@ Scope for the day: placeholder function names in Storm, Fog and D2CMP, one modul
 
 ### Ready
 
-(none yet)
+- lane3/names-storm 95968fd1a on #504 (tree 283ae6f2a), **Storm: 172 placeholder names take the names their sources already give.** names.csv only, no source change: rows still listing sub_<VA>_<Verb> or D2Storm...Strc spellings where the definition already has its real name. Template members mapped by symbol line take their bare member name, as LinkNode does (TSList, TSLink, TSLinkedNode, TSBaseArray, TSFixedArray, TSGrowableArray, TSCD: blizzard). Constructors and destructors take their class name: FILEREC, ARCHIVEREC, AUDIOSTREAM, REQUEST, WNDREC, BigBuffer and BigStack are blizzard; HUFFNODE, the CHuffman classes, BigNum and RSA are inferred. SBigFromBinary is blizzard. Operators keep their decorated names, as the ??_G rows do. The dynamic initializers of gStormExplodeLock, gtStormStartup and gtSEvtLock are named (inferred); those of address-named globals are left. VERIFIED on #504: full build identical (borrowed code 0 B, borrowed data 253 B); auditguard: no count rose; linkdebt: no source change, so no module changes.
 
 ### Claimed
 
@@ -16,6 +16,7 @@ Scope for the day: placeholder function names in Storm, Fog and D2CMP, one modul
 
 ### Status
 
+- *11:25 UTC:* names-storm posted (names.csv only). Next: lane3/names-storm-src, about 40 Storm source renames (SErrSetLastError, SMsgBreakHandlerChain, the SBig internals, SCOMP's bit and Huffman members, the SHA-1 helpers), now building. The rest of Storm's placeholders are list-template copies in SFILE/SCMD/SEVT/SMSG with private structs (sub_00417810 and friends); naming those properly means turning them into stpl.h instances, which is not a rename. Then Fog.
 - *10:25 UTC:* set up on #503 (setup.py ok, baseline full build running). Starting Storm.
 
 ## Before the restart
