@@ -25411,7 +25411,7 @@
     {
      "va": "0x004B6390",
      "length": 120,
-     "name": "?NPCMENU_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
+     "name": "?NPCMENU_HandleNpcTransaction@@YIXPAUD2PacketSrv2AStrc@@@Z"
     },
     {
      "va": "0x004B6410",
