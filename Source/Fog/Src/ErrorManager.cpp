@@ -414,28 +414,6 @@ int __fastcall ERRORMANAGER_ReportNestedError(const char* szFile, int nLine, con
 
 bool __cdecl sub_004013A0_IsDebuggerAttached(); // 0x004013A0
 
-struct AsyncData
-{
-    void* hFile;
-    D2PoolSystemStrc* pMemPool;
-    D2OverlappedStrc tOverlapped;
-    AsyncDataLoadFileCallback pAsyncOpDesc;
-    AsyncDataEventSlot* pEventSlot;
-    void* ptBuffer;
-    unsigned int nFileSize;
-    unsigned int nPriority;
-    unsigned int dwFlags;
-    unsigned int nPreviousPriority;
-    AsyncData* pNextPostponedPriorityChange;
-};
-
-struct AsyncDataEventSlot
-{
-    void* hEvent;
-    unsigned long bSlotAvailable;
-    AsyncData* pAsyncOp;
-};
-
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
 int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
