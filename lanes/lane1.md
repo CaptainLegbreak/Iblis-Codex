@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/d3d-copies** (06ac962f1, on main #504 87b6da6dc; VERIFIED tree d45848bebeaf911f60283f9571059ddd172d6417; independent). Queue item 2, D2Direct3D: d3dCore.cpp drops its four-dword copy of D2GuidStrc and includes Include/D2Win32Guid.h (from fog-win32-types); its two interface IDs, IID_IDirect3D3 (0x006FF558) and IID_IDirectDraw4 (0x006FF8D8), are written in the GUID's Data1/Data2/Data3/Data4 form with the same bytes. The symbol names don't change (same type name). Its D2ComObjectStrc (a C-style `void** lpVtbl` view) differs from D2Sound.h's virtual-interface one and stays. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 17,965 -> 17,965 (main #504), every module unchanged.
+
 - **lane1/bnclient-copies** (672d9be87, stacked on lane1/fog-safesock, rebased with it onto main #503 e3a062ead; VERIFIED tree d3561c18d0521bcefeaf321c8ff34c9b2b18eec5). Queue item 2, D2BNClient (plus one file in D2MCPClient, the same one-record change): D2BNClient.h and D2MCPClient's McpConnect.cpp drop their copies of FSafeSock and include Include/D2FogSafeSock.h (D2BNClient.h in the definition's own place among its includes, so its units see the same declarations in the same order). All 9 including units compile equal. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard vs #503: no count rose (pointer casts 4,837 -> 4,829, from fog-safesock). linkdebt: 17,991 -> 17,991 (main #503), every module unchanged. Its two parents are the rebased copies of fog-win32-types and fog-safesock, which #504 took: it merges clean on #504 and brings only its own commit's change.
 
 
@@ -11,6 +13,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Sat Nov 28 03:15 PST 2026: check-in. d3d-copies Ready (claimed: D2Direct3D/Src/d3dCore.cpp's GUID lines). bnclient-copies still Ready. Item 2 so far has taken the copies with one clear owner; the rest outside D2Client/D2Common/D2Game are Storm template copies (lane 13 item 8) and `Unicode` copies that are partial views of D2Unicode.h's class. Next: D2Common (DRLG, Text, UNITS, DATATBLS outside the ItemTbls/DataTbls files lane 13 and 14 hold), one folder per branch.
 - Sat Nov 28 02:50 PST 2026: check-in. #504 took fog-win32-types and fog-safesock (Ready lines dropped). Ready: bnclient-copies (merges clean on #504).
 - Sat Nov 28 03:05 PST 2026: bnclient-copies Ready (claimed: D2BNClient/D2BNClient.h, D2MCPClient/Src/McpConnect.cpp). D2BNClient's other private records are Storm template copies (BnSend.cpp, BNNews.cpp), which belong with lane 13's item 8 (Storm templates into stpl.h): left for it. Next in item 2: D2Direct3D d3dCore.cpp's GUID and COM object copies, D2Lang/D2Win `Unicode`.
 - Sat Nov 28 02:20 PST 2026: check-in. #503 took cominterface-names-2 and smallhdrs-fields (Ready lines and my smallhdrs question dropped). Ready: fog-win32-types, fog-safesock (both merge clean on #503). Next: D2BNClient's copies (item 2).
