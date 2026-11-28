@@ -93,12 +93,12 @@ int __cdecl ARCHIVE_ShowInsertCinematicsDisc()
 // 0x004FAB90
 int __cdecl ARCHIVE_LoadArchives()
 {
-    gpD2DataMPQ = ARCHIVE_LoadMPQFile(gszD2DataMpq, 0, 0, 1000);
-    gpD2SfxMPQ = ARCHIVE_LoadMPQFile(gszD2SfxMpq, 0, 0, 1000);
+    gpD2DataMPQ = ARCHIVE_LoadMPQFile("d2data.mpq", 0, 0, 1000);
+    gpD2SfxMPQ = ARCHIVE_LoadMPQFile("d2sfx.mpq", 0, 0, 1000);
     gpD2SpeechMPQ = ARCHIVE_LoadMPQFile("d2speech.mpq", 0, 0, 1000);
     gpD2DeltaMPQ = ARCHIVE_LoadMPQFile("d2delta.mpq", 0, 0, 1000);
     gpD2kfixupMPQ = ARCHIVE_LoadMPQFile("d2kfixup.mpq", 0, 0, 1000);
-    gpD2PatchMPQ = ARCHIVE_LoadMPQFile(gszPatchD2Mpq, 0, 0, 5000);
+    gpD2PatchMPQ = ARCHIVE_LoadMPQFile("patch_d2.mpq", 0, 0, 5000);
     gpD2ExpMPQ = ARCHIVE_LoadMPQFile(gszExpansionMpq, 0, 0, 3000);
 
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
@@ -124,13 +124,13 @@ int __cdecl D2Win_10185_CheckCharMpq()
 {
     char szPath[0x104];
     FOG_GetInstallPath(szPath, sizeof(szPath));
-    SStrPack(szPath, gszD2CharMpq, sizeof(szPath));
+    SStrPack(szPath, "d2char.mpq", sizeof(szPath));
     if (GetFileAttributesA(szPath) != -1)
     {
         return 0;
     }
 
-    SStrCopy(szPath, gszD2CharMpq, sizeof(szPath));
+    SStrCopy(szPath, "d2char.mpq", sizeof(szPath));
     if (GetFileAttributesA(szPath) != -1)
     {
         return 0;
@@ -162,7 +162,7 @@ int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int b
 
     if (bExpansion)
     {
-        gpD2XVideoMPQ = ARCHIVE_LoadMPQFile(gszD2XVideoMpq, hFile, pfShowMessage, 1000);
+        gpD2XVideoMPQ = ARCHIVE_LoadMPQFile("d2Xvideo.mpq", hFile, pfShowMessage, 1000);
         if (!gpD2XVideoMPQ)
         {
             return 0;

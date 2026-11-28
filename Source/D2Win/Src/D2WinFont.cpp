@@ -1090,7 +1090,7 @@ __declspec(noinline) D2SplittedTextStrc* __stdcall D2Win_AllocateSplitText(const
 
 static inline D2SplittedTextStrc* AllocSplitTextLine_Inline(const Unicode* wszText, int nLength, int bSkipSpace)
 {
-    D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), gszD2WinFontSourceFile, 0x588, 0);
+    D2SplittedTextStrc* pSplitText = (D2SplittedTextStrc*)FOG_Alloc(sizeof(D2SplittedTextStrc), ".\\Src\\D2WinFont.cpp", 0x588, 0);
     int nCount = nLength;
     const Unicode* pText = wszText;
     if (bSkipSpace && pText->wChar < 0x100 && isspace(pText->wChar))
@@ -1098,7 +1098,7 @@ static inline D2SplittedTextStrc* AllocSplitTextLine_Inline(const Unicode* wszTe
         nCount = nCount - 1;
         pText = pText + 1;
     }
-    pSplitText->wszLine = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nCount + 1), gszD2WinFontSourceFile, 0x591, 0);
+    pSplitText->wszLine = (Unicode*)FOG_Alloc(sizeof(Unicode) * (nCount + 1), ".\\Src\\D2WinFont.cpp", 0x591, 0);
     pSplitText->pNextLine = 0;
     Unicode::strncpy(pSplitText->wszLine, pText, nCount);
     pSplitText->wszLine[nCount].wChar = 0;

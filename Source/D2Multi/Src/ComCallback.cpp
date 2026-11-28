@@ -1422,8 +1422,7 @@ static void COMCALLBACK_UpdateUserText(D2MultiChannelUserStrc* pUser)
         }
 
         Unicode::win2Unicode(wszCharName, szCharName, 50);
-// build: symbol ?gszStar@* 0x006D5830
-        Unicode::win2Unicode(wszName, gszStar, 50);
+        Unicode::win2Unicode(wszName, "*", 50);
         Unicode::strncat(wszName, wszCharName, 50);
         Unicode::win2Unicode(wszAccount, szAccount, 16);
     }

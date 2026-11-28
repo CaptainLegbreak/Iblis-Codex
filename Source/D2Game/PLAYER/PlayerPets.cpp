@@ -213,7 +213,7 @@ static void __stdcall PLAYERPETS_ClearPetList(D2UnitStrc* pPlayer, D2PetListStrc
                         D2GAME_ModeChange(pGame, &modeChange, 1);
                     }
 
-                    D2GAME_PACKETS_SendPacket0x9B(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 0xDB), (unsigned short)pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
+                    D2GAME_PACKETS_SendPacket0x9B(UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 0xDB), (unsigned short)pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
                 }
             }
         }
@@ -226,7 +226,7 @@ static void __stdcall PLAYERPETS_ClearPetList(D2UnitStrc* pPlayer, D2PetListStrc
         {
             --pPetList->nCurrent;
             --pPetList->nMax;
-            FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0xE8, 0);
+            FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, ".\\PLAYER\\PlayerPets.cpp", 0xE8, 0);
         }
 
         pPetData = pNext;
@@ -263,7 +263,7 @@ static inline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
 // 0x00574410
 void __fastcall PLAYERPETS_PlayerIterate_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2PetUpdateStrc* pData)
 {
-    D2GAME_PACKETS_SendPacket0x7A(UnitGetClient(pUnit, gszPlayerPetsSourceFile, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
+    D2GAME_PACKETS_SendPacket0x7A(UnitGetClient(pUnit, ".\\PLAYER\\PlayerPets.cpp", 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
 }
 
 // 0x00574450
@@ -341,7 +341,7 @@ static void __stdcall PLAYERPETS_RemovePetFromList(D2PetListStrc* pPetList, int 
                 }
             }
 
-            FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0x25C, 0);
+            FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, ".\\PLAYER\\PlayerPets.cpp", 0x25C, 0);
 
             --pPetList->nCurrent;
             D2_ASSERT(pPetList->nCurrent >= 0, 0x260);
@@ -409,11 +409,11 @@ void __fastcall PLAYERPETS_PlayerIterate_UpdateClient(D2GameStrc* pGame, D2UnitS
 
     if (!pPetArg->nSeed && !pPetArg->nName)
     {
-        D2GAME_PACKETS_SendPacket0x7A(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 830), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass);
+        D2GAME_PACKETS_SendPacket0x7A(UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 830), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass);
     }
     else
     {
-        D2GAME_PACKETS_SendPacket0x81(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 837), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass, pPetArg->nSeed, pPetArg->nName);
+        D2GAME_PACKETS_SendPacket0x81(UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 837), 1, pPetArg->nPetType, pPetArg->nPetGUID, pPetArg->nUnitGUID, pPetArg->nPetClass, pPetArg->nSeed, pPetArg->nName);
     }
 }
 
@@ -478,7 +478,7 @@ static void __stdcall PLAYERPETS_KillPetList(D2PetListStrc* pPetList, D2GameStrc
     {
         D2PetDataStrc* pNext = pPetData->pNext;
         PLAYERPETS_KillPet(pGame, pPetData->nUnitGUID);
-        FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0x4A5, 0);
+        FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, ".\\PLAYER\\PlayerPets.cpp", 0x4A5, 0);
         pPetData = pNext;
     }
 
@@ -672,10 +672,10 @@ void __fastcall PLAYERPETS_AllocPetList(D2GameStrc* pGame, D2UnitStrc* pPlayer)
         PLAYERPETS_FreePetsFromPlayerData(pGame, pPlayer);
     }
 
-    D2PlayerPetStrc* pPlayerPets = (D2PlayerPetStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerPetStrc), gszPlayerPetsSourceFile, 162, 0);
+    D2PlayerPetStrc* pPlayerPets = (D2PlayerPetStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerPetStrc), ".\\PLAYER\\PlayerPets.cpp", 162, 0);
     pPlayerPets->pPetList = 0;
     pPlayerData->pPlayerPets = pPlayerPets;
-    pPlayerPets->pPetList = (D2PetListStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetListStrc) * sgptDataTables->nPetTypeTxtRecordCount, gszPlayerPetsSourceFile, 166, 0);
+    pPlayerPets->pPetList = (D2PetListStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetListStrc) * sgptDataTables->nPetTypeTxtRecordCount, ".\\PLAYER\\PlayerPets.cpp", 166, 0);
     memset(pPlayerPets->pPetList, 0, sizeof(D2PetListStrc) * sgptDataTables->nPetTypeTxtRecordCount);
     PLAYERPETS_InitPetTypeMax(pGame, pPlayer);
 }
@@ -698,8 +698,8 @@ void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc*
         PLAYERPETS_ClearPetList(pUnit, pPetList, nPetType == 7, 0, pGame);
     }
 
-    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets->pPetList, gszPlayerPetsSourceFile, 0x161, 0);
-    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets, gszPlayerPetsSourceFile, 0x162, 0);
+    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets->pPetList, ".\\PLAYER\\PlayerPets.cpp", 0x161, 0);
+    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets, ".\\PLAYER\\PlayerPets.cpp", 0x162, 0);
     pPlayerData->pPlayerPets = 0;
 }
 
@@ -861,7 +861,7 @@ static int __stdcall PLAYERPETS_AppendPet(D2UnitStrc* pPet, D2PetInfoStrc* pPetI
         }
     }
 
-    D2PetDataStrc* pPetData = (D2PetDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetDataStrc), gszPlayerPetsSourceFile, 0x322, 0);
+    D2PetDataStrc* pPetData = (D2PetDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PetDataStrc), ".\\PLAYER\\PlayerPets.cpp", 0x322, 0);
     memset(pPetData, 0, sizeof(D2PetDataStrc));
 
     pPetData->nUnitGUID = sub_F05_GetUnitId(pPet);
@@ -914,7 +914,7 @@ void __fastcall PLAYERPETS_HandlePetDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer
         if (pPetData->nUnitGUID == nPetGUID)
         {
             pPetData->nFlags |= PETFLAG_DEAD;
-            D2GAME_PACKETS_SendPacket0x9B(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 698), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
+            D2GAME_PACKETS_SendPacket0x9B(UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 698), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
             break;
         }
     }
@@ -1143,7 +1143,7 @@ void __fastcall PLAYERPETS_UpdatePetStates(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
     PLAYERPETS_RemoveDeadPets(pGame, pPlayer, pPlayerPets);
 
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 1411);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlayerPets.cpp", 1411);
     for (int nPetType = 1; nPetType < sgptDataTables->nPetTypeTxtRecordCount; ++nPetType)
     {
         D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerPets, nPetType);
@@ -1245,7 +1245,7 @@ void __fastcall PLAYERPETS_UpdatePetLimits(D2GameStrc* pGame, D2UnitStrc* pPlaye
     {
         D2SkillStrc* pNextSkill = SKILLS_GetNextSkill(pSkill);
 
-        const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerPetsSourceFile, 1139);
+        const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, ".\\PLAYER\\PlayerPets.cpp", 1139);
         const int nLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 1);
         pSkill = pNextSkill;
 
