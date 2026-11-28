@@ -882,8 +882,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/MonUnique.cpp": {
-   "bytes": 292,
-   "definitions": 4,
+   "bytes": 1240,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/MonUnique.inc",
@@ -3612,15 +3612,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00482C70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_004ADD90.cpp": {
-   "bytes": 948,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004ADD90.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -51222,7 +51213,7 @@
     [
      4,
      "0x004AC870",
-     "source",
+     "owner",
      "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
@@ -51238,7 +51229,7 @@
     [
      32,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51246,7 +51237,7 @@
     [
      36,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51254,7 +51245,7 @@
     [
      44,
      "0x004ACD50",
-     "source",
+     "owner",
      "MONUNIQUE_ClearDurielFlag",
      0,
      "func"
@@ -51262,7 +51253,7 @@
     [
      48,
      "0x004AC870",
-     "source",
+     "owner",
      "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
@@ -51270,7 +51261,7 @@
     [
      64,
      "0x004AC870",
-     "source",
+     "owner",
      "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
@@ -51278,7 +51269,7 @@
     [
      68,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51286,7 +51277,7 @@
     [
      72,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51294,7 +51285,7 @@
     [
      92,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51302,7 +51293,7 @@
     [
      100,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51318,7 +51309,7 @@
     [
      108,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51326,7 +51317,7 @@
     [
      112,
      "0x004ACDB0",
-     "source",
+     "owner",
      "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
@@ -51334,7 +51325,7 @@
     [
      144,
      "0x004AC870",
-     "source",
+     "owner",
      "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
@@ -51342,7 +51333,7 @@
     [
      148,
      "0x004AC870",
-     "source",
+     "owner",
      "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
@@ -51350,7 +51341,7 @@
     [
      152,
      "0x004AC870",
-     "source",
+     "owner",
      "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
@@ -51358,7 +51349,7 @@
     [
      156,
      "0x004AC870",
-     "source",
+     "owner",
      "MONUNIQUE_SetMonsterHoverName",
      0,
      "func"
@@ -52173,7 +52164,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004ADD90.cpp",
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "fill": 43,
    "form": "declared",
    "fwd": null,
@@ -52190,7 +52181,7 @@
          "fn": true,
          "k": "ptr",
          "size": 4,
-         "spell": "void (__fastcall *)(void*, int, int)"
+         "spell": "void (__fastcall *)(D2UnitStrc*, int, int)"
         },
         "k": "arr",
         "n": 5,
@@ -52210,7 +52201,7 @@
     [
      188,
      "0x004AD1A0",
-     "names.json",
+     "owner",
      "NPCMENU_StateOverlayCross",
      0,
      "func"
@@ -52218,7 +52209,7 @@
     [
      208,
      "0x004AD510",
-     "names.json",
+     "owner",
      "NPCMENU_StateStartEffect",
      0,
      "func"
@@ -52226,7 +52217,7 @@
     [
      228,
      "0x004AD5F0",
-     "names.json",
+     "owner",
      "NPCMENU_StateDurielDeath",
      0,
      "func"
@@ -52234,7 +52225,7 @@
     [
      348,
      "0x004AD890",
-     "names.json",
+     "owner",
      "NPCMENU_StateBurstOnFrame",
      0,
      "func"
@@ -52242,7 +52233,7 @@
     [
      352,
      "0x004AD8E0",
-     "names.json",
+     "owner",
      "NPCMENU_StateBurst",
      0,
      "func"
@@ -52250,7 +52241,7 @@
     [
      368,
      "0x004AD510",
-     "names.json",
+     "owner",
      "NPCMENU_StateStartEffect",
      0,
      "func"
@@ -52258,7 +52249,7 @@
     [
      408,
      "0x004AD920",
-     "names.json",
+     "owner",
      "NPCMENU_StateBurstNeutral",
      0,
      "func"
@@ -52266,7 +52257,7 @@
     [
      444,
      "0x004AD2F0",
-     "source",
+     "owner",
      "NPCMENU_HandleUnitClassEvent",
      0,
      "func"
@@ -52274,7 +52265,7 @@
     [
      460,
      "0x004AD890",
-     "names.json",
+     "owner",
      "NPCMENU_StateBurstOnFrame",
      0,
      "func"
@@ -52282,7 +52273,7 @@
     [
      596,
      "0x004AD970",
-     "names.json",
+     "owner",
      "NPCMENU_StateMissileSplit",
      0,
      "func"
@@ -52290,7 +52281,7 @@
     [
      628,
      "0x004AD0C0",
-     "names.json",
+     "owner",
      "NPCMENU_StateOverlayBurst",
      0,
      "func"
@@ -52298,7 +52289,7 @@
     [
      648,
      "0x004ADB20",
-     "names.json",
+     "owner",
      "NPCMENU_StateOverlayAtPath",
      0,
      "func"
@@ -52306,7 +52297,7 @@
     [
      668,
      "0x004ADBC0",
-     "names.json",
+     "owner",
      "NPCMENU_StateMonOverlay",
      0,
      "func"
@@ -52314,7 +52305,7 @@
     [
      808,
      "0x004ADD80",
-     "names.json",
+     "owner",
      "NPCMENU_StateRequestsCallback",
      0,
      "func"
@@ -52322,7 +52313,7 @@
     [
      848,
      "0x004AD510",
-     "names.json",
+     "owner",
      "NPCMENU_StateStartEffect",
      0,
      "func"
@@ -52342,7 +52333,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004ADD90.cpp",
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned short gwUniqueModNameIds[44] = ",
