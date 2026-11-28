@@ -993,7 +993,7 @@ static inline unsigned int sub_RareSeedRollLimited(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x005C1BF0
-static int __stdcall sub_005C1BF0_RollRareItemNew(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
+static int __stdcall ITEMS_RollRareItemNew(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
 {
     int bSuffixesDone = 0;
     int bPrefixesDone = 0;
@@ -1240,7 +1240,7 @@ int __fastcall D2GAME_RollRareItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
-        return sub_005C1BF0_RollRareItemNew(pItemDrop, pItem);
+        return ITEMS_RollRareItemNew(pItemDrop, pItem);
     }
 
     return ITEMS_RollLegacyRareItem(pItemDrop, pItem);
@@ -1397,7 +1397,7 @@ int __fastcall ITEMS_FindBookRecordIndex(D2UnitStrc* pItem, int bScroll)
 }
 
 // 0x005C25C0
-static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
+static int __stdcall ITEMS_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
 {
     int nLegibleSets = 0;
     int nAccumulatedRarity = 0;
@@ -1554,7 +1554,7 @@ int __fastcall ITEMS_RollSetItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)
     {
-        return sub_005C25C0_RollSetItemRecord(pItemDrop, pItem);
+        return ITEMS_RollSetItemRecord(pItemDrop, pItem);
     }
 
     return ITEMS_RollLegacySetItem(pItem);
