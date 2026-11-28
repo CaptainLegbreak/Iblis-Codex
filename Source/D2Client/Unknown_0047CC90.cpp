@@ -239,7 +239,7 @@ void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 
 
-static inline int sub_0047D500_IsOptionEnabled(D2OptionEntryStrc* pEntry);
+static inline int ESCMENU_IsOptionEnabled(D2OptionEntryStrc* pEntry); // 0x0047D500
 
 
 
@@ -304,33 +304,33 @@ static int gbOptionDragging; // 0x007BC94C
 
 extern int gaSlotX[]; // 0x007BC898
 
-static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg);
+static void ESCMENU_ActivateOption(SMSGHANDLER_PARAMS* pMsg); // 0x0047D5C0
 
 int gaSlotState[8]; // 0x007BC8F8
 
 // 0x0047CD00
-static unsigned int sub_0047CD00_SliderToValue(D2MenuItemStrc* pItem, unsigned int nMin, unsigned int nMax)
+static unsigned int ESCMENU_SliderToValue(D2MenuItemStrc* pItem, unsigned int nMin, unsigned int nMax)
 {
     return (unsigned int)((float)(nMax - nMin) / (float)(pItem->dwCount - 1) * (float)pItem->dwMoveCount + (float)nMin);
 }
 
 // 0x0047CDA0
-void __fastcall sub_0047CDA0_MasterVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_MasterVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    D2SOUND_SetMasterVolumeOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetMasterVolumeOption(ESCMENU_SliderToValue(pItem, 0, 100));
 }
 
 // 0x0047CC90
-static unsigned int __stdcall sub_0047CC90_ValueToSlider(D2MenuItemStrc* pItem, unsigned int nValue, unsigned int nMin, unsigned int nMax)
+static unsigned int __stdcall ESCMENU_ValueToSlider(D2MenuItemStrc* pItem, unsigned int nValue, unsigned int nMin, unsigned int nMax)
 {
     float fSteps = (float)(pItem->dwCount - 1);
     return (unsigned int)(fSteps * (float)(nValue - nMin + 1) / (float)(nMax - nMin));
 }
 
 // 0x0047CDC0
-void __fastcall sub_0047CDC0_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_MasterVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMasterVolumeOption(), 0, 100);
+    pItem->dwMoveCount = ESCMENU_ValueToSlider(pItem, D2SOUND_GetMasterVolumeOption(), 0, 100);
 }
 
 // 0x0047CDE0
@@ -340,37 +340,37 @@ int __fastcall sub_0047CDE0()
 }
 
 // 0x0047CDF0
-void __fastcall sub_0047CDF0_MusicVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_MusicVolumeSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    D2SOUND_SetMusicVolumeOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetMusicVolumeOption(ESCMENU_SliderToValue(pItem, 0, 100));
 }
 
 // 0x0047CE10
-void __fastcall sub_0047CE10_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_MusicVolumeOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetMusicVolumeOption(), 0, 100);
+    pItem->dwMoveCount = ESCMENU_ValueToSlider(pItem, D2SOUND_GetMusicVolumeOption(), 0, 100);
 }
 
 // 0x0047CE50
-void __fastcall sub_0047CE50_SoundModeOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_SoundModeOption(D2MenuItemStrc* pItem, int nArg)
 {
     pItem->dwMoveCount = sub_004DF980_IsSoundMode1Or2();
 }
 
 // 0x0047CE70
-void __fastcall sub_0047CE70_PositionalBiasSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_PositionalBiasSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    D2SOUND_SetPositionalBiasOption(sub_0047CD00_SliderToValue(pItem, 0, 100));
+    D2SOUND_SetPositionalBiasOption(ESCMENU_SliderToValue(pItem, 0, 100));
 }
 
 // 0x0047CE90
-void __fastcall sub_0047CE90_PositionalBiasOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_PositionalBiasOption(D2MenuItemStrc* pItem, int nArg)
 {
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, D2SOUND_GetPositionalBiasOption(), 0, 100);
+    pItem->dwMoveCount = ESCMENU_ValueToSlider(pItem, D2SOUND_GetPositionalBiasOption(), 0, 100);
 }
 
 // 0x0047CED0
-void __fastcall sub_0047CED0_SoundMode2Option(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_SoundMode2Option(D2MenuItemStrc* pItem, int nArg)
 {
     pItem->dwMoveCount = sub_004DF9B0_IsSoundMode2();
 }
@@ -382,7 +382,7 @@ int __fastcall sub_0047CEE0()
 }
 
 // 0x0047CEF0
-void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
 // build: symbol ?D2SOUND_SetNpcSpeech@* 0x00514D60
     D2SOUND_SetNpcSpeech(pItem->dwMoveCount);
@@ -404,17 +404,17 @@ void __fastcall sub_0047CEF0_NpcSpeechSelect(D2MenuItemStrc* pItem, SMSGHANDLER_
 }
 
 // 0x0047CF50
-void __fastcall sub_0047CF50_NpcSpeechOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_NpcSpeechOption(D2MenuItemStrc* pItem, int nArg)
 {
     pItem->dwMoveCount = D2SOUND_GetNpcSpeechOption();
     if (sub_004DF880_IsSoundSystemInit())
     {
-        sub_0047CEF0_NpcSpeechSelect(pItem, (SMSGHANDLER_PARAMS*)nArg);
+        ESCMENU_NpcSpeechSelect(pItem, (SMSGHANDLER_PARAMS*)nArg);
     }
 }
 
 // 0x0047CF80
-void __fastcall sub_0047CF80_LightQualitySelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_LightQualitySelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
     SRegSaveValue("Diablo II", "Light Quality", 0, pItem->dwMoveCount);
     switch (pItem->dwMoveCount)
@@ -435,7 +435,7 @@ void __fastcall sub_0047CF80_LightQualitySelect(D2MenuItemStrc* pItem, SMSGHANDL
 }
 
 // 0x0047CFE0
-void __fastcall sub_0047CFE0_LightQualityOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_LightQualityOption(D2MenuItemStrc* pItem, int nArg)
 {
     SRegLoadValue("Diablo II", "Light Quality", 0, (unsigned long*)&pItem->dwMoveCount);
     switch (pItem->dwMoveCount)
@@ -460,7 +460,7 @@ static D2OptionEntryStrc* gpOptionEntries; // 0x007BC940
 D2OptionHeaderStrc* gpOptionHeader; // 0x007BC93C
 
 // 0x0047D520
-static int sub_0047D520_FindOptionAtY(int nY)
+static int ESCMENU_FindOptionAtY(int nY)
 {
     const int nCount = gpOptionHeader->nCount;
     const int nHalf = gpOptionHeader->nHeight * nCount / 2;
@@ -479,7 +479,7 @@ static int sub_0047D520_FindOptionAtY(int nY)
 
         if (nResult >= 0)
         {
-            if (gpOptionEntries[nResult].nKind != -1 && sub_0047D500_IsOptionEnabled(&gpOptionEntries[nResult]))
+            if (gpOptionEntries[nResult].nKind != -1 && ESCMENU_IsOptionEnabled(&gpOptionEntries[nResult]))
             {
                 return nResult;
             }
@@ -494,9 +494,9 @@ static int sub_0047D520_FindOptionAtY(int nY)
 static int gnOptionSelected; // 0x007BC938
 
 // 0x0047D5B0
-static void sub_0047D5B0_SelectOptionAtY(int nY)
+static void ESCMENU_SelectOptionAtY(int nY)
 {
-    const int nIndex = sub_0047D520_FindOptionAtY(nY);
+    const int nIndex = ESCMENU_FindOptionAtY(nY);
     if (nIndex != -1)
     {
         gnOptionSelected = nIndex;
@@ -506,15 +506,15 @@ static void sub_0047D5B0_SelectOptionAtY(int nY)
 extern int gnScreenWidth; // 0x0071146C
 
 // 0x0047D670
-static void sub_0047D670_UpdateOptionSlider(int nX, int nY)
+static void ESCMENU_UpdateOptionSlider(int nX, int nY)
 {
-    if (!gbOptionDragging && sub_0047D520_FindOptionAtY(nY) != gnOptionSelected)
+    if (!gbOptionDragging && ESCMENU_FindOptionAtY(nY) != gnOptionSelected)
     {
         return;
     }
 
     const unsigned int nOldValue = gpOptionEntries[gnOptionSelected].nValue;
-    if (sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
+    if (ESCMENU_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         switch (gpOptionEntries[gnOptionSelected].nKind)
         {
@@ -705,7 +705,7 @@ const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
 
 
-void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
+void __stdcall MINIPANEL_DrawSlots(int bDraw); // 0x0047E9A0
 
 
 
@@ -742,7 +742,7 @@ extern int gbSlotBarBlocked; // 0x007BC970
 
 
 // 0x0047CD80
-int __fastcall sub_0047CD80_IsSoundEnabled()
+int __fastcall ESCMENU_IsSoundEnabled()
 {
     return sub_004DF880_IsSoundSystemInit();
 }
@@ -754,51 +754,51 @@ int __fastcall sub_0047CD90_IsSoundEnabled()
 }
 
 // 0x0047CE30
-int __fastcall sub_0047CE30_Is3DSoundEnabled()
+int __fastcall ESCMENU_Is3DSoundEnabled()
 {
     return sub_004DF940_IsPositionalSoundEnabled();
 }
 
 // 0x0047CE40
-void __fastcall sub_0047CE40_3DSoundSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_3DSoundSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
     sub_004E00D0_ToggleSoundMode01();
 }
 
 // 0x0047CE60
-int __fastcall sub_0047CE60_Is3DBiasEnabled()
+int __fastcall ESCMENU_Is3DBiasEnabled()
 {
     return sub_004DF980_IsSoundMode1Or2();
 }
 
 // 0x0047CEB0
-int __fastcall sub_0047CEB0_IsEAXEnabled()
+int __fastcall ESCMENU_IsEAXEnabled()
 {
     return sub_004DF960_IsEaxEnabled();
 }
 
 // 0x0047CEC0
-void __fastcall sub_0047CEC0_EAXSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_EAXSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
     sub_004E0140_ToggleSoundMode12();
 }
 
 // 0x0047D040
-void __fastcall sub_0047D040_BlendShadowsChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_BlendShadowsChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     SRegSaveValue("Diablo II", "Blended Shadows", 0, pEntry->nValue);
     D2GFX_SetBlendShadows(pEntry->nValue);
 }
 
 // 0x0047D070
-void __fastcall sub_0047D070_BlendShadowsLoad(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_BlendShadowsLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
     SRegLoadValue("Diablo II", "Blended Shadows", 0, (unsigned long*)&pEntry->nValue);
     D2GFX_SetBlendShadows(pEntry->nValue);
 }
 
 // 0x0047D0A0
-void __fastcall sub_0047D0A0_ResolutionChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_ResolutionChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     SRegSaveValue("Diablo II", "Resolution", 0, pEntry->nValue);
     int nResolution = 2;
@@ -810,7 +810,7 @@ void __fastcall sub_0047D0A0_ResolutionChanged(D2OptionEntryStrc* pEntry, SMSGHA
 }
 
 // 0x0047D0E0
-void __fastcall sub_0047D0E0_ResolutionLoad(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_ResolutionLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
     if (!SRegLoadValue("Diablo II", "Resolution", 0, (unsigned long*)&pEntry->nValue))
     {
@@ -825,13 +825,13 @@ void __fastcall sub_0047D0E0_ResolutionLoad(D2OptionEntryStrc* pEntry, int nArg)
 }
 
 // 0x0047D120
-int __cdecl sub_0047D120_PerspectiveEnabled()
+int __cdecl ESCMENU_PerspectiveEnabled()
 {
     return D2GFX_CheckUnitPerspective();
 }
 
 // 0x0047D130
-void __fastcall sub_0047D130_PerspectiveChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_PerspectiveChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     SRegSaveValue("Diablo II", "Perspective", 0, pEntry->nValue);
     D2GFX_SetPerspective(pEntry->nValue);
@@ -840,13 +840,13 @@ void __fastcall sub_0047D130_PerspectiveChanged(D2OptionEntryStrc* pEntry, SMSGH
 }
 
 // 0x0047D180
-void __fastcall sub_0047D180_PerspectiveLoad(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_PerspectiveLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
     SRegLoadValue("Diablo II", "Perspective", 0, (unsigned long*)&pEntry->nValue);
 // build: symbol ?D2GFX_CheckUnitPerspective@* 0x004F5170
     if (D2GFX_CheckUnitPerspective())
     {
-        sub_0047D130_PerspectiveChanged(pEntry, 0);
+        ESCMENU_PerspectiveChanged(pEntry, 0);
     }
     else
     {
@@ -855,50 +855,50 @@ void __fastcall sub_0047D180_PerspectiveLoad(D2OptionEntryStrc* pEntry, int nArg
 }
 
 // 0x0047D1F0
-int __cdecl sub_0047D1F0_GammaEnabled()
+int __cdecl ESCMENU_GammaEnabled()
 {
     return D2GFX_GammaCanBeControlled();
 }
 
 // 0x0047D200
-void __fastcall sub_0047D200_GammaSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_GammaSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    const unsigned int nGamma = sub_0047CD00_SliderToValue(pItem, 0x37, 0xFF);
+    const unsigned int nGamma = ESCMENU_SliderToValue(pItem, 0x37, 0xFF);
     SRegSaveValue("Diablo II", "Gamma", 0, nGamma);
     sub_004776C0_SetGamma((void*)nGamma);
 }
 
 // 0x0047D230
-void __fastcall sub_0047D230_GammaOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_GammaOption(D2MenuItemStrc* pItem, int nArg)
 {
     unsigned long nGamma = 0x9B;
     SRegLoadValue("Diablo II", "Gamma", 0, &nGamma);
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, nGamma, 0x37, 0xFF);
+    pItem->dwMoveCount = ESCMENU_ValueToSlider(pItem, nGamma, 0x37, 0xFF);
     if (D2GFX_GammaCanBeControlled())
     {
-        sub_0047D200_GammaSelect(pItem, 0);
+        ESCMENU_GammaSelect(pItem, 0);
     }
 }
 
 // 0x0047D2B0
-void __fastcall sub_0047D2B0_ContrastSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_ContrastSelect(D2MenuItemStrc* pItem, SMSGHANDLER_PARAMS* pMsg)
 {
-    SRegSaveValue("Diablo II", "Contrast", 0, sub_0047CD00_SliderToValue(pItem, 0, 100));
+    SRegSaveValue("Diablo II", "Contrast", 0, ESCMENU_SliderToValue(pItem, 0, 100));
     D2GFX_SetOption(0x0B, pItem->dwMoveCount);
     D2GFX_SetGamma(0);
 }
 
 // 0x0047D2F0
-void __fastcall sub_0047D2F0_ContrastOption(D2MenuItemStrc* pItem, int nArg)
+void __fastcall ESCMENU_ContrastOption(D2MenuItemStrc* pItem, int nArg)
 {
     unsigned long nContrast = (D2GFX_GetDisplayType() != 4) ? 100 : 0;
     SRegLoadValue("Diablo II", "Contrast", 0, &nContrast);
-    pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, nContrast, 0, 100);
-    sub_0047D2B0_ContrastSelect(pItem, 0);
+    pItem->dwMoveCount = ESCMENU_ValueToSlider(pItem, nContrast, 0, 100);
+    ESCMENU_ContrastSelect(pItem, 0);
 }
 
 // 0x0047D370
-void __fastcall sub_0047D370_AutoMapModeChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_AutoMapModeChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     if (pEntry->nValue > 2)
     {
@@ -909,7 +909,7 @@ void __fastcall sub_0047D370_AutoMapModeChanged(D2OptionEntryStrc* pEntry, SMSGH
 }
 
 // 0x0047D3B0
-void __fastcall sub_0047D3B0_LoadAutoMapMode(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_LoadAutoMapMode(D2OptionEntryStrc* pEntry, int nArg)
 {
     unsigned long dwValue;
     SRegLoadValue("Diablo II", "AutoMapMode", 0, &dwValue);
@@ -922,7 +922,7 @@ void __fastcall sub_0047D3B0_LoadAutoMapMode(D2OptionEntryStrc* pEntry, int nArg
 }
 
 // 0x0047D3F0
-void __fastcall sub_0047D3F0_AutoMapFadeChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_AutoMapFadeChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     if (pEntry->nValue > 4)
     {
@@ -933,7 +933,7 @@ void __fastcall sub_0047D3F0_AutoMapFadeChanged(D2OptionEntryStrc* pEntry, SMSGH
 }
 
 // 0x0047D430
-void __fastcall sub_0047D430_LoadAutoMapFade(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_LoadAutoMapFade(D2OptionEntryStrc* pEntry, int nArg)
 {
     unsigned long dwValue;
     SRegLoadValue("Diablo II", "AutoMapFade", 0, &dwValue);
@@ -946,59 +946,59 @@ void __fastcall sub_0047D430_LoadAutoMapFade(D2OptionEntryStrc* pEntry, int nArg
 }
 
 // 0x0047D470
-void __fastcall sub_0047D470_AutoMapCentersChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_AutoMapCentersChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     AUTOMAP_SaveAutomapCenters(pEntry->nValue);
 }
 
 // 0x0047D480
-void __fastcall sub_0047D480_AutoMapCentersLoad(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_AutoMapCentersLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
     pEntry->nValue = AUTOMAP_GetAutomapCenters();
 }
 
 // 0x0047D490
-void __fastcall sub_0047D490_AutoMapPartyChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_AutoMapPartyChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
 // build: symbol ?AUTOMAP_SaveAutomapParty@* 0x004577C0
     AUTOMAP_SaveAutomapParty(pEntry->nValue);
 }
 
 // 0x0047D4A0
-void __fastcall sub_0047D4A0_AutoMapPartyLoad(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_AutoMapPartyLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
     pEntry->nValue = AUTOMAP_GetAutomapParty();
 }
 
 // 0x0047D4B0
-int __cdecl sub_0047D4B0_PartyNamesEnabled()
+int __cdecl ESCMENU_PartyNamesEnabled()
 {
     return AUTOMAP_GetAutomapParty();
 }
 
 // 0x0047D4C0
-void __fastcall sub_0047D4C0_AutoMapPartyNamesChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall ESCMENU_AutoMapPartyNamesChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
 // build: symbol ?AUTOMAP_SaveAutomapPartyNames@* 0x004577F0
     AUTOMAP_SaveAutomapPartyNames(pEntry->nValue);
 }
 
 // 0x0047D4D0
-void __fastcall sub_0047D4D0_AutoMapPartyNamesLoad(D2OptionEntryStrc* pEntry, int nArg)
+void __fastcall ESCMENU_AutoMapPartyNamesLoad(D2OptionEntryStrc* pEntry, int nArg)
 {
     pEntry->nValue = AUTOMAP_GetAutomapParty() && AUTOMAP_GetAutomapPartyNames();
 }
 
 // 0x0047D500
-static inline int sub_0047D500_IsOptionEnabled(D2OptionEntryStrc* pEntry)
+static inline int ESCMENU_IsOptionEnabled(D2OptionEntryStrc* pEntry)
 {
     return !pEntry->pfnEnabled || pEntry->pfnEnabled();
 }
 
 // 0x0047D5C0
-static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg)
+static void ESCMENU_ActivateOption(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
+    if (!ESCMENU_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         return;
     }
@@ -1029,12 +1029,12 @@ static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047D7F0
-void __stdcall sub_0047D7F0_OptionMouseDown(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ESCMENU_OptionMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nXpos;
     const int nY = pMsg->nYpos;
-    sub_0047D5B0_SelectOptionAtY(nY);
-    sub_0047D670_UpdateOptionSlider(nX, nY);
+    ESCMENU_SelectOptionAtY(nY);
+    ESCMENU_UpdateOptionSlider(nX, nY);
     gbOptionPressed = 1;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -1042,12 +1042,12 @@ void __stdcall sub_0047D7F0_OptionMouseDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047D840
-void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ESCMENU_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nY = pMsg->nYpos;
-    if (gbOptionPressed && sub_0047D520_FindOptionAtY(nY) == gnOptionSelected)
+    if (gbOptionPressed && ESCMENU_FindOptionAtY(nY) == gnOptionSelected)
     {
-        sub_0047D5C0_ActivateOption(pMsg);
+        ESCMENU_ActivateOption(pMsg);
     }
     GAME_ResetMouseState();
     gbOptionPressed = 0;
@@ -1061,7 +1061,7 @@ void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
 
 
 // 0x0047D8A0
-void __stdcall sub_0047D8A0_SelectNextOption(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ESCMENU_SelectNextOption(SMSGHANDLER_PARAMS* pMsg)
 {
     do
     {
@@ -1080,7 +1080,7 @@ void __stdcall sub_0047D8A0_SelectNextOption(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047D920
-void __stdcall sub_0047D920_SelectPreviousOption(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ESCMENU_SelectPreviousOption(SMSGHANDLER_PARAMS* pMsg)
 {
     do
     {
@@ -1099,10 +1099,10 @@ void __stdcall sub_0047D920_SelectPreviousOption(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047D9A0
-void __stdcall sub_0047D9A0_OptionKeyLeft(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ESCMENU_OptionKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
     const unsigned int nOldValue = gpOptionEntries[gnOptionSelected].nValue;
-    if (sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
+    if (ESCMENU_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         switch (gpOptionEntries[gnOptionSelected].nKind)
         {
@@ -1137,10 +1137,10 @@ void __stdcall sub_0047D9A0_OptionKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047DA90
-void __stdcall sub_0047DA90_OptionKeyRight(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ESCMENU_OptionKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
     const unsigned int nOldValue = gpOptionEntries[gnOptionSelected].nValue;
-    if (sub_0047D500_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
+    if (ESCMENU_IsOptionEnabled(&gpOptionEntries[gnOptionSelected]))
     {
         switch (gpOptionEntries[gnOptionSelected].nKind)
         {
@@ -1175,9 +1175,9 @@ void __stdcall sub_0047DA90_OptionKeyRight(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047DB80
-void __stdcall sub_0047DB80_OptionActivate(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall ESCMENU_OptionActivate(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_0047D5C0_ActivateOption(pMsg);
+    ESCMENU_ActivateOption(pMsg);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
@@ -1185,7 +1185,7 @@ void __stdcall sub_0047DB80_OptionActivate(SMSGHANDLER_PARAMS* pMsg)
 
 
 // 0x0047DBB0
-void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries)
+void __fastcall ESCMENU_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries)
 {
     D2_ASSERT(pHeader, 0x4E8);
     D2_ASSERT(pEntries, 0x4E9);
@@ -1219,22 +1219,22 @@ void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
 }
 
 // 0x0047DD70
-void __cdecl sub_0047DD70_LoadOptionMenus()
+void __cdecl ESCMENU_LoadOptionMenus()
 {
     D2GfxDataStrc tContext;
-    sub_0047DBB0_LoadOptionCels(&gtMainOptionHeader, gaMainOptionEntries);
-    sub_0047DBB0_LoadOptionCels(&gtOptionsHeader, gaOptionsEntries);
-    sub_0047DBB0_LoadOptionCels(&gtSoundOptionHeader, gaSoundOptionEntries);
+    ESCMENU_LoadOptionCels(&gtMainOptionHeader, gaMainOptionEntries);
+    ESCMENU_LoadOptionCels(&gtOptionsHeader, gaOptionsEntries);
+    ESCMENU_LoadOptionCels(&gtSoundOptionHeader, gaSoundOptionEntries);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
     {
-        sub_0047DBB0_LoadOptionCels(&gtVideoResOptionHeader, gaVideoResOptionEntries);
-        sub_0047DBB0_LoadOptionCels(&gtAutomapModeOptionHeader, gaAutomapModeOptionEntries);
+        ESCMENU_LoadOptionCels(&gtVideoResOptionHeader, gaVideoResOptionEntries);
+        ESCMENU_LoadOptionCels(&gtAutomapModeOptionHeader, gaAutomapModeOptionEntries);
     }
     else
     {
-        sub_0047DBB0_LoadOptionCels(&gtVideoOptionHeader, gaVideoOptionEntries);
-        sub_0047DBB0_LoadOptionCels(&gtAutomapOptionHeader, gaAutomapOptionEntries);
+        ESCMENU_LoadOptionCels(&gtVideoOptionHeader, gaVideoOptionEntries);
+        ESCMENU_LoadOptionCels(&gtAutomapOptionHeader, gaAutomapOptionEntries);
     }
     gpOptionHeader = &gtMainOptionHeader;
     gpOptionEntries = gaMainOptionEntries;
@@ -1257,7 +1257,7 @@ void __cdecl sub_0047DD70_LoadOptionMenus()
 
 
 // 0x0047DF00
-void __fastcall sub_0047DF00_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries)
+void __fastcall ESCMENU_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries)
 {
     D2_ASSERT(pHeader, 0x558);
     D2_ASSERT(pEntries, 0x559);
@@ -1285,23 +1285,23 @@ void __fastcall sub_0047DF00_FreeOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
 }
 
 // 0x0047DFD0
-void __cdecl sub_0047DFD0_FreeOptionMenus()
+void __cdecl ESCMENU_FreeOptionMenus()
 {
     gpOptionHeader = 0;
     gpOptionEntries = 0;
-    sub_0047DF00_FreeOptionCels(&gtSoundOptionHeader, gaSoundOptionEntries);
-    sub_0047DF00_FreeOptionCels(&gtOptionsHeader, gaOptionsEntries);
-    sub_0047DF00_FreeOptionCels(&gtMainOptionHeader, gaMainOptionEntries);
+    ESCMENU_FreeOptionCels(&gtSoundOptionHeader, gaSoundOptionEntries);
+    ESCMENU_FreeOptionCels(&gtOptionsHeader, gaOptionsEntries);
+    ESCMENU_FreeOptionCels(&gtMainOptionHeader, gaMainOptionEntries);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     if (FOG_IsExpansion())
     {
-        sub_0047DF00_FreeOptionCels(&gtVideoResOptionHeader, gaVideoResOptionEntries);
-        sub_0047DF00_FreeOptionCels(&gtAutomapModeOptionHeader, gaAutomapModeOptionEntries);
+        ESCMENU_FreeOptionCels(&gtVideoResOptionHeader, gaVideoResOptionEntries);
+        ESCMENU_FreeOptionCels(&gtAutomapModeOptionHeader, gaAutomapModeOptionEntries);
     }
     else
     {
-        sub_0047DF00_FreeOptionCels(&gtVideoOptionHeader, gaVideoOptionEntries);
-        sub_0047DF00_FreeOptionCels(&gtAutomapOptionHeader, gaAutomapOptionEntries);
+        ESCMENU_FreeOptionCels(&gtVideoOptionHeader, gaVideoOptionEntries);
+        ESCMENU_FreeOptionCels(&gtAutomapOptionHeader, gaAutomapOptionEntries);
     }
     if (gpSliderDisabledCel)
     {
@@ -1409,7 +1409,7 @@ void __fastcall sub_0047E200_CloseMenus(int bRestore)
 }
 
 // 0x0047E260
-void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bSmall)
+void __stdcall ESCMENU_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bSmall)
 {
     const int* pbEnabled = &pEntry->bEnabled;
     int nScreenY = gpOptionHeader->nY + nY;
@@ -1439,7 +1439,7 @@ void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, 
 }
 
 // 0x0047E3D0
-void __cdecl sub_0047E3D0_DrawOptions()
+void __cdecl ESCMENU_DrawOptions()
 {
     D2_ASSERT(gpOptionHeader, 0x64B);
     D2_ASSERT(gpOptionEntries, 0x64C);
@@ -1454,11 +1454,11 @@ void __cdecl sub_0047E3D0_DrawOptions()
         gnOptionLastX = nX;
         if (gbOptionPressed)
         {
-            sub_0047D670_UpdateOptionSlider(nX, nY);
+            ESCMENU_UpdateOptionSlider(nX, nY);
         }
         else
         {
-            sub_0047D5B0_SelectOptionAtY(nY);
+            ESCMENU_SelectOptionAtY(nY);
         }
     }
 
@@ -1507,7 +1507,7 @@ void __cdecl sub_0047E3D0_DrawOptions()
             {
                 D2Win_10134_DrawCellFile(gpOptionEntries[i].pCel, gnScreenWidth / 2 - 0xE6, nDrawY, 0, nColor, -1);
             }
-            sub_0047E260_DrawOptionSlider(&gpOptionEntries[i], nEntryY, nColor, gpOptionEntries[i].pCel == 0);
+            ESCMENU_DrawOptionSlider(&gpOptionEntries[i], nEntryY, nColor, gpOptionEntries[i].pCel == 0);
             break;
         }
         ++nRow;
@@ -1537,7 +1537,7 @@ void __cdecl sub_0047E3D0_DrawOptions()
 
 
 // 0x0047E720
-void __cdecl sub_0047E720_LoadAlwaysRun()
+void __cdecl ESCMENU_LoadAlwaysRun()
 {
     unsigned long dwValue = 0;
     SRegLoadValue("Diablo II", "Always Run", 0, &dwValue);
@@ -1545,13 +1545,13 @@ void __cdecl sub_0047E720_LoadAlwaysRun()
 }
 
 // 0x0047E750
-void __cdecl sub_0047E750_SaveAlwaysRun()
+void __cdecl ESCMENU_SaveAlwaysRun()
 {
     SRegSaveValue("Diablo II", "Always Run", 0, GAME_GetAlwaysRun());
 }
 
 // 0x0047E770
-static void sub_0047E770_DrawModeCel(int nMode)
+static void MINIPANEL_DrawModeCel(int nMode)
 {
     if (!nMode)
         return;
@@ -1581,7 +1581,7 @@ static void sub_0047E770_DrawModeCel(int nMode)
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x0047E8B0
-static void sub_0047E8B0_LayoutSlots(int nMode)
+static void MINIPANEL_LayoutSlots(int nMode)
 {
     int nSlots = 8;
     if (gbSmallPanel)
@@ -1641,7 +1641,7 @@ static void sub_0047E8B0_LayoutSlots(int nMode)
 }
 
 // 0x0047E9A0
-void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
+void __stdcall MINIPANEL_DrawSlots(int bDraw)
 {
     int nSlots = 8;
     if (!bDraw)
@@ -1683,7 +1683,7 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
 
 
 // 0x0047EA60
-int __cdecl sub_0047EA60_IsAnyPanelOpen()
+int __cdecl MINIPANEL_IsAnyPanelOpen()
 {
     int bResult = 0;
     if (GAME_GetUIVarState(0x17) || GAME_GetUIVarState(0x19) || GAME_GetUIVarState(0x1A) || GAME_GetUIVarState(0xC)
@@ -1703,7 +1703,7 @@ int __cdecl sub_0047EA60_IsAnyPanelOpen()
 }
 
 // 0x0047EB50
-int __cdecl sub_0047EB50_IsAnyLeftPanelOpen()
+int __cdecl MINIPANEL_IsAnyLeftPanelOpen()
 {
     int bResult = 0;
     if (GAME_GetUIVarState(0x17) || GAME_GetUIVarState(0x19) || GAME_GetUIVarState(0x1C) || GAME_GetUIVarState(0x1A)
@@ -1730,7 +1730,7 @@ int __cdecl sub_0047EB50_IsAnyLeftPanelOpen()
 }
 
 // 0x0047EC20
-int __fastcall sub_0047EC20_IsPanelFreeForArg(int bArg)
+int __fastcall MINIPANEL_IsPanelFreeForArg(int bArg)
 {
     if (bArg && !GAME_GetUIVarState(0x17))
     {
@@ -1747,7 +1747,7 @@ int __cdecl sub_0047EC40_IsSet()
 }
 
 // 0x0047EC50
-static void sub_0047EC50_DoSlotAction(int nButton)
+static void MINIPANEL_DoSlotAction(int nButton)
 {
     switch (nButton)
     {
@@ -1807,7 +1807,7 @@ static void sub_0047EC50_DoSlotAction(int nButton)
 }
 
 // 0x0047ED90
-void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall MINIPANEL_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!gbSlotClicked)
@@ -1851,11 +1851,11 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
                 const int nButton = gaSlotKind[i];
                 if (nButton == 7)
                 {
-                    sub_0047EC50_DoSlotAction(nButton);
+                    MINIPANEL_DoSlotAction(nButton);
                 }
                 else if (!GAME_GetUnitTypeOrInvalid(pUnit) && sub_00451F70_GetUnitMode(pUnit) != 0x11)
                 {
-                    sub_0047EC50_DoSlotAction(nButton);
+                    MINIPANEL_DoSlotAction(nButton);
                 }
             }
             GAME_ResetMouseState();
@@ -1871,7 +1871,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047EF30
-void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall MINIPANEL_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
 {
     int nSlots = 8;
     if (gbSmallPanel)
@@ -1949,7 +1949,7 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
 
 
 // 0x0047F0C0
-void __cdecl sub_0047F0C0_LoadMiniPanel()
+void __cdecl MINIPANEL_LoadMiniPanel()
 {
     if (GAME_GetConnectionType())
     {
@@ -1970,7 +1970,7 @@ void __cdecl sub_0047F0C0_LoadMiniPanel()
 }
 
 // 0x0047F130
-void __cdecl sub_0047F130_SaveMiniPanel()
+void __cdecl MINIPANEL_SaveMiniPanel()
 {
     int bValue = 0;
     if (!gaEscMenuUIState[21].nSaved) // the mini panel's UI var
@@ -1989,7 +1989,7 @@ void __cdecl sub_0047F130_SaveMiniPanel()
 }
 
 // 0x0047F190
-int __fastcall sub_0047F190_IsInMiniPanelRect(int nX, int nY)
+int __fastcall MINIPANEL_IsInMiniPanelRect(int nX, int nY)
 {
     const int nHalfWidth = gnScreenWidth / 2;
     if (nX > nHalfWidth - 0x4A && nX < nHalfWidth + 0x47 && nY < gnScreenHeight - 0x32 && nY > gnScreenHeight - 0x45)
@@ -1998,7 +1998,7 @@ int __fastcall sub_0047F190_IsInMiniPanelRect(int nX, int nY)
 }
 
 // 0x0047F1D0
-void __cdecl sub_0047F1D0_LoadResolution()
+void __cdecl MINIPANEL_LoadResolution()
 {
     unsigned long dwValue;
     if (!SRegLoadValue("Diablo II", "Resolution", 0, &dwValue))
@@ -2038,7 +2038,7 @@ int __cdecl sub_0047F210_IsMouseInSlots()
 
 
 // 0x0047F2A0
-void __fastcall sub_0047F2A0_ShowPage1(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall MINIPANEL_ShowPage1(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     UI_SetUIVar(9, 0, 0);
     gpOptionHeader = &gtOptionsHeader;
@@ -2047,7 +2047,7 @@ void __fastcall sub_0047F2A0_ShowPage1(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 }
 
 // 0x0047F2D0
-void __fastcall sub_0047F2D0_ExitGame(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall MINIPANEL_ExitGame(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     WINMAIN_SetExitApplication(0);
     SendMessageA(pMsg->hWnd, 0x10, 0, 0);
@@ -2062,7 +2062,7 @@ void __fastcall sub_0047F300_CloseMenus(D2OptionEntryStrc* pEntry, SMSGHANDLER_P
 }
 
 // 0x0047F310
-void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall MINIPANEL_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     UI_SetUIVar(9, 0, 0);
     gpOptionHeader = &gtSoundOptionHeader;
@@ -2071,7 +2071,7 @@ void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 }
 
 // 0x0047F340
-void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall MINIPANEL_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     UI_SetUIVar(9, 0, 0);
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
@@ -2089,7 +2089,7 @@ void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 }
 
 // 0x0047F3A0
-void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall MINIPANEL_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     UI_SetUIVar(9, 0, 0);
     if (FOG_IsExpansion())
@@ -2106,7 +2106,7 @@ void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 }
 
 // 0x0047F400
-void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall MINIPANEL_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     if (GAME_GetUIVarState(9))
         UI_SetUIVar(9, 1, 0);
@@ -2114,7 +2114,7 @@ void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 }
 
 // 0x0047F430
-void __fastcall sub_0047F430_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
+void __fastcall MINIPANEL_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
     UI_SetUIVar(9, 0, 0);
     gpOptionHeader = &gtMainOptionHeader;
@@ -2132,7 +2132,7 @@ void __fastcall sub_0047F460_ShowPage1Twin(D2OptionEntryStrc* pEntry, SMSGHANDLE
 }
 
 // 0x0047F490
-static void __stdcall sub_0047F490_ShowSlotTooltip(int nX, int nY, int nKind)
+static void __stdcall MINIPANEL_ShowSlotTooltip(int nX, int nY, int nKind)
 {
     int bHasKey = 0;
     int nHotKey = 0x39;
@@ -2202,7 +2202,7 @@ static void __stdcall sub_0047F490_ShowSlotTooltip(int nX, int nY, int nKind)
 }
 
 // 0x0047F650
-static void sub_0047F650_UpdateSlotHover(int nMode)
+static void MINIPANEL_UpdateSlotHover(int nMode)
 {
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
@@ -2237,16 +2237,16 @@ static void sub_0047F650_UpdateSlotHover(int nMode)
     {
         if (nMouseX > gaSlotX[i] && nMouseX < gaSlotX[i] + 0x14)
         {
-            sub_0047F490_ShowSlotTooltip(gaSlotX[i], gaSlotY[i], gaSlotKind[i]);
+            MINIPANEL_ShowSlotTooltip(gaSlotX[i], gaSlotY[i], gaSlotKind[i]);
         }
     }
 }
 
 // 0x0047F710
-void __cdecl sub_0047F710_UpdateSlotBar()
+void __cdecl MINIPANEL_UpdateSlotBar()
 {
-    const int bAnyPanel = sub_0047EA60_IsAnyPanelOpen();
-    const int bLeftPanel = sub_0047EB50_IsAnyLeftPanelOpen();
+    const int bAnyPanel = MINIPANEL_IsAnyPanelOpen();
+    const int bLeftPanel = MINIPANEL_IsAnyLeftPanelOpen();
     D2GfxDataStrc tContext;
     if (bAnyPanel && !bLeftPanel)
     {
@@ -2262,9 +2262,9 @@ void __cdecl sub_0047F710_UpdateSlotBar()
             nX += 0x23;
         }
         sub_004F6480(&tContext, nX - 2, gnScreenHeight - 0x2F, -1, 5, 0);
-        sub_0047E8B0_LayoutSlots(3);
-        sub_0047E9A0_DrawSlots(1);
-        sub_0047F650_UpdateSlotHover(3);
+        MINIPANEL_LayoutSlots(3);
+        MINIPANEL_DrawSlots(1);
+        MINIPANEL_UpdateSlotHover(3);
         gbSlotBarBlocked = 0;
         return;
     }
@@ -2283,9 +2283,9 @@ void __cdecl sub_0047F710_UpdateSlotBar()
             nX -= 0x54;
         }
         sub_004F6480(&tContext, nX - 3, gnScreenHeight - 0x2F, -1, 5, 0);
-        sub_0047E8B0_LayoutSlots(2);
-        sub_0047E9A0_DrawSlots(1);
-        sub_0047F650_UpdateSlotHover(2);
+        MINIPANEL_LayoutSlots(2);
+        MINIPANEL_DrawSlots(1);
+        MINIPANEL_UpdateSlotHover(2);
         gbSlotBarBlocked = 0;
         return;
     }
@@ -2295,9 +2295,9 @@ void __cdecl sub_0047F710_UpdateSlotBar()
         memset(&tContext, 0, sizeof(tContext));
         tContext.pCelFile = gpMiniPanelCel;
         sub_004F6480(&tContext, gnScreenWidth / 2 - 0xCD, gnScreenHeight - 0x2F, -1, 5, 0);
-        sub_0047E8B0_LayoutSlots(1);
-        sub_0047E9A0_DrawSlots(1);
-        sub_0047F650_UpdateSlotHover(1);
+        MINIPANEL_LayoutSlots(1);
+        MINIPANEL_DrawSlots(1);
+        MINIPANEL_UpdateSlotHover(1);
         gbSlotBarBlocked = 0;
         return;
     }
@@ -2314,7 +2314,7 @@ void __cdecl sub_K04_EmitUse(int nValue);
 
 void __cdecl sub_K04_EmitDrawModeCel(int nMode)
 {
-    sub_0047E770_DrawModeCel(nMode);
+    MINIPANEL_DrawModeCel(nMode);
     sub_K04_EmitUse(nMode);
 }
 
