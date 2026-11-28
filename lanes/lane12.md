@@ -21,6 +21,14 @@ it is on main; from #473, based on main.
   6ae99aa0cc8808ad8b4f256c284ff49ddcf0138a. linkdebt unchanged (19,973). auditguard: no count rose.
 
 ## Claimed
+- Sat Nov 28 0:31 PST 2026: status. Ready: compile-1 (queue item 5). Item 7 waits on lane 14's list (see Questions: Iblis-Engine is
+  not reachable from this session). From linkdebt alone I can see the convention disagreements among the
+  type_disagreement items: the real ones are few and need each call read against the original, e.g.
+  MISSMODE_FillDamageParams 0x5A89A0 (defined __stdcall (unit, unit, damage...), MissMode.cpp calls __fastcall
+  (game, unit, ...)), D2GAME_SAVE_SerializeItem 0x5316D0 (stdcall vs fastcall with a game argument),
+  sub_0055F4F0_Nop and D2Game_10034_Return (stdcall one-int vs fastcall three-argument: folded no-op bodies);
+  the rest are no-argument functions (convention makes no difference) and handler addresses taken as data. I'll
+  start on those four unless lane 14's list says otherwise.
 - Fri Nov 27 22:32 PST 2026: status. Ready: types-5. On types-6 (from types-5): ui.cpp's gold panel typed as the dialog it is
   (DIALOG_AddTextLine's last disagreeing caller), and the next 120 targets (394 refs: the long tail now, about 3
   refs each) running one at a time. Not doing by hand, because each would add a pointer cast:
