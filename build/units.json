@@ -652,7 +652,7 @@
     {
      "va": "0x0040B0C0",
      "length": 73,
-     "name": "?FOG_10218@@YAXXZ"
+     "name": "?FOG_InitHuffman@@YAXXZ"
     },
     {
      "va": "0x0040B110",
@@ -667,7 +667,7 @@
     {
      "va": "0x0040B130",
      "length": 123,
-     "name": "?FOG_10222@@YIXPBEI@Z"
+     "name": "?FOG_AddHuffmanStats@@YIXPBEI@Z"
     },
     {
      "va": "0x0040B1B0",
@@ -953,37 +953,37 @@
     {
      "va": "0x00401010",
      "length": 11,
-     "name": "?sub_00401010_GetTime64@@YA_JXZ"
+     "name": "?ERRORMANAGER_GetTime64@@YA_JXZ"
     },
     {
      "va": "0x00401020",
      "length": 72,
-     "name": "?sub_00401020_SetLogDirectory@@YA_NPBD@Z"
+     "name": "?ERRORMANAGER_SetLogDirectory@@YA_NPBD@Z"
     },
     {
      "va": "0x00401A60",
      "length": 12,
-     "name": "?sub_00401A60_UnlockSymbols@@YAXXZ"
+     "name": "?ERRORMANAGER_UnlockSymbols@@YAXXZ"
     },
     {
      "va": "0x00401B00",
      "length": 381,
-     "name": "?sub_00401B00_LoadDbgHelp@@YA_NXZ"
+     "name": "?ERRORMANAGER_LoadDbgHelp@@YA_NXZ"
     },
     {
      "va": "0x00401C80",
      "length": 36,
-     "name": "?sub_00401C80_FreeDbgHelp@@YAXXZ"
+     "name": "?ERRORMANAGER_FreeDbgHelp@@YAXXZ"
     },
     {
      "va": "0x00401CB0",
      "length": 279,
-     "name": "?sub_00401CB0_InitSymbols@@YA_NXZ"
+     "name": "?ERRORMANAGER_InitSymbols@@YA_NXZ"
     },
     {
      "va": "0x00401DD0",
      "length": 29,
-     "name": "?sub_00401DD0_CleanupSymbols@@YAXXZ"
+     "name": "?ERRORMANAGER_CleanupSymbols@@YAXXZ"
     }
    ]
   },
@@ -1009,12 +1009,12 @@
     {
      "va": "0x004011F0",
      "length": 30,
-     "name": "?sub_004011F0_Close@Report@crashy@@QAE_NXZ"
+     "name": "?Close@Report@crashy@@QAE_NXZ"
     },
     {
      "va": "0x00401210",
      "length": 9,
-     "name": "?sub_00401210_IsOpen@Report@crashy@@QAE_NXZ"
+     "name": "?IsOpen@Report@crashy@@QAE_NXZ"
     },
     {
      "va": "0x00401380",
@@ -1034,12 +1034,12 @@
     {
      "va": "0x00407290",
      "length": 7,
-     "name": "?sub_00407290_GetLineCount@Report@crashy@@QAEHXZ"
+     "name": "?GetLineCount@Report@crashy@@QAEHXZ"
     },
     {
      "va": "0x004072A0",
      "length": 20,
-     "name": "sub_004072A0_GetLine"
+     "name": "GetLine"
     },
     {
      "va": "0x004072C0",
@@ -1069,7 +1069,7 @@
     {
      "va": "0x00407540",
      "length": 36,
-     "name": "?sub_00407540_MakeAppSubdir@@YAXPADI@Z"
+     "name": "?ERRORMANAGER_MakeAppSubdir@@YAXPADI@Z"
     },
     {
      "va": "0x00407DD0",
@@ -1110,42 +1110,42 @@
     {
      "va": "0x004013A0",
      "length": 17,
-     "name": "?sub_004013A0_IsDebuggerAttached@@YAHXZ"
+     "name": "?ERRORMANAGER_IsDebuggerAttached@@YAHXZ"
     },
     {
      "va": "0x00401790",
      "length": 662,
-     "name": "?sub_00401790_SubmitReport@@YI_NPBDPAUD2CrashSubmitInfoStrc@@@Z"
+     "name": "?ERRORMANAGER_SubmitReport@@YI_NPBDPAUD2CrashSubmitInfoStrc@@@Z"
     },
     {
      "va": "0x00402820",
      "length": 351,
-     "name": "?sub_00402820_WriteMiniDump@@YI_NPBD0PAXK@Z"
+     "name": "?ERRORMANAGER_WriteMiniDump@@YI_NPBD0PAXK@Z"
     },
     {
      "va": "0x00402980",
      "length": 111,
-     "name": "?sub_00402980_StartDbgHelpWorker@@YAXXZ"
+     "name": "?ERRORMANAGER_StartDbgHelpWorker@@YAXXZ"
     },
     {
      "va": "0x004029F0",
      "length": 131,
-     "name": "?sub_004029F0_StopDbgHelpWorker@@YAXXZ"
+     "name": "?ERRORMANAGER_StopDbgHelpWorker@@YAXXZ"
     },
     {
      "va": "0x00402A80",
      "length": 12,
-     "name": "?sub_00402A80_IsDbgHelpLoaded@@YAHXZ"
+     "name": "?ERRORMANAGER_IsDbgHelpLoaded@@YAHXZ"
     },
     {
      "va": "0x00402A90",
      "length": 70,
-     "name": "?sub_00402A90_GetDbgHelpModuleRange@@YG_NPAPAXPAK@Z"
+     "name": "?ERRORMANAGER_GetDbgHelpModuleRange@@YG_NPAPAXPAK@Z"
     },
     {
      "va": "0x00402B50",
      "length": 6,
-     "name": "?sub_00402B50_SetProcessHandle@@YAXPAX@Z"
+     "name": "?ERRORMANAGER_SetProcessHandle@@YAXPAX@Z"
     },
     {
      "va": "0x00402B60",
@@ -1155,12 +1155,12 @@
     {
      "va": "0x00402B80",
      "length": 19,
-     "name": "?sub_00402B80_ClearGuid@@YAXPAUD2CrashGuidStrc@@@Z"
+     "name": "?ERRORMANAGER_ClearGuid@@YAXPAUD2CrashGuidStrc@@@Z"
     },
     {
      "va": "0x00402BA0",
      "length": 19,
-     "name": "?sub_00402BA0_ClearGuidB@@YAXPAUD2CrashGuidStrc@@@Z"
+     "name": "?ERRORMANAGER_ClearGuidB@@YAXPAUD2CrashGuidStrc@@@Z"
     },
     {
      "va": "0x00402BC0",
@@ -1170,12 +1170,12 @@
     {
      "va": "0x00402C30",
      "length": 47,
-     "name": "?sub_00402C30_AddModule@@YI_NPBUD2CrashModuleStrc@@PAUD2CrashModuleListStrc@@@Z"
+     "name": "?ERRORMANAGER_AddModule@@YI_NPBUD2CrashModuleStrc@@PAUD2CrashModuleListStrc@@@Z"
     },
     {
      "va": "0x00402FE0",
      "length": 86,
-     "name": "?sub_00402FE0_InitModuleList@@YAPAUD2CrashModuleListStrc@@PAU1@@Z"
+     "name": "?ERRORMANAGER_InitModuleList@@YAPAUD2CrashModuleListStrc@@PAU1@@Z"
     },
     {
      "va": "0x004032F0",
@@ -1184,12 +1184,12 @@
     {
      "va": "0x00403AC0",
      "length": 976,
-     "name": "?sub_00403AC0_GetExceptionName@@YAXPADK@Z"
+     "name": "?ERRORMANAGER_GetExceptionName@@YAXPADK@Z"
     },
     {
      "va": "0x00403E90",
      "length": 188,
-     "name": "?sub_00403E90_UnhandledExceptionFilter@@YGJPAX@Z"
+     "name": "?ERRORMANAGER_UnhandledExceptionFilter@@YGJPAX@Z"
     },
     {
      "va": "0x00403F50",
@@ -1199,27 +1199,27 @@
     {
      "va": "0x00404150",
      "length": 117,
-     "name": "?sub_00404150_StrlCat@@YGIPBDPADI@Z"
+     "name": "?ERRORMANAGER_StrlCat@@YGIPBDPADI@Z"
     },
     {
      "va": "0x00404660",
      "length": 107,
-     "name": "?sub_00404660_GetThreadContext@@YAEKPAUD2ThreadContextStrc@@@Z"
+     "name": "?ERRORMANAGER_GetThreadContext@@YAEKPAUD2ThreadContextStrc@@@Z"
     },
     {
      "va": "0x00404730",
      "length": 33,
-     "name": "?sub_00404730_GetImageKind@@YAHPBUD2ImageOptionalHeaderStrc@@@Z"
+     "name": "?ERRORMANAGER_GetImageKind@@YAHPBUD2ImageOptionalHeaderStrc@@@Z"
     },
     {
      "va": "0x00404760",
      "length": 25,
-     "name": "?sub_00404760_IsDosHeaderValid@@YA_NPBUD2ImageDosHeaderStrc@@@Z"
+     "name": "?ERRORMANAGER_IsDosHeaderValid@@YA_NPBUD2ImageDosHeaderStrc@@@Z"
     },
     {
      "va": "0x00404780",
      "length": 76,
-     "name": "?sub_00404780_IsNtHeaderValid@@YA_NPBUD2ImageNtHeadersStrc@@@Z"
+     "name": "?ERRORMANAGER_IsNtHeaderValid@@YA_NPBUD2ImageNtHeadersStrc@@@Z"
     },
     {
      "va": "0x00404850",
@@ -1229,27 +1229,27 @@
     {
      "va": "0x00404860",
      "length": 36,
-     "name": "?sub_00404860_SetNb10Info@@YAXPAUD2CrashModuleStrc@@PBUD2CvNb10Strc@@@Z"
+     "name": "?ERRORMANAGER_SetNb10Info@@YAXPAUD2CrashModuleStrc@@PBUD2CvNb10Strc@@@Z"
     },
     {
      "va": "0x00404890",
      "length": 33,
-     "name": "?sub_00404890_CopyRsdsGuid@@YAXPAUD2CrashModuleStrc@@PBUD2CvRsdsStrc@@@Z"
+     "name": "?ERRORMANAGER_CopyRsdsGuid@@YAXPAUD2CrashModuleStrc@@PBUD2CvRsdsStrc@@@Z"
     },
     {
      "va": "0x004048C0",
      "length": 60,
-     "name": "?sub_004048C0_ReadCodeView@@YA_NPBKPAUD2CrashModuleStrc@@I@Z"
+     "name": "?ERRORMANAGER_ReadCodeView@@YA_NPBKPAUD2CrashModuleStrc@@I@Z"
     },
     {
      "va": "0x00404900",
      "length": 150,
-     "name": "?sub_00404900_FindCodeView@@YG_NPBUD2ImageDosHeaderStrc@@PBUD2ImageDebugDirStrc@@PAUD2CrashModuleStrc@@K@Z"
+     "name": "?ERRORMANAGER_FindCodeView@@YG_NPBUD2ImageDosHeaderStrc@@PBUD2ImageDebugDirStrc@@PAUD2CrashModuleStrc@@K@Z"
     },
     {
      "va": "0x00404F40",
      "length": 32,
-     "name": "?sub_00404F40_GetDebugDirectory64@@YGXPAK0PBUD2ImageOptionalHeader64Strc@@@Z"
+     "name": "?ERRORMANAGER_GetDebugDirectory64@@YGXPAK0PBUD2ImageOptionalHeader64Strc@@@Z"
     },
     {
      "va": "0x00404F60",
@@ -1258,12 +1258,12 @@
     {
      "va": "0x00404F80",
      "length": 111,
-     "name": "?sub_00404F80_ReadNb10@@YA_NPAUD2CrashModuleStrc@@PBUD2CvNb10Strc@@@Z"
+     "name": "?ERRORMANAGER_ReadNb10@@YA_NPAUD2CrashModuleStrc@@PBUD2CvNb10Strc@@@Z"
     },
     {
      "va": "0x00404FF0",
      "length": 107,
-     "name": "?sub_00404FF0_ReadRsds@@YA_NPBUD2CvRsdsStrc@@PAUD2CrashModuleStrc@@@Z"
+     "name": "?ERRORMANAGER_ReadRsds@@YA_NPBUD2CvRsdsStrc@@PAUD2CrashModuleStrc@@@Z"
     },
     {
      "va": "0x00405060",
@@ -1583,27 +1583,27 @@
     {
      "va": "0x00410B10",
      "length": 32,
-     "name": "sub_00410B10"
+     "name": "BITMANIP_SetBitState"
     },
     {
      "va": "0x00410B30",
      "length": 32,
-     "name": "sub_00410B30"
+     "name": "BITMANIP_GetBitState"
     },
     {
      "va": "0x00410B50",
      "length": 32,
-     "name": "sub_00410B50"
+     "name": "BITMANIP_ClearBitState"
     },
     {
      "va": "0x00410B70",
      "length": 32,
-     "name": "?sub_00410B70@@YGXPAUBitBuffer@@H@Z"
+     "name": "?BITMANIP_ToggleBitState@@YGXPAUBitBuffer@@H@Z"
     },
     {
      "va": "0x00410B90",
      "length": 173,
-     "name": "?sub_00410B90@@YGXPBE0PAEH@Z"
+     "name": "?BITMANIP_AndBits@@YGXPBE0PAEH@Z"
     },
     {
      "va": "0x00410C40",
@@ -1613,12 +1613,12 @@
     {
      "va": "0x00410CF0",
      "length": 147,
-     "name": "sub_00410CF0_NotBits"
+     "name": "BITMANIP_NotBits"
     },
     {
      "va": "0x00410D90",
      "length": 173,
-     "name": "sub_00410D90_XorBits"
+     "name": "BITMANIP_XorBits"
     },
     {
      "va": "0x00410E40",
@@ -1642,7 +1642,7 @@
     {
      "va": "0x00411020",
      "length": 9,
-     "name": "sub_00411020_ReadBits"
+     "name": "BITMANIP_Read"
     },
     {
      "va": "0x00411030",
@@ -1657,12 +1657,12 @@
     {
      "va": "0x004110B0",
      "length": 31,
-     "name": "sub_004110B0_WriteCode"
+     "name": "BITMANIP_WriteCode"
     },
     {
      "va": "0x004110D0",
      "length": 92,
-     "name": "sub_004110D0_ReadTreeCode"
+     "name": "BITMANIP_ReadTreeCode"
     },
     {
      "va": "0x00411130",
@@ -1672,27 +1672,27 @@
     {
      "va": "0x00411170",
      "length": 40,
-     "name": "sub_00411170_SumByteTable"
+     "name": "BITMANIP_SumByteTable"
     },
     {
      "va": "0x004111A0",
      "length": 104,
-     "name": "sub_004111A0_GetLowestSetBit"
+     "name": "BITMANIP_GetLowestSetBit"
     },
     {
      "va": "0x00411210",
      "length": 99,
-     "name": "sub_00411210_InitTimer"
+     "name": "SYSTEM_InitTimer"
     },
     {
      "va": "0x00411280",
      "length": 42,
-     "name": "sub_00411280_ResetRecords"
+     "name": "SYSTEM_ResetTimerRecords"
     },
     {
      "va": "0x004112B0",
      "length": 6,
-     "name": "?sub_004112B0_GetTickCount@@YAKXZ"
+     "name": "?SYSTEM_GetTickCount@@YAKXZ"
     },
     {
      "va": "0x004112C0",
@@ -1701,17 +1701,17 @@
     {
      "va": "0x00411320",
      "length": 154,
-     "name": "sub_00411320_CapitalizeWords"
+     "name": "STRING_CapitalizeWords"
     },
     {
      "va": "0x004113C0",
      "length": 32,
-     "name": "sub_004113C0"
+     "name": "STRING_ToLowerN"
     },
     {
      "va": "0x004113E0",
      "length": 341,
-     "name": "?sub_004113E0_EscapeString@@YIPADPADPBDHD@Z"
+     "name": "?STRING_Escape@@YIPADPADPBDHD@Z"
     },
     {
      "va": "0x00411540",
@@ -1736,7 +1736,7 @@
     {
      "va": "0x0040EB40",
      "length": 4,
-     "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
+     "name": "?LOGMANAGER_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
     },
     {
      "va": "0x0040EB50",
@@ -2057,17 +2057,17 @@
     {
      "va": "0x00402C60",
      "length": 242,
-     "name": "?sub_00402C60_FormatModule@@YAXPADPBUD2CrashModuleStrc@@@Z"
+     "name": "?ERRORMANAGER_FormatModule@@YAXPADPBUD2CrashModuleStrc@@@Z"
     },
     {
      "va": "0x00402EE0",
      "length": 255,
-     "name": "?sub_00402EE0_DumpModules@@YIXP6IXPAXPBD@Z0@Z"
+     "name": "?ERRORMANAGER_DumpModules@@YIXP6IXPAXPBD@Z0@Z"
     },
     {
      "va": "0x00404F20",
      "length": 32,
-     "name": "?sub_00404F20_EnumModules@@YA_NPAUD2CrashModuleListStrc@@@Z"
+     "name": "?ERRORMANAGER_EnumModules@@YA_NPAUD2CrashModuleListStrc@@@Z"
     }
    ]
   },
@@ -2083,17 +2083,17 @@
     {
      "va": "0x004041D0",
      "length": 21,
-     "name": "?sub_004041D0_VFormatText@@YAHPADIPBD0@Z"
+     "name": "?ERRORMANAGER_VFormatText@@YAHPADIPBD0@Z"
     },
     {
      "va": "0x004046D0",
      "length": 7,
-     "name": "?sub_004046D0_GetCurrentTeb@@YAPAXXZ"
+     "name": "?ERRORMANAGER_GetCurrentTeb@@YAPAXXZ"
     },
     {
      "va": "0x004046E0",
      "length": 73,
-     "name": "?sub_004046E0_GetFileName@@YAPBDPBD@Z"
+     "name": "?ERRORMANAGER_GetFileName@@YAPBDPBD@Z"
     }
    ]
   },
@@ -2104,17 +2104,17 @@
     {
      "va": "0x00404330",
      "length": 136,
-     "name": "?sub_00404330_FileExistsUtf8@@YG_NPBD@Z"
+     "name": "?ERRORMANAGER_FileExistsUtf8@@YG_NPBD@Z"
     },
     {
      "va": "0x00404C60",
      "length": 350,
-     "name": "?sub_00404C60_EnumModulesPsapi@@YG_NPAX@Z"
+     "name": "?ERRORMANAGER_EnumModulesPsapi@@YG_NPAX@Z"
     },
     {
      "va": "0x00404DC0",
      "length": 159,
-     "name": "?sub_00404DC0_EnumModulesToolhelp@@YA_NPAX@Z"
+     "name": "?ERRORMANAGER_EnumModulesToolhelp@@YA_NPAX@Z"
     }
    ],
    "flags": [
@@ -75146,7 +75146,7 @@
     {
      "va": "0x006BE390",
      "length": 36,
-     "name": "?FOG_10186@@YGHPAUD2Object006BE390Strc@@HH@Z"
+     "name": "?FOG_SetServerValue@@YGHPAUD2Object006BE390Strc@@HH@Z"
     },
     {
      "va": "0x006BE3C0",
@@ -75155,7 +75155,7 @@
     {
      "va": "0x006BE450",
      "length": 24,
-     "name": "_FOG_10180@4"
+     "name": "_FOG_GetClientCount@4"
     },
     {
      "va": "0x006BE470",
@@ -75260,7 +75260,7 @@
     {
      "va": "0x006BEE20",
      "length": 107,
-     "name": "?FOG_10158@@YGPAXPAUD2HashTableStrc@@I@Z"
+     "name": "?FOG_GetClientAddress@@YGPAXPAUD2HashTableStrc@@I@Z"
     },
     {
      "va": "0x006BEE90",
@@ -75269,7 +75269,7 @@
     {
      "va": "0x006BEF40",
      "length": 108,
-     "name": "?FOG_10161@@YGHPAUD2HashTable006BEF40Strc@@I@Z"
+     "name": "?FOG_GetClientSocket@@YGHPAUD2HashTable006BEF40Strc@@I@Z"
     },
     {
      "va": "0x006BEFB0",
@@ -75283,22 +75283,22 @@
     {
      "va": "0x006BF040",
      "length": 54,
-     "name": "?FOG_10170@@YGXPAUD2Object006BF040Strc@@H@Z"
+     "name": "?FOG_SetAddressCallback@@YGXPAUD2Object006BF040Strc@@H@Z"
     },
     {
      "va": "0x006BF080",
      "length": 19,
-     "name": "_FOG_10171@8"
+     "name": "_FOG_SetRemoveClientCallback@8"
     },
     {
      "va": "0x006BF0A0",
      "length": 32,
-     "name": "?FOG_10172@@YGXPAXHH@Z"
+     "name": "?FOG_SetClientContext@@YGXPAXHH@Z"
     },
     {
      "va": "0x006BF0C0",
      "length": 35,
-     "name": "?FOG_10173@@YGHPAXH@Z"
+     "name": "?FOG_GetClientContext@@YGHPAXH@Z"
     },
     {
      "va": "0x006BF0F0",
@@ -75362,7 +75362,7 @@
     {
      "va": "0x006BF610",
      "length": 74,
-     "name": "?FOG_10187@@YIXPAUD2PairTable006BF610Strc@@HH@Z"
+     "name": "?FOG_AddAddressMask@@YIXPAUD2PairTable006BF610Strc@@HH@Z"
     },
     {
      "va": "0x006BF660",
@@ -75429,7 +75429,7 @@
     {
      "va": "0x006C03A0",
      "length": 117,
-     "name": "?FOG_10157@@YGHPAUD2QueueServerStrc@@IPADH@Z"
+     "name": "?FOG_SendToClient@@YGHPAUD2QueueServerStrc@@IPADH@Z"
     },
     {
      "va": "0x006C0420",
@@ -75447,7 +75447,7 @@
     {
      "va": "0x006C06B0",
      "length": 26,
-     "name": "?FOG_10165@@YGHPAUQServer@@HPBDH@Z"
+     "name": "?FOG_CloseRemoteConnection@@YGHPAUQServer@@HPBDH@Z"
     },
     {
      "va": "0x006C06D0",
