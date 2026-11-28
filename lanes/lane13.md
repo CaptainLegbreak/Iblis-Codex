@@ -30,6 +30,7 @@ Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard
     - linkdebt total: 21,832 -> 21,830. D2Client 7,677 -> 7,676, D2Win 773 -> 772; no module rose.
     - shortdata unchanged (363).
 ## Claimed
+- Fri Nov 27 17:22 PST 2026: check-in. Main is still #492. interior-2 and npc-state-2 are Ready and unmerged. There is no answer yet on the D2TextListStrc text-panel question.
 - Fri Nov 27 17:14 PST 2026: npc-state-2 Ready. The text-panel block is still waiting on the D2TextListStrc question above. Next: the rest of the interior list.
 - Fri Nov 27 16:57 PST 2026: check-in. #492 took queue-1-2 and interior-1; I've cleared their Ready lines. interior-2 is still Ready and merges onto #492. npc-state conflicted with #492 in npcmenu.cpp, but only over my own interior-1 renames, so it's rebased as **lane13/npc-state-2**. Its 9 units are equal, and the full build is running now. Lane 14 note read: the data-tables span and the declaration-count units come back to lanes 1 and 13.
 - Fri Nov 27 16:26 PST 2026: **lane13/npc-state** (on #491) is doing its full build. npcmenu.cpp's 0x007C0C68-0x007C0DF4 is now one pack(1) struct, gtNpcMenu: NPCMENU_InitNpcMenu memsets its first 0x160 bytes, and its fields sit at odd offsets. About 80 aliases become fields; every unit is equal.
