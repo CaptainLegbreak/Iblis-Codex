@@ -449,7 +449,7 @@ D2AiCmdStrc* __fastcall AIGENERAL_SetCurrentAiCommand(D2GameStrc* pGame, D2UnitS
 }
 
 // 0x0058F000
-extern "C" __declspec(dllexport) unsigned int* __stdcall sub_0058F000(D2UnitStrc* pUnit) {
+extern "C" __declspec(dllexport) unsigned int* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit) {
     D2AiControlStrc* pAiControl;
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) {
         pAiControl = pUnit->pMonsterData->pAiControl;
