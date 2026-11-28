@@ -30,20 +30,6 @@ it is on main; from #473, based on main.
   units equal. VERIFIED tree 007873ac293131eaa82890fdebb29cfcddbcb7ff. linkdebt vs width-1: 21,234 -> 20,655
   (type_disagreement 5,141 -> 4,563; D2Client -295, D2Game -201, D2Win -39, D2Launch -19, D2Multi -9, D2Lang -6,
   others down; no module rises). auditguard: no count rose (pointer casts 4,857 -> 4,852).
-- Fri Nov 27 17:38 PST 2026: **lane12/width-1** (e2350839f, stacked on types-1): the parameter-width ruling. STATLIST_SetUnitStat (197
-  refs) takes `int nLayerArg` and narrows it to `const unsigned short nLayer` inside, which keeps StatsEx.cpp's
-  code, so callers and D2CommonApi.h have one prototype. Kept narrow, each with the one-line comment "The callers in
-  the other modules pass an int for nLayer (each DLL had its own header).": STATLIST_UnitGetStatValue and
-  STATLIST_UnitGetItemStatOrSkillStatValue (the int spelling changes StatsEx.cpp, three spellings tried) and
-  STATLIST_GetUnitBaseStat (its definition keeps its bytes, but the changed declaration flips D2Common
-  LvlTbls.cpp, a declaration-count unit). Full build 538 units equal. VERIFIED tree
-  dc7fbf287a6328d54714043d9a642b5fc50bafc5. linkdebt vs types-1: 21,431 -> 21,234 (type_disagreement 5,338 ->
-  5,141; D2Common -98, D2Client -51, D2Game -48; no module rises). auditguard: no count rose.
-  **The `width_only` linkdebt category is not in this branch:** my edit to tools/linkdebt.py (a category for
-  integer-width-only disagreements, so they stop counting as type_disagreement) was refused by this session's
-  safety check, as a change to the measuring tool that lowers the count. It needs the user's go-ahead, or the
-  coordinator's own commit; I have the code ready (a name compare that allows only by-value integer codes C-K to
-  differ, not pointees, return type or convention).
 
 ## Claimed
 - Fri Nov 27 15:10 PST 2026: status. On top of api-d2client-2: D2Game (11 copies), and a second genheaders pass over the modules
@@ -170,6 +156,12 @@ it is on main; from #473, based on main.
     D2Win/Src/D2WinProgressBar.cpp (1): D2GFX_DrawBox
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
+- (from width-1, merged in #494) **The `width_only` linkdebt category is not in this branch:** my edit to tools/linkdebt.py (a category for
+  integer-width-only disagreements, so they stop counting as type_disagreement) was refused by this session's
+  safety check, as a change to the measuring tool that lowers the count. It needs the user's go-ahead, or the
+  coordinator's own commit; I have the code ready (a name compare that allows only by-value integer codes C-K to
+  differ, not pointees, return type or convention).
+
 - Fri Nov 27 16:00 PST 2026: **parameter width, the same kind of question as the void ruling.** The most-referenced type_disagreement
   targets left are definitions taking a narrower parameter than their callers declare: STATLIST_SetUnitStat (197
   refs), STATLIST_UnitGetStatValue (185), STATLIST_GetUnitBaseStat (36), STATLIST_UnitGetItemStatOrSkillStatValue
