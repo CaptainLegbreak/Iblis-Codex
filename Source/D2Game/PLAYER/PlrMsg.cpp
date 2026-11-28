@@ -3557,7 +3557,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x35_Repair(D2GameStrc* pGame, D2UnitStr
         return 3;
     }
 
-    D2GAME_NPC_Repair(pGame, pUnit, pPacket35->nNpcGUID, pPacket35->nItemGUID, pPacket35->unk0x09, pPacket35->unk0x0D);
+    D2GAME_NPC_Repair(pGame, pUnit, pPacket35->nNpcGUID, pPacket35->nItemGUID, pPacket35->nItemMode, pPacket35->nRepairFlags);
     return 0;
 }
 
