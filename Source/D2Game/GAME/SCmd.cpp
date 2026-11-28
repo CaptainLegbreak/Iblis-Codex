@@ -30,6 +30,7 @@ struct D2MonsterDataStrc;
 #include "D2CommonApi.h"
 #include "FogApi2.h"
 #include "D2ClientApi.h"
+#include "D2GSPacketSrvB4.h"
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -366,10 +367,10 @@ void __fastcall D2GAME_PACKETS_SendGameExit(int nClientId)
 // 0x0053B260
 void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nErrorCode)
 {
-    unsigned int packetB4[2];
-    *(unsigned char*)packetB4 = 0xB4;
-    *(unsigned int*)((unsigned char*)packetB4 + 1) = nErrorCode;
-    SERVER_SendPacketToClient(0, nClientId, packetB4, 5);
+    D2GSPacketSrvB4 packetB4;
+    packetB4.nHeader = 0xB4;
+    packetB4.nErrorCode = nErrorCode;
+    SERVER_SendPacketToClient(0, nClientId, &packetB4, sizeof(packetB4));
 }
 
 // 0x0053B280

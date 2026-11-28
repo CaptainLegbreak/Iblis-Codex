@@ -1156,7 +1156,7 @@ void __fastcall OBJECTS_InitFunction11_Portal(D2WarpEventArgStrc* pArgs)
     const int eLevelId = DUNGEON_GetTownLevelIdFromActNo(nAct);
     D2_ASSERT(eLevelId <= 0xFF, 0x46F);
 
-    *((unsigned char*)pArgs->pUnit->pPlayerData + 4) = (unsigned char)eLevelId;
+    pArgs->pUnit->pObjectData->InteractType = (unsigned char)eLevelId;
 
     if (sub_E03_GetAnimMode(pArgs->pUnit) == 1)
     {
