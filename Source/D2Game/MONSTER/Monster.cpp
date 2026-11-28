@@ -541,7 +541,7 @@ void __fastcall MONSTER_SetComponents(D2MonRegDataStrc* pMonRegData, D2UnitStrc*
 
     if (pMonRegData && pMonRegData->nComponentVariantsMax > 0)
     {
-        const D2ComponentVariantStrc* pVariants = (const D2ComponentVariantStrc*)pMonRegData->unk0x04;
+        const D2ComponentVariantStrc* pVariants = (const D2ComponentVariantStrc*)pMonRegData->nComponentVariants;
         const D2ComponentVariantStrc* pVariant = &pVariants[ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pMonRegData->nComponentVariantsMax)];
         D2ComponentVariantStrc* pComponents = (D2ComponentVariantStrc*)sub_00573AE0_GetComponents(pUnit);
         if (pComponents)
