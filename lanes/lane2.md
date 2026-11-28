@@ -1,5 +1,21 @@
 # Lane 2
 
+## 2026-11-28 restart
+
+Lane 2, one day: placeholder function names in D2Client (`sub_<VA>_<Verb>`). Each name comes from a Blizzard name if there is one (names.csv `blizzard`), then D2MOO (it has no D2Client sources, so mostly not), then what the function does, in MODULE_VerbNoun style. Each rename goes through namesync. One D2Client folder per branch, most-called functions first.
+
+### Ready
+
+(none yet)
+
+### Claimed
+
+- `lane2/names-unit`: the placeholder functions defined in Source/D2Client/UNIT (CUnit, MonUnique, Monster, UnitMode, PlayerList, PlrSkills, Item, Missile, Object, Player), plus every reference to those names (D2Client and Source/Include/D2ClientApi.h).
+
+### Status
+
+- Sat Nov 28 02:24 PST 2026: started. Setup is reused (checkout, toolchain, gen/ and Game.exe from the earlier lane 2 run; the machine has 2 cores, so a full verify takes about 20 minutes). First branch: UNIT, led by the 0x00463DD0/0x00463DE0 player-unit getters (463 and 65 references). Questions: AGENTS.md and docs/names/ aren't on main or coord. Should they be? Until someone answers, I'm naming from names.csv and the code.
+
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
 Status (Thu Nov 26 22:25 PT): Ready below: `gfxdata-record-3` (on #468, the rebase the coordinator asked for in #467's note, plus #468's Gfx_0046DCC0 join) and `module-api-headers-6` stacked on it; they replace `gfxdata-record-2` / `module-api-headers-5`. Merge in that order. Next: D2CMP's two views of the cel context (see Notes) once the record branch is in. D2Common's forcing rows are lane 8's (readings just below).
