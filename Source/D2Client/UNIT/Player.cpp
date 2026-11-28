@@ -614,11 +614,6 @@ void __cdecl PLAYER_RefreshAdjacentPlayers()
     }
 }
 
-void __fastcall sub_M115_Emit_00460FF0(D2UnitStrc* pUnit)
-{
-    PLAYER_ReleaseRoomLight(pUnit);
-}
-
 // 0x004609F0
 void __fastcall PLAYER_HandleStatChanged(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue)
 {
@@ -701,9 +696,7 @@ void __fastcall PLAYER_FreeClientPlayer(D2UnitStrc* pUnit)
     CUNIT_RemoveInventoryUnits(pUnit, 0);
     INVENTORY_FreeInventory(pUnit->pInventory);
     pUnit->pInventory = 0;
-    D2GfxLightStrc* pResource = D2Common_10958(pUnit, 0);
-    if (pResource)
-        DLIGHTMAP_ReleaseLight(pResource);
+    PLAYER_ReleaseRoomLight(pUnit);
     CUNIT_FreeLight(pUnit);
     if (pUnit == CUNIT_GetPlayerUnit())
         CUNIT_SetPlayerUnit(0);
@@ -912,8 +905,7 @@ static void __stdcall PLAYER_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit)
 // 0x00461250
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce)
 {
-    D2GfxLightStrc* pResource = D2Common_10958(pUnit, 0);
-    if (pResource) DLIGHTMAP_ReleaseLight(pResource);
+    PLAYER_ReleaseRoomLight(pUnit);
     D2UnitStrc* pPlayer = CUNIT_GetPlayerUnit();
     if (nCommand != 19)
     {
