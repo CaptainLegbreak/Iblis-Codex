@@ -1,0 +1,6 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00668600	sub_00668600_CubeMainInputParser	DATATBLS_CubeMainInputParser	D2MOO	Source/D2Common/Unknown_00668510.cpp	high	D2MOO HoradricCube.cpp, 1.14d 0x00668600
+0x00669080	sub_00669080_CubeInputLinker	DATATBLS_CubeMainInputLinker	D2MOO	Source/D2Common/Unknown_00668510.cpp	high	D2MOO HoradricCube.cpp, 1.14d 0x00669080
+0x00668A90	sub_00668A90_ParseCubeInput	DATATBLS_CubeMainOutputParser	D2MOO	Source/D2Common/Unknown_00668510.cpp	high	D2MOO HoradricCube.cpp, 1.14d 0x00668A90
+0x00668590	sub_00668590_NextSetToken	DATATBLS_NextSetToken	inferred	Source/D2Common/Unknown_00668510.cpp	medium	DATATBLS: the cubemain parser helpers, as D2MOO HoradricCube.cpp
+0x006685C0	sub_006685C0_NextSetTokenInt	DATATBLS_NextSetTokenInt	inferred	Source/D2Common/Unknown_00668510.cpp	medium	DATATBLS: the cubemain parser helpers, as D2MOO HoradricCube.cpp

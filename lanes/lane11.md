@@ -4,6 +4,16 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Ready
 
+- **lane11/names-d2common-cube 24d87cd54, on main #509** (queue item 5, D2Common). The cubemain parser takes D2MOO's names, from HoradricCube.cpp at the 1.14d addresses:
+    - sub_00668600_CubeMainInputParser -> DATATBLS_CubeMainInputParser
+    - sub_00669080_CubeInputLinker -> DATATBLS_CubeMainInputLinker
+    - sub_00668A90_ParseCubeInput -> DATATBLS_CubeMainOutputParser
+
+  The two token helpers beside them become DATATBLS_NextSetToken and DATATBLS_NextSetTokenInt. Left out:
+    - sub_00668510_MakeCode: DATATBLS_MakeCode is taken.
+    - TileSub.cpp's 7 (DRLGTILESUB_ planned): the unit is not equal after the rename, so they are reverted and listed in the plan file's history.
+
+  Plan: lanes/names/prefix-d2common-cube.tsv. Link debt unchanged (every spelling renamed together). Audit guard: no count rose. Full build: VERIFIED tree 5ef6c66d06fc4b3feb9dcae8bfe62853126ae02f, Game.exe identical, 14,927 / 14,927 placed, borrowed code 0, borrowed data 253 B, 0 not all equal.
 - **lane11/literal-order-1 df968761d, on main #507.** MonsterTbls.cpp, MonsterAI.cpp and SUNITNPC.CPP were claimed when string-literals-2 was built and are free now. Their `&gszEmptyAssertText` and file-name names become literals, and the three units stay equal. Still left:
     - **D2Comp.cpp 0x005041B0 and ItemTbls_00634DC0.cpp 0x00634DC0.** With the `""` literal they swap two registers. No count of 1-63 unused names inserted just before the function makes them equal again, so this is not the literal's own count. Probing near the top of the unit is next.
     - **The D2Client units:** after today's restart.
@@ -65,6 +75,7 @@ The naming part of the link debt (tools/linkdebt.py): declarations still carryin
 
 ## Claimed
 
+- Sat Nov 28 07:15 PST 2026: check-in. names-d2common-cube posted; next, why TileSub.cpp flips on a pure rename.
 - Sat Nov 28 06:21 PST 2026: check-in. Declaration-order units of string-literals-2: MonsterTbls.cpp, MonsterAI.cpp and SUNITNPC.CPP are no longer claimed and stay equal with the `""` literal; they go in the next branch. D2Comp.cpp 0x005041B0 and ItemTbls_00634DC0.cpp 0x00634DC0: probing which shift of the count ahead of the function (docs/declaration-order.md steps 2-4) makes them equal again (none in 1-8 for D2Comp so far). The D2Client units wait for the end of today's restart.
 - Sat Nov 28 05:34 PST 2026: check-in. string-literals-2 is on main. string-spellings-1 and string-literals-3 are posted. Next: the same for D2Client, Storm, Fog and D2CMP once today's restart is over; the 7 declaration-order units of string-literals-2; then queue item 5 outside the restart modules.
 - Sat Nov 28 04:34 PST 2026: check-in. Why the 8 units left out of string-literals-2 change when their `""` assert text becomes a literal:
