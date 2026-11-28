@@ -256,42 +256,11 @@ struct D2EnvironmentCycleStrc;
 
 struct Unicode;
 
-struct Environment { char pad[0x28]; int timeFields[2]; };
-
 Environment* __fastcall sub_0061AA60(Act*); // 0x0061AA60
 
 enum { TIME_RATE_FIELD = 0 };
 
-struct D2DrlgEnvironmentStrc
-{
-    int nCycleIndex;
-    int nPeriodOfDay;
-    int nTicks;
-    int nIntensity;
-    unsigned int dwInitTick;
-    int unk0x14;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x1B;
-    float fCos;
-    float fLast;
-    float fSin;
-    int nTimeRate;
-    int nTimeRateIndex;
-    int bEclipse;
-    int nPrev;
-};
-
-struct D2EnvironmentCycleStrc
-{
-    int nTicksBegin;
-    int nPeriodOfDay;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char unk0x0B;
-};
+#include "D2DrlgRooms.h"
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
 

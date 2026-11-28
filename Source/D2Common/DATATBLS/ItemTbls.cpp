@@ -63,7 +63,6 @@ struct D2TxtLinkStrc;
 
 struct Unicode;
 
-struct D2PropertyStrc;
 
 struct D2DataTablesStrc;
 
@@ -110,19 +109,16 @@ struct D2ItemStatCostDescStrc
     short nDescPriority;
 };
 
-struct D2ItemDataTbl { int nItemsTxtRecordCount; D2ItemsTxt* pItemsTxt; };
-
-struct D2RareAffixDataTbl { int nRareAffixTxtRecordCount; D2RareAffixTxt* pRareAffixTxt; D2RareAffixTxt* pRareSuffix; D2RareAffixTxt* pRarePrefix; };
-
-struct D2QualityItemDataTbl { int nQualityItemsTxtRecordCount; D2QualityItemsTxt* pQualityItemsTxt; };
-
-struct D2GemDataTbl { int nGemsTxtRecordCount; D2GemsTxt* pGemsTxt; };
-
-struct D2BookDataTbl { int nBooksTxtRecordCount; D2BooksTxt* pBooksTxt; };
-
-struct D2LowQualityItemDataTbl { int nLowQualityItemsTxtRecordCount; D2LowQualityItemsTxt* pLowQualityItemsTxt; };
-
-struct D2ItemRatioDataTbl { int nItemRatioTxtRecordCount; D2ItemRatioTxt* pItemRatioTxt; };
+// These seven headers add 12 names ahead of DATATBLS_LoadRareSuffix_PrefixTxt (0x633F40), whose string
+// literals follow the count (docs/declaration-order.md); four prototypes of functions defined before their
+// first use and an unused forward declaration went to keep it.
+#include "D2ItemDataTbl.h"
+#include "D2RareAffixDataTbl.h"
+#include "D2QualityItemDataTbl.h"
+#include "D2GemDataTbl.h"
+#include "D2BookDataTbl.h"
+#include "D2LowQualityItemDataTbl.h"
+#include "D2ItemRatioDataTbl.h"
 
 
 extern D2ItemDataTbl gItemDataTables; // 0x0096CA58
@@ -237,9 +233,6 @@ extern int gbCompileTxt; // 0x0096C8B4
 
 int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize); // 0x006118B0
 int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOutBuffer, int nOutBufferSize, int (__fastcall* pfnKeywordToNumber)(char*), int (__cdecl* pfnGetParameterCount)(), int (__fastcall* pfnLinkParse)(char*, int*, int, int)); // 0x006C1AE0
-int __fastcall DATATBLS_MapItemsTxtKeywordToNumber(char* szKey); // 0x00631430
-int __cdecl DATATBLS_Return2(); // 0x00631490
-int __fastcall ITEMS_ResolveItemCalcKeyword(char* szText, int* a2, int a3, int nKeywordNumber); // 0x006314A0
 
 int gnItemsTxtRecordCount; // 0x0096CA58
 
@@ -262,7 +255,6 @@ struct D2ItemStatCostTxt;
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-int __cdecl DATATBLS_CompareItemStatCostDescs(const void* pRecord1, const void* pRecord2); // 0x006379D0
 
 int __cdecl DATATBLS_CompareGambleTxtRecords(const void* pRecord1, const void* pRecord2); // 0x00638AC0
 

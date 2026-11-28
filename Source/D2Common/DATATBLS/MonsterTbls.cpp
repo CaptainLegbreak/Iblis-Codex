@@ -122,23 +122,7 @@ struct D2MonLvlTxt
     unsigned int dwXP[2][3];
 };
 
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
-};
+#include "D2MonStatsInit.h"
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
