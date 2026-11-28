@@ -450,7 +450,8 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
         GAME_ResetMouseButtons();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -486,12 +487,12 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
             }
 
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
         }
     }
 
@@ -512,7 +513,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
     }
 
     if (gnTabSelection == 1)
@@ -571,19 +572,19 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_004B9A00(5, 0, 0, 0, 0);
-                sub_00420290_BreakHandlerChain(pMsg);
+                SMsgBreakHandlerChain(pMsg);
                 return;
             }
 
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
+            SMsgBreakHandlerChain(pMsg);
             return;
         }
 
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -609,7 +610,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
         GAME_ResetMouseButtons();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -634,7 +635,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 
@@ -691,7 +692,7 @@ LDone:
                             gaSkillButtonFrame[i] = 0;
                             pMsg->bReturn = 1;
                             pMsg->lResult = 0;
-                            sub_00420290_BreakHandlerChain(pMsg);
+                            SMsgBreakHandlerChain(pMsg);
                             return;
                         }
                     }
@@ -708,7 +709,7 @@ LDone:
         GAME_ResetMouseButtons();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
+        SMsgBreakHandlerChain(pMsg);
         return;
     }
 

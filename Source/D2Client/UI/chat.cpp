@@ -424,7 +424,8 @@ void __stdcall CHAT_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+// build: symbol ?SMsgBreakHandlerChain@* 0x00420290
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
@@ -449,7 +450,7 @@ void __stdcall CHAT_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
         gnImeState = 5;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 // 0x0047AD10
@@ -495,7 +496,7 @@ void __stdcall CHAT_ImeNotifyMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 
     HIMC hImc = ImmGetContext(WINDOW_GetWindow());
     if (!hImc)
@@ -1904,7 +1905,7 @@ void __stdcall CHAT_HandleChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
     if (pMsg->lParam & 0x40000000)
     {
         return;
@@ -2005,7 +2006,7 @@ void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
+    SMsgBreakHandlerChain(pMsg);
 }
 
 
