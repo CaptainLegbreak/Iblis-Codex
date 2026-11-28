@@ -31,8 +31,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-// build: symbol ?gnMouseY@* 0x007D55A8
-#define gnMouseY (gtMousePosition.y)
 
 struct D2CelFileStrc;
 
@@ -1033,7 +1031,7 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (pTextBox->dwTextBoxFlags & 1)
     {
-        const int nY = pTextBox->controlHeader.nHeight - pTextBox->controlHeader.nImageY + gnMouseY;
+        const int nY = pTextBox->controlHeader.nHeight - pTextBox->controlHeader.nImageY + gtMousePosition.y;
         D2Win_10127_SetFont(pTextBox->eFont);
         TEXTBOX_SetLineGapForFont(pTextBox->eFont);
         pTextBox->nCurrentLine = pTextBox->nLine + (nY - pTextBox->nTextInsetY) / (D2Win_10125() + pTextBox->nLineSpacing);
