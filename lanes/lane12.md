@@ -148,6 +148,16 @@ it is on main; from #473, based on main.
     D2Win/Src/D2WinProgressBar.cpp (1): D2GFX_DrawBox
 
 ## Questions (owner's ruling: void definitions whose callers use a result)
+- Fri Nov 27 16:00 PST 2026: **parameter width, the same kind of question as the void ruling.** The most-referenced type_disagreement
+  targets left are definitions taking a narrower parameter than their callers declare: STATLIST_SetUnitStat (197
+  refs), STATLIST_UnitGetStatValue (185), STATLIST_GetUnitBaseStat (36), STATLIST_UnitGetItemStatOrSkillStatValue
+  (28) take `unsigned short nLayer`, the D2Game/D2Client callers declare `int`; AITACTICS_SetAiParam (93) takes an
+  `unsigned char`, callers `int`; ITEMS_CheckItemFlag (165) is `unsigned int` vs the callers' `int`. In the
+  original each DLL had its own header, so both existed. Making the definition take `int` changes its own code
+  (tried for the four STATLIST ones: each alone changes StatsEx.cpp), and giving the callers the narrow type
+  changes theirs (the genheaders runs left those copies in place for that reason). **Ruling wanted:** keep these
+  as they are, or write the definition with an `int` parameter narrowed inside (`unsigned short nLayer =
+  (unsigned short)nLayerArg;`) if that keeps its bytes. I won't do either without a ruling.
 
 ## Notes for other lanes
 - For lane 11 (the D2Multi/D2Launch renames): in CharSel.cpp, MainMenus.cpp, ChatDlg.cpp and ComCallback.cpp these
