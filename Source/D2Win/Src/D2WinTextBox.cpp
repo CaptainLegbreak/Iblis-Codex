@@ -1657,4 +1657,47 @@ int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText)
     return EDITBOX_SetText(pControl, wszText);
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinTextBox.inc"
+#pragma pack(push, 1)
+struct d2data_006DC7FC_t
+{
+    unsigned char b0[24];
+    const void* p1;
+    const void* p2;
+    const void* p3;
+    const void* p4;
+    const void* p5;
+};
+#pragma pack(pop)
+
+extern "C" const struct d2data_006DC7FC_t gData_006DC7FC = { // 0x006DC7FC
+    {
+        0x70, 0x61, 0x6C, 0x65, 0x74, 0x74, 0x65, 0x5C, 0x61, 0x63, 0x74, 0x31, 0x5C, 0x70, 0x61, 0x6C,
+        0x2E, 0x64, 0x61, 0x74, 0x00, 0x00, 0x00, 0x00
+    },
+    gszPalDat,
+    "palette\\act1\\pal.pl2",
+    "%s\\palette\\act%d\\%s",
+    "pal.dat",
+    "pal.pl2"
+};
+#pragma comment(linker, "/alternatename:_gszPalDat=_gData_006DC7FC")
+
+extern "C" const char* gData_0072DE54[15] = { // 0x0072DE54
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gnTextBoxLineGap = 4; // 0x0072DE90

@@ -1737,4 +1737,20 @@ int __stdcall D2Win_10079_IsLetter(int nUnused1, int nUnused2, const char* szCha
     return *szChar >= 'a' && *szChar <= 'z' || *szChar >= 'A' && *szChar <= 'Z';
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinEditBox.inc"
+extern "C" const char* gData_0072DF48[15] = { // 0x0072DF48
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

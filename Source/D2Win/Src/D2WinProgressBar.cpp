@@ -97,4 +97,20 @@ D2WinProgressBarStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, 
     return pProgressBar;
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinProgressBar.inc"
+extern "C" const char* gData_0072F088[15] = { // 0x0072F088
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

@@ -8,4 +8,20 @@ extern "C" __declspec(dllexport) int __fastcall sub_004FDA80_IsColorCodePrefix(O
     return 0;
 }
 
-#include "gen/data/Source/D2Win/Unknown_004FDA80.inc"
+extern "C" const char* gData_0072DF0C[15] = { // 0x0072DF0C
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

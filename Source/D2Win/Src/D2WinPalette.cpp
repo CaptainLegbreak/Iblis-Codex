@@ -225,4 +225,25 @@ int __stdcall PALETTE_LoadPaletteFiles(const char* szDatFileName, const char* sz
     return 1;
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinPalette.inc"
+extern "C" const char gData_006DC828[24] = ".\\Src\\D2WinPalette.cpp"; // 0x006DC828
+#pragma comment(linker, "/alternatename:?gszD2WinPaletteSourceFile@@3QBDB=_gData_006DC828")
+
+extern "C" const char* gData_0072DE14[15] = { // 0x0072DE14
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gbPaletteFlash = 1; // 0x0072DE50
