@@ -2158,11 +2158,6 @@ int __stdcall D2Common_11014_ConvertShapeShiftedMode(int nArrayIndex, int nMonst
     }
 }
 
-int __stdcall sub_K15_Emit6(int* p, int n)
-{
-    return SKILLS_ConvertShapeshiftMonMode(p[0], n) + SKILLS_ConvertShapeshiftMonMode(p[n], p[2]);
-}
-
 inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInl(int nState)
 {
     if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
@@ -2209,8 +2204,7 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
 
                     if (pUnit->dwUnitType == UNIT_MONSTER)
                     {
-                        const int nMode = *pMode;
-                        *pMode = (nClass == 6 && nMode == 4) ? 12 : gnShapeshiftMonModes[nMode];
+                        *pMode = SKILLS_ConvertShapeshiftMonMode(*pMode, nClass);
                     }
                     return;
                 }
