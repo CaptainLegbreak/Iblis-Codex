@@ -318,7 +318,7 @@ void __fastcall SUNITPROXY_InitializeNpcControl(D2GameStrc* pGame)
             pNpc->bTrader = gaNpcConfig[nConfig].bTrader;
             pNpc->bRepair = 0;
             pNpc->bVendor = 0;
-            pNpc->unk0x26 = gaNpcConfig[nConfig].unknown06;
+            pNpc->bForceVendor = gaNpcConfig[nConfig].unknown06;
             pNpc->bRefreshInventory = 0;
             if (pNpc->bTrader == 1)
             {
