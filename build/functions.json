@@ -4678,7 +4678,7 @@
   ["0x004B5C00", 31, "verified", "?NPCMENU_StartConfirm@@YAHXZ"],
   ["0x004B5C20", 64, "verified", "?NPCMENU_CloseHireDialog@@YAHXZ"],
   ["0x004B5C60", 1828, "verified"],
-  ["0x004B6390", 120, "verified", "?NPCMENU_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"],
+  ["0x004B6390", 120, "verified", "?NPCMENU_HandleNpcTransaction@@YIXPAUD2PacketSrv2AStrc@@@Z"],
   ["0x004B6410", 35, "verified", "?NPCMENU_InitHireHandler@@YAHXZ"],
   ["0x004B6440", 432, "verified"],
   ["0x004B65F0", 35, "verified"],

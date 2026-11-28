@@ -1007,7 +1007,7 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0
 
 void __fastcall sub_0049EB10(D2GSPacket5AStrc* pPacket); // 0x0049EB10
 
-void __fastcall NPCMENU_HandleNpcTransaction(D2PacketRecord15Strc* pPacket); // 0x004B6390
+void __fastcall NPCMENU_HandleNpcTransaction(D2PacketSrv2AStrc* pPacket); // 0x004B6390
 
 
 
@@ -2574,9 +2574,9 @@ void __fastcall SCMD_HandleHoverText(const D2GSPacketSrv27Strc* pPacket)
 }
 
 // 0x0045E0D0
-void __fastcall SCMD_HandleNpcTransaction(const D2PacketRecord15Strc* pPacket)
+void __fastcall SCMD_HandleNpcTransaction(const D2PacketSrv2AStrc* pPacket)
 {
-    D2PacketRecord15Strc tPacket = *pPacket;
+    D2PacketSrv2AStrc tPacket = *pPacket;
     NPCMENU_HandleNpcTransaction(&tPacket);
 }
 
