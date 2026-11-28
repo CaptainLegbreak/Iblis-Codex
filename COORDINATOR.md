@@ -507,6 +507,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #496 (j249, 20:30 PT): lane 1 inactiveunits-fields, wincontrols-fields; lane 11 names-defs; lane 12 types-3. VERIFIED ba30d0b0f, Game.exe identical, audit flat. Lane 13: queue restocked (items 7-9, D2DataTablesStrc first); npc-state-4 and plan-includes-3 next round once posted. Still held: lane 1 cominterface-names (rebase).
+
 - #495 (j248, 19:35 PT): lane 1 cmpcache-fields, gameaux-fields, drlgrooms-fields; lane 11 names-small-3; lane 12 types-2; lane 13 raw-offsets-4, text-panel, glide-grid. VERIFIED d91ef77b3, Game.exe identical; audit: raw offsets 117 -> 116, casts 4,849 -> 4,841. **Still held, rebase onto #495: lane 1 cominterface-names (CharSel.cpp), lane 13 plan-includes (data_plan.json).** Iblis-Engine: lane 14's #8-#11 merged (syncs to #493/#494, link remeasured: 4,140 unresolved; replay harness with its first case, the RNG, identical against stock 1.14d).
 
 - #494 (j247, 18:40 PT): lane 1 unitdata-fields, structs-fields, path-fields; lane 12 width-1; lane 13 npc-state-2. VERIFIED 4e744ad48, Game.exe identical, audit flat. linkdebt 21,648 -> **20,572** (type_disagreement 5,142, unsourced_data 4,562). Include unk0x 189. **Held: lane 13 plan-includes (build/data_plan.json conflicts with main: rebase onto #494); lane 1 cominterface-names (rebase onto #494 and rebuild CharSel.cpp).** Lane 1 cmpcache-fields: post it Ready when built.
