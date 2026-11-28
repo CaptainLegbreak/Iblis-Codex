@@ -2,6 +2,24 @@
 
 Written by lane 4 only. Newest entries at the top of each section; delete what is done.
 
+## 2026-11-28 restart
+
+Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE__` strings, docs/names/, D2MOO; join into the owning file in address order; list what has no evidence), then D2Client's private struct definitions.
+
+### Status
+
+- Sat Nov 28 02:23:20 PST 2026: restarted on main #503. Surveying the 61 files for name evidence (file-name strings, docs/names/, D2MOO, object boundaries).
+
+### Ready
+
+(none yet)
+
+### Claimed
+
+(none yet)
+
+## Before the restart (stopped lane's record)
+
 ## Handover to lane 1 (D2Client 0x4A0000 and up)
 
 Lane 4 starts nothing new in this range. In flight and staying with lane 4: `editbox-split` (posted ready) and `spellsel-data` (verifying). Everything else here is yours:
