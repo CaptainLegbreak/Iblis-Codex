@@ -47545,22 +47545,22 @@
     {
      "va": "0x005734C0",
      "length": 20,
-     "name": "@MONSTER_SetAiState@8"
+     "name": "?MONSTER_SetAiState@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x005734E0",
      "length": 26,
-     "name": "@MONSTER_GetAiState@4"
+     "name": "?MONSTER_GetAiState@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00573500",
      "length": 20,
-     "name": "@MONSTER_SetLevelId@8"
+     "name": "?MONSTER_SetLevelId@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00573520",
      "length": 23,
-     "name": "@sub_00573520@4"
+     "name": "?sub_00573520@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00573540",
