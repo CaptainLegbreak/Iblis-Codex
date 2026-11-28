@@ -31330,8 +31330,32 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004EDA80.cpp",
-   "rank": 0,
+   "file": "Source/D2Client/Unknown_004EDCA0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004EDCA0",
+     "length": 289
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
+   "rank": 1,
    "functions": [
     {
      "va": "0x004F03C0",
@@ -31363,43 +31387,13 @@
      "name": "?sub_004F0EF0_UpdateRiderPath@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004F0F30",
+     "length": 481
+    },
+    {
      "va": "0x004F26D0",
      "length": 67,
      "name": "?sub_004F26D0_ApplyCltCalc@@YIHPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004EDCA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EDCA0",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F0F30",
-     "length": 481
     }
    ],
    "flags": [

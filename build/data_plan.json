@@ -1036,10 +1036,9 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc.cpp": {
-   "bytes": 574,
-   "definitions": 18,
+   "bytes": 646,
+   "definitions": 19,
    "externs": [
-    "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
    ],
    "fn_types": {},
@@ -1053,21 +1052,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004E89A0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_004EDA80.cpp": {
-   "bytes": 160,
-   "definitions": 4,
-   "externs": [
-    "extern \"C\" void __cdecl SKILLDESC_SkillDescAttackRatingMain(); // 0x004E9000",
-    "extern \"C\" void __cdecl PLRSKILLS_DescAttackRating(); // 0x004E9040",
-    "extern \"C\" void __cdecl SKILLDESC_DescAttackRating(); // 0x004E9510",
-    "extern \"C\" void __cdecl SKILLDESC_DescAttackRate(); // 0x004E9590",
-    "extern \"C\" void __cdecl SKILLDESC_DescAttackRatingOffhand(); // 0x004E95C0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004EDA80.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4471,6 +4455,21 @@
    "lang": "cpp",
    "state": "sourced",
    "sourced": 1
+  },
+  "Source/D2Client/SKILLS/SkillsEMon.cpp": {
+   "bytes": 88,
+   "definitions": 3,
+   "externs": [
+    "extern \"C\" void __cdecl SKILLDESC_SkillDescAttackRatingMain(); // 0x004E9000",
+    "extern \"C\" void __cdecl PLRSKILLS_DescAttackRating(); // 0x004E9040",
+    "extern \"C\" void __cdecl SKILLDESC_DescAttackRating(); // 0x004E9510",
+    "extern \"C\" void __cdecl SKILLDESC_DescAttackRate(); // 0x004E9590",
+    "extern \"C\" void __cdecl SKILLDESC_DescAttackRatingOffhand(); // 0x004E95C0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/SKILLS/SkillsEMon.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -68089,7 +68088,7 @@
     [
      8,
      "0x004EA450",
-     "source",
+     "owner",
      "SKILLDESC_DrawKickBaseDamage",
      0,
      "func"
@@ -68097,7 +68096,7 @@
     [
      12,
      "0x004EA990",
-     "source",
+     "owner",
      "SKILLDESC_DrawSkillDamage",
      0,
      "func"
@@ -68113,7 +68112,7 @@
     [
      20,
      "0x004EAD60",
-     "names.json",
+     "owner",
      "SKILLDESC_DrawWeaponPhysElemDamage",
      0,
      "func"
@@ -68121,7 +68120,7 @@
     [
      24,
      "0x004E9D20",
-     "names.json",
+     "owner",
      "SKILLDESC_DrawWeaponAndSkillDamage",
      0,
      "func"
@@ -68129,7 +68128,7 @@
     [
      28,
      "0x004EA010",
-     "source",
+     "owner",
      "SKILLDESC_DrawSkillWeaponLine",
      0,
      "func"
@@ -68137,7 +68136,7 @@
     [
      32,
      "0x004EB290",
-     "source",
+     "owner",
      "SKILLDESC_DrawElemDamage",
      0,
      "func"
@@ -68145,7 +68144,7 @@
     [
      36,
      "0x004EB390",
-     "source",
+     "owner",
      "SKILLDESC_DrawElementalDamageLine",
      0,
      "func"
@@ -68153,7 +68152,7 @@
     [
      40,
      "0x004EB460",
-     "source",
+     "owner",
      "SKILLDESC_DrawThrowDamage",
      0,
      "func"
@@ -68169,7 +68168,7 @@
     [
      48,
      "0x004EB830",
-     "source",
+     "owner",
      "SKILLDESC_DrawBoostedElemDamage",
      0,
      "func"
@@ -68185,7 +68184,7 @@
     [
      56,
      "0x004EB940",
-     "names.json",
+     "owner",
      "SKILLDESC_DrawWeaponDamageWithParam",
      0,
      "func"
@@ -68201,7 +68200,7 @@
     [
      64,
      "0x004EBB50",
-     "source",
+     "owner",
      "SKILLDESC_DrawKickDamagePercent",
      0,
      "func"
@@ -68249,7 +68248,7 @@
     [
      88,
      "0x004EAAA0",
-     "source",
+     "owner",
      "SKILLDESC_DrawThrowAndElemDamage",
      0,
      "func"
@@ -68265,7 +68264,7 @@
     [
      96,
      "0x004EAE70",
-     "source",
+     "owner",
      "SKILLDESC_DrawPhysWeaponElemDamage",
      0,
      "func"
@@ -68345,7 +68344,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004EDA80.cpp",
+   "file": "Source/D2Client/UI/SkillDesc.cpp",
    "fill": 18,
    "form": "declared",
    "fwd": null,
@@ -68366,7 +68365,7 @@
     [
      4,
      "0x004E9000",
-     "source",
+     "owner",
      "SKILLDESC_SkillDescAttackRatingMain",
      0,
      "func"
@@ -68374,7 +68373,7 @@
     [
      8,
      "0x004E9510",
-     "names.json",
+     "owner",
      "SKILLDESC_DescAttackRating",
      0,
      "func"
@@ -68382,7 +68381,7 @@
     [
      12,
      "0x004E9590",
-     "names.json",
+     "owner",
      "SKILLDESC_DescAttackRate",
      0,
      "func"
@@ -68390,7 +68389,7 @@
     [
      16,
      "0x004E95C0",
-     "names.json",
+     "owner",
      "SKILLDESC_DescAttackRatingOffhand",
      0,
      "func"
@@ -68398,7 +68397,7 @@
     [
      20,
      "0x004E9040",
-     "names.json",
+     "owner",
      "PLRSKILLS_DescAttackRating",
      0,
      "func"
@@ -68417,7 +68416,7 @@
    "cname": "gData_006DBF50",
    "declared": true,
    "decorated": "?gaFanOffsetX@@3PAHA",
-   "file": "Source/D2Client/Unknown_004EDA80.cpp",
+   "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DBF50[8]; // 0x006DBF50",
@@ -68448,7 +68447,7 @@
    "cname": "gData_006DBF70",
    "declared": true,
    "decorated": "?gaFanOffsetY@@3PAHA",
-   "file": "Source/D2Client/Unknown_004EDA80.cpp",
+   "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006DBF70[8]; // 0x006DBF70",
@@ -68479,7 +68478,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004EDA80.cpp",
+   "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": null,
