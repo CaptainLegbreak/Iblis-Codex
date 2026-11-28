@@ -5,12 +5,12 @@ Written by lane 13 only. Newest entries at the top of each section; delete what 
 Lane 13 (started 2026-11-27, the user): every global the size and shape Blizzard's source had. (1) The short globals from tools/shortdata.py (lane10/short-data), unit/mode/animation/player-movement data first (the Shift-walk frame freeze). (2) The data clusters in LINK_DEBT.json: D2Win 0x00842710 and 0x0081EA68 first; 0x0096BC30-0x0096D66C last, with a reading posted here before any change. Branches are based on lane10/short-data until it is on main.
 
 ## Ready
-- Sat Nov 28 06:14 PST 2026: **lane13/datatables-3b** (12cfb00d7, on main d86ae9009 = #507; one commit; replaces the datatables-3 push, which was on #506). **The tail of the data tables.** VERIFIED tree 8847cd5868ff76df30cebedff867460015cb2e97; Game.exe identical; every unit equal. Audit guard: no count rose. **Pointer casts: 3 written, none removed** (see the last point).
+- Sat Nov 28 07:10 PST 2026: **lane13/datatables-3c** (72e5b3997, on main 4136fc487 = #509; one commit; replaces datatables-3b, the same commit rebased, no conflict). **The tail of the data tables.** VERIFIED tree 4bf5591d86f3ba8562185e99f9a4205b45c00bee; Game.exe identical; every unit equal. Audit guard: no count rose. **Pointer casts: 3 written, none removed** (see the last point).
   - **Room counters (0x0096C8B8-C4):** DrlgActivate.cpp has one static set of four. Its two other static sets and the unused definitions in Dungeon.cpp and Env.cpp are gone.
   - **LvlTbls.cpp (0x0096C9F0-0x0096CA1C):** the portal levels, the level types table and the tile library hash are statics with one name each. As one non-static definition they change 0x0061DD00 and 0x0061FAE0; as statics both are equal. gpLvlWarpTxt and gpLvlMazeTxt lose their `void*` second declarations.
   - **TokTbls.cpp:** gMonModeDataTables (0x0096D4B8) and gObjModeDataTables (0x0096D4C8) are defined as their structs, in place of four separate globals each. D2TokRecord has its fields: name, token, and monmode.txt's sixteen direction counts under D2MOO's names. The local D2ObjModeTypeTxt was the same record and is gone. The sixteen members also keep DATATBLS_LoadPlrType_ModeTxt (0x0065ADC0) equal after the count change (room for 4 more names, at least 5 fewer).
   - One rebase conflict, in LvlTbls.cpp: #507 gave DATATBLS_AllocGlobalTileLibraryHash its parameter; I took main's line with my rename.
-  - **Counts, main #507 -> this:**
+  - **Counts, measured on #507 (#507 -> the same commit there); the #509 baseline is compiling and I will replace these with its numbers:**
     - linkdebt total: 15,100 -> 15,052. D2Common 1,578 -> 1,530; no other module changed.
     - data_cluster: 110 refs / 22 globals -> 90 / 14 (nine clusters, 112 B -> seven, 80 B).
     - duplicate_data: 426 -> 400. different_identifier: 5,189 -> 5,187.
