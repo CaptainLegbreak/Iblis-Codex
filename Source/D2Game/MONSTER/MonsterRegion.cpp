@@ -138,7 +138,6 @@ struct D2PackedGuidStrc;
 
 struct D2MessageStrc;
 
-struct D2GSPacketSrv27;
 
 
 struct D2UnkPlrMsgStrc;
@@ -186,14 +185,6 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 
 #pragma pack(push, 1)
-
-struct D2GSPacketSrv27
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int dwUnitGUID;
-    D2MessageListStrc tMessageList;
-};
 
 #pragma pack(pop)
 

@@ -59,7 +59,6 @@ struct D2SGameDataStrc;
 struct D2ServerCallbackFunctions;
 
 
-struct D2NetPacketRecStrc;
 
 
 struct D2Net52BE10Strc;
@@ -81,13 +80,11 @@ struct D2StormListArrayStrc;
 
 struct D2StormHashTableStrc;
 
-struct D2StormListStrc;
 
 struct D2Storm4167B0Strc;
 
 struct D2Storm4168F0Strc;
 
-struct D2Storm416A90Strc;
 
 struct D2HashKeyNoneStrc;
 
@@ -191,14 +188,6 @@ typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
 int __stdcall SERVER_SetRemoveClientCallback(D2NET_Unk_Callback pfCallback); // 0x0052B5C0
 
-
-struct D2NetPacketRecStrc
-{
-    unsigned char data[MAX_MSG_SIZE];
-    int nPacketSize;
-    unsigned long dwTickCount;
-    D2NetPacketRecStrc* pNext;
-};
 
 
 struct D2Net52BE10Strc
@@ -345,12 +334,6 @@ struct D2StormHashTableStrc
 
 extern unsigned short gwValue_0077905C;
 
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
 struct D2Storm4167B0Strc
 {
     D2StormLinkStrc f_0;
@@ -363,13 +346,6 @@ struct D2Storm4168F0Strc
     D2StormLinkStrc f_0;
 
     ~D2Storm4168F0Strc();
-};
-
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
 };
 
 struct D2GameListStrc;

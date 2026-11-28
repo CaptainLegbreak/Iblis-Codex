@@ -9502,27 +9502,11 @@ void __fastcall AITHINK_Fn133_Ancient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     }
 }
 
-// 0x0040D530
-int __cdecl EXCEPTIONS_ReleaseAllSymbols()
-{
-    return EXCEPTIONS_ReleaseSymbols(1);
-}
+int __cdecl EXCEPTIONS_ReleaseAllSymbols();
 
-// 0x004A5010
-void __cdecl TEXT_ResetKeyConfigDefaults()
-{
-    CMDTBL_ResetKeyConfig(0);
-}
+void __cdecl TEXT_ResetKeyConfigDefaults();
 
-// 0x004A51E0
-void __cdecl TEXT_FreeTextSliderCel()
-{
-    if (gpKeyConfigSliderCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpKeyConfigSliderCel);
-        gpKeyConfigSliderCel = 0;
-    }
-}
+void __cdecl TEXT_FreeTextSliderCel();
 
 // 0x005EF1E0
 int __fastcall AITHINK_BaalThroneCheckAiParamFlag(D2AiTickParamStrc* pAiTickParam, int nFlag)
