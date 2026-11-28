@@ -17,12 +17,6 @@ it is on main; from #473, based on main.
   The one-address-at-a-time pass is done: the remaining 3,881 refs are spread thin (about 2 per target) and
   each needs a type changed by hand (a caller's variable, a struct field, a definition) or the decisions noted in
   Claimed. Unless the coordinator wants that long tail next, I'd take a list from you.
-- Fri Nov 27 21:50 PST 2026: **lane12/types-5** (dab153d6a, on types-4, which #497 merged): the next 120 type_disagreement targets
-  (1,221 refs) the same way, one address at a time with each unit rebuilt. 30 addresses changed in 65 files (list
-  in the commit); the other 90 need a caller's or definition's type changed by hand, or their header change alters
-  another unit. Full build 538 units equal. VERIFIED tree 5dbc581f4871a717b8c7673c034ab20d63ab4f6a. linkdebt vs
-  types-4: 20,266 -> 20,015 (type_disagreement 4,174 -> 3,923; D2Game -157, D2Client -70, Storm -10, D2Common -7,
-  D2Launch -6, D2Sound -1; no module rises). auditguard: no count rose.
 
 ## Claimed
 - Fri Nov 27 22:32 PST 2026: status. Ready: types-5. On types-6 (from types-5): ui.cpp's gold panel typed as the dialog it is
