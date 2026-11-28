@@ -305,7 +305,7 @@ int gbHealthBarColorsInit; // 0x007A8924
 
 unsigned char gabHealthBarColors[4]; // 0x007A890C
 
-void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
+void __stdcall MINIPANEL_DrawSlots(int bDraw); // 0x0047E9A0
 
 D2HashedFileStrc gtUnitGfxHashedFile; // 0x007A8100
 
