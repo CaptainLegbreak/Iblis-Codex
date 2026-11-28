@@ -29815,6 +29815,10 @@
      "name": "?sub_004E1620_SkillCltDoMissilePair@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004E1770",
+     "length": 378
+    },
+    {
      "va": "0x004E1970",
      "length": 170,
      "name": "?sub_004E1970_SetInfernoFrames@@YIXPAUD2SkillsTxt@@PAUD2UnitStrc@@@Z"
@@ -29865,30 +29869,6 @@
      "length": 170,
      "name": "?sub_004E1C80_CltMissileInitDiabWall@@YIXPAUD2UnitStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004E1770.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004E1770",
-     "length": 378
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
