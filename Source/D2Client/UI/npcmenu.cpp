@@ -297,7 +297,7 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 void __fastcall NPCMENU_RemoveInventoryClientUnits(D2UnitStrc* pUnit); // 0x004B3790
 
-void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 #include "gen/data/Source/D2Client/UI/npcmenu/gnHandlerCount.inc"
 #include "D2CommonApi3.h"
@@ -2136,7 +2136,7 @@ extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId)
     }
     if (gtNpcMenu.nSoundActive)
     {
-        sub_004BA840_StopSound(gtNpcMenu.nSoundHandle);
+        SOUNDINST_StopSound(gtNpcMenu.nSoundHandle);
     }
     gtNpcMenu.nSoundActive = 0;
     gtNpcMenu.nSoundHandle = 0;
@@ -2291,7 +2291,7 @@ void __fastcall NPCMENU_EndNpcInteraction(int nValue)
 
     if (gtNpcMenu.nSoundActive)
     {
-        sub_004BA840_StopSound(gtNpcMenu.nSoundHandle);
+        SOUNDINST_StopSound(gtNpcMenu.nSoundHandle);
     }
 
     gtNpcMenu.nSoundActive = 0;
@@ -2582,7 +2582,7 @@ int __cdecl NPCMENU_OpenTradeShop()
     {
         if (gtNpcMenu.nSoundHandle)
         {
-            sub_004BA840_StopSound(gtNpcMenu.nSoundHandle);
+            SOUNDINST_StopSound(gtNpcMenu.nSoundHandle);
             gtNpcMenu.nSoundHandle = 0;
         }
         gtNpcMenu.nSoundActive = 0;
@@ -3658,7 +3658,7 @@ static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
     {
         if (gtNpcMenu.nSoundHandle)
         {
-            sub_004BA840_StopSound(gtNpcMenu.nSoundHandle);
+            SOUNDINST_StopSound(gtNpcMenu.nSoundHandle);
             gtNpcMenu.nSoundHandle = 0;
         }
         gtNpcMenu.nSoundActive = 0;

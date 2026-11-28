@@ -280,7 +280,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 
 
-void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 int gdwViewEffectStartTick; // 0x007B8D10
 
@@ -839,7 +839,7 @@ static void VIEW_UpdateShakeSound(int nIntensity)
         return;
     }
 
-    sub_004BA840_StopSound(ghShakeSound);
+    SOUNDINST_StopSound(ghShakeSound);
     ghShakeSound = 0;
 }
 

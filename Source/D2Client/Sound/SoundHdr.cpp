@@ -740,7 +740,8 @@ void __cdecl SOUNDHDR_TickSound()
         SKILLDESC_UpdateEnvironSounds(gdwSoundTick);
         sub_004DCAA0_UpdateLevelSong(gdwSoundTick);
         SOUNDHDR_UpdateCache(gdwSoundTick);
-        sub_004BA020_UpdateSounds(gdwSoundTick);
+// build: symbol ?SOUNDINST_UpdateSounds@* 0x004BA020
+        SOUNDINST_UpdateSounds(gdwSoundTick);
         sub_004DF890_ReleaseFinishedSlots();
         ++gdwSoundTick;
         Sleep(0);

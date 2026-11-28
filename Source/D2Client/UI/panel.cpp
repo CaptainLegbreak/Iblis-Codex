@@ -1486,7 +1486,8 @@ static void __stdcall PANEL_ClickBeltBox(D2InventoryStrc* pInventory, int nX, in
 
     D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
     D2UnitStrc* pBeltItem = INVENTORY_GetItemFromBeltSlot(pInventory, nBox);
-    if (sub_00468830_GetCursorState() == 6)
+// build: symbol ?CURSOR_GetCursorState@* 0x00468830
+    if (CURSOR_GetCursorState() == 6)
     {
         return;
     }
@@ -1528,7 +1529,7 @@ static void PANEL_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY)
     }
 
     D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (sub_00468830_GetCursorState() == 6 || sub_00468830_GetCursorState() == 8)
+    if (CURSOR_GetCursorState() == 6 || CURSOR_GetCursorState() == 8)
     {
         return;
     }
@@ -1998,8 +1999,8 @@ void __cdecl PANEL_DrawControlPanel()
 
 static __forceinline void CancelCursorMode()
 {
-    if(sub_00468830_GetCursorState()==6) UI_CancelCursorItemUse();
-    else if(sub_00468830_GetCursorState()==8) MSG_SendDword(0x4C,-1);
+    if(CURSOR_GetCursorState()==6) UI_CancelCursorItemUse();
+    else if(CURSOR_GetCursorState()==8) MSG_SendDword(0x4C,-1);
 }
 
 // 0x004996A0
@@ -2165,11 +2166,11 @@ void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        if (sub_00468830_GetCursorState() == 6)
+        if (CURSOR_GetCursorState() == 6)
         {
             UI_CancelCursorItemUse();
         }
-        else if (sub_00468830_GetCursorState() == 8)
+        else if (CURSOR_GetCursorState() == 8)
         {
             MSG_SendDword(0x4C, -1);
         }

@@ -52,7 +52,7 @@ void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned in
 
 
 
-void __fastcall sub_004BA840_StopSound(int nHandle); // 0x004BA840
+void __fastcall SOUNDINST_StopSound(int nHandle); // 0x004BA840
 
 int __fastcall sub_004E40A0_RollPlayerSeed(int nRange); // 0x004E40A0
 
@@ -565,14 +565,14 @@ extern "C" void __cdecl SKILLDESC_ResetEnvironSounds()
     gnAmbientTick = 0;
     if (gnEnvironSoundHandle)
     {
-        sub_004BA840_StopSound(gnEnvironSoundHandle);
+        SOUNDINST_StopSound(gnEnvironSoundHandle);
         gnEnvironSoundHandle = 0;
     }
 
     gnEnvironSoundId = 0;
     if (gnWeatherSoundHandle)
     {
-        sub_004BA840_StopSound(gnWeatherSoundHandle);
+        SOUNDINST_StopSound(gnWeatherSoundHandle);
         gnWeatherSoundHandle = 0;
     }
 
@@ -1005,7 +1005,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
             }
             else
             {
-                sub_004BA840_StopSound(gnWeatherSoundHandle);
+                SOUNDINST_StopSound(gnWeatherSoundHandle);
                 gnWeatherSoundHandle = 0;
             }
         }
@@ -1013,7 +1013,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     }
     else
     {
-        sub_004BA840_StopSound(gnWeatherSoundHandle);
+        SOUNDINST_StopSound(gnWeatherSoundHandle);
         gnWeatherSoundHandle = 0;
         gnWeatherSoundId = 0;
     }

@@ -1659,12 +1659,13 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
     if ((pCmd->dwFlags & 2) && !pCmd->pTarget)
         bForce = 1;
     pCmd->pTarget = SELECT_GetSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
-    if (sub_00468830_GetCursorState() == 6)
+// build: symbol ?CURSOR_GetCursorState@* 0x00468830
+    if (CURSOR_GetCursorState() == 6)
     {
         UI_CancelCursorItemUse();
         return 1;
     }
-    if (sub_00468830_GetCursorState() == 8)
+    if (CURSOR_GetCursorState() == 8)
         MSG_SendDword(0x4C, -1);
     return 1;
 }
@@ -2031,9 +2032,9 @@ static int PLAYER_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
         return 1;
     }
 
-    if (sub_00468830_GetCursorState() == 6)
+    if (CURSOR_GetCursorState() == 6)
         UI_CancelCursorItemUse();
-    else if (sub_00468830_GetCursorState() == 8)
+    else if (CURSOR_GetCursorState() == 8)
         MSG_SendDword(0x4C, -1);
 
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pCmd->pPlayer->pInventory);
