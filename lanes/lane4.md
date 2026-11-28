@@ -32,6 +32,9 @@ Scope: D2Client's 61 `Unknown_<VA>.cpp` files (Blizzard file names from `__FILE_
 
 ### No join (evidence against)
 
+- Unknown_004A9BD0.cpp (0x4B17A0, 0x4B1D70) sits inside UI/npcmenu.cpp's run but is not its object: 0x4B5C00 calls 0x4B1D70 and ignores the result; in one unit with npcmenu.cpp the compiler sees the body has no side effects and drops the call, the original keeps it.
+- Unknown_004B5810.cpp (0x4B5BC0): in npcmenu.cpp (at its address or at the end) the caller 0x4B18C0 swaps esi/edi.
+- Unknown_004BC1B0_004BE770.cpp: joined, 0x4BF430 keeps its constant in edx across the two calls where the original uses ebx (its own file header says so).
 - Unknown_004A6260.cpp (0x4A6260-0x4A63B0): its data is its own language-table copy (0x724798) plus a 4-byte word, so it is an object of its own even though only Unknown_004A43E0.cpp's capture tables use its handlers.
 
 - Unknown_004DC7B0.cpp (0x4DC7B0, 0x4DC9D0) is not part of UNIT/PlrSkills.cpp's object although every call into it comes from there: 0x4DC7B0 calls PlrSkills.cpp's 5-byte wrappers PLRSKILLS_CallSkillSeqDoForward/Backward (0x4D85B0, 0x4D8650) out of line. In one /Ob2 unit those wrappers inline, the two switch cases become identical and the compiler merges them (tried: the joined unit differs there and only there). A separate object, name not known.
