@@ -11,7 +11,6 @@ struct D2IdeaUserKeyStrc;
 
 struct D2IdeaKeyScheduleStrc;
 
-extern int gnLastStatus_0072FFA8; // 0x0072FFA8
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
