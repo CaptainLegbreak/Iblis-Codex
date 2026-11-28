@@ -15,6 +15,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Sat Nov 28 04:05 PST 2026: queue item 3 started (raw offsets in D2Game). Building lane1/plrmsg-packets on #504: PlrMsg.cpp's 80 packet reads become D2GSPacketClt records (new Include/D2GSPacketsClt.h); PlrMsg.cpp already compiles equal. Claimed: D2Game/PLAYER/PlrMsg.cpp, Include/D2GSPacketsClt.h. Next: SUnitMsg.cpp, D2Game.h, CCmd.cpp, the single lines.
 - Sat Nov 28 03:55 PST 2026: common-copies Ready (claimed: D2Common/Text/Text.cpp, D2Common/UNITS/Missile.cpp's copy, D2Game/D2Game.h's three records, the two new headers). Next: D2Game's private copies (GAME/Clients.cpp, PLAYER/PlrSave.cpp, sunitproxy.cpp, MONSTER, OBJECTS), one folder per branch.
 - Sat Nov 28 03:15 PST 2026: check-in. d3d-copies Ready (claimed: D2Direct3D/Src/d3dCore.cpp's GUID lines). bnclient-copies still Ready. Item 2 so far has taken the copies with one clear owner; the rest outside D2Client/D2Common/D2Game are Storm template copies (lane 13 item 8) and `Unicode` copies that are partial views of D2Unicode.h's class. Next: D2Common (DRLG, Text, UNITS, DATATBLS outside the ItemTbls/DataTbls files lane 13 and 14 hold), one folder per branch.
 - Sat Nov 28 02:50 PST 2026: check-in. #504 took fog-win32-types and fog-safesock (Ready lines dropped). Ready: bnclient-copies (merges clean on #504).
