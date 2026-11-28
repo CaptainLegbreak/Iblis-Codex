@@ -14617,6 +14617,109 @@
      "length": 150
     },
     {
+     "va": "0x004AD0C0",
+     "length": 215,
+     "name": "NPCMENU_StateOverlayBurst"
+    },
+    {
+     "va": "0x004AD1A0",
+     "length": 335,
+     "name": "NPCMENU_StateOverlayCross"
+    },
+    {
+     "va": "0x004AD2F0",
+     "length": 539
+    },
+    {
+     "va": "0x004AD510",
+     "length": 212,
+     "name": "NPCMENU_StateStartEffect"
+    },
+    {
+     "va": "0x004AD5F0",
+     "length": 233,
+     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD6E0",
+     "length": 420,
+     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004AD890",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD8E0",
+     "length": 50,
+     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD920",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD970",
+     "length": 426,
+     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004ADB20",
+     "length": 152,
+     "name": "NPCMENU_StateOverlayAtPath"
+    },
+    {
+     "va": "0x004ADBC0",
+     "length": 283,
+     "name": "NPCMENU_StateMonOverlay"
+    },
+    {
+     "va": "0x004ADCE0",
+     "length": 151,
+     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADD80",
+     "length": 8,
+     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004ADD90",
+     "length": 167
+    },
+    {
+     "va": "0x004ADE40",
+     "length": 11,
+     "name": "?MONSTER_RunUModCommandCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE50",
+     "length": 11,
+     "name": "?MONSTER_RunUModUpdateCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE60",
+     "length": 11,
+     "name": "?MONSTER_RunUModFrameCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE70",
+     "length": 11,
+     "name": "?MONSTER_RunUModHitCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE80",
+     "length": 23,
+     "name": "?MONSTER_RunUModMissileCallbacks@@YIXPAUD2UnitStrc@@PAX@Z"
+    },
+    {
+     "va": "0x004ADEA0",
+     "length": 480,
+     "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
+    },
+    {
      "va": "0x006CAD00",
      "length": 15,
      "name": "?MONUNIQUE_InitializeNameSeparator@@YAXXZ"
@@ -24421,115 +24524,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004ADD90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004AD0C0",
-     "length": 215,
-     "name": "NPCMENU_StateOverlayBurst"
-    },
-    {
-     "va": "0x004AD1A0",
-     "length": 335,
-     "name": "NPCMENU_StateOverlayCross"
-    },
-    {
-     "va": "0x004AD2F0",
-     "length": 539
-    },
-    {
-     "va": "0x004AD510",
-     "length": 212,
-     "name": "NPCMENU_StateStartEffect"
-    },
-    {
-     "va": "0x004AD5F0",
-     "length": 233,
-     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD6E0",
-     "length": 420,
-     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004AD890",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD8E0",
-     "length": 50,
-     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD920",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD970",
-     "length": 426,
-     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ADB20",
-     "length": 152,
-     "name": "NPCMENU_StateOverlayAtPath"
-    },
-    {
-     "va": "0x004ADBC0",
-     "length": 283,
-     "name": "NPCMENU_StateMonOverlay"
-    },
-    {
-     "va": "0x004ADCE0",
-     "length": 151,
-     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADD80",
-     "length": 8,
-     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ADD90",
-     "length": 167
-    },
-    {
-     "va": "0x004ADE40",
-     "length": 11,
-     "name": "?MONSTER_RunUModCommandCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE50",
-     "length": 11,
-     "name": "?MONSTER_RunUModUpdateCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE60",
-     "length": 11,
-     "name": "?MONSTER_RunUModFrameCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE70",
-     "length": 11,
-     "name": "?MONSTER_RunUModHitCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE80",
-     "length": 23,
-     "name": "?MONSTER_RunUModMissileCallbacks@@YIXPAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x004ADEA0",
-     "length": 480,
-     "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/spellsel.cpp",
    "rank": 0,
    "functions": [
@@ -29815,6 +29809,10 @@
      "name": "?sub_004E1620_SkillCltDoMissilePair@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004E1770",
+     "length": 378
+    },
+    {
      "va": "0x004E1970",
      "length": 170,
      "name": "?sub_004E1970_SetInfernoFrames@@YIXPAUD2SkillsTxt@@PAUD2UnitStrc@@@Z"
@@ -29865,30 +29863,6 @@
      "length": 170,
      "name": "?sub_004E1C80_CltMissileInitDiabWall@@YIXPAUD2UnitStrc@@H@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004E1770.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004E1770",
-     "length": 378
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -31330,8 +31304,32 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004EDA80.cpp",
-   "rank": 0,
+   "file": "Source/D2Client/Unknown_004EDCA0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x004EDCA0",
+     "length": 289
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
+   "rank": 1,
    "functions": [
     {
      "va": "0x004F03C0",
@@ -31363,43 +31361,13 @@
      "name": "?sub_004F0EF0_UpdateRiderPath@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004F0F30",
+     "length": 481
+    },
+    {
      "va": "0x004F26D0",
      "length": 67,
      "name": "?sub_004F26D0_ApplyCltCalc@@YIHPAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004EDCA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EDCA0",
-     "length": 289
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F0F30",
-     "length": 481
     }
    ],
    "flags": [
@@ -49853,7 +49821,7 @@
     {
      "va": "0x0058EA50",
      "length": 101,
-     "name": "?ACT5Intro_InitQuestData@@YIXPAUD2QuestData0058EA50Strc@@@Z"
+     "name": "?ACT5Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -50442,7 +50410,7 @@
     {
      "va": "0x0058B870",
      "length": 131,
-     "name": "?ACT5Q4_ActiveFilterCallback@@YI_NPAUQuest@@HPAX11@Z"
+     "name": "?ACT5Q4_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
     },
     {
      "va": "0x0058B900",
@@ -51161,7 +51129,7 @@
     {
      "va": "0x005901E0",
      "length": 10,
-     "name": "@ACT1Q1_GetMonstersToBeKilled@4"
+     "name": "?ACT1Q1_GetMonstersToBeKilled@@YIHPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x005901F0",
@@ -51212,7 +51180,7 @@
     {
      "va": "0x00590810",
      "length": 18,
-     "name": "@ACT1Q1_CanClientFXBeTriggered@4"
+     "name": "?ACT1Q1_CanClientFXBeTriggered@@YI_NPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x00590830",
@@ -52207,7 +52175,7 @@
     {
      "va": "0x00596C40",
      "length": 94,
-     "name": "?ACT1Q7_InitQuestData@@YIXPAUD2QuestData00596C40Strc@@@Z"
+     "name": "?ACT1Q7_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -59557,7 +59525,7 @@
     {
      "va": "0x005DC480",
      "length": 164,
-     "name": "?AIUTIL_GetDistanceToCoordinates_HalfUnitSize@@YIHPAUSynUnit@@HH@Z"
+     "name": "?AIUTIL_GetDistanceToCoordinates_HalfUnitSize@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005DC530",

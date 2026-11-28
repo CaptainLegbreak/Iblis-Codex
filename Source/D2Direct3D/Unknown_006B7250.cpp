@@ -425,8 +425,7 @@ void __fastcall sub_006B7D80_DrawRectangle(D2RectStrc* rect,int color) {
 }
 
 // 0x006B7F70
-void __cdecl sub_006B7F70_ClearTarget()
-{
+void __fastcall sub_006B7F70_ClearTarget(int){
     if (gnRenderFlags_0096F3A8 & gdwBitMasks[10])
     {
 // build: symbol ?D3DCORE_Flush@* 0x006B3800

@@ -399,7 +399,7 @@ void __cdecl TEXT_ClearTextPanel();                                             
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 
-void __cdecl GAME_ResetMouseState();                                                                                // 0x0044DA40
+void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 
 void __fastcall CUNIT_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420
@@ -643,7 +643,7 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue); //
 
 void __cdecl INV_ResetButtonsFromMenuReturn(); // 0x00487D40
 
-void __cdecl sub_004B17A0_ProcessNpcEntries();
+void __cdecl sub_004B17A0_ProcessNpcEntries(); // 0x004B17A0
 
 struct D2ClientDialogStrc;
 

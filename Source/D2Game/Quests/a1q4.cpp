@@ -243,7 +243,7 @@ struct D2CoordStrc;
 
 struct D2QuestDataStrc;
 
-void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg);           // 0x00545310
+void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
 
 
 static void ACT1Q4_DebugStartedQuest(D2QuestDataStrc* pQuestData);
@@ -271,11 +271,6 @@ void __fastcall ACT1Q4_StartCainRemoval(D2GameStrc* pGame);
 int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, int nOperate);
 
 
-struct D2Act1Quest4ExStrc
-{
-    unsigned char padding[0x46];
-    unsigned char cainActive;
-};
 
 inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -1173,7 +1168,7 @@ int __fastcall ACT1Q4_UnitIterate_FindPlayersInTristram(D2GameStrc* pGame, D2Uni
 bool __fastcall ACT1Q4_Timer_RemoveCainFromTristram(D2GameStrc* unused, D2QuestDataStrc* quest)
 {
     SUNIT_IterateUnitsOfType(quest->pGame, 1, 0, ACT1Q4_UnitIterate_RemoveCainFromTristram);
-    ((D2Act1Quest4ExStrc*)quest->pQuestDataEx)->cainActive = 0;
+    ((D2Act1Quest4Strc*)quest->pQuestDataEx)->bTimerActive = 0;
     return true;
 }
 
