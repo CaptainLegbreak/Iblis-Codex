@@ -527,6 +527,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #510 (j263, 08:10 PT): lane 13 datatables-3b (3 casts allowed, ruling above); lane 14 scaffolding-5; lane 3 names-dtors, names-storm-src-3; lane 2 names-ui-2; lane 1 launch-copies. Game.exe identical. **Held: lane 5 d2common-datatbls: merged with datatables-3b, LvlTbls.cpp goes NOT_ALL_EQUAL (one function, 768 B). Rebase onto #510, rebuild LvlTbls.cpp with the declaration-count rule (tools/namecount.py), post again.**
+
 - #509 (j262, 07:05 PT): lane 3 names-fog-2 (133 Fog names), lane 2 names-root-a, lane 4 squelch-class-3 + dead-structs, lane 5 plrtrade-views. Game.exe identical, audit flat. Waiting on Ready lines: lane 13 datatables-3b, lane 2 names-ui-2 / names-game-2. Iblis-Engine #24 merged (sync to #508).
 
 - #508 (j261, 06:25 PT): lane 3 names-d2cmp; lane 11 string-spellings-1, string-literals-3; lane 14 scaffolding-3b; lane 5 skill-views; lane 1 clt35-fields. VERIFIED 6a7fac6f7, Game.exe identical, audit flat. Rebase onto #508: lane 2 names-game, names-ui; lane 3 names-fog, names-storm-src-2; lane 13 datatables-3.
