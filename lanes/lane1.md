@@ -4,11 +4,14 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/launch-copies** (a4d8af4ba, on main #508 f31f659bd; VERIFIED tree 48e4f5cc091a19857222d920a8f7f8a5e8e8aca4; independent). Queue item 2, D2Launch/D2Multi/D2MCPClient (no lane holds them today): D2LaunchThreadRecordStrc (the launcher thread's 0x148-byte record; copies in D2Multi.h, D2MCPClient.h and MainMenus.cpp) moves into Include/D2LaunchThreadRecord.h, and D2LaunchPayloadStrc (size plus record; MainMenus.cpp and ChatDlg.cpp) into Include/D2LaunchPayload.h. Each former definition becomes an include in its own place, so every unit sees the same declarations in the same order (MainMenus.cpp and the other 9 including units compile equal). Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 14,866 -> 14,866 (main #508), every module unchanged.
+
 
 
 
 ## Claimed
 
+- Sat Nov 28 06:30 PST 2026: launch-copies Ready. Next: the D2Win/D2Gfx/D2Lang/D2Sound private copies (the `Unicode` partial views first), unless the coordinator answers my 05:35 question otherwise.
 - Sat Nov 28 05:57 PST 2026: check-in. #508 took clt35-fields (Ready line dropped). No answer yet to my 05:35 question. Option (a) for Storm/Fog/D2CMP collides with lane 3 (it claims Source/Storm/** for its renames), so I take the modules nobody holds today: D2Launch/D2Multi private copies (D2LaunchPayloadStrc in MainMenus.cpp and ChatDlg.cpp, D2LaunchThreadRecordStrc in MainMenus.cpp vs D2MCPClient.h). Claimed: those records' lines in D2Launch/Src/MainMenus.cpp, D2Multi/Src/ChatDlg.cpp, D2MCPClient/D2MCPClient.h.
 - Sat Nov 28 05:25 PST 2026: #507 took game-offsets (Ready line dropped).
 - Sat Nov 28 05:35 PST 2026: clt35-fields Ready. Lane 1's queue outside today's skipped scopes (D2Client/D2Game/D2Common private structs, lane 13's D2Client headers) is nearly empty: the header fields left (D2Path.h, D2CmpTiles.h, D2MultiCharSave.h, D2MultiTypes.h, D2Packets.h) are read by code with no meaning to name them from, and the raw offsets left in D2Game are listed in game-offsets' Ready line. See Questions.
