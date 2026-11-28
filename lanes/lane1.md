@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/clienttypes-fields** (775a3f56a, on main #498 3f6ca97c6; VERIFIED tree 7a3601bdb58b5131d670ff10bd16850bf013a64a; independent). D2ClientTypes.h: 3 `unk0x..` -> 0. D2UnitTargetStrc (a unit command's parameter block) gets `nExtraParams[4]` after nParam1..3 (UnitMode.cpp fills three of them before dispatching a move; renamed there); kept as an array, since four separate members change inv_0048DD90.cpp and ItemTbls.cpp. The rest no code names: `unused0x00` (graphics node target), `pad0x06`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,253 -> 19,253 (main #498), every module unchanged.
+
 - **lane1/txttables-fields** (5ee714cda, on main #499 16572adef; VERIFIED tree 81fa459c7f7c75e44b355ea55d537c1d6cbc9e3d; independent). D2TxtTables.h: 2 `unk0x..` -> 0, none named by any code, both alignment gaps: `pad0x<off>`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,002 -> 19,002 (main #499), every module unchanged.
 
 - **lane1/clientgfx-fields** (b2a3fdc30, on main #499 16572adef; VERIFIED tree 492540452dadd4f2ced6824f3ded42731cec96bf; independent). D2ClientGfx.h: 3 `unk0x..` -> 0, none named by any code: `unused0x<off>` (2), `pad0x1B`. Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,002 -> 19,002 (main #499 measured here), every module unchanged.
@@ -15,6 +17,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Sat Nov 28 00:18 PST 2026: clienttypes-fields Ready. cominterface-names-2 building.
 - Sat Nov 28 00:04 PST 2026: txttables-fields Ready. Building: clienttypes-fields, then cominterface-names-2.
 - Fri Nov 27 23:51 PST 2026: clientgfx-fields Ready.
 - Fri Nov 27 23:44 PST 2026: **cominterface-names on #500 with the declaration-count rule (the coordinator's test case): it works.** Rebased onto #500 (no conflicts), only CharSel.cpp differed. Adding k one-name typedefs at the top of D2ComInterface.h: k = 1..4 still differ, k = 5 brings CharSel.cpp back, so the branch's change was 5 names short of a multiple of 64. The header now adds 5 real names instead: a `D2BnNewsCallback` typedef for pfnLoadBNetNews's callback (1) and two offset checks on the table (pfnIsSocketConnected 0x68, pfnGetBnGatewayAccess 0x98; 2 each). CharSel.cpp is equal; full build queued as lane1/cominterface-names-2 (replaces cominterface-names). The same probe (k dummy names until the unit comes back, then k real names) is how I'll retry the parked interface merge and D2UnitTargetStrc's nParam4..7 split.
