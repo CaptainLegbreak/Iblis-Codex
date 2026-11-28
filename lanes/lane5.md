@@ -9,9 +9,10 @@ Scope (COORDINATOR.md, LANES 2-5 RESTART): private struct definitions in D2Game 
 ### Ready
 
 ### Claimed
-- Source/D2Game/**/*.cpp private struct definitions that copy a struct a shared header already defines (by name): each one removed on its own and kept out only when the unit builds equal. First pass over all of D2Game, then D2Common.
+- Source/D2Game/**/*.cpp private struct definitions: (1) the ones nothing uses and the private views that only served marked copies of other files' functions (lane5/struct-copies-1, verifying); (2) next, private copies of header structs (21 in 8 files), adapting the code to the shared fields, one folder per branch: GAME first.
 
 ### Status
+- 11:20 UTC: lane5/struct-copies-1 built (11 units equal, audit guard: no count rose), full build and linkdebt running. A first try of plain removal of the 21 header-struct copies kept all 21: each is a partial view under the shared name with its own field names, so each needs the code moved to the shared fields.
 - 10:40 UTC: restarted on main #503. Repo and Game.exe already set up here. Inventory: D2Game 342 private definitions in 67 files (21 copy a header struct by name, 116 names defined in more than one .cpp); D2Common 213 in 49 (46 copy a header struct).
 
 ## Earlier record (stopped lane)
