@@ -4,6 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- **lane1/clientgame-fields** (7bdd0754e, on main #496 89e75a2de; VERIFIED tree 72d15ad72b9189ea2ef6deb327da8f1621cd4f43; merges clean on #497; independent). D2ClientGame.h: 4 `unk0x..` -> 0, none read by any code. D2RosterGroupStrc 0x02 is only set by a calling-convention shim in Roster.cpp (renamed): `unused0x02`; the roster pet's and weather record's unread spans `unused0x<off>`. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,430 -> 19,430 (main #496), every module unchanged.
+
 - **lane1/ddrawtypes-fields** (395c08e99, on main #496 89e75a2de; VERIFIED tree 2ac5d83b50bd0ff76206f4ab6b638b0ce1131954; merges clean on #497; independent). D2DDrawTypes.h: 4 `unk0x..` -> 0. D2DDSurfaceDescStrc, D2DDSurfaceDesc2Strc and D2DDBltFxStrc are this tree's copies of DirectDraw's DDSURFACEDESC, DDSURFACEDESC2 and DDBLTFX; their unknown spans take the SDK's own members at the same offsets (four DDCOLORKEYs and DDPIXELFORMAT as two new small records, DDSCAPS2's words, dwTextureStage, DDBLTFX's ROP/Z-buffer/alpha/colour-key members). Size checks hold; header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,430 -> 19,430 (main #496 measured here), every module unchanged.
 - **lane1/gfxtypes-fields** (3b4aa1891, on main #496 89e75a2de; VERIFIED tree 05d60d5a1d3f72d729078c7e5153d58e9e2e5a82; merges clean on #497; independent). D2GfxTypes.h: 4 `unk0x..` -> 0, none named by any code: `unused0x<off>` (Smacker record, Glide view rectangle, tile draw table). Header only. Full build: Game.exe identical, 14,927 / 14,927 placed, 0 not all equal. Audit guard: no count rose. linkdebt: 19,430 -> 19,430 (main #496 measured here), every module unchanged.
 
@@ -18,6 +20,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- Fri Nov 27 21:37 PST 2026: clientgame-fields Ready. glidetypes and questtext building.
 - Fri Nov 27 21:26 PST 2026: ddrawtypes-fields and gfxtypes-fields Ready. clientgame, glidetypes, questtext building.
 - Fri Nov 27 21:16 PST 2026: check-in. #497 took gamestrc, drlgpresets and cmptiles (Ready lines dropped). gfxtypes-fields and ddrawtypes-fields verified on #496 (pushed; Ready once #496's link debt is measured). Building next: clientgame-fields (D2ClientGame.h), glidetypes-fields (D2GlideTypes.h), questtext-fields (D2ClientQuestText.h); claimed: those three headers and Roster.cpp's one write.
 - Fri Nov 27 20:52 PST 2026: records-fields Ready. Building on #496: gfxtypes-fields (D2GfxTypes.h), ddrawtypes-fields (D2DDrawTypes.h: the DirectDraw records' unknown spans take the SDK's own members, DDCOLORKEY/DDPIXELFORMAT/DDSCAPS2/DDBLTFX layout; its 25 units already compile equal). Claimed: those two headers.
