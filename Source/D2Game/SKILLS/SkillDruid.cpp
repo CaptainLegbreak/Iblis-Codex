@@ -234,7 +234,7 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 
 
 
-int __fastcall SUNIT_TeleportUnit(Game*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
 
 enum { UNIT_FLAGS = 0xE };
 
@@ -244,11 +244,6 @@ struct Monster;
 
 
 
-struct Game
-{
-    unsigned char pad[28];
-    void* pool;
-};
 
 
 
@@ -425,7 +420,7 @@ int __fastcall SKILLS_GetConvertedMode(D2UnitStrc* pUnit, int nMode)
     nUnitType = nTypeValue;
     const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
     nClassId = nClassValue;
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nNewMode, gszSkillDruidSourceFile, 156);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nNewMode, ".\\SKILLS\\SkillDruid.cpp", 156);
     return nNewMode;
 }
 
@@ -524,7 +519,7 @@ void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStr
         }
     }
 
-    UnitUpdateAnimRateAndVel(pUnit, gszSkillDruidSourceFile, 248);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillDruid.cpp", 248);
 }
 
 // 0x005C6DC0
@@ -568,7 +563,7 @@ void __fastcall SKILLS_ApplyPassiveStatsToStatList(D2UnitStrc* pUnit, D2StatList
         }
     }
 
-    UnitUpdateAnimRateAndVel(pUnit, gszSkillDruidSourceFile, 300);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillDruid.cpp", 300);
 }
 
 // 0x005C6EC0
@@ -996,7 +991,7 @@ int __fastcall SKILLS_SrvDo120_FeralRage_Maul(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDruidSourceFile, 0x2AF) != nSkillId)
+    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillDruid.cpp", 0x2AF) != nSkillId)
     {
         return 0;
     }
@@ -1060,7 +1055,7 @@ int __fastcall SKILLS_SrvSt57_Rabies(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
         return 0;
     }
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDruidSourceFile, 753) != nSkillId)
+    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillDruid.cpp", 753) != nSkillId)
     {
         return 0;
     }
@@ -1226,7 +1221,7 @@ int __fastcall SKILLS_SrvDo121_Rabies(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     }
 
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDruidSourceFile, 967) != nSkillId || !SKILLS_GetParam1(pSkill))
+    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\SkillDruid.cpp", 967) != nSkillId || !SKILLS_GetParam1(pSkill))
     {
         return 0;
     }

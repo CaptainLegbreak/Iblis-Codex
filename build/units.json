@@ -48485,7 +48485,7 @@
     {
      "va": "0x005C3420",
      "length": 131,
-     "name": "?SKILLS_CanApplyCurseToTarget@@YIHPAUGame@@PAUUnit@@1@Z"
+     "name": "?SKILLS_CanApplyCurseToTarget@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005C34B0",
@@ -48553,7 +48553,7 @@
     {
      "va": "0x005C40D0",
      "length": 176,
-     "name": "?SKILLS_SetSummonResistance@@YIXPAUUnit@@0@Z"
+     "name": "?SKILLS_SetSummonResistance@@YIXPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005C4180",
@@ -58454,7 +58454,7 @@
     {
      "va": "0x005CB170",
      "length": 250,
-     "name": "?SKILLS_SrvSt44_MaggotUp@@YIHPAUGame@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvSt44_MaggotUp@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CB270",
@@ -58864,7 +58864,7 @@
     {
      "va": "0x005D2490",
      "length": 287,
-     "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUGame@@PAUUnit@@HH@Z"
+     "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D25B0",
@@ -59298,12 +59298,12 @@
     {
      "va": "0x005D8B10",
      "length": 352,
-     "name": "?SKILLS_RollFrenzyDamage@@YIHPAUGame@@PAUUnit@@1HH@Z"
+     "name": "?SKILLS_RollFrenzyDamage@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1HH@Z"
     },
     {
      "va": "0x005D8C70",
      "length": 400,
-     "name": "?SKILLS_ApplyFrenzyStats@@YIHPAUGame@@PAUUnit@@HH@Z"
+     "name": "?SKILLS_ApplyFrenzyStats@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005D8E00",
@@ -60727,7 +60727,7 @@
     {
      "va": "0x00603850",
      "length": 9,
-     "name": "?sub_00603850_SetCount@D2CelListArrayHolderStrc@@QAEXI@Z"
+     "name": "?SetCount@D2CelListArrayHolderStrc@@QAEXI@Z"
     },
     {
      "va": "0x00603860",
@@ -60772,7 +60772,7 @@
     {
      "va": "0x00603ED0",
      "length": 6,
-     "name": "?sub_00603ED0_GetDifference@D2CelListPairStrc@@QAEIXZ"
+     "name": "?GetDifference@D2CelListPairStrc@@QAEIXZ"
     },
     {
      "va": "0x00603EE0",
@@ -60862,7 +60862,7 @@
     {
      "va": "0x00604460",
      "length": 5,
-     "name": "?sub_00604460_New@D2CelListRecordArrayHolderStrc@@QAEPAUCELLIST@@XZ"
+     "name": "?New@D2CelListRecordArrayHolderStrc@@QAEPAUCELLIST@@XZ"
     },
     {
      "va": "0x00604470",
@@ -61875,7 +61875,7 @@
     {
      "va": "0x0060AE80",
      "length": 34,
-     "name": "?sub_0060AE80_GetCelDataHashKey@@YAIPBD@Z"
+     "name": "?GetCelDataHashKey@@YAIPBD@Z"
     },
     {
      "va": "0x0060B130",
@@ -61885,12 +61885,12 @@
     {
      "va": "0x0060B140",
      "length": 32,
-     "name": "?sub_0060B140_BitBufferInit@@YGXHPAEPAUD2BitBufferInitStrc@@@Z"
+     "name": "?BitBufferInit@@YGXHPAEPAUD2BitBufferInitStrc@@@Z"
     },
     {
      "va": "0x0060B160",
      "length": 23,
-     "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
+     "name": "?BitBufferCopy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
     },
     {
      "va": "0x0060B180",
@@ -61905,7 +61905,7 @@
     {
      "va": "0x0060B1F0",
      "length": 15,
-     "name": "?sub_0060B1F0_GetBitPos@D2CmpBitCursorStrc@@QAEHXZ"
+     "name": "?GetBitPos@D2CmpBitCursorStrc@@QAEHXZ"
     }
    ]
   },
