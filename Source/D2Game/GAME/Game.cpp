@@ -1685,22 +1685,6 @@ static inline void GAME_FreeInactiveRooms(D2GameStrc* pGame)
     }
 }
 
-void __fastcall sub_M118_Emit_0052D000(D2GameStrc* pGame, int nAct)
-{
-    for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[nAct]); pRoom; pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[nAct + 1]))
-    {
-        if (D2Common_10074(pRoom))
-        {
-            GAME_PopulateRoom(pGame, pRoom);
-        }
-        else
-        {
-            GAME_CompressRoomUnits(pGame, pRoom);
-        }
-    }
-    GAME_FreeInactiveRooms(pGame);
-}
-
 // 0x0052D160
 static void GAME_UpdatePendingRooms(D2GameStrc* pGame)
 {
@@ -1778,13 +1762,7 @@ void __fastcall GAME_UpdateProgress(D2GameStrc* pGame)
 
     if (!(pGame->dwGameFrame % 11))
     {
-        for (int i = 0; i < 5; ++i)
-        {
-            if (pGame->pAct[i])
-            {
-                DUNGEON_UpdateAndFreeInactiveRooms(pGame->pAct[i]);
-            }
-        }
+        GAME_FreeInactiveRooms(pGame);
     }
 
     GAME_DeleteInactiveItems(pGame);
