@@ -49853,7 +49853,7 @@
     {
      "va": "0x0058EA50",
      "length": 101,
-     "name": "?ACT5Intro_InitQuestData@@YIXPAUD2QuestData0058EA50Strc@@@Z"
+     "name": "?ACT5Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
@@ -50442,7 +50442,7 @@
     {
      "va": "0x0058B870",
      "length": 131,
-     "name": "?ACT5Q4_ActiveFilterCallback@@YI_NPAUQuest@@HPAX11@Z"
+     "name": "?ACT5Q4_ActiveFilterCallback@@YI_NPAUD2QuestDataStrc@@HPAUD2UnitStrc@@PAUD2BitBufferStrc@@1@Z"
     },
     {
      "va": "0x0058B900",
@@ -51161,7 +51161,7 @@
     {
      "va": "0x005901E0",
      "length": 10,
-     "name": "@ACT1Q1_GetMonstersToBeKilled@4"
+     "name": "?ACT1Q1_GetMonstersToBeKilled@@YIHPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x005901F0",
@@ -51212,7 +51212,7 @@
     {
      "va": "0x00590810",
      "length": 18,
-     "name": "@ACT1Q1_CanClientFXBeTriggered@4"
+     "name": "?ACT1Q1_CanClientFXBeTriggered@@YI_NPAUD2QuestDataStrc@@@Z"
     },
     {
      "va": "0x00590830",
@@ -52207,7 +52207,7 @@
     {
      "va": "0x00596C40",
      "length": 94,
-     "name": "?ACT1Q7_InitQuestData@@YIXPAUD2QuestData00596C40Strc@@@Z"
+     "name": "?ACT1Q7_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
    ]
   },
