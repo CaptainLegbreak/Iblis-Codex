@@ -347,4 +347,20 @@ int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* ptAnim, int bIsRunning)
     return 1;
 }
 
-#include "gen/data/Source/D2Win/D2WinAnimImage.inc"
+extern "C" const char* gData_0072DF84[15] = { // 0x0072DF84
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

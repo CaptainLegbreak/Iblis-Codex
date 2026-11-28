@@ -695,4 +695,22 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
     return 0;
 }
 
-#include "gen/data/Source/D2Launch/Unknown_0043B7A0.inc"
+extern "C" const char* gData_0070CC10[15] = { // 0x0070CC10
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gnLogonRetries = 1; // 0x0070CC4C

@@ -298,4 +298,20 @@ int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expa
     return 1;
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinArchive.inc"
+extern "C" const char* gData_0072DDD8[15] = { // 0x0072DDD8
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

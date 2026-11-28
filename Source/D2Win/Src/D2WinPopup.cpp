@@ -214,4 +214,20 @@ void __stdcall POPUP_Create()
     gpPopUp = pPopUp;
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinPopup.inc"
+extern "C" const char* gData_0072F100[15] = { // 0x0072F100
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

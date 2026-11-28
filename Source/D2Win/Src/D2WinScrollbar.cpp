@@ -398,4 +398,20 @@ D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int 
     return pScrollBar;
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinScrollbar.inc"
+extern "C" const char* gData_0072F0C4[15] = { // 0x0072F0C4
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

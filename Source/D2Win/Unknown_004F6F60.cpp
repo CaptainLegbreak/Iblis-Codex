@@ -114,4 +114,4 @@ void __cdecl WINDOW_LoadGammaSettings()
     D2GFX_SetGamma(nGamma);
 }
 
-#include "gen/data/Source/D2Win/Unknown_004F6F60.inc"
+int gnViewMatrixAdjustDefault = -1; // 0x0072DBFC

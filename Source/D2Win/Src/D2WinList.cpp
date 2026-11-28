@@ -558,4 +558,23 @@ void __stdcall LIST_UnloadPentspinCellfile()
     sghPentagram = 0;
 }
 
-#include "gen/data/Source/D2Win/Src/D2WinList.inc"
+extern "C" const int gData_006DD024[14] = { 8, 16, 30, 42 }; // 0x006DD024
+#pragma comment(linker, "/alternatename:?ganListFontHeight@@3PAHA=_gData_006DD024")
+
+extern "C" const char* gData_0072F010[15] = { // 0x0072F010
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

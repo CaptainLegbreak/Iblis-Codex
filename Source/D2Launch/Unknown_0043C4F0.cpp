@@ -26,4 +26,20 @@ void __cdecl CHARSEL_CreateBaseScreen()
     MAINMENUS_ConfigureLanguageLayout();
 }
 
-#include "gen/data/Source/D2Launch/Unknown_0043C4F0.inc"
+extern "C" const char* gData_0070CC50[15] = { // 0x0070CC50
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};

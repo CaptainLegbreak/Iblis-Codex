@@ -453,7 +453,6 @@ int __stdcall D2GFX_GetBackBuffer(unsigned char* pBuffer); // 0x004F6250
 
 extern int gnMouseX_007D55A4; // 0x007D55A4
 
-extern int gnMouseY; // 0x007D55A8
 
 unsigned long gdwLastScreenshotTick; // 0x007D5600
 
@@ -1625,7 +1624,7 @@ static D2WinControlStrc* __stdcall CONTROL_PickClosestToMouse(D2WinControlStrc* 
     if (!first) return second;
     if (!second) return first;
     int mouseX = gnMouseX_007D55A4;
-    int mouseY = gnMouseY;
+    int mouseY = gtMousePosition.y;
     int dx1, dy1, dx2, dy2;
     if (mouseX < first->nImageX)
         dx1 = mouseX - first->nImageX;
@@ -2068,5 +2067,42 @@ void __stdcall D2Win_COMMANDS_MouseButton(SMSGHANDLER_PARAMS* pMsg)
 }
 
 int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int nWheelDelta); // 0x00508030
+
+extern "C" void __cdecl sub_004F9B60(); // 0x004F9B60
+extern "C" void __cdecl sub_004F9BF0(); // 0x004F9BF0
+extern "C" void __cdecl sub_004F9C80(); // 0x004F9C80
+extern "C" void __cdecl sub_004F9CA0(); // 0x004F9CA0
+extern "C" void __cdecl sub_004F9F20(); // 0x004F9F20
+extern "C" void __cdecl sub_004FA340(); // 0x004FA340
+extern "C" void __cdecl sub_004FA6B0(); // 0x004FA6B0
+extern "C" void __cdecl sub_004FA760(); // 0x004FA760
+extern "C" void __cdecl sub_004FA840(); // 0x004FA840
+extern "C" void __cdecl sub_004FA860(); // 0x004FA860
+
+extern "C" const char* gData_0072DC00[15] = { // 0x0072DC00
+    "English",
+    "Spanish",
+    "German",
+    "French",
+    "Portuguese",
+    "Italian",
+    "Japanese",
+    "Korean",
+    "Simplified Chinese",
+    "Traditional Chinese",
+    "Polish",
+    "Russian",
+    "English with Korean Chat",
+    "Unknown",
+    "14"
+};
+
+int gbDrawCursor = 1; // 0x0072DC3C
+
+int gnScreenshotIndex = 1; // 0x0072DC40
+
+int gbAppActive = 1; // 0x0072DC44
+
+int gbRunMessageLoop = 1; // 0x0072DDD4
 
 #include "gen/data/Source/D2Win/Src/D2WinMain.inc"
